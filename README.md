@@ -1,0 +1,2 @@
+# MegaAntiCheat-UI
+React frontend
