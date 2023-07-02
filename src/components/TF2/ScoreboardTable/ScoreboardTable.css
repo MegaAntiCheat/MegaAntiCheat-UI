@@ -1,0 +1,49 @@
+.scoreboard-grid-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 50% 10px 50%;
+  text-align: center;
+}
+
+.scoreboard-header {
+  display: grid;
+  grid-template-columns: 15% 45% 25% 10%;
+  margin-bottom: 20px;
+}
+
+.scoreboard-team {
+  margin-bottom: 30px;
+}
+
+.scoreboard-divider {
+  height: 100%;
+  background-color:rgba(128, 128, 128, 0.312);
+  width: 1px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.red {
+  color: red;
+}
+
+.blu {
+  color:skyblue
+}
+
+@media screen and (max-width: 960px) {
+  .scoreboard-grid-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 100%;
+    text-align: center;
+  }
+
+  .scoreboard-divider {
+    width: 100%;
+    height: 1px;
+    background-color:rgba(128, 128, 128, 0.312);
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
