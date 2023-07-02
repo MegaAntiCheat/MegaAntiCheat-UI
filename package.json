@@ -35,7 +35,6 @@
     "@types/react-dom": "^18.2.6",
     "concurrently": "^8.2.0",
     "css-loader": "^6.8.1",
-    "electron": "^25.2.0",
     "lucide-react": "^0.256.0",
     "style-loader": "^3.3.3",
     "typescript": "^5.1.5",
