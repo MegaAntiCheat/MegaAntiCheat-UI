@@ -1,0 +1,61 @@
+.select-container {
+  position: relative;
+  display: inline-block;
+}
+
+.select-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 2px 16px;
+  background-color: var(--dark-bg-color);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.select-head.active {
+  border-color: var(--dark-hover-color);
+}
+
+.select-text {
+  margin-right: 10px;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.select-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.select-options {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-radius: 4px;
+  background-color: var(--dark-bg-color);
+  border: 1px solid var(--dark-bg-main-color);
+  z-index: 999;
+}
+
+.select-option {
+  padding: 1px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: var(--dark-bg-color);
+}
+
+.select-option:hover {
+  background-color: var(--dark-hover-color);
+}
+
+.select-option.selected {
+  background-color: var(--dark-highlight-color);
+}
