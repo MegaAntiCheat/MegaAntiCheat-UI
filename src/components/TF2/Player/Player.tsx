@@ -24,10 +24,6 @@ const playerTag = [
     name: "Trusted",
     value: "trusted",
   },
-  {
-    name: "Convict",
-    value: "convict",
-  },
 ];
 
 const Player = ({
@@ -38,18 +34,21 @@ const Player = ({
   status = "Joining",
   time = "00:00",
   you = false,
+  color = "",
 }) => {
   return (
-    <Flex className={`player-item ${you ? "you" : ""}`}>
+    <Flex className={`player-item`} style={{ backgroundColor: color }}>
       <Select
         className="player-verdict"
         options={playerTag}
         placeholder={verdict}
       />
-      <img className="player-pfp" width={24} height={24} src={pfp}></img>
-      <div className="player-name">{name}</div>
+      <Flex className="player-profile">
+        <img className="player-pfp" width={24} height={24} src={pfp}></img>
+        <div className="player-name">{name}</div>
+      </Flex>
       <img className="player-badge" width={12} height={12} src={icon} />
-      <div>{status}</div>
+      <div className="player-status">{status}</div>
       <div>{time}</div>
     </Flex>
   );

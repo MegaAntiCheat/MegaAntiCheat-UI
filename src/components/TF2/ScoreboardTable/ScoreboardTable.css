@@ -7,8 +7,10 @@
 
 .scoreboard-header {
   display: grid;
-  grid-template-columns: 15% 45% 25% 10%;
+  grid-template-columns: 35% 37% 13% 5%;
+  margin-left: 20px;
   margin-bottom: 20px;
+  text-align: start;
 }
 
 .scoreboard-team {

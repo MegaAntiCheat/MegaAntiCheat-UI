@@ -42,6 +42,11 @@ const Select = ({
     };
   }, []);
 
+  const handleArrowClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
@@ -52,7 +57,7 @@ const Select = ({
         <div className="select-text">
           {selectedOption ? selectedOption : "Select"}
         </div>
-        <div className="select-icon">
+        <div className="select-icon" onClick={handleArrowClick}>
           {isOpen ? <ChevronUp /> : <ChevronDown />}
         </div>
       </div>
