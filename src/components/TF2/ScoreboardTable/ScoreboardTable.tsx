@@ -16,12 +16,21 @@ const ScoreboardTable = ({ children }: ScoreboardTableType) => {
         <div className="scoreboard-blu">
           <Flex className="scoreboard-header">
             <div>Rating</div>
-            <div>Name</div>
+            <div>User</div>
             <div>Status</div>
             <div>Time</div>
           </Flex>
-          <Player you={true} status="In-Game" time="53:54" />
-          <Player name="Coolskeleton420" status="In-Game" time="13:20" />
+          <Player
+            color="rgba(111, 255, 100, 0.371)"
+            you={true}
+            status="In-Game"
+            time="53:54"
+          />
+          <Player
+            name="Coolskeleton42033423423423"
+            status="In-Game"
+            time="13:20"
+          />
           <Player name="Sammy" time="00:00" />
           <Player time="00:00" />
           <Player time="00:00" />
@@ -44,7 +53,7 @@ const ScoreboardTable = ({ children }: ScoreboardTableType) => {
         <div className="scoreboard-red">
           <Flex className="scoreboard-header">
             <div>Rating</div>
-            <div>Name</div>
+            <div>User</div>
             <div>Status</div>
             <div>Time</div>
           </Flex>

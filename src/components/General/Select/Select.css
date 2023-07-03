@@ -13,6 +13,8 @@
   border-radius: 3px;
   cursor: pointer;
   transition: border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .select-head.active {
@@ -20,32 +22,34 @@
 }
 
 .select-text {
-  margin-right: 10px;
   color: white;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 15px;
 }
 
 .select-icon {
-  position: relative;
+  position: absolute;
+  right: 5px;
+  top: 50%;
   display: flex;
   align-items: center;
-  color: white;
+  transform: translateY(-50%);
 }
 
 .select-options {
   position: absolute;
-  margin: 0;
-  padding: 0;
   list-style: none;
   border-radius: 4px;
   background-color: var(--dark-bg-color);
   border: 1px solid var(--dark-bg-main-color);
   z-index: 999;
+  transform: translateX(-60%);
 }
 
 .select-option {
+  position:relative;
   padding: 1px 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;

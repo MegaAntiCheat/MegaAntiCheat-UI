@@ -2,9 +2,7 @@
   width: 100%;
   align-items: center;
   display: grid;
-  grid-template-columns: 28% 10% 25% 5% 18% auto;
-  height: fit-content;
-  text-align: start;
+  grid-template-columns: 20% 40% 10% 10% 15%;
   padding-left: 5px;
   padding-top: 2px;
   padding-bottom: 2px
@@ -16,10 +14,24 @@
   overflow: hidden;
 }
 
-.you {
-  background-color: rgba(111, 255, 100, 0.371);
+.player-profile {
+  position: relative;
+  margin-left: 10px
 }
+
 .player-pfp {
+  position: relative;
   border-radius: 2px;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.player-badge {
+  margin-right: 20px;
+}
+
+.player-status {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
