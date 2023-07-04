@@ -6,14 +6,18 @@
 }
 
 .scoreboard-header {
+  font-family: "Build";
   display: grid;
-  grid-template-columns: 35% 37% 13% 5%;
+  grid-template-columns: 35% 36.5% 14% 5%;
   margin-left: 20px;
   margin-bottom: 20px;
   text-align: start;
 }
 
 .scoreboard-team {
+  font-family: "Build";
+  font-size: xx-large;
+  margin-top: 10px;
   margin-bottom: 30px;
 }
 
@@ -26,7 +30,7 @@
 }
 
 .red {
-  color: red;
+  color: salmon;
 }
 
 .blu {
@@ -42,10 +46,6 @@
   }
 
   .scoreboard-divider {
-    width: 100%;
-    height: 1px;
-    background-color:rgba(128, 128, 128, 0.312);
-    margin-left: 5px;
-    margin-right: 5px;
+    display: none;
   }
 }

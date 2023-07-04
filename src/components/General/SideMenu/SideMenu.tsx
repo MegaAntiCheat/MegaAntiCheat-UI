@@ -70,7 +70,7 @@ const SideMenu = () => {
           collapsed={collapsed}
         />
         <SideMenuItem
-          title="Model Manager"
+          title="Player History"
           Icon={<ListTodo />}
           collapsed={collapsed}
         />
