@@ -28,16 +28,20 @@ const playerTag = [
 
 const Player = ({
   pfp = "https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp",
-  icon = "https://cdn.discordapp.com/attachments/1123073876897824848/1123080561435611199/icon_friend.png",
+  icon = "",
   verdict = "Player",
-  name = "Megascatterbomb",
-  status = "Joining",
+  name = "Player",
+  state = "Joining",
   time = "00:00",
   you = false,
   color = "",
+  className = "",
 }) => {
   return (
-    <Flex className={`player-item`} style={{ backgroundColor: color }}>
+    <Flex
+      className={`player-item ${className}`}
+      style={{ backgroundColor: color }}
+    >
       <Select
         className="player-verdict"
         options={playerTag}
@@ -47,8 +51,12 @@ const Player = ({
         <img className="player-pfp" width={24} height={24} src={pfp}></img>
         <div className="player-name">{name}</div>
       </Flex>
-      <img className="player-badge" width={12} height={12} src={icon} />
-      <div className="player-status">{status}</div>
+      {icon ? (
+        <img className="player-badge" width={12} height={12} src={icon} />
+      ) : (
+        <div />
+      )}
+      <div className="player-status">{state}</div>
       <div>{time}</div>
     </Flex>
   );

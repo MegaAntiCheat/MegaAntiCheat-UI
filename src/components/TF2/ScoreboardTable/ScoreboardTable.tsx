@@ -1,14 +1,18 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import "./ScoreboardTable.css";
 
 import { Player } from "../";
 import { Flex } from "../../General";
+import { fetchAllServerInfo } from "../../../api";
+import { emptyData } from "../../../api/fakeData";
 
+let intervalHandle: number;
 interface ScoreboardTableType {
-  children?: ReactNode;
+  RED?: PlayerInfo[];
+  BLU?: PlayerInfo[];
 }
 
-const ScoreboardTable = ({ children }: ScoreboardTableType) => {
+const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
   return (
     <div className="scoreboard-grid-container">
       <div>
@@ -20,31 +24,17 @@ const ScoreboardTable = ({ children }: ScoreboardTableType) => {
             <div>Status</div>
             <div>Time</div>
           </Flex>
-          <Player
-            color="rgba(111, 255, 100, 0.371)"
-            you={true}
-            status="In-Game"
-            time="53:54"
-          />
-          <Player
-            name="Coolskeleton42033423423423"
-            status="In-Game"
-            time="13:20"
-          />
-          <Player name="Sammy" time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
+          {BLU?.map((player) => {
+            return (
+              <Player
+                name={player.name}
+                you={player.isSelf}
+                state={player.gameInfo?.state}
+                className="blu"
+                key={player.steamID64}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="scoreboard-divider" />
@@ -57,22 +47,17 @@ const ScoreboardTable = ({ children }: ScoreboardTableType) => {
             <div>Status</div>
             <div>Time</div>
           </Flex>
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
-          <Player time="00:00" />
+          {RED?.map((player) => {
+            return (
+              <Player
+                name={player.name}
+                you={player.isSelf}
+                state={player.gameInfo?.state}
+                className="red"
+                key={player.steamID64}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

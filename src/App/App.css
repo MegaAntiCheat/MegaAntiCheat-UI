@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Build";
+  src: url("../../public/tf2build.ttf");
+}
 .App {
   background-color: #282c34;
   min-height: 100vh;
