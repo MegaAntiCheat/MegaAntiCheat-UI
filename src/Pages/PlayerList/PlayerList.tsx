@@ -19,10 +19,14 @@ const PlayerList = () => {
   const [BLU, setBLU] = useState<PlayerInfo[]>([]);
 
   React.useEffect(() => {
-    let intervalHandle = setInterval(async () => {
+    const fetchData = async () => {
       const newData = await fetchAllServerInfo();
       setData(newData);
-    }, 10000);
+    };
+
+    fetchData();
+
+    let intervalHandle = setInterval(fetchData, 10000);
 
     return () => {
       clearInterval(intervalHandle);
