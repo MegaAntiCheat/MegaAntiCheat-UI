@@ -1,17 +1,14 @@
-import React from "react";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 import "./SideMenu.css";
 
 import { Divider, Flex, SideMenuItem } from "..";
-import {
-  ArrowDownToLine,
-  ChevronRightSquare,
-  ListTodo,
-  Menu,
-  Settings2,
-  X,
-} from "lucide-react";
+import { History, Menu, Settings2, Users2, X } from "lucide-react";
 
-const SideMenu = () => {
+interface SideMenu {
+  setCurrentPage: Dispatch<SetStateAction<string>>;
+}
+
+const SideMenu = ({ setCurrentPage }: SideMenu) => {
   const [collapsed, setCollapsed] = React.useState(true);
 
   const handleToggleCollapse = () => {
@@ -68,11 +65,19 @@ const SideMenu = () => {
           title="Options"
           Icon={<Settings2 />}
           collapsed={collapsed}
+          onClick={() => setCurrentPage("preferences")}
+        />
+        <SideMenuItem
+          title="Player List"
+          Icon={<Users2 />}
+          collapsed={collapsed}
+          onClick={() => setCurrentPage("playerlist")}
         />
         <SideMenuItem
           title="Player History"
-          Icon={<ListTodo />}
+          Icon={<History />}
           collapsed={collapsed}
+          onClick={() => setCurrentPage("playerhistory")}
         />
       </div>
     </div>

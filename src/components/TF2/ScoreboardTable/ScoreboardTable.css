@@ -8,7 +8,7 @@
 .scoreboard-header {
   font-family: "Build";
   display: grid;
-  grid-template-columns: 35% 36.5% 14% 5%;
+  grid-template-columns: 140px 48% 14% 5%;
   margin-left: 20px;
   margin-bottom: 20px;
   text-align: start;

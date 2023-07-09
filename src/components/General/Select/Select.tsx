@@ -1,6 +1,5 @@
 import React, { MouseEventHandler, useRef, useState } from "react";
 import "./Select.css";
-import Flex from "../Flex/Flex";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface SelectType {
@@ -8,6 +7,7 @@ interface SelectType {
   placeholder?: string;
   onSelect?: (value: string) => void;
   className?: string;
+  disabled?: boolean;
 }
 
 const Select = ({
@@ -15,6 +15,7 @@ const Select = ({
   placeholder = "Select",
   onSelect,
   className,
+  disabled = false,
 }: SelectType) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(placeholder);
@@ -44,13 +45,19 @@ const Select = ({
 
   const handleArrowClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    setIsOpen(!isOpen);
+    toggleOpen();
+  };
+
+  const toggleOpen = () => {
+    if (!disabled) setIsOpen(!isOpen);
   };
 
   return (
     <div
-      onClick={() => setIsOpen(!isOpen)}
-      className={`select-item-container ${className}`}
+      onClick={toggleOpen}
+      className={`select-item-container ${className}  ${
+        disabled ? "disabled" : ""
+      }`}
       ref={selectRef}
     >
       <div className={`select-head ${isOpen ? "active" : ""}`}>
