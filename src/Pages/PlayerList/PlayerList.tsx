@@ -1,20 +1,17 @@
-import React, { useState } from "react";
-import "./PlayerList.css";
-import { Divider, TextItem } from "../../components/General";
-import Player from "../../components/TF2/Player/Player";
-import { ScoreboardTable } from "../../components/TF2";
-import { emptyData } from "../../api/fakeData";
-import { fetchAllServerInfo } from "../../api";
+import React, { useState } from 'react';
+import { fetchAllServerInfo, emptyServerData } from '../../api';
+import { ScoreboardTable } from '../../components/TF2';
+import './PlayerList.css';
 
 enum Teams {
-  BLU,
-  RED,
-  SPEC,
   UNASSIGNED,
+  SPEC,
+  RED,
+  BLU,
 }
 
 const PlayerList = () => {
-  const [data, setData] = React.useState(emptyData);
+  const [data, setData] = React.useState(emptyServerData);
   const [RED, setRED] = useState<PlayerInfo[]>([]);
   const [BLU, setBLU] = useState<PlayerInfo[]>([]);
 
@@ -24,6 +21,7 @@ const PlayerList = () => {
       setData(newData);
     };
 
+    // First Render: Refreshes the data Immediately without having to wait for the interval
     fetchData();
 
     let intervalHandle = setInterval(fetchData, 10000);
@@ -34,7 +32,7 @@ const PlayerList = () => {
   }, []);
 
   React.useEffect(() => {
-    const players = Object.values(data.players);
+    const players = Object.values(data.players ?? []);
     let newRED: PlayerInfo[] = [];
     let newBLU: PlayerInfo[] = [];
 

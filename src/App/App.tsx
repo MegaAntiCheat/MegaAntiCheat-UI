@@ -2,15 +2,33 @@ import React from "react";
 import "./App.css";
 
 import { SideMenu } from "../components/General";
-import { ContentPageContainer, PlayerList } from "../Pages";
+import {
+  ContentPageContainer,
+  PlayerHistory,
+  PlayerList,
+  Preferences,
+} from "../Pages";
 
 function App() {
+  const [currentPage, setCurrentPage] = React.useState("");
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "playerlist":
+        return <PlayerList />;
+      case "preferences":
+        return <Preferences />;
+      case "playerhistory":
+        return <PlayerHistory />;
+      default:
+        return <PlayerList />;
+    }
+  };
+
   return (
     <div className="App">
-      <SideMenu />
-      <ContentPageContainer>
-        <PlayerList />
-      </ContentPageContainer>
+      <SideMenu setCurrentPage={setCurrentPage} />
+      <ContentPageContainer>{renderPage()}</ContentPageContainer>
     </div>
   );
 }

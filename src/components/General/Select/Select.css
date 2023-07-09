@@ -45,7 +45,8 @@
   background-color: var(--dark-bg-color);
   border: 1px solid var(--dark-bg-main-color);
   z-index: 999;
-  transform: translateX(-60%);
+  transform: translateX(-50%);
+  width: 125px;
 }
 
 .select-option {
@@ -57,9 +58,13 @@
 }
 
 .select-option:hover {
-  background-color: var(--dark-hover-color);
+  background-color: var(--dark-highlight-color) !important;
 }
 
 .select-option.selected {
   background-color: var(--dark-highlight-color);
+}
+
+.disabled {
+  color: rgba(89, 89, 89, 0.4);
 }

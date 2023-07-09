@@ -1,0 +1,33 @@
+.playerhistory-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow-y: auto;
+  max-height: 850px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+.custom-scrollbar::-moz-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #353434; /* Color of the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #202020; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Border radius of the scrollbar thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #1b1b1b; /* Color of the scrollbar thumb on hover */
+}
+
+@media screen and (max-width: 1000px) {
+  .playerhistory-container {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}

@@ -3,10 +3,6 @@ import "./ScoreboardTable.css";
 
 import { Player } from "../";
 import { Flex } from "../../General";
-import { fetchAllServerInfo } from "../../../api";
-import { emptyData } from "../../../api/fakeData";
-
-let intervalHandle: number;
 interface ScoreboardTableType {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
@@ -26,13 +22,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
           </Flex>
           {BLU?.map((player) => {
             return (
-              <Player
-                name={player.name}
-                you={player.isSelf}
-                state={player.gameInfo?.state}
-                className="blu"
-                key={player.steamID64}
-              />
+              <Player className="blu" player={player} key={player.steamID64} />
             );
           })}
         </div>
@@ -49,13 +39,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
           </Flex>
           {RED?.map((player) => {
             return (
-              <Player
-                name={player.name}
-                you={player.isSelf}
-                state={player.gameInfo?.state}
-                className="red"
-                key={player.steamID64}
-              />
+              <Player className="red" player={player} key={player.steamID64} />
             );
           })}
         </div>

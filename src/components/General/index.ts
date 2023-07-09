@@ -5,6 +5,7 @@ import SideMenuItem from "./SideMenuItem/SideMenuItem";
 import Checkbox from "./Checkbox/Checkbox";
 import TextItem from "./Text/TextItem";
 import Select from "./Select/Select";
+import Tooltip from "./Tooltip/Tooltip";
 
 export {
   SideMenu,
@@ -13,5 +14,6 @@ export {
   Divider,
   Checkbox,
   TextItem,
-  Select
+  Select,
+  Tooltip
 };

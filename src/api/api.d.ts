@@ -3,10 +3,6 @@ interface PlayerInfoRequest {
   name?: string[]
 }
 
-interface PlayerInfoResponse {
-  players: PlayerInfo[]
-}
-
 interface MarkRequest {
   tag: Record<string, string>
 }
@@ -16,8 +12,9 @@ interface ServerInfoResponse {
   map: string,
   ip: string,
   maxPlayers: number,
-  numPlayers: number
-  players: PlayerInfo[]
+  numPlayers: number,
+  players: PlayerInfo[],
+  gamemode?: GameModeInfo
 }
 
 interface GameInfo {
@@ -28,6 +25,26 @@ interface GameInfo {
   state?: string,
   kills?: number,
   deaths?: number
+  time?: number
+}
+
+interface SteamInfo {
+  name?: string,
+  profileUrl?: string,
+  pfp?: string,
+  pfpHash?: string,
+  profileVisibility?: string,
+  timeCreated?: number
+  countryCode?: string,
+  vacBans?: number,
+  gameBans?: number,
+  daysSinceLastBan?: null | number
+  friends?: SteamFriend[]
+}
+
+interface SteamFriend {
+  steamID64: number,
+  friendsSince: number
 }
 
 
@@ -36,10 +53,19 @@ interface PlayerInfo {
   gameInfo?: GameInfo,
   isSelf: boolean,
   tags?: string[],
-  steamID64: string
+  steamID64: string,
+  verdict?: string,
+  steamInfo?: SteamInfo,
+  customData?: object
 }
 
 interface TeamData {
   RED: PlayerInfo[],
   BLU: PlayerInfo[]
+}
+
+interface GameModeInfo {
+  matchmaking: boolean,
+  game_type: string,
+  vanilla: boolean
 }
