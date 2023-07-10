@@ -1,19 +1,19 @@
-import React, { MouseEventHandler, useRef, useState } from "react";
-import "./Select.css";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import React, { MouseEventHandler, useRef, useState } from 'react';
+import './Select.css';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface SelectType {
   options: { name: string; value: any }[];
   placeholder?: string;
-  onSelect?: (value: string) => void;
+  onChange?: (value: string) => void;
   className?: string;
   disabled?: boolean;
 }
 
 const Select = ({
   options,
-  placeholder = "Select",
-  onSelect,
+  placeholder = 'Select',
+  onChange,
   className,
   disabled = false,
 }: SelectType) => {
@@ -24,7 +24,7 @@ const Select = ({
   const handleOptionClick = ({ name, value }: { name: string; value: any }) => {
     setSelectedOption(name);
     setIsOpen(false);
-    if (typeof onSelect === "function") onSelect(value);
+    if (typeof onChange === 'function') onChange(value);
   };
 
   const handleOutsideClick = (event: MouseEvent) => {
@@ -37,9 +37,9 @@ const Select = ({
   };
 
   React.useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener('click', handleOutsideClick);
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener('click', handleOutsideClick);
     };
   }, []);
 
@@ -56,13 +56,13 @@ const Select = ({
     <div
       onClick={toggleOpen}
       className={`select-item-container ${className}  ${
-        disabled ? "disabled" : ""
+        disabled ? 'disabled' : ''
       }`}
       ref={selectRef}
     >
-      <div className={`select-head ${isOpen ? "active" : ""}`}>
+      <div className={`select-head ${isOpen ? 'active' : ''}`}>
         <div className="select-text">
-          {selectedOption ? selectedOption : "Select"}
+          {selectedOption ? selectedOption : 'Select'}
         </div>
         <div className="select-icon" onClick={handleArrowClick}>
           {isOpen ? <ChevronUp /> : <ChevronDown />}
@@ -73,7 +73,7 @@ const Select = ({
           {options.map((e) => (
             <li
               className={`select-option ${
-                selectedOption === e.name ? "selected" : ""
+                selectedOption === e.name ? 'selected' : ''
               }`}
               key={e.name}
               value={e.value}

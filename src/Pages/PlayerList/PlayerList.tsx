@@ -32,7 +32,7 @@ const PlayerList = () => {
   }, []);
 
   React.useEffect(() => {
-    const players = Object.values(data.players ?? []);
+    const players = Object.values(data.players);
     let newRED: PlayerInfo[] = [];
     let newBLU: PlayerInfo[] = [];
 

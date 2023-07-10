@@ -1,47 +1,39 @@
-import React from "react";
-import "./Player.css";
+import React from 'react';
+import './Player.css';
 
-import { Flex, Select, TextItem } from "../../General";
-import { markPlayer } from "../../../api";
-
-enum PlayerTag {
-  Player = "player",
-  Bot = "bot",
-  Cheater = "cheater",
-  Suspicious = "suspicious",
-  Trusted = "trusted",
-}
+import { Flex, Select, TextItem } from '../../General';
+import { markPlayer } from '../../../api';
 
 const localVerdict = [
   {
-    name: "Player",
-    value: "player",
+    name: 'Player',
+    value: 'player',
   },
   {
-    name: "Bot",
-    value: "bot",
+    name: 'Bot',
+    value: 'bot',
   },
   {
-    name: "Cheater",
-    value: "cheater",
+    name: 'Cheater',
+    value: 'cheater',
   },
   {
-    name: "Suspicious",
-    value: "suspicious",
+    name: 'Suspicious',
+    value: 'suspicious',
   },
   {
-    name: "Trusted",
-    value: "trusted",
+    name: 'Trusted',
+    value: 'trusted',
   },
 ];
 
 function displayProperVerdict(verdict: string) {
-  if (verdict.toLowerCase() === "none") return "Player";
+  if (verdict.toLowerCase() === 'none') return 'Player';
 
   const option = localVerdict.find(
     (option) => option.value === verdict.toLowerCase(),
   );
-  return option ? option.name : "Player";
+  return option ? option.name : 'Player';
 }
 
 function formatTime(seconds: number) {
@@ -54,8 +46,8 @@ function formatTime(seconds: number) {
 }
 
 function displayProperStatus(status: string) {
-  if (status === "Active") return "In-Game";
-  return "Joining";
+  if (status === 'Active') return 'In-Game';
+  return 'Joining';
 }
 
 interface Player {
@@ -68,19 +60,19 @@ interface Player {
 const Player = ({ player, icon, pfp, className }: Player) => {
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
-    ? "You"
-    : displayProperVerdict(player.verdict ?? "Player");
+    ? 'You'
+    : displayProperVerdict(player.verdict ?? 'Player');
   const displayTime = formatTime(player.gameInfo?.time!);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
 
   return (
     <Flex className={`player-item ${className}`}>
       <Select
-        className="player-verdict"
+        className={`player-verdict`}
         options={localVerdict}
         placeholder={displayVerdict}
         disabled={player.isSelf}
-        onSelect={(e) => markPlayer(player.steamID64, e)}
+        onChange={(e) => markPlayer(player.steamID64, e)}
       />
       <Flex className="player-profile">
         <img
@@ -89,7 +81,7 @@ const Player = ({ player, icon, pfp, className }: Player) => {
           height={24}
           src={
             pfp ??
-            "https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp"
+            'https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp'
           }
           alt="Profile"
         />

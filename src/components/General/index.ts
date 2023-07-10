@@ -6,6 +6,7 @@ import Checkbox from "./Checkbox/Checkbox";
 import TextItem from "./Text/TextItem";
 import Select from "./Select/Select";
 import Tooltip from "./Tooltip/Tooltip";
+import Search from "./Search/Search";
 
 export {
   SideMenu,
@@ -15,5 +16,6 @@ export {
   Checkbox,
   TextItem,
   Select,
-  Tooltip
+  Tooltip,
+  Search
 };

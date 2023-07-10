@@ -74,23 +74,22 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCard) => {
                 />
               </Tooltip>
             ) : (
-              <Tooltip className="phc-badge" content="No VAC Bans">
-                <ShieldCheck
-                  height={32}
-                  width={32}
-                  color="green"
-                  textAnchor="Yea"
-                />
-              </Tooltip>
+              <div />
             )}
             {gameBans ? (
               <Tooltip
                 className="phc-badge"
                 content={`${gameBans} Game Ban${gameBans > 1 ? 's' : ''}`}
               >
-                <AlertOctagon color="red" width={32} height={32} />
+                <AlertOctagon
+                  color={gameBans > 1 ? 'red' : 'darkorange'}
+                  width={32}
+                  height={32}
+                />
               </Tooltip>
-            ) : null}
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </div>

@@ -3,6 +3,27 @@
   height: 100%;
   grid-template-columns: 50% 10px 50%;
   text-align: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+.scoreboard-grid-container::-webkit-scrollbar {
+  /* Style the scrollbar */
+  width: 6px;
+}
+
+.scoreboard-grid-container::-webkit-scrollbar-track {
+
+  background: #555;
+}
+
+.scoreboard-grid-container::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+.scoreboard-grid-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .scoreboard-header {
