@@ -63,8 +63,7 @@ const Player = ({ player, icon, className }: Player) => {
     : displayProperVerdict(player.verdict ?? 'Player');
   const displayTime = formatTime(player.gameInfo?.time!);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
-  const pfp = player.steamInfo?.pfp ??
-    './mac_logo.webp'
+  const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
 
   return (
     <Flex className={`player-item ${className}`}>
@@ -97,7 +96,7 @@ const Player = ({ player, icon, className }: Player) => {
         <div />
       )}
       <div className="player-status">{displayStatus}</div>
-      <div>{displayTime}</div>
+      <div className="player-time">{displayTime}</div>
     </Flex>
   );
 };

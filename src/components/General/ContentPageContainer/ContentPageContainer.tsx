@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import "./ContentPageContainer.css";
+import React, { ReactNode } from 'react';
+import './ContentPageContainer.css';
 
 interface ContentPageType {
   children: ReactNode;

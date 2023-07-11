@@ -1,8 +1,8 @@
-import React, { Dispatch, ReactElement, SetStateAction } from "react";
-import "./SideMenu.css";
+import React, { Dispatch, ReactElement, SetStateAction } from 'react';
+import './SideMenu.css';
 
-import { Divider, Flex, SideMenuItem } from "..";
-import { History, Menu, Settings2, Users2, X } from "lucide-react";
+import { Divider, Flex, SideMenuItem } from '..';
+import { History, Menu, Settings2, Users2, X } from 'lucide-react';
 
 interface SideMenu {
   setCurrentPage: Dispatch<SetStateAction<string>>;
@@ -17,14 +17,14 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
 
   const menuIcon = (
     <a
-      className={`sidemenu-icon ${collapsed ? "collapsed" : ""}`}
+      className={`sidemenu-icon ${collapsed ? 'collapsed' : ''}`}
       href="https://megascatterbomb.com/mcd"
       target="_blank"
     >
       <img
         width={32}
         height={32}
-        style={{ borderRadius: "10px" }}
+        style={{ borderRadius: '10px' }}
         src="./mac_logo.webp"
       />
     </a>
@@ -37,12 +37,12 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
         <div className="sidemenu-header-flex">
           {!collapsed && menuIcon}
           {!collapsed && (
-            <span className={`sidemenu-title ${collapsed ? "collapsed" : ""}`}>
+            <span className={`sidemenu-title ${collapsed ? 'collapsed' : ''}`}>
               MCD
             </span>
           )}
           <span
-            className={`sidemenu-toggle ${collapsed ? "collapsed" : ""}`}
+            className={`sidemenu-toggle ${collapsed ? 'collapsed' : ''}`}
             onClick={handleToggleCollapse}
           >
             {collapsed ? (
@@ -57,7 +57,7 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
   };
 
   return (
-    <div className={`sidemenu-outer ${collapsed ? "collapsed" : ""}`}>
+    <div className={`sidemenu-outer ${collapsed ? 'collapsed' : ''}`}>
       <MenuHeader />
       <div>
         <Divider size={2} />
@@ -65,19 +65,19 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
           title="Options"
           Icon={<Settings2 />}
           collapsed={collapsed}
-          onClick={() => setCurrentPage("preferences")}
+          onClick={() => setCurrentPage('preferences')}
         />
         <SideMenuItem
           title="Player List"
           Icon={<Users2 />}
           collapsed={collapsed}
-          onClick={() => setCurrentPage("playerlist")}
+          onClick={() => setCurrentPage('playerlist')}
         />
         <SideMenuItem
           title="Player History"
           Icon={<History />}
           collapsed={collapsed}
-          onClick={() => setCurrentPage("playerhistory")}
+          onClick={() => setCurrentPage('playerhistory')}
         />
       </div>
     </div>

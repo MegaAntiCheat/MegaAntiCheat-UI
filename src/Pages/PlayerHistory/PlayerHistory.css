@@ -6,7 +6,7 @@
 }
 
 .history-search {
-  width: calc(100% - 45px);
+  width: calc(100% - 40px);
 }
 
 .history-sort {
@@ -19,7 +19,6 @@
 }
 
 .playerhistory-container::-webkit-scrollbar-track {
-
   background: #555;
 }
 
@@ -38,7 +37,7 @@
   }
 
   .history-search {
-    width: calc(100% - 45px) !important;
-    margin-right: 50px;
+    width: calc(100% - 10px);
+    margin-right: calc(20px);
   }
 }

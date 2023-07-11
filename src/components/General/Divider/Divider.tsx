@@ -1,5 +1,5 @@
-import React from "react";
-import "./Divider.css";
+import React from 'react';
+import './Divider.css';
 
 interface DividerType {
   size?: Number;

@@ -2,5 +2,5 @@
   position: relative;
   width: 100%;
   border-radius: 10%;
-  background-color: var(--dark-highlight-color)
+  background-color: var(--dark-highlight-color);
 }

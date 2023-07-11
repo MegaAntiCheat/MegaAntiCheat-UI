@@ -1,6 +1,6 @@
-import { ReactElement, ReactNode } from "react";
-import "./Flex.css";
-import React from "react";
+import { ReactElement, ReactNode } from 'react';
+import './Flex.css';
+import React from 'react';
 
 interface FlexType {
   children: ReactNode;
@@ -9,9 +9,9 @@ interface FlexType {
   style?: any;
 }
 
-const Flex = ({ children, className = "", onClick, style }: FlexType) => {
+const Flex = ({ children, className = '', onClick, style }: FlexType) => {
   const handleClick = () => {
-    if (typeof onClick === "function") onClick();
+    if (typeof onClick === 'function') onClick();
   };
   return (
     <div onClick={handleClick} className={`flex ${className}`} style={style}>

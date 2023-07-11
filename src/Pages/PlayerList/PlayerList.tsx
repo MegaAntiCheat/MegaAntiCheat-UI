@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { fetchAllServerInfo, emptyServerData } from '../../api';
 import { ScoreboardTable } from '../../components/TF2';
+import MiniScoreboard from '../../components/TF2/MiniScoreboard/MiniScoreboard';
 import './PlayerList.css';
 
 enum Teams {
@@ -24,7 +25,7 @@ const PlayerList = () => {
     // First Render: Refreshes the data Immediately without having to wait for the interval
     fetchData();
 
-    let intervalHandle = setInterval(fetchData, 10000);
+    const intervalHandle = setInterval(fetchData, 10000);
 
     return () => {
       clearInterval(intervalHandle);
@@ -33,8 +34,8 @@ const PlayerList = () => {
 
   React.useEffect(() => {
     const players = Object.values(data.players);
-    let newRED: PlayerInfo[] = [];
-    let newBLU: PlayerInfo[] = [];
+    const newRED: PlayerInfo[] = [];
+    const newBLU: PlayerInfo[] = [];
 
     for (const player of players) {
       if (player.gameInfo?.team === Teams.RED) {
@@ -50,7 +51,9 @@ const PlayerList = () => {
 
   return (
     <>
-      <ScoreboardTable RED={RED} BLU={BLU} />
+      <div className="playerlist-max">
+        <ScoreboardTable RED={RED} BLU={BLU} />
+      </div>
     </>
   );
 };

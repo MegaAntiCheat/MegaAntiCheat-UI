@@ -1,4 +1,4 @@
-.select-container {
+.select-item-container {
   position: relative;
   display: inline-block;
 }
@@ -38,19 +38,28 @@
   transform: translateY(-50%);
 }
 
-.select-options {
+.select-options-container {
   position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.select-options {
   list-style: none;
+  margin: 0;
+  padding: 0;
   border-radius: 4px;
   background-color: var(--dark-bg-color);
   border: 1px solid var(--dark-bg-main-color);
   z-index: 999;
-  transform: translateX(-50%);
-  width: 125px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .select-option {
-  position:relative;
+  position: relative;
   padding: 1px 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
