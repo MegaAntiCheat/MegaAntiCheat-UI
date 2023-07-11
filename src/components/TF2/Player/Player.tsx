@@ -53,17 +53,18 @@ function displayProperStatus(status: string) {
 interface Player {
   player: PlayerInfo;
   icon?: string;
-  pfp?: string;
   className?: string;
 }
 
-const Player = ({ player, icon, pfp, className }: Player) => {
+const Player = ({ player, icon, className }: Player) => {
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? 'You'
     : displayProperVerdict(player.verdict ?? 'Player');
   const displayTime = formatTime(player.gameInfo?.time!);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
+  const pfp = player.steamInfo?.pfp ??
+    'https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp'
 
   return (
     <Flex className={`player-item ${className}`}>
@@ -79,10 +80,7 @@ const Player = ({ player, icon, pfp, className }: Player) => {
           className="player-pfp"
           width={24}
           height={24}
-          src={
-            player.steamInfo?.pfp ??
-            'https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp'
-          }
+          src={pfp}
           alt="Profile"
         />
         <div className="player-name">{player.name}</div>
