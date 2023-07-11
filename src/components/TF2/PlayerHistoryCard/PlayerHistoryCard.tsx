@@ -21,7 +21,7 @@ function formatCreationDate(timeCreated: number): string {
 const PlayerHistoryCard = ({ player }: PlayerHistoryCard) => {
   const pfp =
     player.steamInfo?.pfp ??
-    'https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp';
+    './mac_logo.webp';
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
   const timeCreated = player.steamInfo?.timeCreated ?? 0;
