@@ -12,8 +12,8 @@
   },
   "scripts": {
     "start": "webpack serve",
-    "lint": "eslint . && prettier -c ./src/",
-    "lint:fix": "eslint --fix . && prettier --write ./src/",
+    "lint": "pnpx eslint . && pnpx prettier -c \"src/**/*\"",
+    "lint:fix": "pnpx eslint --fix . && pnpx prettier --write \"src/**/*\"",
     "build": "pnpm run lint && webpack",
     "dev": "concurrently -k \"pnpm run start\" \"tsc -w\""
   },
