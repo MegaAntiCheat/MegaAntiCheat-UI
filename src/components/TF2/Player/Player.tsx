@@ -80,7 +80,7 @@ const Player = ({ player, icon, pfp, className }: Player) => {
           width={24}
           height={24}
           src={
-            pfp ??
+            player.steamInfo?.pfp ??
             'https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp'
           }
           alt="Profile"
