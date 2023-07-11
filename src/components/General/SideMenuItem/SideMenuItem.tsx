@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react";
-import { Book } from "lucide-react";
-import "./SideMenuItem.css";
-import { Flex } from "..";
+import React, { ReactElement } from 'react';
+import { Book } from 'lucide-react';
+import './SideMenuItem.css';
+import { Flex } from '..';
 
 interface SideMenuItemTypes {
   title: string;
@@ -18,12 +18,12 @@ const SideMenuItem = ({
 }: SideMenuItemTypes) => {
   return (
     <div
-      className={`sm-item-outer ${collapsed ? "collapsed" : ""}`}
+      className={`sm-item-outer ${collapsed ? 'collapsed' : ''}`}
       onClick={onClick}
     >
       <Flex className="sm-item-flex">
         <div className="sm-item-icon">{Icon}</div>
-        <div className={`sm-item-title ${collapsed ? "blocked" : ""}`}>
+        <div className={`sm-item-title ${collapsed ? 'blocked' : ''}`}>
           {title}
         </div>
       </Flex>

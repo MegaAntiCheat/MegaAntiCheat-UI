@@ -1,0 +1,22 @@
+{
+  "plugins": ["react", "prettier"],
+  "extends": ["plugin:prettier/recommended"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "prefer-const": "warn",
+    "arrow-parens": ["error", "always"],
+    "no-confusing-arrow": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "indent": ["error", 2],
+    "no-unused-vars": "warn",
+    "func-call-spacing": ["error", "never"],
+    "prettier/prettier": "error"
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "ignorePatterns": ["dist/", "build", "public/"]
+}

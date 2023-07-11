@@ -1,15 +1,13 @@
 @font-face {
-  font-family: "Build";
-  src: url("../../public/tf2build.ttf");
+  font-family: 'Build';
+  src: url('../../public/tf2build.ttf');
 }
 .App {
   background-color: #282c34;
   min-height: 100vh;
 }
 
-
 .App-header {
-
   min-height: 100vh;
   display: flex;
   flex-direction: column;

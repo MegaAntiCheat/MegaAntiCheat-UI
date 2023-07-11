@@ -12,9 +12,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
   return (
     <div className="scoreboard-grid-container">
       <div>
-        <div className="scoreboard-team blu">BLU</div>
-        <div className="scoreboard-blu">
-          <Flex className="scoreboard-header">
+        <div className="scoreboard-header blu">BLU</div>
+        <div className="scoreboard-team">
+          <Flex className="scoreboard-nav">
             <div>Rating</div>
             <div>User</div>
             <div>Status</div>
@@ -29,9 +29,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
       </div>
       <div className="scoreboard-divider" />
       <div>
-        <div className="scoreboard-team red">RED</div>
-        <div className="scoreboard-red">
-          <Flex className="scoreboard-header">
+        <div className="scoreboard-header red">RED</div>
+        <div className="scoreboard-team">
+          <Flex className="scoreboard-nav">
             <div>Rating</div>
             <div>User</div>
             <div>Status</div>

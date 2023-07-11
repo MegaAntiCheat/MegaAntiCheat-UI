@@ -22,6 +22,6 @@ code {
 :root {
   --dark-bg-main-color: #282c34;
   --dark-bg-color: rgba(25, 31, 39, 255);
-  --dark-highlight-color: rgba(197, 198, 209, 0.20);
+  --dark-highlight-color: rgba(197, 198, 209, 0.2);
   --dark-hover-color: rgba(234, 235, 243, 0.05);
 }

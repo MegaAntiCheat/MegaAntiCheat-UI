@@ -35,7 +35,7 @@ const PlayerHistory = () => {
       <TextItem fontSize="h1" className="page-header">
         Player History
       </TextItem>
-      <Flex>
+      <Flex className="history-options">
         <Search
           placeholder="Search for Players"
           className="history-search"

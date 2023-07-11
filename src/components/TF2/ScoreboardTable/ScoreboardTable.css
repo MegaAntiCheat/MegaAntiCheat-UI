@@ -3,40 +3,23 @@
   height: 100%;
   grid-template-columns: 50% 10px 50%;
   text-align: center;
-  overflow-y: auto;
   overflow-x: hidden;
 }
 
-
-.scoreboard-grid-container::-webkit-scrollbar {
-  /* Style the scrollbar */
-  width: 6px;
-}
-
-.scoreboard-grid-container::-webkit-scrollbar-track {
-
-  background: #555;
-}
-
-.scoreboard-grid-container::-webkit-scrollbar-thumb {
-  background: #f1f1f1;
-}
-
-.scoreboard-grid-container::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-.scoreboard-header {
-  font-family: "Build";
+.scoreboard-nav {
+  font-family: 'Build';
   display: grid;
-  grid-template-columns: 140px 48% 14% 5%;
+  grid-template-columns: 130px 53% 15% 10%;
   margin-left: 20px;
   margin-bottom: 20px;
   text-align: start;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.scoreboard-team {
-  font-family: "Build";
+.scoreboard-header {
+  font-family: 'Build';
   font-size: xx-large;
   margin-top: 10px;
   margin-bottom: 30px;
@@ -44,29 +27,33 @@
 
 .scoreboard-divider {
   height: 100%;
-  background-color:rgba(128, 128, 128, 0.312);
+  background-color: rgba(128, 128, 128, 0.312);
   width: 1px;
   margin-left: 5px;
   margin-right: 5px;
 }
-
 .red {
   color: salmon;
 }
 
 .blu {
-  color:skyblue
+  color: skyblue;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 980px) {
   .scoreboard-grid-container {
     display: grid;
     width: 100%;
     grid-template-columns: 100%;
     text-align: center;
+    overflow-x: hidden;
   }
 
   .scoreboard-divider {
     display: none;
+  }
+  .scoreboard-team {
+    max-height: none;
+    overflow-y: initial;
   }
 }

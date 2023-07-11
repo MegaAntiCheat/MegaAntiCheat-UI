@@ -1,6 +1,6 @@
 import React from 'react';
 import './PlayerHistoryCard.css';
-import { Flex, TextItem, Tooltip } from '../../General';
+import { Tooltip } from '../../General';
 import { AlertOctagon, EyeOff, ShieldAlert, ShieldCheck } from 'lucide-react';
 
 interface PlayerHistoryCard {
@@ -18,15 +18,19 @@ function formatCreationDate(timeCreated: number): string {
   return date.toLocaleDateString();
 }
 
+function formVerdict(verdict: string | undefined) {
+  if (!verdict) return 'Player';
+  if (verdict === 'None') return 'Player';
+  return verdict;
+}
+
 const PlayerHistoryCard = ({ player }: PlayerHistoryCard) => {
-  const pfp =
-    player.steamInfo?.pfp ??
-    './mac_logo.webp';
+  const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
   const timeCreated = player.steamInfo?.timeCreated ?? 0;
   const displayAccCreation = formatCreationDate(timeCreated);
-  const displayVerdict = player.verdict === 'None' ? 'Player' : player.verdict;
+  const displayVerdict = formVerdict(player.verdict);
   const isPrivate = player.steamInfo?.profileVisibility === 'Private';
 
   return (

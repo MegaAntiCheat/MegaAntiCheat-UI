@@ -1,14 +1,19 @@
-import { markPlayer, fetchAllServerInfo, fetchPlayerInfos, fetchPlayerHistory } from "./players";
-import { setSetting, getAllSettings } from "./preferences";
+import {
+  markPlayer,
+  fetchAllServerInfo,
+  fetchPlayerInfos,
+  fetchPlayerHistory,
+} from './players';
+import { setSetting, getAllSettings } from './preferences';
 
 export const emptyServerData: ServerInfoResponse = {
-  hostname: "",
-  ip: "",
-  map: "",
+  hostname: '',
+  ip: '',
+  map: '',
   maxPlayers: 32,
   numPlayers: 0,
-  players: []
-}
+  players: [],
+};
 
 export {
   markPlayer,
@@ -16,5 +21,5 @@ export {
   fetchPlayerInfos,
   fetchPlayerHistory,
   setSetting,
-  getAllSettings
-}
+  getAllSettings,
+};

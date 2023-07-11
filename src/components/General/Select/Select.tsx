@@ -36,13 +36,6 @@ const Select = ({
     }
   };
 
-  React.useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, []);
-
   const handleArrowClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     toggleOpen();
@@ -52,6 +45,13 @@ const Select = ({
     if (!disabled) setIsOpen(!isOpen);
   };
 
+  React.useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
   return (
     <div
       onClick={toggleOpen}
@@ -59,9 +59,13 @@ const Select = ({
         disabled ? 'disabled' : ''
       }`}
       ref={selectRef}
+      role="combobox"
+      aria-haspopup="listbox"
+      aria-expanded={isOpen}
+      aria-disabled={disabled}
     >
       <div className={`select-head ${isOpen ? 'active' : ''}`}>
-        <div className="select-text">
+        <div className="select-text" aria-hidden="true">
           {selectedOption ? selectedOption : 'Select'}
         </div>
         <div className="select-icon" onClick={handleArrowClick}>
@@ -69,20 +73,24 @@ const Select = ({
         </div>
       </div>
       {isOpen && (
-        <span className="select-options">
-          {options.map((e) => (
-            <li
-              className={`select-option ${
-                selectedOption === e.name ? 'selected' : ''
-              }`}
-              key={e.name}
-              value={e.value}
-              onClick={() => handleOptionClick(e)}
-            >
-              {e.name}
-            </li>
-          ))}
-        </span>
+        <div className="select-options-container">
+          <ul className="select-options" role="listbox">
+            {options.map((e) => (
+              <li
+                className={`select-option ${
+                  selectedOption === e.name ? 'selected' : ''
+                }`}
+                key={e.name}
+                value={e.value}
+                onClick={() => handleOptionClick(e)}
+                role="option"
+                aria-selected={selectedOption === e.name}
+              >
+                {e.name}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

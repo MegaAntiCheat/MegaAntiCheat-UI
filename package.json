@@ -8,36 +8,31 @@
     "@testing-library/user-event": "^14.4.3",
     "dotenv": "^16.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-dom": "^18.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "webpack serve",
+    "lint": "eslint . && prettier -c ./src/",
+    "lint:fix": "eslint --fix . && prettier --write ./src/",
+    "build": "pnpm run lint && webpack",
     "dev": "concurrently -k \"pnpm run start\" \"tsc -w\""
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "concurrently": "^8.2.0",
     "css-loader": "^6.8.1",
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "html-webpack-plugin": "^5.5.3",
     "lucide-react": "^0.256.0",
     "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
     "typescript": "^5.1.5",
-    "wait-on": "^7.0.1"
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }
