@@ -64,7 +64,7 @@ const Player = ({ player, icon, className }: Player) => {
   const displayTime = formatTime(player.gameInfo?.time!);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const pfp = player.steamInfo?.pfp ??
-    'https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp'
+    './mac_logo.webp'
 
   return (
     <Flex className={`player-item ${className}`}>

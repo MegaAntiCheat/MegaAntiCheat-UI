@@ -25,7 +25,7 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
         width={32}
         height={32}
         style={{ borderRadius: "10px" }}
-        src="https://cdn.discordapp.com/icons/1112665618869661726/d6a0255dfca479cbde6707908fbc9a2a.webp"
+        src="./mac_logo.webp"
       />
     </a>
   );
