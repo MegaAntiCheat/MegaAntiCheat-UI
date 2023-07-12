@@ -1,0 +1,35 @@
+.minicolor-container {
+  border: 2px solid var(--dark-bg-color);
+  display: inline-flex;
+  background-color: var(--dark-bg-color);
+  border-radius: 2px;
+  position: relative;
+}
+
+.minicolor-color {
+  width: 80px;
+  height: 25px;
+  margin-right: 7px;
+  margin-left: 1px;
+  border-radius: 2px;
+  background-color: var(--dark-bg-color);
+  position: relative;
+  top: 1px;
+}
+
+.minicolor-change {
+  position: relative;
+  top: 1px;
+}
+
+.minicolor-icon {
+  border-radius: 2px;
+  margin-right: 3px;
+  background-color: var(--dark-bg-color);
+}
+
+.popover {
+  position: absolute;
+  border-radius: 9px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

@@ -7,6 +7,7 @@ import TextItem from './Text/TextItem';
 import Select from './Select/Select';
 import Tooltip from './Tooltip/Tooltip';
 import Search from './Search/Search';
+import ColorSelector from './ColorSelect/ColorSelect';
 
 export {
   SideMenu,
@@ -18,4 +19,5 @@ export {
   Select,
   Tooltip,
   Search,
+  ColorSelector,
 };
