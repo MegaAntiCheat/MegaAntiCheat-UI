@@ -1,6 +1,6 @@
 {
   "plugins": ["react", "prettier"],
-  "extends": ["plugin:prettier/recommended"],
+  "extends": ["prettier"],
   "env": {
     "browser": true
   },
@@ -13,7 +13,7 @@
     "indent": ["error", 2],
     "no-unused-vars": "warn",
     "func-call-spacing": ["error", "never"],
-    "prettier/prettier": "error"
+    "prettier/prettier": ["error"]
   },
   "parserOptions": {
     "ecmaVersion": "latest"

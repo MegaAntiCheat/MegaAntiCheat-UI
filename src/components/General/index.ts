@@ -8,6 +8,7 @@ import Select from './Select/Select';
 import Tooltip from './Tooltip/Tooltip';
 import Search from './Search/Search';
 import ColorSelector from './ColorSelect/ColorSelect';
+import TextInput from './TextInput/TextInput';
 
 export {
   SideMenu,
@@ -20,4 +21,5 @@ export {
   Tooltip,
   Search,
   ColorSelector,
+  TextInput,
 };
