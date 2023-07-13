@@ -9,6 +9,7 @@ import Tooltip from './Tooltip/Tooltip';
 import Search from './Search/Search';
 import ColorSelector from './ColorSelect/ColorSelect';
 import TextInput from './TextInput/TextInput';
+import Accordion from './Accordion/Accordion';
 
 export {
   SideMenu,
@@ -22,4 +23,5 @@ export {
   Search,
   ColorSelector,
   TextInput,
+  Accordion,
 };

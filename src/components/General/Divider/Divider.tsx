@@ -6,7 +6,7 @@ interface DividerType {
   padding?: Number;
 }
 
-const Divider = ({ size = 0, padding = 0 }: DividerType) => {
+const Divider = ({ size = 1, padding = 0 }: DividerType) => {
   return (
     <div
       className="divider"
