@@ -1,8 +1,8 @@
 import React from 'react';
+import { Pencil, X } from 'lucide-react';
+import { Flex } from '@components/General';
 import { HexColorPicker } from 'react-colorful';
 import './ColorSelect.css';
-import { Pencil, X } from 'lucide-react';
-import { Flex } from '..';
 
 interface ColorSelector {
   onChange?: (e: string) => void;

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import './Accordion.css';
-import Flex from '../Flex/Flex';
+import { Flex } from '@components/General';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface Accordion {

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './Tooltip.css';
 
 interface Tooltip {
   content: string;
   className?: string;
-  children?: any;
+  children?: ReactNode;
 }
 
 const Tooltip = ({ content, className, children }: Tooltip) => {

@@ -2,8 +2,8 @@ import React from 'react';
 import './Divider.css';
 
 interface DividerType {
-  size?: Number;
-  padding?: Number;
+  size?: number;
+  padding?: number;
 }
 
 const Divider = ({ size = 1, padding = 0 }: DividerType) => {

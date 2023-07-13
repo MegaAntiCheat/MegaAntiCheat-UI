@@ -1,7 +1,7 @@
 import React from 'react';
+import { Tooltip } from '@components/General';
+import { AlertOctagon, EyeOff, ShieldAlert } from 'lucide-react';
 import './PlayerHistoryCard.css';
-import { Tooltip } from '../../General';
-import { AlertOctagon, EyeOff, ShieldAlert, ShieldCheck } from 'lucide-react';
 
 interface PlayerHistoryCard {
   player: PlayerInfo;

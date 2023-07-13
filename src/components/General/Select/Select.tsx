@@ -1,13 +1,17 @@
-import React, { MouseEventHandler, useRef, useState } from 'react';
-import './Select.css';
+import React, { useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import './Select.css';
 
 interface SelectType {
-  options: { name: string; value: any }[];
+  options: Option[];
   placeholder?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | number) => void;
   className?: string;
   disabled?: boolean;
+}
+
+interface Option {
+  [key: string]: string;
 }
 
 const Select = ({
@@ -21,7 +25,7 @@ const Select = ({
   const [selectedOption, setSelectedOption] = useState(placeholder);
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const handleOptionClick = ({ name, value }: { name: string; value: any }) => {
+  const handleOptionClick = ({ name, value }: Option) => {
     setSelectedOption(name);
     setIsOpen(false);
     if (typeof onChange === 'function') onChange(value);

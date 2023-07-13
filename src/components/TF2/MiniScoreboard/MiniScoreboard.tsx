@@ -1,6 +1,6 @@
 import React from 'react';
 import './MiniScoreboard.css';
-import { Flex } from '../../General';
+import { Flex } from '@components/General';
 
 interface MiniScoreboard {
   RED?: PlayerInfo[];

@@ -1,12 +1,11 @@
-import { ReactElement, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import './Flex.css';
-import React from 'react';
 
 interface FlexType {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
-  style?: any;
+  style?: object;
 }
 
 const Flex = ({ children, className = '', onClick, style }: FlexType) => {

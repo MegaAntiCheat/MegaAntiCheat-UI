@@ -29,7 +29,6 @@ async function markPlayer(steamID64: string, verdict: string) {
 
 async function fetchPlayerInfos({
   steamID64,
-  name,
 }: PlayerInfoRequest): Promise<PlayerInfo[]> {
   try {
     const options = {

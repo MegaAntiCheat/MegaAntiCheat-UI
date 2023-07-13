@@ -1,8 +1,8 @@
-import React, { ReactNode, useState } from 'react';
+import React from 'react';
 import './ScoreboardTable.css';
 
-import { Player } from '../';
-import { Flex } from '../../General';
+import { Player } from '@components/TF2';
+import { Flex } from '@components/General';
 interface ScoreboardTableType {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];

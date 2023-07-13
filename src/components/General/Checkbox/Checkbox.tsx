@@ -1,8 +1,7 @@
 import React from 'react';
-import { Flex } from '..';
+import { CheckSquare, Square } from 'lucide-react';
 
 import './Checkbox.css';
-import { CheckSquare, Square } from 'lucide-react';
 
 interface CheckboxType {
   onChange?: (e: boolean) => void;
@@ -30,7 +29,7 @@ const Checkbox = ({
   };
 
   return (
-    <label className="checkbox-wrapper" onClick={handleClick}>
+    <label className={`checkbox-wrapper ${className}`} onClick={handleClick}>
       <span className={`checkbox-icon ${checked ? 'checked' : ''}`}>
         {checked ? (
           <CheckSquare width={26} height={26} />

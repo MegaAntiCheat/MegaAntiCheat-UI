@@ -10,6 +10,7 @@ import Search from './Search/Search';
 import ColorSelector from './ColorSelect/ColorSelect';
 import TextInput from './TextInput/TextInput';
 import Accordion from './Accordion/Accordion';
+import ContentPageContainer from './ContentPageContainer/ContentPageContainer';
 
 export {
   SideMenu,
@@ -24,4 +25,5 @@ export {
   ColorSelector,
   TextInput,
   Accordion,
+  ContentPageContainer,
 };

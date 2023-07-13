@@ -1,6 +1,15 @@
 {
-  "plugins": ["react", "prettier"],
-  "extends": ["prettier"],
+  "root":true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "env": {
     "browser": true
   },
@@ -10,10 +19,9 @@
     "no-confusing-arrow": "error",
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
-    "indent": ["error", 2],
-    "no-unused-vars": "warn",
     "func-call-spacing": ["error", "never"],
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "prefer-destructuring": "error"
   },
   "parserOptions": {
     "ecmaVersion": "latest"

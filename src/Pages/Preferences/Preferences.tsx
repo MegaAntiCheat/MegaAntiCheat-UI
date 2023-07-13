@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextItem } from '../../components/General';
+import { TextItem } from '@components/General';
 
 const Preferences = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Flex, Search, TextItem } from '../../components/General';
-import { fetchPlayerHistory } from '../../api';
-import PlayerHistoryCard from '../../components/TF2/PlayerHistoryCard/PlayerHistoryCard';
+import { fetchPlayerHistory } from '@api';
+import { PlayerHistoryCard } from '@components/TF2';
+import { Flex, Search, TextItem } from '@components/General';
 
 import './PlayerHistory.css';
 

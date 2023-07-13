@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './Search.css';
 
 interface Search {
-  onChange: Function;
+  onChange: (e: string) => void;
   className?: string;
   placeholder?: string;
 }
@@ -10,8 +10,8 @@ interface Search {
 const Search = ({ onChange, className, placeholder = 'Search' }: Search) => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const handleInputChange = (event: any) => {
-    const query = event.target.value;
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const query: string = event.target.value;
     setSearchQuery(query);
     onChange(query);
   };

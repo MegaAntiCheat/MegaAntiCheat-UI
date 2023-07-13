@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Book } from 'lucide-react';
+import { Flex } from '@components/General';
 import './SideMenuItem.css';
-import { Flex } from '..';
 
 interface SideMenuItemTypes {
   title: string;

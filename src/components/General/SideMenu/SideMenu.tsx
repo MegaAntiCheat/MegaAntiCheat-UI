@@ -1,8 +1,8 @@
-import React, { Dispatch, ReactElement, SetStateAction } from 'react';
-import './SideMenu.css';
-
-import { Divider, Flex, SideMenuItem } from '..';
+import React, { Dispatch, SetStateAction } from 'react';
 import { History, Menu, Settings2, Users2, X } from 'lucide-react';
+import { Divider, SideMenuItem } from '@components/General';
+
+import './SideMenu.css';
 
 interface SideMenu {
   setCurrentPage: Dispatch<SetStateAction<string>>;

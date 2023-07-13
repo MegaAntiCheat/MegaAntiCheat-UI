@@ -1,8 +1,8 @@
 import React from 'react';
 import './Player.css';
 
-import { Flex, Select, TextItem } from '../../General';
-import { markPlayer } from '../../../api';
+import { Flex, Select } from '@components/General';
+import { markPlayer } from '@api';
 
 const localVerdict = [
   {
@@ -61,18 +61,18 @@ const Player = ({ player, icon, className }: Player) => {
   const displayVerdict = player.isSelf
     ? 'You'
     : displayProperVerdict(player.verdict ?? 'Player');
-  const displayTime = formatTime(player.gameInfo?.time!);
+  const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
 
   return (
     <Flex className={`player-item ${className}`}>
       <Select
-        className={`player-verdict`}
+        className="player-verdict"
         options={localVerdict}
         placeholder={displayVerdict}
         disabled={player.isSelf}
-        onChange={(e) => markPlayer(player.steamID64, e)}
+        onChange={(e) => markPlayer(player.steamID64, e.toString())}
       />
       <Flex className="player-profile">
         <img
