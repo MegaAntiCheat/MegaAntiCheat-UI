@@ -1,6 +1,6 @@
 .scoreboard-grid-container {
   display: grid;
-  height: 100%;
+  height: 100vh;
   grid-template-columns: 50% 10px 50%;
   text-align: center;
   overflow-x: hidden;

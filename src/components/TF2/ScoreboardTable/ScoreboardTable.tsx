@@ -3,6 +3,7 @@ import './ScoreboardTable.css';
 
 import { Player } from '@components/TF2';
 import { Flex } from '@components/General';
+import { t } from '@i18n';
 interface ScoreboardTableType {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
@@ -15,10 +16,10 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
         <div className="scoreboard-header blu">BLU</div>
         <div className="scoreboard-team">
           <Flex className="scoreboard-nav">
-            <div>Rating</div>
-            <div>User</div>
-            <div>Status</div>
-            <div>Time</div>
+            <div>{t('TEAM_NAV_RATING')}</div>
+            <div>{t('TEAM_NAV_USER')}</div>
+            <div>{t('TEAM_NAV_STATUS')}</div>
+            <div>{t('TEAM_NAV_TIME')}</div>
           </Flex>
           {BLU?.map((player) => {
             return (
@@ -32,10 +33,10 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
         <div className="scoreboard-header red">RED</div>
         <div className="scoreboard-team">
           <Flex className="scoreboard-nav">
-            <div>Rating</div>
-            <div>User</div>
-            <div>Status</div>
-            <div>Time</div>
+            <div>{t('TEAM_NAV_RATING')}</div>
+            <div>{t('TEAM_NAV_USER')}</div>
+            <div>{t('TEAM_NAV_STATUS')}</div>
+            <div>{t('TEAM_NAV_TIME')}</div>
           </Flex>
           {RED?.map((player) => {
             return (

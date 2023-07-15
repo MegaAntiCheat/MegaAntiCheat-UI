@@ -3,37 +3,39 @@ import './Player.css';
 
 import { Flex, Select } from '@components/General';
 import { markPlayer } from '@api';
+import { t } from '@i18n';
 
 const localVerdict = [
   {
-    name: 'Player',
+    label: 'PLAYER',
     value: 'player',
   },
   {
-    name: 'Bot',
+    label: 'BOT',
     value: 'bot',
   },
   {
-    name: 'Cheater',
+    label: 'CHEATER',
     value: 'cheater',
   },
   {
-    name: 'Suspicious',
+    label: 'SUSPICIOUS',
     value: 'suspicious',
   },
   {
-    name: 'Trusted',
+    label: 'TRUSTED',
     value: 'trusted',
   },
 ];
 
 function displayProperVerdict(verdict: string) {
-  if (verdict.toLowerCase() === 'none') return 'Player';
+  if (verdict.toLowerCase() === 'none') return t('PLAYER');
 
   const option = localVerdict.find(
     (option) => option.value === verdict.toLowerCase(),
   );
-  return option ? option.name : 'Player';
+
+  return option ? t(option.label.toUpperCase()) : t('PLAYER');
 }
 
 function formatTime(seconds: number) {
@@ -46,8 +48,8 @@ function formatTime(seconds: number) {
 }
 
 function displayProperStatus(status: string) {
-  if (status === 'Active') return 'In-Game';
-  return 'Joining';
+  if (status === 'Active') return t('IN_GAME');
+  return t('JOINING');
 }
 
 interface Player {
@@ -59,17 +61,22 @@ interface Player {
 const Player = ({ player, icon, className }: Player) => {
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
-    ? 'You'
-    : displayProperVerdict(player.verdict ?? 'Player');
+    ? t('YOU')
+    : displayProperVerdict(player.verdict ?? t('PLAYER'));
   const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
+
+  const localizedLocalVerdict = localVerdict.map((verdict) => ({
+    label: t(verdict.label),
+    value: verdict.value,
+  }));
 
   return (
     <Flex className={`player-item ${className}`}>
       <Select
         className="player-verdict"
-        options={localVerdict}
+        options={localizedLocalVerdict}
         placeholder={displayVerdict}
         disabled={player.isSelf}
         onChange={(e) => markPlayer(player.steamID64, e.toString())}

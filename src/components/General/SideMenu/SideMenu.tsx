@@ -3,6 +3,7 @@ import { History, Menu, Settings2, Users2, X } from 'lucide-react';
 import { Divider, SideMenuItem } from '@components/General';
 
 import './SideMenu.css';
+import { t } from '@i18n';
 
 interface SideMenu {
   setCurrentPage: Dispatch<SetStateAction<string>>;
@@ -18,7 +19,7 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
   const menuIcon = (
     <a
       className={`sidemenu-icon ${collapsed ? 'collapsed' : ''}`}
-      href="https://megascatterbomb.com/mcd"
+      href="https://github.com/MegaAntiCheat"
       target="_blank"
     >
       <img
@@ -38,7 +39,7 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
           {!collapsed && menuIcon}
           {!collapsed && (
             <span className={`sidemenu-title ${collapsed ? 'collapsed' : ''}`}>
-              MCD
+              MegaAntiCheat
             </span>
           )}
           <span
@@ -62,19 +63,19 @@ const SideMenu = ({ setCurrentPage }: SideMenu) => {
       <div>
         <Divider size={2} />
         <SideMenuItem
-          title="Options"
+          title={t('PREFERENCES')}
           Icon={<Settings2 />}
           collapsed={collapsed}
           onClick={() => setCurrentPage('preferences')}
         />
         <SideMenuItem
-          title="Player List"
+          title={t('PLAYERLIST')}
           Icon={<Users2 />}
           collapsed={collapsed}
           onClick={() => setCurrentPage('playerlist')}
         />
         <SideMenuItem
-          title="Player History"
+          title={t('PLAYERHISTORY')}
           Icon={<History />}
           collapsed={collapsed}
           onClick={() => setCurrentPage('playerhistory')}

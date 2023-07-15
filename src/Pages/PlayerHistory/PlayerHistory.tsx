@@ -1,3 +1,4 @@
+import { t } from '@i18n';
 import React, { useState } from 'react';
 import { fetchPlayerHistory } from '@api';
 import { PlayerHistoryCard } from '@components/TF2';
@@ -33,11 +34,11 @@ const PlayerHistory = () => {
   return (
     <div>
       <TextItem fontSize="h1" className="page-header">
-        Player History
+        {t('PLAYERHISTORY')}
       </TextItem>
       <Flex className="history-options">
         <Search
-          placeholder="Search for Players"
+          placeholder={t('PLAYER_SEARCH')}
           className="history-search"
           onChange={handleSearch}
         />

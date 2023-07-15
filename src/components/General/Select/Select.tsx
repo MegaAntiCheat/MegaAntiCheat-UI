@@ -1,22 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import './Select.css';
+import { t } from '@i18n';
 
 interface SelectType {
-  options: Option[];
+  options: SelectOption[];
   placeholder?: string;
   onChange?: (value: string | number) => void;
   className?: string;
   disabled?: boolean;
 }
 
-interface Option {
-  [key: string]: string;
-}
-
 const Select = ({
   options,
-  placeholder = 'Select',
+  placeholder = t('COMPONENT_SELECT'),
   onChange,
   className,
   disabled = false,
@@ -25,8 +22,8 @@ const Select = ({
   const [selectedOption, setSelectedOption] = useState(placeholder);
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const handleOptionClick = ({ name, value }: Option) => {
-    setSelectedOption(name);
+  const handleOptionClick = ({ label, value }: SelectOption) => {
+    setSelectedOption(label);
     setIsOpen(false);
     if (typeof onChange === 'function') onChange(value);
   };
@@ -70,7 +67,7 @@ const Select = ({
     >
       <div className={`select-head ${isOpen ? 'active' : ''}`}>
         <div className="select-text" aria-hidden="true">
-          {selectedOption ? selectedOption : 'Select'}
+          {selectedOption ? selectedOption : t('COMPONENT_SELECT')}
         </div>
         <div className="select-icon" onClick={handleArrowClick}>
           {isOpen ? <ChevronUp /> : <ChevronDown />}
@@ -82,15 +79,15 @@ const Select = ({
             {options.map((e) => (
               <li
                 className={`select-option ${
-                  selectedOption === e.name ? 'selected' : ''
+                  selectedOption === e.label ? 'selected' : ''
                 }`}
-                key={e.name}
+                key={e.label}
                 value={e.value}
                 onClick={() => handleOptionClick(e)}
                 role="option"
-                aria-selected={selectedOption === e.name}
+                aria-selected={selectedOption === e.label}
               >
-                {e.name}
+                {e.label}
               </li>
             ))}
           </ul>

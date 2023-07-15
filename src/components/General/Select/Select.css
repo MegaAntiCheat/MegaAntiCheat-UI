@@ -55,7 +55,6 @@
   border: 1px solid var(--dark-bg-main-color);
   z-index: 999;
   max-height: 200px;
-  overflow-y: auto;
 }
 
 .select-option {
