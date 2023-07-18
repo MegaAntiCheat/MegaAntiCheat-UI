@@ -12,17 +12,33 @@ interface SideMenuProps {
 
 const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
   const [collapsed, setCollapsed] = React.useState(true);
+  const MenuRef = React.useRef<HTMLDivElement>(null);
 
   const handleToggleCollapse = () => {
     setCollapsed(!collapsed);
   };
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (!MenuRef.current?.contains(event.target as Node)) {
+      setCollapsed(true);
+    }
+  };
+
+  const handleToggleClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    handleToggleCollapse();
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
   return (
-    <div className={`side-menu ${collapsed ? 'collapsed' : ''}`}>
-      <MenuHeader
-        collapsed={collapsed}
-        handleToggleCollapse={handleToggleCollapse}
-      />
+    <div className={`side-menu ${collapsed ? 'collapsed' : ''}`} ref={MenuRef}>
+      <MenuHeader collapsed={collapsed} handleSymbolClick={handleToggleClick} />
       <div className="side-menu-content">
         <Divider size={2} />
         <SideMenuItem

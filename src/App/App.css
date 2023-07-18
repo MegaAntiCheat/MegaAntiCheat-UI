@@ -19,6 +19,21 @@
   flex: 1;
   min-height: 100vh;
   padding: 10px;
-  font-size: calc(10px + 2vmin);
   color: white;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #555;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

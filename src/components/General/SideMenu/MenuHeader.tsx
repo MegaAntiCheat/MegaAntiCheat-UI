@@ -3,12 +3,12 @@ import { Menu, X } from 'lucide-react';
 
 interface MenuHeaderProps {
   collapsed: boolean;
-  handleToggleCollapse: () => void;
+  handleSymbolClick: (e: React.MouseEvent) => void;
 }
 
 const MenuHeader: React.FC<MenuHeaderProps> = ({
   collapsed,
-  handleToggleCollapse,
+  handleSymbolClick,
 }) => {
   const menuIcon = (
     <a
@@ -39,7 +39,7 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
         )}
         <span
           className={`menu-toggle ${collapsed ? 'collapsed' : ''}`}
-          onClick={handleToggleCollapse}
+          onClick={handleSymbolClick}
         >
           {collapsed ? (
             <Menu width={32} height={32} />

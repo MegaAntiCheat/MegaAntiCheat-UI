@@ -51,6 +51,7 @@
   }
 
   .scoreboard-team {
+    overflow-x: hidden;
     overflow-y: auto;
   }
 }

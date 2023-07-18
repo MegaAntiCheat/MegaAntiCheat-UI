@@ -13,21 +13,6 @@
   height: 10px;
 }
 
-.playerhistory-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.playerhistory-container::-webkit-scrollbar-track {
-  background: #555;
-}
-
-.playerhistory-container::-webkit-scrollbar-thumb {
-  background: #f1f1f1;
-}
-
-.playerhistory-container::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 
 @media screen and (max-width: 1000px) {
   .playerhistory-container {
