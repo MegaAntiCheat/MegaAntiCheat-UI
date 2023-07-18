@@ -1,7 +1,7 @@
 .scoreboard-grid-container {
   display: grid;
-  height: 100vh;
-  grid-template-columns: 50% 10px 50%;
+  height: 100%;
+  grid-template-columns: 1fr 10px 1fr;
   text-align: center;
   overflow-x: hidden;
 }
@@ -9,7 +9,7 @@
 .scoreboard-nav {
   font-family: 'Build';
   display: grid;
-  grid-template-columns: 130px 53% 15% 10%;
+  grid-template-columns: 130px 1fr 15% 10%;
   margin-left: 20px;
   margin-bottom: 20px;
   text-align: start;
@@ -32,6 +32,7 @@
   margin-left: 5px;
   margin-right: 5px;
 }
+
 .red {
   color: salmon;
 }
@@ -42,18 +43,14 @@
 
 @media screen and (max-width: 980px) {
   .scoreboard-grid-container {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 100%;
-    text-align: center;
-    overflow-x: hidden;
+    grid-template-columns: 1fr;
   }
 
   .scoreboard-divider {
     display: none;
   }
+
   .scoreboard-team {
-    max-height: none;
-    overflow-y: initial;
+    overflow-y: auto;
   }
 }

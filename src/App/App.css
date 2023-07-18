@@ -2,17 +2,23 @@
   font-family: 'Build';
   src: url('../../public/tf2build.ttf');
 }
+
 .App {
   background-color: #282c34;
-  min-height: 100vh;
+  display: flex;
 }
 
-.App-header {
+.App-sidebar {
+  flex: 0 0 50px;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-color: #222;
+  color: white;
+}
+
+.App-content {
+  flex: 1;
+  min-height: 100vh;
+  padding: 10px;
   font-size: calc(10px + 2vmin);
   color: white;
 }

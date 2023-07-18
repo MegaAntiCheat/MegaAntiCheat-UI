@@ -27,8 +27,12 @@ function App() {
 
   return (
     <div className="App">
-      <SideMenu setCurrentPage={setCurrentPage} />
-      <ContentPageContainer>{renderPage()}</ContentPageContainer>
+      <div className="App-sidebar">
+        <SideMenu setCurrentPage={setCurrentPage} />
+      </div>
+      <div className="App-content">
+        <ContentPageContainer>{renderPage()}</ContentPageContainer>
+      </div>
     </div>
   );
 }
