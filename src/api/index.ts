@@ -5,6 +5,7 @@ import {
   fetchPlayerHistory,
 } from './players';
 import { setSetting, getAllSettings } from './preferences';
+import { fakedata } from './players/placeholderData';
 
 export const emptyServerData: ServerInfoResponse = {
   hostname: '',
@@ -22,4 +23,5 @@ export {
   fetchPlayerHistory,
   setSetting,
   getAllSettings,
+  fakedata,
 };

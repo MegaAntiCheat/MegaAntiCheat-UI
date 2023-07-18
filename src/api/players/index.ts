@@ -5,7 +5,9 @@ const PLAYERFETCH = `${APIURL}/user/v1`;
 const MARKPOST = `${APIURL}/mark`;
 const HISTORYFETCH = `${APIURL}/history/v1`;
 
-import { emptyServerData } from '..';
+import { emptyServerData, fakedata } from '..';
+
+const useFakedata = process.env.REACT_APP_USE_FAKEDATA ?? false;
 
 async function markPlayer(steamID64: string, verdict: string) {
   try {
@@ -31,6 +33,8 @@ async function fetchPlayerInfos({
   steamID64,
 }: PlayerInfoRequest): Promise<PlayerInfo[]> {
   try {
+    if (useFakedata) return fakedata.players;
+
     const options = {
       method: 'POST',
       body: JSON.stringify({ steamID64 }),
@@ -55,6 +59,8 @@ async function fetchPlayerHistory(
   startfrom: number = 0,
 ): Promise<PlayerInfo[]> {
   try {
+    if (useFakedata) return fakedata.players;
+
     const response = await fetch(
       `${HISTORYFETCH}?from=${startfrom}&to=${startfrom + amount}`,
     );
@@ -70,6 +76,8 @@ async function fetchPlayerHistory(
 
 async function fetchAllServerInfo(): Promise<ServerInfoResponse> {
   try {
+    if (useFakedata) return fakedata;
+
     const response = await fetch(SERVERFETCH);
 
     if (!response.ok) throw new Error('Failed to fetch server information');
