@@ -1,93 +1,94 @@
-.sidemenu-outer {
+.side-menu {
   left: 0;
-  position: absolute;
+  top: 0;
+  position: fixed;
   z-index: 999999;
   background-color: var(--dark-bg-color);
   height: 100vh;
   max-width: 400px;
-  transition: max-width 0.3s ease-in-out;
+  transition: max-width 0.2s ease-in-out;
+  outline: 1px solid var(--dark-highlight-color);
 }
 
-.sidemenu-outer.collapsed {
+.side-menu.collapsed {
   max-width: 50px;
 }
 
+.menu-header {
+  height: 88px;
+  min-height: 32px;
+  display: flex;
+  position: relative;
+  transition: height 0.2s ease-in-out;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.menu-header.collapsed {
+  height: 64px;
+  display: none;
+}
+
+.menu-title {
+  margin-right: 5%;
+  margin-left: 3%;
+  font-size: 1.5rem;
+  flex-grow: 1;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.menu-toggle {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  right: 20px;
+}
+
+.menu-toggle.collapsed {
+  position: relative;
+  top: 10px;
+  left: 8px;
+  bottom: unset;
+  transform: none;
+}
+
+.menu-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.menu-icon {
+  margin-left: 5%;
+}
+
+.menu-icon.collapsed {
+  margin-left: 0;
+  margin-top: -8px;
+  left: 8px;
+  bottom: -5px;
+  position: relative;
+}
+
+
 @media screen and (max-width: 482px) {
-  .sidemenu-outer {
+  .side-menu {
     width: 100%;
   }
 }
 
 @media screen and (min-width: 483px) and (max-width: 1024px) {
-  .sidemenu-outer {
+  .side-menu {
     width: 70%;
   }
 }
 
 @media screen and (min-width: 1025px) {
-  .sidemenu-outer {
+  .side-menu {
     width: 50%;
   }
-}
-
-.sidemenu-header {
-  height: 88px;
-  min-height: 32px;
-  display: grid;
-  position: relative;
-  transition: height 0.3s ease-in-out;
-  align-items: center;
-}
-
-.sidemenu-header.collapsed {
-  height: 64px;
-  display: none;
-}
-
-.sidemenu-title {
-  margin-right: 5%;
-  margin-left: 3%;
-  font-size: 1.5rem;
-  display: inline-block;
-  vertical-align: 20%;
-  transition: display 0.5s ease-in-out;
-  display: unset;
-}
-
-.sidemenu-title.sidemenu-icon.collapsed {
-  display: none;
-  transition: display 0.5s ease-in-out;
-}
-
-.sidemenu-toggle {
-  width: 32px;
-  height: 32px;
-  right: 40px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.sidemenu-toggle.collapsed {
-  left: 0.35em;
-  bottom: 20px;
-  top: -6px;
-  position: absolute;
-}
-
-.sidemenu-header-flex {
-  left: 5%;
-  position: relative;
-}
-
-.sidemenu-icon {
-  left: 5%;
-}
-
-.sidemenu-icon.collapsed {
-  left: 0.05em;
-  position: relative;
-  margin-left: 15%;
-  margin-top: 0px;
 }
