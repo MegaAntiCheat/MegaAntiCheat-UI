@@ -4,14 +4,13 @@
 }
 
 .App {
-  background-color: #282c34;
+  background-color: var(--dark-background);
   display: flex;
 }
 
 .App-sidebar {
   flex: 0 0 50px;
   min-height: 100vh;
-  background-color: #222;
   color: white;
 }
 

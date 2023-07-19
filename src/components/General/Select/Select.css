@@ -9,7 +9,7 @@
   justify-content: space-between;
   border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 2px 16px;
-  background-color: var(--dark-bg-color);
+  background-color: var(--dark-highlight-color);
   border-radius: 3px;
   cursor: pointer;
   transition: border-color 0.3s ease;

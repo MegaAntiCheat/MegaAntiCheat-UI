@@ -9,7 +9,7 @@
 .scoreboard-nav {
   font-family: 'Build';
   display: grid;
-  grid-template-columns: 130px 1fr 15% 10%;
+  grid-template-columns: 130px minmax(100px, 1fr) 90px 45px;
   margin-left: 20px;
   margin-bottom: 20px;
   text-align: start;
@@ -26,9 +26,10 @@
 }
 
 .scoreboard-divider {
-  height: 100%;
+  height: 90%;
   background-color: rgba(128, 128, 128, 0.312);
   width: 1px;
+  margin-top: 35px;
   margin-left: 5px;
   margin-right: 5px;
 }

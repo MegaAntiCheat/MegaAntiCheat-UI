@@ -35,7 +35,7 @@ export const fakedata: ServerInfoResponse = {
       verdict: 'None',
       gameInfo: {
         deaths: 0,
-        state: 'In-Game',
+        state: 'Active',
         kills: 0,
         team: 3,
         loss: 0,
@@ -56,7 +56,7 @@ export const fakedata: ServerInfoResponse = {
       verdict: 'None',
       gameInfo: {
         deaths: 0,
-        state: 'Joining',
+        state: 'Active',
         kills: 0,
         team: 2,
         loss: 0,
@@ -76,7 +76,7 @@ export const fakedata: ServerInfoResponse = {
       verdict: 'None',
       gameInfo: {
         deaths: 0,
-        state: 'In-Game',
+        state: 'Active',
         kills: 0,
         team: 2,
         loss: 0,
@@ -96,7 +96,7 @@ export const fakedata: ServerInfoResponse = {
       verdict: 'None',
       gameInfo: {
         deaths: 0,
-        state: 'In-Game',
+        state: 'Active',
         kills: 0,
         team: 3,
         loss: 0,

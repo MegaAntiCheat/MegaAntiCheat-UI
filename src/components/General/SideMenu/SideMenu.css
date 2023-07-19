@@ -3,7 +3,7 @@
   top: 0;
   position: fixed;
   z-index: 999999;
-  background-color: var(--dark-bg-color);
+  background-color: var(--dark-sidebar-color);
   height: 100vh;
   max-width: 400px;
   transition: max-width 0.2s ease-in-out;
@@ -64,6 +64,9 @@
 
 .menu-icon {
   margin-left: 5%;
+  top: 3px;
+  position: relative;
+  transition: bottom 0.3s ease-in-out;
 }
 
 .menu-icon.collapsed {
@@ -72,6 +75,7 @@
   left: 8px;
   bottom: -5px;
   position: relative;
+  transition: bottom 0.3s ease-in-out;
 }
 
 
