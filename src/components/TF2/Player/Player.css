@@ -2,7 +2,7 @@
   width: 100%;
   align-items: center;
   display: grid;
-  grid-template-columns: 130px minmax(100px, 1fr) 32px minmax(0px, 100px) minmax(0px, 60px);
+  grid-template-columns: 130px minmax(100px, 1fr) 18px minmax(0px, 100px) minmax(0px, 60px);
   padding-left: 5px;
   margin-right: 5px;
   padding-top: 2px;
