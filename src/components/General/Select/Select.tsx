@@ -28,6 +28,15 @@ const Select = ({
     if (typeof onChange === 'function') onChange(value);
   };
 
+  const shouldRenderOptionsBelow = () => {
+    if (!selectRef.current) return true;
+    const { top, height } = selectRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const spaceBelow = windowHeight - top - height;
+    const spaceAbove = top;
+    return spaceBelow >= spaceAbove;
+  };
+
   const handleOutsideClick = (event: MouseEvent) => {
     if (
       selectRef.current &&
@@ -74,7 +83,11 @@ const Select = ({
         </div>
       </div>
       {isOpen && (
-        <div className="select-options-container">
+        <div
+          className={`select-options-container ${
+            shouldRenderOptionsBelow() ? 'render-below' : 'render-above'
+          }`}
+        >
           <ul className="select-options" role="listbox">
             {options.map((e) => (
               <li

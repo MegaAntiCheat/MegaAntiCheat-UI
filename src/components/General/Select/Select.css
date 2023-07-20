@@ -76,3 +76,13 @@
 .disabled {
   color: rgba(89, 89, 89, 0.4);
 }
+
+.select-head.render-above {
+  bottom: calc(100% + 2px);
+  top: auto;
+}
+
+.select-options-container.render-above {
+  bottom: 100%;
+  top: auto;
+}
