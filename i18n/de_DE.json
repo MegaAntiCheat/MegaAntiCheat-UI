@@ -21,5 +21,10 @@
   "ACC_CREATION": "Erstellung",
   "GAME": "Spiel",
   "IN_GAME": "Im Spiel",
-  "JOINING": "Beitretend"
+  "JOINING": "Beitretend",
+  "PREF_GENERAL": "Generelles",
+  "PREF_COLORS": "Farben",
+  "PREF_ADVANCED": "Erweitert",
+  "PREF_STEAM_API_KEY": "Steam API Schlüssel",
+  "PREF_RCON_PASSWORD": "RCon Passwort"
 }

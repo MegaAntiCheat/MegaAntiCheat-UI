@@ -43,7 +43,11 @@ const ColorSelector = ({
     <div>
       {isExpanded ? (
         <Flex className="popover colorselect">
-          <HexColorPicker color={selectedColor} onChange={handleColorChange} />
+          <HexColorPicker
+            color={selectedColor}
+            onChange={handleColorChange}
+            className="colorpicker"
+          />
           <X className="colorselect-close" onClick={handleExpandChange} />
         </Flex>
       ) : (

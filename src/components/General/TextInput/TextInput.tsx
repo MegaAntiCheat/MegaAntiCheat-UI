@@ -5,9 +5,15 @@ interface TextInput {
   value?: string;
   onChange?: (event: string) => void;
   placeholder?: string;
+  type?: string;
 }
 
-const TextInput = ({ value, onChange, placeholder }: TextInput) => {
+const TextInput = ({
+  value,
+  onChange,
+  placeholder,
+  type = 'text',
+}: TextInput) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     if (typeof onChange === 'function') onChange(inputValue);
@@ -16,7 +22,7 @@ const TextInput = ({ value, onChange, placeholder }: TextInput) => {
   return (
     <div className="text-input-container">
       <input
-        type="text"
+        type={type}
         className="text-input"
         placeholder={placeholder}
         value={value}

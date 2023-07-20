@@ -1,0 +1,25 @@
+.preference-container {
+  position: relative;
+  margin-left: 50px;
+  font-size: large;
+}
+
+.preference-option {
+  width: 90%;
+  margin-left: 10%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.preference-title {
+  margin-right: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preference-select {
+  width: 110px;
+}

@@ -42,12 +42,6 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
       <div className="side-menu-content">
         <Divider size={2} />
         <SideMenuItem
-          title={t('PREFERENCES')}
-          Icon={<Settings2 />}
-          collapsed={collapsed}
-          onClick={() => setCurrentPage('preferences')}
-        />
-        <SideMenuItem
           title={t('PLAYERLIST')}
           Icon={<Users2 />}
           collapsed={collapsed}
@@ -58,6 +52,12 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
           Icon={<History />}
           collapsed={collapsed}
           onClick={() => setCurrentPage('playerhistory')}
+        />
+        <SideMenuItem
+          title={t('PREFERENCES')}
+          Icon={<Settings2 />}
+          collapsed={collapsed}
+          onClick={() => setCurrentPage('preferences')}
         />
       </div>
     </div>

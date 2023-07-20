@@ -1,16 +1,22 @@
 import React, { ReactNode } from 'react';
 import './Accordion.css';
-import { Flex } from '@components/General';
+import { Divider, Flex } from '@components/General';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface Accordion {
   title?: string;
   children?: ReactNode;
+  defaultOpen?: boolean;
   className?: string;
 }
 
-const Accordion = ({ title, children, className }: Accordion) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+const Accordion = ({
+  title,
+  children,
+  className,
+  defaultOpen = true,
+}: Accordion) => {
+  const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
@@ -27,6 +33,7 @@ const Accordion = ({ title, children, className }: Accordion) => {
         </div>
         <h3 className="accordion-title">{title}</h3>
       </Flex>
+      {isOpen && <Divider size={1} className="accordion-divider" />}
       {isOpen && <div className="accordion-content">{children}</div>}
     </div>
   );
