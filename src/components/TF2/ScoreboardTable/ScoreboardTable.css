@@ -9,7 +9,7 @@
 .scoreboard-nav {
   font-family: 'Build';
   display: grid;
-  grid-template-columns: 130px minmax(100px, 1fr) 90px 45px;
+  grid-template-columns: 135px minmax(100px, 1fr) 90px 45px;
   margin-left: 20px;
   margin-bottom: 20px;
   text-align: start;
