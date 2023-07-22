@@ -1,11 +1,18 @@
 .preference-container {
+  height: 100vh;
   position: relative;
-  margin-left: 50px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.preferences {
+  margin-left: 60px;
   font-size: large;
 }
 
 .preference-option {
-  width: 90%;
+  width: 100%;
   margin-left: 10%;
   display: grid;
   grid-template-columns: 50% 50%;
@@ -14,7 +21,6 @@
 }
 
 .preference-title {
-  margin-right: 60%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

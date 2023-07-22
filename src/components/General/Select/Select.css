@@ -40,7 +40,6 @@
 
 .select-options-container {
   position: absolute;
-  top: calc(100% + 2px);
   left: 0;
   width: 100%;
   z-index: 9999;
@@ -54,6 +53,9 @@
   border: 1px solid var(--dark-bg-main-color);
   z-index: 999;
   max-height: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .select-option {
@@ -76,12 +78,20 @@
   color: rgba(89, 89, 89, 0.4);
 }
 
-.select-head.render-above {
+.select-head.above {
   bottom: calc(100% + 2px);
   top: auto;
 }
 
-.select-options-container.render-above {
+.select-options-container.above {
   bottom: 100%;
   top: auto;
+}
+
+.select-head.below {
+  top: calc(100% + 2px);
+}
+
+.select-options-container.below {
+  top: 100%;
 }

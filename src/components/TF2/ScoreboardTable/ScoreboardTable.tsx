@@ -10,41 +10,36 @@ interface ScoreboardTableType {
 }
 
 const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
+  const renderTeam = (team?: PlayerInfo[], teamColor?: string) => {
+    return (
+      <div>
+        <div className={`scoreboard-header ${teamColor?.toLowerCase()}`}>
+          {teamColor} ({team?.length ?? 0})
+        </div>
+        <Flex className="scoreboard-nav">
+          <div>{t('TEAM_NAV_RATING')}</div>
+          <div>{t('TEAM_NAV_USER')}</div>
+          <div>{t('TEAM_NAV_STATUS')}</div>
+          <div>{t('TEAM_NAV_TIME')}</div>
+        </Flex>
+        <div className={`scoreboard-team ${teamColor?.toLowerCase()}`}>
+          {team?.map((player) => (
+            <Player
+              className={teamColor?.toLowerCase()}
+              player={player}
+              key={player.steamID64}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="scoreboard-grid-container">
-      <div>
-        <div className="scoreboard-header blu">BLU ({BLU?.length ?? 0})</div>
-        <Flex className="scoreboard-nav">
-          <div>{t('TEAM_NAV_RATING')}</div>
-          <div>{t('TEAM_NAV_USER')}</div>
-          <div>{t('TEAM_NAV_STATUS')}</div>
-          <div>{t('TEAM_NAV_TIME')}</div>
-        </Flex>
-        <div className="scoreboard-team">
-          {BLU?.map((player) => {
-            return (
-              <Player className="blu" player={player} key={player.steamID64} />
-            );
-          })}
-        </div>
-      </div>
+      {renderTeam(BLU, 'BLU')}
       <div className="scoreboard-divider" />
-      <div>
-        <div className="scoreboard-header red">RED ({RED?.length ?? 0})</div>
-        <Flex className="scoreboard-nav">
-          <div>{t('TEAM_NAV_RATING')}</div>
-          <div>{t('TEAM_NAV_USER')}</div>
-          <div>{t('TEAM_NAV_STATUS')}</div>
-          <div>{t('TEAM_NAV_TIME')}</div>
-        </Flex>
-        <div className="scoreboard-team">
-          {RED?.map((player) => {
-            return (
-              <Player className="red" player={player} key={player.steamID64} />
-            );
-          })}
-        </div>
-      </div>
+      {renderTeam(RED, 'RED')}
     </div>
   );
 };

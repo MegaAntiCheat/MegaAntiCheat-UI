@@ -32,9 +32,9 @@ const Select = ({
     if (!selectRef.current) return true;
     const { top, height } = selectRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    const spaceBelow = windowHeight - top - height;
-    const spaceAbove = top;
-    return spaceBelow >= spaceAbove;
+    // 75 seems to work
+    const spaceBelow = windowHeight - top - height - 75;
+    return spaceBelow >= height;
   };
 
   const handleOutsideClick = (event: MouseEvent) => {
@@ -85,7 +85,7 @@ const Select = ({
       {isOpen && (
         <div
           className={`select-options-container ${
-            shouldRenderOptionsBelow() ? 'render-below' : 'render-above'
+            shouldRenderOptionsBelow() ? 'below' : 'above'
           }`}
         >
           <ul className="select-options" role="listbox">

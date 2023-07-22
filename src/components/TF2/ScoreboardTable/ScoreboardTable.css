@@ -1,7 +1,7 @@
 .scoreboard-grid-container {
   display: grid;
-  height: 100%;
-  grid-template-columns: 1fr 10px 1fr;
+  height: 100vh;
+  grid-template-columns: 1fr 3px 1fr;
   text-align: center;
   overflow-x: hidden;
 }
@@ -30,8 +30,8 @@
   background-color: rgba(128, 128, 128, 0.312);
   width: 1px;
   margin-top: 35px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .red {
@@ -46,13 +46,8 @@
   .scoreboard-grid-container {
     grid-template-columns: 1fr;
   }
-
+  
   .scoreboard-divider {
     display: none;
-  }
-
-  .scoreboard-team {
-    overflow-x: hidden;
-    overflow-y: auto;
   }
 }
