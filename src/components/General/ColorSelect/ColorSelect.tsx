@@ -56,7 +56,6 @@ const ColorSelector = ({
   };
 
   const handleExpandChange = (event: React.MouseEvent) => {
-    event.stopPropagation();
     setIsExpanded(!isExpanded);
     isFirstClickRef.current = true;
   };
