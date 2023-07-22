@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Build';
+  src: url('../../public/tf2build.ttf');
+}
+
+.App {
+  background-color: var(--dark-background);
+  display: flex;
+}
+
+.App-sidebar {
+  flex: 0 0 50px;
+  min-height: 100vh;
+  color: white;
+}
+
+.App-content {
+  flex: 1;
+  min-height: 100vh;
+  padding: 10px;
+  color: white;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #555;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

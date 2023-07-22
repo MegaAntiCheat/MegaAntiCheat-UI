@@ -1,0 +1,27 @@
+.playerhistory-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+}
+
+.history-search {
+  width: calc(100% - 40px);
+}
+
+.history-sort {
+  height: 10px;
+}
+
+
+@media screen and (max-width: 1000px) {
+  .playerhistory-container {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+
+  .history-search {
+    width: calc(100% - 10px);
+    margin-right: calc(20px);
+  }
+}

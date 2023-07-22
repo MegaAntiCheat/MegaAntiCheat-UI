@@ -1,0 +1,27 @@
+.miniscore-container {
+  position: absolute;
+  display: grid;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Build';
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--dark-highlight-color);
+}
+
+.miniscore-team-container {
+  margin-bottom: 5%;
+}
+
+.miniscore-team {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.miniscore-text {
+  font-size: 16px;
+}
+
+.miniscore-value {
+  margin: -5px 20px;
+}

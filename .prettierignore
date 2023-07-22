@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+package*.json
+pnpm-lock.yaml
+
+# Production
+dist
+
+# CSS files
+*.css

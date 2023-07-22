@@ -1,0 +1,53 @@
+.scoreboard-grid-container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 3px 1fr;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.scoreboard-nav {
+  font-family: 'Build';
+  display: grid;
+  grid-template-columns: 135px minmax(100px, 1fr) 90px 45px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  text-align: start;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.scoreboard-header {
+  font-family: 'Build';
+  font-size: xx-large;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.scoreboard-divider {
+  height: 90%;
+  background-color: rgba(128, 128, 128, 0.312);
+  width: 1px;
+  margin-top: 35px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.red {
+  color: salmon;
+}
+
+.blu {
+  color: skyblue;
+}
+
+@media screen and (max-width: 980px) {
+  .scoreboard-grid-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .scoreboard-divider {
+    display: none;
+  }
+}

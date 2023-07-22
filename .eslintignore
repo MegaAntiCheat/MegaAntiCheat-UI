@@ -1,0 +1,14 @@
+# Dependencies
+/node_modules
+
+# Production
+/dist
+/build
+
+# CSS Files
+*.css
+
+# Configuration
+webpack.config.js
+tsconfig.json
+package*.json
