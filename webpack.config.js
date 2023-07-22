@@ -35,9 +35,7 @@ module.exports = (env) => {
         template: path.join(__dirname, 'public', 'index.html'),
       }),
       new webpack.DefinePlugin({
-        'process.env.REACT_APP_USE_FAKEDATA': JSON.stringify(
-          process.env.REACT_APP_USE_FAKEDATA,
-        ),
+        'process.env': process.env,
       }),
     ],
   };

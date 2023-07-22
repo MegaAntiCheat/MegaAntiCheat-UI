@@ -15,8 +15,7 @@
     "lint": "pnpx eslint . && pnpx prettier -c \"src/**/*\"",
     "lint:fix": "pnpx eslint --fix . && pnpx prettier --write \"src/**/*\"",
     "build": "pnpm run lint && webpack",
-    "dev": "concurrently -k \"pnpm run start\" \"tsc -w\"",
-    "dev:fakedata": "concurrently -k \"dotenv -e .env webpack serve\" \"tsc -w\""
+    "dev": "concurrently -k \"dotenv -e .env webpack serve\" \"tsc -w\""
   },
   "devDependencies": {
     "@types/node": "^20.4.2",
