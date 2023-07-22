@@ -89,7 +89,12 @@ const Player = ({ player, icon, className }: Player) => {
           src={pfp}
           alt="Profile"
         />
-        <div className="player-name">{player.name}</div>
+        <div
+          className="player-name"
+          onClick={() => parent.open(player.steamInfo?.profileUrl)}
+        >
+          {player.name}
+        </div>
       </Flex>
       {icon ? (
         <img
