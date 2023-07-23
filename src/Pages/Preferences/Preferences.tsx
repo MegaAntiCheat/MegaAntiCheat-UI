@@ -41,11 +41,15 @@ const Preferences = () => {
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">
             <Flex className="preference-option">
+              <div className="preference-title">{t('YOU')}</div>
+              <ColorSelector />
+            </Flex>
+            <Flex className="preference-option">
               <div className="preference-title">{t('PLAYER')}</div>
               <ColorSelector />
             </Flex>
             <Flex className="preference-option">
-              <div className="preference-title">{t('CHEATER')}</div>
+              <div className="preference-title">{t('TRUSTED')}</div>
               <ColorSelector />
             </Flex>
             <Flex className="preference-option">
@@ -53,7 +57,7 @@ const Preferences = () => {
               <ColorSelector />
             </Flex>
             <Flex className="preference-option">
-              <div className="preference-title">{t('TRUSTED')}</div>
+              <div className="preference-title">{t('CHEATER')}</div>
               <ColorSelector />
             </Flex>
             <Flex className="preference-option">

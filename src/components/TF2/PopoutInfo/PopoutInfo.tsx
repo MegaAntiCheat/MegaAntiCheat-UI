@@ -8,6 +8,14 @@ interface PopoutInfoProps {
   className?: string;
 }
 
+function calculateKD(kills: number = 0, deaths: number = 0): string {
+  // No Kills, No KD
+  if (!kills) return '0.00';
+  // No Deaths but Kills, KD will always be Kills
+  if (!deaths) return kills.toFixed(2);
+  return (kills / deaths).toFixed(2);
+}
+
 const PopoutInfo = ({ player, className }: PopoutInfoProps) => {
   const [showPopout, setShowPopout] = React.useState(false);
   const popoutRef = React.useRef<HTMLDivElement>(null);
@@ -27,6 +35,8 @@ const PopoutInfo = ({ player, className }: PopoutInfoProps) => {
     const spaceBelow = windowHeight - top - height - 200;
     return spaceBelow >= height;
   };
+
+  const actualKD = calculateKD(player.gameInfo?.kills, player.gameInfo?.deaths);
 
   return (
     <div
@@ -49,12 +59,7 @@ const PopoutInfo = ({ player, className }: PopoutInfoProps) => {
           <div>
             {t('DEATHS')}: {player.gameInfo?.deaths ?? 0}
           </div>
-          <div>
-            K/D:{' '}
-            {(
-              (player.gameInfo?.kills ?? 1) / (player.gameInfo?.deaths ?? 1)
-            ).toPrecision(2)}
-          </div>
+          <div>K/D: {actualKD}</div>
           <div>
             {t('PING')}: {player.gameInfo?.ping ?? 0}ms
           </div>
