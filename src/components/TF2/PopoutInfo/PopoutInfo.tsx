@@ -1,11 +1,11 @@
-import React from 'react';
-import { Player } from '@components/TF2';
+import React, { ReactNode } from 'react';
 import './PopoutInfo.css';
 import { t } from '@i18n';
 
 interface PopoutInfoProps {
   player: PlayerInfo;
   className?: string;
+  children: ReactNode;
 }
 
 function calculateKD(kills: number = 0, deaths: number = 0): string {
@@ -16,7 +16,7 @@ function calculateKD(kills: number = 0, deaths: number = 0): string {
   return (kills / deaths).toFixed(2);
 }
 
-const PopoutInfo = ({ player, className }: PopoutInfoProps) => {
+const PopoutInfo = ({ player, className, children }: PopoutInfoProps) => {
   const [showPopout, setShowPopout] = React.useState(false);
   const popoutRef = React.useRef<HTMLDivElement>(null);
 
@@ -46,7 +46,7 @@ const PopoutInfo = ({ player, className }: PopoutInfoProps) => {
       className={`popoutinfo-container ${className}`}
       style={{ position: 'relative' }}
     >
-      {<Player player={player} />}
+      {children}
       {showPopout && (
         <div
           className={`popoutinfo-content ${

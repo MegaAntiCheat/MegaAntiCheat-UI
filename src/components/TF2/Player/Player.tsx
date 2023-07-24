@@ -56,9 +56,10 @@ interface Player {
   player: PlayerInfo;
   icon?: string;
   className?: string;
+  onImageLoad?: () => void;
 }
 
-const Player = ({ player, icon, className }: Player) => {
+const Player = ({ player, icon, className, onImageLoad }: Player) => {
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')
@@ -88,6 +89,7 @@ const Player = ({ player, icon, className }: Player) => {
           height={24}
           src={pfp}
           alt="Profile"
+          onLoad={onImageLoad}
         />
         <div
           className="player-name"

@@ -1,7 +1,7 @@
 import React from 'react';
 import './ScoreboardTable.css';
 
-import { PopoutInfo } from '@components/TF2';
+import { Player, PopoutInfo } from '@components/TF2';
 import { Flex } from '@components/General';
 import { t } from '@i18n';
 interface ScoreboardTableType {
@@ -10,6 +10,13 @@ interface ScoreboardTableType {
 }
 
 const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
+  // Update the Scoreboard everytime a PFP is loaded
+  const [, setLoadedPFPCount] = React.useState(0);
+
+  const handlePFPImageLoad = () => {
+    setLoadedPFPCount((prevCount) => prevCount + 1);
+  };
+
   const renderTeam = (team?: PlayerInfo[], teamColor?: string) => {
     return (
       <div>
@@ -29,7 +36,14 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
               className={teamColor?.toLowerCase()}
               player={player}
               key={player.steamID64}
-            />
+            >
+              <Player
+                className={teamColor?.toLowerCase()}
+                player={player}
+                key={player.steamID64}
+                onImageLoad={handlePFPImageLoad}
+              />
+            </PopoutInfo>
           ))}
         </div>
       </div>
