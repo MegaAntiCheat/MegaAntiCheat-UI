@@ -13,7 +13,7 @@ interface AccordionProps {
 const Accordion = ({
   title,
   children,
-  className,
+  className = '',
   defaultOpen = true,
 }: AccordionProps) => {
   const [isOpen, setIsOpen] = React.useState(defaultOpen);

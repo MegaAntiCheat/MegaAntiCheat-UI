@@ -19,6 +19,25 @@
   z-index: 1;
 }
 
+.tooltip.right {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+}
+
+.tooltip.left {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+
+.tooltip.top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
 .tooltip-container:hover .tooltip {
   display: block;
 }

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Book } from 'lucide-react';
-import { Flex } from '@components/General';
+import { Flex, Tooltip } from '@components/General';
 import './SideMenuItem.css';
 
 interface SideMenuItemProps {
@@ -16,17 +16,29 @@ const SideMenuItem = ({
   onClick,
   collapsed = false,
 }: SideMenuItemProps) => {
-  return (
-    <div
-      className={`sm-item-outer ${collapsed ? 'collapsed' : ''}`}
-      onClick={onClick}
-    >
+  const SideMenuInner = () => {
+    return (
       <Flex className="sm-item-flex">
         <div className="sm-item-icon">{Icon}</div>
         <div className={`sm-item-title ${collapsed ? 'blocked' : ''}`}>
           {title}
         </div>
       </Flex>
+    );
+  };
+
+  return (
+    <div
+      className={`sm-item-outer ${collapsed ? 'collapsed' : ''}`}
+      onClick={onClick}
+    >
+      {collapsed ? (
+        <Tooltip content={title} direction="right">
+          <SideMenuInner />
+        </Tooltip>
+      ) : (
+        <SideMenuInner />
+      )}
     </div>
   );
 };

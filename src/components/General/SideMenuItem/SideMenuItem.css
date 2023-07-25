@@ -23,6 +23,7 @@
 }
 
 .sm-item-title {
+  overflow: hidden;
   font-size: large;
   margin-left: 5%;
 }

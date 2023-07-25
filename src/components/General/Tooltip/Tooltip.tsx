@@ -5,9 +5,15 @@ interface TooltipProps {
   content: string;
   className?: string;
   children?: ReactNode;
+  direction?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-const Tooltip = ({ content, className, children }: TooltipProps) => {
+const Tooltip = ({
+  content,
+  className = '',
+  children,
+  direction = 'top',
+}: TooltipProps) => {
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
   const handleMouseEnter = () => {
@@ -25,7 +31,9 @@ const Tooltip = ({ content, className, children }: TooltipProps) => {
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      {isTooltipVisible && <div className="tooltip">{content}</div>}
+      {isTooltipVisible && (
+        <div className={`tooltip ${direction}`}>{content}</div>
+      )}
     </div>
   );
 };

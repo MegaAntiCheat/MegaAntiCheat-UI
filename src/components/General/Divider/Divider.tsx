@@ -7,7 +7,7 @@ interface DividerProps {
   className?: string;
 }
 
-const Divider = ({ size = 1, padding = 0, className }: DividerProps) => {
+const Divider = ({ size = 1, padding = 0, className = '' }: DividerProps) => {
   return (
     <div
       className={`divider ${className}`}

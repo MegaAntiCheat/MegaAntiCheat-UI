@@ -9,7 +9,7 @@ interface SearchProps {
 
 const Search = ({
   onChange,
-  className,
+  className = '',
   placeholder = 'Search',
 }: SearchProps) => {
   const [searchQuery, setSearchQuery] = React.useState('');

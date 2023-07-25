@@ -15,7 +15,7 @@ const Select = ({
   options,
   placeholder = t('COMPONENT_SELECT'),
   onChange,
-  className,
+  className = '',
   disabled = false,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
