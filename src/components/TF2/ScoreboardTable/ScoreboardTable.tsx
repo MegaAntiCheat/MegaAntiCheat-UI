@@ -19,7 +19,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
 
   const renderTeam = (team?: PlayerInfo[], teamColor?: string) => {
     return (
-      <div>
+      <div className={`scoreboard-grid-half ${teamColor}`}>
         <div className={`scoreboard-header ${teamColor?.toLowerCase()}`}>
           {teamColor} ({team?.length ?? 0})
         </div>

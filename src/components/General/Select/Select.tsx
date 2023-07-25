@@ -9,6 +9,8 @@ interface SelectProps {
   onChange?: (value: string | number) => void;
   className?: string;
   disabled?: boolean;
+  onMouseEnter?: (event: React.MouseEvent) => void;
+  onMouseLeave?: (event: React.MouseEvent) => void;
 }
 
 const Select = ({
@@ -17,6 +19,8 @@ const Select = ({
   onChange,
   className = '',
   disabled = false,
+  onMouseEnter,
+  onMouseLeave,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(placeholder);
@@ -73,6 +77,8 @@ const Select = ({
       aria-haspopup="listbox"
       aria-expanded={isOpen}
       aria-disabled={disabled}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <div className={`select-head ${isOpen ? 'active' : ''}`}>
         <div className="select-text" aria-hidden="true">

@@ -2,6 +2,12 @@ import React, { ReactNode } from 'react';
 import './PopoutInfo.css';
 import { t } from '@i18n';
 
+enum Teams {
+  UNASSIGNED,
+  SPEC,
+  RED,
+  BLU,
+}
 interface PopoutInfoProps {
   player: PlayerInfo;
   className?: string;
@@ -18,10 +24,24 @@ function calculateKD(kills: number = 0, deaths: number = 0): string {
 
 const PopoutInfo = ({ player, className, children }: PopoutInfoProps) => {
   const [showPopout, setShowPopout] = React.useState(false);
+  const [popoutPosition, setPopoutPosition] = React.useState({ left: 0 });
   const popoutRef = React.useRef<HTMLDivElement>(null);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (event: React.MouseEvent) => {
     setShowPopout(true);
+
+    // Calculate the left position based on the mouse position
+    if (!player.gameInfo?.team) return;
+
+    const gridContainer = document.querySelector(
+      `.scoreboard-grid-half.${Teams[player.gameInfo?.team]}`,
+    );
+    if (gridContainer) {
+      const gridRect = gridContainer.getBoundingClientRect();
+      // Don't cover the verdict select EVER
+      const left = Math.max(200, event.clientX - gridRect.left);
+      setPopoutPosition({ left });
+    }
   };
 
   const handleMouseLeave = () => {
@@ -44,7 +64,6 @@ const PopoutInfo = ({ player, className, children }: PopoutInfoProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`popoutinfo-container ${className}`}
-      style={{ position: 'relative' }}
     >
       {children}
       {showPopout && (
@@ -52,6 +71,7 @@ const PopoutInfo = ({ player, className, children }: PopoutInfoProps) => {
           className={`popoutinfo-content ${
             shouldRenderOptionsBelow() ? 'below' : 'above'
           }`}
+          style={{ left: popoutPosition.left, transform: 'translateX(-50%)' }}
         >
           <div>
             {t('KILLS')}: {player.gameInfo?.kills ?? 0}

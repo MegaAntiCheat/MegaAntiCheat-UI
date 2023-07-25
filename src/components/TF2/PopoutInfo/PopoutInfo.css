@@ -1,10 +1,14 @@
 .popout-container {
-  position: absolute;
   display: inline-block;
   cursor: pointer;
 }
 
+.popoutinfo-container {
+  position: relative;
+}
+
 .popoutinfo-content {
+  pointer-events: none;
   border-radius: 1px;
   position: absolute;
   background: var(--dark-bg-color);
@@ -13,7 +17,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 999;
   min-width: 100px;
-  left: 40%
 }
 
 .popoutinfo-content.above {
