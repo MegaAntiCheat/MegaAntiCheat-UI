@@ -2,7 +2,7 @@ import React from 'react';
 import './MiniScoreboard.css';
 import { Flex } from '@components/General';
 
-interface MiniScoreboard {
+interface MiniScoreboardProps {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
 }
@@ -23,7 +23,7 @@ function calculateSusAndCheater(players: PlayerInfo[]): {
   return { suspicious, cheating, total: cheating + suspicious };
 }
 
-const MiniScoreboard = ({ RED, BLU }: MiniScoreboard) => {
+const MiniScoreboard = ({ RED, BLU }: MiniScoreboardProps) => {
   const verdictsRED = calculateSusAndCheater(RED ?? []);
   const verdictsBLU = calculateSusAndCheater(BLU ?? []);
 

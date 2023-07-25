@@ -4,7 +4,7 @@ import { Flex } from '@components/General';
 import { HexColorPicker } from 'react-colorful';
 import './ColorSelect.css';
 
-interface ColorSelector {
+interface ColorSelectorProps {
   onChange?: (e: string) => void;
   placeholder?: string;
 }
@@ -12,7 +12,7 @@ interface ColorSelector {
 const ColorSelector = ({
   onChange,
   placeholder = '#ffffff',
-}: ColorSelector) => {
+}: ColorSelectorProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [selectedColor, setSelectedColor] = React.useState(placeholder);
   const colorRef = React.useRef<HTMLDivElement>(null);

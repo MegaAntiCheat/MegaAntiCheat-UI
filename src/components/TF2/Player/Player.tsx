@@ -52,14 +52,14 @@ function displayProperStatus(status: string) {
   return t('JOINING');
 }
 
-interface Player {
+interface PlayerProps {
   player: PlayerInfo;
   icon?: string;
   className?: string;
   onImageLoad?: () => void;
 }
 
-const Player = ({ player, icon, className, onImageLoad }: Player) => {
+const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')

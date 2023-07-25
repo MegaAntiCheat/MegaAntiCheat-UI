@@ -3,7 +3,7 @@ import { CheckSquare, Square } from 'lucide-react';
 
 import './Checkbox.css';
 
-interface CheckboxType {
+interface CheckboxProps {
   onChange?: (e: boolean) => void;
   title?: string;
   className?: string;
@@ -15,7 +15,7 @@ const Checkbox = ({
   className = '',
   disabled = false,
   onChange,
-}: CheckboxType) => {
+}: CheckboxProps) => {
   const [checked, setChecked] = React.useState(false);
 
   const handleClick = () => {

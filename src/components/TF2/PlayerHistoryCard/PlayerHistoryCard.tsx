@@ -4,7 +4,7 @@ import { AlertOctagon, EyeOff, ShieldAlert } from 'lucide-react';
 import './PlayerHistoryCard.css';
 import { t } from '@i18n';
 
-interface PlayerHistoryCard {
+interface PlayerHistoryCardProps {
   player: PlayerInfo;
 }
 
@@ -25,7 +25,7 @@ function formVerdict(verdict: string | undefined) {
   return verdict;
 }
 
-const PlayerHistoryCard = ({ player }: PlayerHistoryCard) => {
+const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;

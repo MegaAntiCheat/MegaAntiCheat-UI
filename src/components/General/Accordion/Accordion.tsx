@@ -3,7 +3,7 @@ import './Accordion.css';
 import { Divider, Flex } from '@components/General';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
-interface Accordion {
+interface AccordionProps {
   title?: string;
   children?: ReactNode;
   defaultOpen?: boolean;
@@ -15,7 +15,7 @@ const Accordion = ({
   children,
   className,
   defaultOpen = true,
-}: Accordion) => {
+}: AccordionProps) => {
   const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
   const toggleAccordion = () => {

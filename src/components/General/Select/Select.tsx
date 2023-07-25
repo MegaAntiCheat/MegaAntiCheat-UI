@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import './Select.css';
 import { t } from '@i18n';
 
-interface SelectType {
+interface SelectProps {
   options: SelectOption[];
   placeholder?: string;
   onChange?: (value: string | number) => void;
@@ -17,7 +17,7 @@ const Select = ({
   onChange,
   className,
   disabled = false,
-}: SelectType) => {
+}: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(placeholder);
   const selectRef = useRef<HTMLDivElement>(null);

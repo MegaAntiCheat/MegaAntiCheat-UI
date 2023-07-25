@@ -4,12 +4,12 @@ import './ScoreboardTable.css';
 import { Player, PopoutInfo } from '@components/TF2';
 import { Flex } from '@components/General';
 import { t } from '@i18n';
-interface ScoreboardTableType {
+interface ScoreboardTableProps {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
 }
 
-const ScoreboardTable = ({ BLU, RED }: ScoreboardTableType) => {
+const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   // Update the Scoreboard everytime a PFP is loaded
   const [, setLoadedPFPCount] = React.useState(0);
 

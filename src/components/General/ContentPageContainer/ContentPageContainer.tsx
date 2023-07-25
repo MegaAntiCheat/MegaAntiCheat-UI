@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import './ContentPageContainer.css';
 
-interface ContentPageType {
+interface ContentPageProps {
   children: ReactNode;
 }
 
-const ContentPageContainer = ({ children }: ContentPageType) => {
+const ContentPageContainer = ({ children }: ContentPageProps) => {
   return <div className="content-page">{children}</div>;
 };
 

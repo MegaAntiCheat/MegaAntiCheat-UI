@@ -3,7 +3,7 @@ import { Book } from 'lucide-react';
 import { Flex } from '@components/General';
 import './SideMenuItem.css';
 
-interface SideMenuItemTypes {
+interface SideMenuItemProps {
   title: string;
   Icon?: ReactElement;
   onClick?: () => void;
@@ -15,7 +15,7 @@ const SideMenuItem = ({
   Icon = <Book />,
   onClick,
   collapsed = false,
-}: SideMenuItemTypes) => {
+}: SideMenuItemProps) => {
   return (
     <div
       className={`sm-item-outer ${collapsed ? 'collapsed' : ''}`}

@@ -1,13 +1,13 @@
 import React, { ReactNode } from 'react';
 import './Tooltip.css';
 
-interface Tooltip {
+interface TooltipProps {
   content: string;
   className?: string;
   children?: ReactNode;
 }
 
-const Tooltip = ({ content, className, children }: Tooltip) => {
+const Tooltip = ({ content, className, children }: TooltipProps) => {
   const [isTooltipVisible, setTooltipVisible] = React.useState(false);
 
   const handleMouseEnter = () => {

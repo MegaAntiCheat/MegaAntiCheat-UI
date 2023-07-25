@@ -1,13 +1,17 @@
 import React, { ChangeEvent } from 'react';
 import './Search.css';
 
-interface Search {
+interface SearchProps {
   onChange: (e: string) => void;
   className?: string;
   placeholder?: string;
 }
 
-const Search = ({ onChange, className, placeholder = 'Search' }: Search) => {
+const Search = ({
+  onChange,
+  className,
+  placeholder = 'Search',
+}: SearchProps) => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {

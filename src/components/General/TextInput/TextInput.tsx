@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import './TextInput.css';
 
-interface TextInput {
+interface TextInputProps {
   value?: string;
   onChange?: (event: string) => void;
   placeholder?: string;
@@ -13,7 +13,7 @@ const TextInput = ({
   onChange,
   placeholder,
   type = 'text',
-}: TextInput) => {
+}: TextInputProps) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     if (typeof onChange === 'function') onChange(inputValue);
