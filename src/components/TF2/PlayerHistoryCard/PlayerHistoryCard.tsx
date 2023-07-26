@@ -36,16 +36,12 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const displayVerdict = formVerdict(player.verdict);
   const isPrivate = player.steamInfo?.profileVisibility === t('PRIVATE');
 
-  const shouldRenderOptionsBelow = () => {
-    if (!playerHistoryRef.current) return true;
-    const { top, height } = playerHistoryRef.current.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const spaceBelow = windowHeight - top - height - 200;
-    return spaceBelow >= height;
-  };
-
   return (
-    <div className="phc-container" key={player.steamID64}>
+    <div
+      className="phc-container"
+      key={player.steamID64}
+      ref={playerHistoryRef}
+    >
       <div className="phc-left">
         <img
           width={128}
@@ -56,18 +52,20 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
         />
       </div>
       <div className="phc-content">
-        <a
-          href={player.steamInfo?.profileUrl}
-          target="_blank"
-          className="redirect"
-        >
-          <div className="phc-name">{player.name}</div>
-        </a>
-        {isPrivate && (
-          <Tooltip content={t('TOOLTIP_PRIVATE')}>
-            <EyeOff color="grey" className="phc-private" />
-          </Tooltip>
-        )}
+        <div className="phc-name">
+          <a
+            href={player.steamInfo?.profileUrl}
+            target="_blank"
+            className="redirect"
+          >
+            <div className="phc-name">{player.name}</div>
+          </a>
+          {isPrivate && (
+            <Tooltip content={t('TOOLTIP_PRIVATE')} direction="bottom">
+              <EyeOff color="grey" className="phc-private" />
+            </Tooltip>
+          )}
+        </div>
         <div className="phc-profile-info phc-created">
           {t('ACC_CREATION')}: {displayAccCreation}
         </div>
@@ -78,6 +76,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
               <Tooltip
                 className="phc-badge"
                 content={`${vacBans} VAC Ban${vacBans > 1 ? 's' : ''}`}
+                direction="top"
               >
                 <ShieldAlert
                   height={32}
@@ -95,7 +94,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
                 content={`${gameBans} ${t('GAME')} Ban${
                   gameBans > 1 ? 's' : ''
                 }`}
-                direction={shouldRenderOptionsBelow() ? 'bottom' : 'top'}
+                direction="top"
               >
                 <AlertOctagon
                   color={gameBans > 1 ? 'red' : 'darkorange'}

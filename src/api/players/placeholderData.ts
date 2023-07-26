@@ -45,6 +45,7 @@ export const fakedata: ServerInfoResponse = {
       },
       steamInfo: {
         vacBans: 2,
+        gameBans: 1,
         profileVisibility: 'Private',
       },
     },

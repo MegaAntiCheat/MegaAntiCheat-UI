@@ -11,7 +11,7 @@
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #333;
+  background-color: #333333f0;
   color: #fff;
   font-size: 16px;
   border-radius: 4px;
@@ -32,7 +32,7 @@
 }
 
 .tooltip.top {
-  bottom: 100%;
+  top: -50%;
   left: 50%;
   transform: translateX(-50%);
 }
