@@ -1,7 +1,6 @@
 .preference-container {
   height: 100vh;
   position: relative;
-
   overflow-y: scroll;
   overflow-x: hidden;
 }

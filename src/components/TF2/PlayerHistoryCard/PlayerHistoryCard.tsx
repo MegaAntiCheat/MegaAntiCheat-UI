@@ -26,6 +26,8 @@ function formVerdict(verdict: string | undefined) {
 }
 
 const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
+  const playerHistoryRef = React.useRef<HTMLDivElement>(null);
+
   const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
@@ -33,6 +35,14 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const displayAccCreation = formatCreationDate(timeCreated);
   const displayVerdict = formVerdict(player.verdict);
   const isPrivate = player.steamInfo?.profileVisibility === t('PRIVATE');
+
+  const shouldRenderOptionsBelow = () => {
+    if (!playerHistoryRef.current) return true;
+    const { top, height } = playerHistoryRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const spaceBelow = windowHeight - top - height - 200;
+    return spaceBelow >= height;
+  };
 
   return (
     <div className="phc-container" key={player.steamID64}>
@@ -85,6 +95,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
                 content={`${gameBans} ${t('GAME')} Ban${
                   gameBans > 1 ? 's' : ''
                 }`}
+                direction={shouldRenderOptionsBelow() ? 'bottom' : 'top'}
               >
                 <AlertOctagon
                   color={gameBans > 1 ? 'red' : 'darkorange'}

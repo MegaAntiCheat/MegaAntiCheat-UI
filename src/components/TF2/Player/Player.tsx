@@ -2,6 +2,7 @@ import React from 'react';
 import './Player.css';
 
 import { Flex, Select } from '@components/General';
+import { PopoutInfo } from '@components/TF2';
 import { markPlayer } from '@api';
 import { t } from '@i18n';
 
@@ -38,13 +39,10 @@ function displayProperVerdict(verdict: string) {
   return option ? t(option.label.toUpperCase()) : t('PLAYER');
 }
 
-function formatTime(seconds: number) {
+function formatTime(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const formattedSeconds =
-    remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
-  return `${formattedMinutes}:${formattedSeconds}`;
+  return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 }
 
 function displayProperStatus(status: string) {
@@ -82,22 +80,28 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
         disabled={player.isSelf}
         onChange={(e) => markPlayer(player.steamID64, e.toString())}
       />
-      <Flex className="player-profile">
-        <img
-          className="player-pfp"
-          width={24}
-          height={24}
-          src={pfp}
-          alt="Profile"
-          onLoad={onImageLoad}
-        />
-        <div
-          className="player-name"
-          onClick={() => parent.open(player.steamInfo?.profileUrl)}
-        >
-          {player.name}
-        </div>
-      </Flex>
+      <PopoutInfo
+        player={player}
+        className="player-popout"
+        key={player.steamID64}
+      >
+        <Flex className="player-profile">
+          <img
+            className="player-pfp"
+            width={24}
+            height={24}
+            src={pfp}
+            alt="Profile"
+            onLoad={onImageLoad}
+          />
+          <div
+            className="player-name"
+            onClick={() => parent.open(player.steamInfo?.profileUrl)}
+          >
+            {player.name}
+          </div>
+        </Flex>
+      </PopoutInfo>
       {icon ? (
         <img
           className="player-badge"

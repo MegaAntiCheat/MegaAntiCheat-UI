@@ -12,7 +12,7 @@ import { t, translations, currentLang, setLanguage } from '@i18n';
 import './Preferences.css';
 
 const Preferences = () => {
-  const [forceUpdate, doForceUpdate] = React.useState(0);
+  const [forceUpdate, doForceUpdate] = React.useState(false);
   const options: SelectOption[] = Object.keys(translations).map((language) => ({
     label: language,
     value: language,
@@ -34,7 +34,7 @@ const Preferences = () => {
                 options={options}
                 onChange={(e) => {
                   setLanguage(e.toString());
-                  doForceUpdate(forceUpdate + 1);
+                  doForceUpdate(!forceUpdate);
                 }}
               />
             </Flex>

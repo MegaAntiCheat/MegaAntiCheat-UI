@@ -6,12 +6,18 @@ interface MiniScoreboardProps {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
 }
-
-function calculateSusAndCheater(players: PlayerInfo[]): {
+interface Verdicts {
   suspicious: number;
   cheating: number;
   total: number;
-} {
+}
+
+interface MSBContentProps {
+  verdicts: Verdicts;
+  team: string;
+}
+
+function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
   let cheating = 0;
   let suspicious = 0;
 
@@ -23,6 +29,20 @@ function calculateSusAndCheater(players: PlayerInfo[]): {
   return { suspicious, cheating, total: cheating + suspicious };
 }
 
+const MiniScoreboardContent = ({ verdicts, team }: MSBContentProps) => {
+  return (
+    <>
+      <div className={`miniscore-team ${team}`}>{team.toUpperCase()}</div>
+      <Flex className="miniscore-team-container">
+        <div className="miniscore-text">Cheating:</div>
+        <div className={`miniscore-value ${team}`}>{verdicts.cheating}</div>
+        <div className="miniscore-text">Suspicious:</div>
+        <div className={`miniscore-value ${team}`}>{verdicts.suspicious}</div>
+      </Flex>
+    </>
+  );
+};
+
 const MiniScoreboard = ({ RED, BLU }: MiniScoreboardProps) => {
   const verdictsRED = calculateSusAndCheater(RED ?? []);
   const verdictsBLU = calculateSusAndCheater(BLU ?? []);
@@ -30,24 +50,8 @@ const MiniScoreboard = ({ RED, BLU }: MiniScoreboardProps) => {
   return (
     <>
       <div className="miniscore-container">
-        <div className="blu miniscore-team">BLU</div>
-        <Flex className="miniscore-team-container">
-          <div className="miniscore-text">Cheating:</div>
-          <div className="miniscore-value blu">{verdictsBLU.cheating}</div>
-          <div className="miniscore-text">Suspicious:</div>
-          <div className="miniscore-value blu">{verdictsBLU.suspicious}</div>
-          <div className="miniscore-text">Total:</div>
-          <div className="miniscore-value blu">{verdictsBLU.total}</div>
-        </Flex>
-        <div className="red miniscore-team">RED</div>
-        <Flex className="miniscore-team-container">
-          <div className="miniscore-text">Cheating</div>
-          <div className="miniscore-value red">{verdictsRED.cheating}</div>
-          <div className="miniscore-text">Suspicious</div>
-          <div className="miniscore-value red">{verdictsRED.suspicious}</div>
-          <div className="miniscore-text">Total</div>
-          <div className="miniscore-value red">{verdictsRED.total}</div>
-        </Flex>
+        {RED && <MiniScoreboardContent verdicts={verdictsRED} team="red" />}
+        {BLU && <MiniScoreboardContent verdicts={verdictsBLU} team="blu" />}
       </div>
     </>
   );

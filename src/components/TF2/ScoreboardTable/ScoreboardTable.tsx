@@ -1,7 +1,7 @@
 import React from 'react';
 import './ScoreboardTable.css';
 
-import { Player, PopoutInfo } from '@components/TF2';
+import { Player } from '@components/TF2';
 import { Flex } from '@components/General';
 import { t } from '@i18n';
 interface ScoreboardTableProps {
@@ -31,19 +31,12 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
         </Flex>
         <div className={`scoreboard-team ${teamColor?.toLowerCase()}`}>
           {team?.map((player) => (
-            // This is the Player Component wrapped in the Popout info component
-            <PopoutInfo
+            <Player
               className={teamColor?.toLowerCase()}
               player={player}
               key={player.steamID64}
-            >
-              <Player
-                className={teamColor?.toLowerCase()}
-                player={player}
-                key={player.steamID64}
-                onImageLoad={handlePFPImageLoad}
-              />
-            </PopoutInfo>
+              onImageLoad={handlePFPImageLoad}
+            />
           ))}
         </div>
       </div>

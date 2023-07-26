@@ -38,8 +38,8 @@ const PopoutInfo = ({ player, className, children }: PopoutInfoProps) => {
     );
     if (gridContainer) {
       const gridRect = gridContainer.getBoundingClientRect();
-      // Don't cover the verdict select EVER
-      const left = Math.max(200, event.clientX - gridRect.left);
+      // -50 seems to perfectly center the popout next to the cursor
+      const left = event.clientX - gridRect.left - 50;
       setPopoutPosition({ left });
     }
   };
