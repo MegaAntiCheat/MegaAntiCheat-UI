@@ -1,3 +1,9 @@
+enum profileVisibility {
+  Private = 1,
+  FriendsOnly = 2,
+  Public = 3,
+}
+
 interface PlayerInfoRequest {
   steamID64?: string[];
   name?: string[];
@@ -18,14 +24,14 @@ interface ServerInfoResponse {
 }
 
 interface GameInfo {
-  userid?: string;
-  team?: number;
-  ping?: number;
-  loss?: number;
-  state?: string;
-  kills?: number;
-  deaths?: number;
-  time?: number;
+  userid: string;
+  team: number;
+  ping: number;
+  loss: number;
+  state: string;
+  kills: number;
+  deaths: number;
+  time: number;
 }
 
 interface SteamInfo {
@@ -33,7 +39,7 @@ interface SteamInfo {
   profileUrl?: string;
   pfp?: string;
   pfpHash?: string;
-  profileVisibility?: string;
+  profileVisibility?: profileVisibility;
   timeCreated?: number;
   countryCode?: string;
   vacBans?: number;
@@ -49,11 +55,12 @@ interface SteamFriend {
 
 interface PlayerInfo {
   name: string;
-  gameInfo?: GameInfo;
+  gameInfo: GameInfo;
   isSelf: boolean;
   tags?: string[];
   steamID64: string;
-  verdict?: string;
+  convicted?: boolean;
+  localVerdict?: string;
   steamInfo?: SteamInfo;
   customData?: object;
 }

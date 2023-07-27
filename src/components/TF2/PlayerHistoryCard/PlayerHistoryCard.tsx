@@ -21,8 +21,21 @@ function formatCreationDate(timeCreated: number): string {
 
 function formVerdict(verdict: string | undefined) {
   if (!verdict) return t('PLAYER');
-  if (verdict === 'None') return t('PLAYER');
-  return verdict;
+  if (verdict.includes('None')) return t('PLAYER');
+  return t(verdict.toUpperCase());
+}
+
+function formVisibility(visibility: profileVisibility | undefined) {
+  switch (visibility) {
+    case 1:
+      return t('PRIVATE');
+    case 2:
+      return t('FRIENDS_ONLY');
+    case 3:
+      return t('PUBLIC');
+    default:
+      return t('PRIVATE');
+  }
 }
 
 const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
@@ -32,9 +45,10 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
   const timeCreated = player.steamInfo?.timeCreated ?? 0;
+
+  const displayVerdict = formVerdict(player.localVerdict);
   const displayAccCreation = formatCreationDate(timeCreated);
-  const displayVerdict = formVerdict(player.verdict);
-  const isPrivate = player.steamInfo?.profileVisibility === t('PRIVATE');
+  const profileVisibility = formVisibility(player.steamInfo?.profileVisibility);
 
   return (
     <div
@@ -58,11 +72,15 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
             target="_blank"
             className="redirect"
           >
-            <div className="phc-name">{player.name}</div>
+            <div>{player.name}</div>
           </a>
-          {isPrivate && (
+          {profileVisibility.includes(t('PRIVATE')) && (
             <Tooltip content={t('TOOLTIP_PRIVATE')} direction="bottom">
-              <EyeOff color="grey" className="phc-private" />
+              <EyeOff
+                color="grey"
+                className="phc-private"
+                aria-label="Private"
+              />
             </Tooltip>
           )}
         </div>

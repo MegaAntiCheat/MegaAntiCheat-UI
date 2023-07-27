@@ -10,11 +10,11 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'TheEntireUIDevelopmentTeam',
       tags: [],
-      verdict: 'Cheater',
+      localVerdict: 'Cheater',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
-        kills: 0,
+        kills: 1,
         team: 3,
         loss: 0,
         ping: 40,
@@ -32,11 +32,11 @@ export const fakedata: ServerInfoResponse = {
       isSelf: true,
       name: 'Sammy',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Active',
-        kills: 0,
+        kills: 3,
         team: 3,
         loss: 0,
         ping: 40,
@@ -46,7 +46,7 @@ export const fakedata: ServerInfoResponse = {
       steamInfo: {
         vacBans: 2,
         gameBans: 1,
-        profileVisibility: 'Private',
+        profileVisibility: 2,
       },
     },
     {
@@ -54,7 +54,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Woah So Cool!',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Active',
@@ -74,7 +74,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'OptimusPrimus',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Active',
@@ -94,7 +94,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Only Human',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Active',
@@ -111,7 +111,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Panzerwagenfahrer IV',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -128,7 +128,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'The Hearts of Iron',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -145,7 +145,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Faker',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -162,7 +162,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'DoesHotter',
       tags: [],
-      verdict: 'Bot',
+      localVerdict: 'Bot',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -179,7 +179,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'The Cool Person',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -196,7 +196,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Only Human',
       tags: [],
-      verdict: 'None',
+      localVerdict: 'None',
       gameInfo: {
         deaths: 0,
         state: 'Joining',

@@ -61,7 +61,7 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')
-    : displayProperVerdict(player.verdict ?? t('PLAYER'));
+    : displayProperVerdict(player.localVerdict ?? t('PLAYER'));
   const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';

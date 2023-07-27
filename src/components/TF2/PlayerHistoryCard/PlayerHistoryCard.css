@@ -30,18 +30,17 @@
 }
 
 .phc-private {
-  top: 4px;
+  top: 2px;
   position: relative;
 }
 
 .phc-name,
 .redirect {
+  margin-right: 8px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin-right: 6px;
-  align-self: unset;
-  display: unset;
+  display: flex;
   position: relative;
   text-decoration: none;
   font-weight: bold;

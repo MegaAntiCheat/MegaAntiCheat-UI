@@ -16,6 +16,8 @@
   "SUSPICIOUS": "Suspicious",
   "TRUSTED": "Trusted",
   "PRIVATE": "Private",
+  "FRIENDS_ONLY": "Friends Only",
+  "PUBLIC": "Public",
   "YOU": "You",
   "TOOLTIP_PRIVATE": "This Profile is Private",
   "ACC_CREATION": "Creation",

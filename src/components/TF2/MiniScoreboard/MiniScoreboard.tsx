@@ -22,8 +22,8 @@ function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
   let suspicious = 0;
 
   for (const player of players) {
-    if (player.verdict?.toLowerCase() === 'suspicious') suspicious++;
-    if (player.verdict?.toLowerCase() === 'cheater') cheating++;
+    if (player.localVerdict?.toLowerCase() === 'suspicious') suspicious++;
+    if (player.localVerdict?.toLowerCase() === 'cheater') cheating++;
   }
 
   return { suspicious, cheating, total: cheating + suspicious };
