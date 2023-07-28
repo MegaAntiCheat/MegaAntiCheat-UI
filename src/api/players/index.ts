@@ -1,13 +1,12 @@
-const port = 3621;
-const APIURL = `http://localhost:${port}/mac`;
-const SERVERFETCH = `${APIURL}/game/v1`;
-const PLAYERFETCH = `${APIURL}/user/v1`;
-const MARKPOST = `${APIURL}/mark`;
-const HISTORYFETCH = `${APIURL}/history/v1`;
-
-import { emptyServerData, fakedata } from '..';
-
-const useFakedata = process.env.REACT_APP_USE_FAKEDATA ?? false;
+import {
+  emptyServerData,
+  fakedata,
+  SERVERFETCH,
+  PLAYERFETCH,
+  MARKPOST,
+  HISTORYFETCH,
+  useFakedata,
+} from '@api';
 
 async function markPlayer(steamID64: string, verdict: string) {
   try {

@@ -1,8 +1,8 @@
 .text-input-container {
   position: relative;
   width: fit-content;
-  background-color: var(--dark-bg-color);
   border-radius: 3px;
+  background-color: var(--dark-bg-color);
 }
 
 .text-input {
