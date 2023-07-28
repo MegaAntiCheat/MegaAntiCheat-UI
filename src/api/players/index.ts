@@ -1,12 +1,6 @@
-import {
-  emptyServerData,
-  fakedata,
-  SERVERFETCH,
-  PLAYERFETCH,
-  MARKPOST,
-  HISTORYFETCH,
-  useFakedata,
-} from '@api';
+import { PLAYERFETCH, MARKPOST, HISTORYFETCH, useFakedata } from '@api/globals';
+import { fakedata } from '@api/servers/fakedata';
+import { emptyServerData } from '@api/servers';
 
 async function markPlayer(steamID64: string, verdict: string) {
   try {
@@ -73,19 +67,4 @@ async function fetchPlayerHistory(
   }
 }
 
-async function fetchAllServerInfo(): Promise<ServerInfoResponse> {
-  try {
-    if (useFakedata) return fakedata;
-
-    const response = await fetch(SERVERFETCH);
-
-    if (!response.ok) throw new Error('Failed to fetch server information');
-
-    return response.json();
-  } catch (e) {
-    console.error(e);
-    return emptyServerData;
-  }
-}
-
-export { fetchPlayerInfos, fetchAllServerInfo, fetchPlayerHistory, markPlayer };
+export { fetchPlayerInfos, fetchPlayerHistory, markPlayer };

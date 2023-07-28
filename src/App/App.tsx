@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { useFakedata, verifyBackend } from '@api';
+import { useFakedata, verifyBackend } from '@api/globals';
 import { Flex, SideMenu, TextInput } from '@components/General';
 import {
   ContentPageContainer,

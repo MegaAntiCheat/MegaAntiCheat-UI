@@ -3,7 +3,7 @@ import './Player.css';
 
 import { Flex, Select } from '@components/General';
 import { PopoutInfo } from '@components/TF2';
-import { markPlayer } from '@api';
+import { markPlayer } from '@api/players';
 import { t } from '@i18n';
 
 const localVerdict = [

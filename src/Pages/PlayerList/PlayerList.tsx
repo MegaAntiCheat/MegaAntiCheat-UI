@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScoreboardTable } from '@components/TF2';
-import { fetchAllServerInfo, emptyServerData } from '@api';
+import { fetchAllServerInfo, emptyServerData } from '@api/servers';
 import './PlayerList.css';
 
 enum Teams {

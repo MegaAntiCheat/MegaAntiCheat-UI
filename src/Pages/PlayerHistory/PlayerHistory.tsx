@@ -1,6 +1,6 @@
-import { t } from '@i18n';
 import React, { useState } from 'react';
-import { fetchPlayerHistory } from '@api';
+import { t } from '@i18n';
+import { fetchPlayerHistory } from '@api/players';
 import { PlayerHistoryCard } from '@components/TF2';
 import { Flex, Search, TextItem } from '@components/General';
 
