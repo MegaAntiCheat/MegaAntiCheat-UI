@@ -7,9 +7,9 @@ interface MiniScoreboardProps {
   BLU?: PlayerInfo[];
 }
 interface Verdicts {
-  suspicious: number;
-  cheating: number;
-  total: number;
+  suspicious: PlayerInfo[];
+  cheating: PlayerInfo[];
+  convicted: PlayerInfo[];
 }
 
 interface MSBContentProps {
@@ -18,15 +18,16 @@ interface MSBContentProps {
 }
 
 function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
-  let cheating = 0;
-  let suspicious = 0;
+  const cheating = players?.filter(
+    (player) => player.localVerdict?.toLowerCase() === 'cheater',
+  );
+  const suspicious = players?.filter(
+    (player) => player.localVerdict?.toLowerCase() === 'suspicious',
+  );
 
-  for (const player of players) {
-    if (player.localVerdict?.toLowerCase() === 'suspicious') suspicious++;
-    if (player.localVerdict?.toLowerCase() === 'cheater') cheating++;
-  }
+  const convicted = players?.filter((player) => player.convicted);
 
-  return { suspicious, cheating, total: cheating + suspicious };
+  return { suspicious, cheating, convicted };
 }
 
 const MiniScoreboardContent = ({ verdicts, team }: MSBContentProps) => {
@@ -34,10 +35,18 @@ const MiniScoreboardContent = ({ verdicts, team }: MSBContentProps) => {
     <>
       <div className={`miniscore-team ${team}`}>{team.toUpperCase()}</div>
       <Flex className="miniscore-team-container">
+        <div className="miniscore-text">Convicted:</div>
+        <div className={`miniscore-value ${team}`}>
+          {verdicts.convicted.length}
+        </div>
         <div className="miniscore-text">Cheating:</div>
-        <div className={`miniscore-value ${team}`}>{verdicts.cheating}</div>
+        <div className={`miniscore-value ${team}`}>
+          {verdicts.cheating.length}
+        </div>
         <div className="miniscore-text">Suspicious:</div>
-        <div className={`miniscore-value ${team}`}>{verdicts.suspicious}</div>
+        <div className={`miniscore-value ${team}`}>
+          {verdicts.suspicious.length}
+        </div>
       </Flex>
     </>
   );
