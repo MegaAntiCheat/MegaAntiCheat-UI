@@ -1,5 +1,6 @@
-import en_US from './en_US.json';
 import de_DE from './de_DE.json';
+import en_US from './en_US.json';
+import es_ES from './es_ES.json';
 import ru_RU from './ru_RU.json';
 import tr_TR from './tr_TR.json';
 
@@ -9,8 +10,9 @@ interface Translations {
 }
 
 const translations: { [key: string]: Translations } = {
-  English: en_US,
   German: de_DE,
+  English: en_US,
+  Spanish: es_ES,
   Russian: ru_RU,
   Turkish: tr_TR,
 };
@@ -31,4 +33,5 @@ const t = (key: string, lang: string = currentLang) => {
   return translations[lang][key] || key;
 };
 
-export { t, translations, currentLang, setLanguage };
+export { currentLang, setLanguage, t, translations };
+
