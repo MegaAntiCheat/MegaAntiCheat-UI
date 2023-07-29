@@ -11,6 +11,7 @@ const translations: { [key: string]: Translations } = {
   English: en_US,
   German: de_DE,
   Russian: ru_RU,
+  Turkish: tr_TR,
 };
 
 const setLanguage = (lang: string) => {
