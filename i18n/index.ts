@@ -1,5 +1,6 @@
 import en_US from './en_US.json';
 import de_DE from './de_DE.json';
+import ru_RU from './ru_RU.json';
 
 let currentLang = 'English';
 interface Translations {
@@ -9,6 +10,7 @@ interface Translations {
 const translations: { [key: string]: Translations } = {
   English: en_US,
   German: de_DE,
+  Russian: ru_RU,
 };
 
 const setLanguage = (lang: string) => {
