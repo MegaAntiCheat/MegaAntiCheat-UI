@@ -103,7 +103,7 @@ function App() {
         if (!backendRunning) throw new Error('Backend not running');
         modal.closeModal();
         // Verify configuration if the backend is running
-        verifyConfigured();
+        //verifyConfigured();
       } catch (e) {
         console.error('Error verifying backend connection', e);
         modal.openModal(<CantConnectModal />);
@@ -111,6 +111,7 @@ function App() {
     };
 
     // Open configuration modal if not configured
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const verifyConfigured = async () => {
       try {
         const configured = false;
