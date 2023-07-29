@@ -1,6 +1,7 @@
 import en_US from './en_US.json';
 import de_DE from './de_DE.json';
 import ru_RU from './ru_RU.json';
+import tr_TR from './tr_TR.json';
 
 let currentLang = 'English';
 interface Translations {
