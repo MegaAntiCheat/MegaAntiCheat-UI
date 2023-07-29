@@ -34,4 +34,3 @@ const t = (key: string, lang: string = currentLang) => {
 };
 
 export { currentLang, setLanguage, t, translations };
-

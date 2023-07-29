@@ -1,8 +1,8 @@
 import React from 'react';
 import './ScoreboardTable.css';
 
-import { Player } from '@components/TF2';
 import { Flex } from '@components/General';
+import { Player } from '@components/TF2';
 import { t } from '@i18n';
 interface ScoreboardTableProps {
   RED?: PlayerInfo[];

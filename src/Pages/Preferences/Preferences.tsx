@@ -7,7 +7,7 @@ import {
   TextInput,
   TextItem,
 } from '@components/General';
-import { t, translations, currentLang, setLanguage } from '@i18n';
+import { currentLang, setLanguage, t, translations } from '@i18n';
 
 import './Preferences.css';
 

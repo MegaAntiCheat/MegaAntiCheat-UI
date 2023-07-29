@@ -21,7 +21,14 @@
     "quotes": ["error", "single"],
     "func-call-spacing": ["error", "never"],
     "prettier/prettier": ["error"],
-    "prefer-destructuring": "error"
+    "prefer-destructuring": "error",
+    "no-var": "error",
+    "sort-imports": ["error", {
+      "ignoreCase": true,
+      "ignoreDeclarationSort": true,
+      "ignoreMemberSort": false,
+      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+    }]
   },
   "parserOptions": {
     "ecmaVersion": "latest"

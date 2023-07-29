@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { ReactNode } from 'react';
 import './PopoutInfo.css';
 import { t } from '@i18n';
@@ -19,6 +20,7 @@ function calculateKD(kills: number = 0, deaths: number = 0): string {
   if (!kills) return '0.00';
   // No Deaths but Kills, KD will always be Kills
   if (!deaths) return kills.toFixed(2);
+  // Calculate KD
   return (kills / deaths).toFixed(2);
 }
 

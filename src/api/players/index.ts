@@ -1,4 +1,4 @@
-import { PLAYERFETCH, MARKPOST, HISTORYFETCH, useFakedata } from '@api/globals';
+import { HISTORYFETCH, MARKPOST, PLAYERFETCH, useFakedata } from '@api/globals';
 import { fakedata } from '@api/servers/fakedata';
 import { emptyServerData } from '@api/servers';
 
