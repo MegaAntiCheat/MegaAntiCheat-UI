@@ -8,6 +8,7 @@ interface CheckboxProps {
   title?: string;
   className?: string;
   disabled?: boolean;
+  checked?: boolean;
 }
 
 const Checkbox = ({
@@ -15,17 +16,14 @@ const Checkbox = ({
   className = '',
   disabled = false,
   onChange,
+  checked,
 }: CheckboxProps) => {
-  const [checked, setChecked] = React.useState(false);
+  const [, setIntChecked] = React.useState(checked);
 
   const handleClick = () => {
-    if (typeof onChange === 'function') {
-      onChange(!checked);
-    }
+    if (onChange) onChange(!checked);
 
-    if (!disabled) {
-      setChecked(!checked);
-    }
+    if (!disabled) setIntChecked(!checked);
   };
 
   return (

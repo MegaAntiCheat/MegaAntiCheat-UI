@@ -21,6 +21,16 @@
   color: white;
 }
 
+.link {
+  color: white;
+  text-decoration: none;
+  cursor: 'pointer',
+}
+
+.link:hover {
+  color: #0077ff;
+}
+
 *::-webkit-scrollbar {
   width: 6px;
 }

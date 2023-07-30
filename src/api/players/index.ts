@@ -1,12 +1,28 @@
-import { HISTORYFETCH, MARKPOST, PLAYERFETCH, useFakedata } from '@api/globals';
+import {
+  HISTORYFETCH,
+  PLAYERFETCH,
+  useFakedata,
+  USER_ENDPOINT,
+} from '@api/globals';
 import { fakedata } from '@api/servers/fakedata';
 import { emptyServerData } from '@api/servers';
 
-async function markPlayer(steamID64: string, verdict: string) {
+async function updatePlayer(
+  steamID64: string,
+  verdict: string,
+  customData?: Record<string, unknown>,
+) {
   try {
+    const formBody = {
+      [steamID64]: {
+        localVerdict: verdict,
+        customData,
+      },
+    };
+
     const options = {
-      method: 'POST',
-      body: JSON.stringify({ steamID64, verdict }),
+      method: 'PUT',
+      body: JSON.stringify(formBody),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -14,7 +30,8 @@ async function markPlayer(steamID64: string, verdict: string) {
 
     console.log(`Marking Player: ${steamID64} with verdict: ${verdict}`);
 
-    const response = await fetch(MARKPOST, options);
+    const response = await fetch(USER_ENDPOINT, options);
+    console.log(formBody, options, response);
 
     if (!response.ok) throw new Error('Failed to mark player.');
   } catch (e) {
@@ -29,7 +46,7 @@ async function fetchPlayerInfos({
     if (useFakedata) return fakedata.players;
 
     const options = {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify({ steamID64 }),
       headers: {
         'Content-Type': 'application/json',
@@ -67,4 +84,4 @@ async function fetchPlayerHistory(
   }
 }
 
-export { fetchPlayerInfos, fetchPlayerHistory, markPlayer };
+export { fetchPlayerInfos, fetchPlayerHistory, updatePlayer };

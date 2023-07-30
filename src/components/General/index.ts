@@ -3,6 +3,7 @@ import Divider from './Divider/Divider';
 import SideMenu from './SideMenu/SideMenu';
 import SideMenuItem from './SideMenuItem/SideMenuItem';
 import Checkbox from './Checkbox/Checkbox';
+import Button from './Button/Button';
 import TextItem from './Text/TextItem';
 import Select from './Select/Select';
 import Tooltip from './Tooltip/Tooltip';
@@ -28,4 +29,5 @@ export {
   TextInput,
   Accordion,
   ContentPageContainer,
+  Button,
 };

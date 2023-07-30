@@ -6,7 +6,7 @@ export const fakedata: ServerInfoResponse = {
   numPlayers: 18,
   players: [
     {
-      steamID64: '6679025623542',
+      steamID64: '76561198210264393',
       isSelf: false,
       name: 'TheEntireUIDevelopmentTeam',
       tags: [],

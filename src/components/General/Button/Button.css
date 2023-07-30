@@ -1,0 +1,29 @@
+.mac-button {
+  size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+  background-color: #0077ff;
+  color: white;
+  cursor: pointer;
+  font-size: medium;
+  box-shadow: none;
+  border: none;
+}
+
+.mac-button:hover {
+  background-color: #1c3c60;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.middle {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}

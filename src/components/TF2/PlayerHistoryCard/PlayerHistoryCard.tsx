@@ -71,6 +71,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
             href={player.steamInfo?.profileUrl}
             target="_blank"
             className="redirect"
+            rel="noreferrer"
           >
             <div>{player.name}</div>
           </a>

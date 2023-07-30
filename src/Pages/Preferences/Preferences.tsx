@@ -9,15 +9,64 @@ import {
   TextItem,
 } from '@components/General';
 import { currentLang, setLanguage, t, translations } from '@i18n';
+import {
+  defaultSettings,
+  getAllSettings,
+  setSettingKey,
+} from '@api/preferences';
 
 import './Preferences.css';
+import { debounce } from '@api/utils';
 
 const Preferences = () => {
-  const [forceUpdate, doForceUpdate] = React.useState(false);
-  const options: SelectOption[] = Object.keys(translations).map((language) => ({
-    label: language,
-    value: language,
-  }));
+  const [settings, setSettings] = React.useState<Settings>(defaultSettings);
+  const [loading, setLoading] = React.useState(true);
+
+  const languageOptions: SelectOption[] = Object.keys(translations).map(
+    (language) => ({
+      label: language,
+      value: language,
+    }),
+  );
+
+  React.useEffect(() => {
+    const fetchSettings = async () => {
+      const settings = await getAllSettings();
+      setSettings(settings);
+      setLoading(false);
+    };
+
+    fetchSettings();
+  }, []);
+
+  const handleSettingChange = (
+    key: string,
+    value: unknown,
+    type: 'internal' | 'external' = 'external',
+  ) => {
+    setSettings((prevSettings) => ({
+      ...prevSettings,
+      [type]: {
+        ...prevSettings[type],
+        [key]: value,
+      },
+    }));
+
+    setSettingKey(key, value, type);
+  };
+
+  const handleDebouncedSettingChange = React.useCallback(
+    debounce(handleSettingChange, 500),
+    [],
+  );
+
+  if (loading) {
+    return (
+      <TextItem className="page-header" fontSize="h1">
+        Loading...
+      </TextItem>
+    );
+  }
 
   return (
     <>
@@ -32,52 +81,108 @@ const Preferences = () => {
               <Select
                 className="preference-select"
                 placeholder={currentLang}
-                options={options}
+                options={languageOptions}
                 onChange={(e) => {
                   setLanguage(e.toString());
-                  doForceUpdate(!forceUpdate);
+                  handleSettingChange('language', e);
                 }}
               />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('PREF_OPEN_IN_APP')}</div>
-              <Checkbox />
+              <Checkbox
+                checked={settings?.external.openInApp}
+                onChange={(e) => handleSettingChange('openInApp', e)}
+              />
             </Flex>
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">
             <Flex className="preference-option">
               <div className="preference-title">{t('YOU')}</div>
-              <ColorSelector />
+              <ColorSelector
+                value={settings.external.colors?.You}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    You: e,
+                  });
+                }}
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('PLAYER')}</div>
-              <ColorSelector />
+              <ColorSelector
+                value={settings.external.colors?.Player}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Player: e,
+                  });
+                }}
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('TRUSTED')}</div>
-              <ColorSelector />
+              <ColorSelector
+                value={settings.external.colors?.Trusted}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Trusted: e,
+                  });
+                }}
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('SUSPICIOUS')}</div>
-              <ColorSelector />
+              <ColorSelector
+                value={settings.external.colors?.Suspicious}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Suspicious: e,
+                  });
+                }}
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('CHEATER')}</div>
-              <ColorSelector />
+              <ColorSelector
+                value={settings.external.colors?.Cheater}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Cheater: e,
+                  });
+                }}
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('BOT')}</div>
-              <ColorSelector />
+              <ColorSelector
+                value={settings.external.colors?.Bot}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Bot: e,
+                  });
+                }}
+              />
             </Flex>
           </Accordion>
           <Accordion title={t('PREF_ADVANCED')}>
             <Flex className="preference-option">
               <div className="preference-title">{t('PREF_STEAM_API_KEY')}</div>
-              <TextInput type="password" />
+              <TextInput
+                type="password"
+                value={settings?.internal.steamApiKey}
+                onChange={(e) =>
+                  handleSettingChange('steamApiKey', e, 'internal')
+                }
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">{t('PREF_RCON_PASSWORD')}</div>
-              <TextInput type="password" />
+              <TextInput
+                value={settings?.internal.rconPassword}
+                onChange={(e) =>
+                  handleSettingChange('rconPassword', e, 'internal')
+                }
+              />
             </Flex>
           </Accordion>
         </div>

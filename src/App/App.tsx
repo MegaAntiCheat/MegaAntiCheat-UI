@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import { useFakedata, verifyBackend } from '@api/globals';
-import { Flex, SideMenu, TextInput } from '@components/General';
+import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
+import { Button, Flex, SideMenu, TextInput } from '@components/General';
 import {
   ContentPageContainer,
   PlayerHistory,
@@ -12,6 +12,8 @@ import {
 import { Modal } from '@components/Modal/Modal';
 import useModal from '@components/Modal/ModalHook';
 import { ContextMenuProvider } from '@components/General/ContextMenu/ContextMenuProvider';
+import { setLanguage, t } from '@i18n';
+import { getAllSettings, setSettingKey } from '@api/preferences';
 
 const CantConnectModal = () => {
   return (
@@ -24,13 +26,22 @@ const CantConnectModal = () => {
   );
 };
 
+interface ConfigurationModalProps {
+  closeModal: () => void;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ConfigurationModal = () => {
+const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
+  const [steamAPIKey, setSteamAPIKey] = React.useState('');
+  const [rconPassword, setRconPassword] = React.useState('');
+
   return (
     <div className="App-modal">
-      <h2 style={{ top: '-10px', position: 'relative' }}>Configuration</h2>
-      <p>Looks like this is the first time you're using MegaAntiCheat.</p>
-      <p>Let's get everything ready for use!</p>
+      <h2 style={{ top: '-10px', position: 'relative' }}>
+        {t('CONFIGURATION')}
+      </h2>
+      <p>{t('CONF_FIRST_TIME')}</p>
+      <p>{t('CONF_FIRST_TIME_DESC')}</p>
       <div style={{ marginBottom: '30px' }} />
       <div>
         <Flex
@@ -40,18 +51,18 @@ const ConfigurationModal = () => {
             overflow: 'hidden',
           }}
         >
-          <div
+          <a
             style={{
-              cursor: 'pointer',
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
             }}
-            onClick={() => parent.open('https://steamcommunity.com/dev/apikey')}
+            className="link"
+            href="https://steamcommunity.com/dev/apikey"
           >
-            Steam Web API Key
-          </div>
-          <TextInput type="password" />
+            {t('PREF_STEAM_API_KEY')}
+          </a>
+          <TextInput type="password" onChange={(e) => setSteamAPIKey(e)} />
         </Flex>
         <div style={{ marginTop: '10px' }} />
         <Flex
@@ -61,13 +72,23 @@ const ConfigurationModal = () => {
             overflow: 'hidden',
           }}
         >
-          <div
-            onClick={() => parent.open('https://steamcommunity.com/dev/apikey')}
-          >
-            RCON Password
-          </div>
-          <TextInput type="password" />
+          <div>{t('PREF_RCON_PASSWORD')}</div>
+          <TextInput type="password" onChange={(e) => setRconPassword(e)} />
         </Flex>
+
+        <div style={{ marginTop: '20px' }} />
+        <Button
+          className="mac-button middle"
+          onClick={() => {
+            if (!steamAPIKey.trim() || !rconPassword.trim()) return;
+
+            setSettingKey('steamApiKey', steamAPIKey, 'internal');
+            setSettingKey('rconPassword', rconPassword, 'internal');
+            closeModal();
+          }}
+        >
+          Save
+        </Button>
       </div>
     </div>
   );
@@ -75,6 +96,7 @@ const ConfigurationModal = () => {
 
 function App() {
   const [currentPage, setCurrentPage] = React.useState('');
+  const [, setLoading] = React.useState(true);
 
   const modal = useModal();
 
@@ -91,46 +113,55 @@ function App() {
     }
   };
 
+  const verifyConnection = async () => {
+    try {
+      const backendRunning = await verifyBackend();
+      if (!backendRunning) throw new Error('Backend not running');
+      setLoading(false);
+      // Verify configuration if the backend is running
+      verifyConfigured();
+    } catch (e) {
+      console.error('Error verifying backend connection', e);
+      setLoading(false);
+      modal.openModal(<CantConnectModal />);
+    }
+  };
+
+  const verifyConfigured = async () => {
+    try {
+      const configured = await isBackendConfigured();
+      if (!configured) throw new Error('Backend not configured');
+      setLoading(false);
+    } catch (e) {
+      console.error('Error verifying backend configuration', e);
+      setLoading(false);
+      modal.openModal(<ConfigurationModal closeModal={modal.closeModal} />);
+    }
+  };
+
   React.useEffect(() => {
+    // Set language from settings
+    const setLanguageFromSettings = async () => {
+      const settings = await getAllSettings();
+      if (settings.external.language) {
+        setLanguage(settings.external.language);
+      }
+    };
+    setLanguageFromSettings();
+
     // Don't verify backend if we're on the preferences page
     // or if we're using fakedata (dev environment)
     if (useFakedata) return;
     if (currentPage === 'preferences') return;
 
-    // Verify if the backend is running
-    const verifyConnection = async () => {
-      try {
-        const backendRunning = await verifyBackend();
-        if (!backendRunning) throw new Error('Backend not running');
-        modal.closeModal();
-        // Verify configuration if the backend is running
-        //verifyConfigured();
-      } catch (e) {
-        console.error('Error verifying backend connection', e);
-        modal.openModal(<CantConnectModal />);
-      }
-    };
+    verifyConnection();
 
-    // Open configuration modal if not configured
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const verifyConfigured = async () => {
-      try {
-        const configured = false;
-        if (!configured) throw new Error('Backend not configured');
-        modal.closeModal();
-      } catch (e) {
-        console.error('Error verifying backend configuration', e);
-        modal.openModal(<ConfigurationModal />);
-      }
-    };
+    const intervalId = setInterval(verifyConnection, 5000);
 
-    verifyConnection()
-      .then(() => setInterval(verifyConnection, 5000))
-      .catch((e) => {
-        console.error('Error verifying backend connection', e);
-        modal.openModal(<CantConnectModal />);
-      });
-  }, []);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [currentPage]);
 
   return (
     <ContextMenuProvider>

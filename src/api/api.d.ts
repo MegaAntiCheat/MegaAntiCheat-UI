@@ -4,6 +4,25 @@ enum profileVisibility {
   Public = 3,
 }
 
+interface Settings {
+  external: {
+    language?: string;
+    openInApp?: boolean;
+    colors?: {
+      You: string;
+      Player: string;
+      Trusted: string;
+      Suspicious: string;
+      Cheater: string;
+      Bot: string;
+    };
+  };
+  internal: {
+    steamApiKey?: string;
+    rconPassword?: string;
+  };
+}
+
 interface PlayerInfoRequest {
   steamID64?: string[];
   name?: string[];

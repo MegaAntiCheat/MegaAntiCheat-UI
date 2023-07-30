@@ -29,10 +29,15 @@
   "PING": "Ping",
   "NAME": "Name",
   "COUNTRY": "Land",
+  "LEARN_MORE": "Mehr erfahren",
+  "CONFIGURATION": "Konfiguration",
+  "CONF_FIRST_TIME": "Scheint so als ob du das erste mal hier bist.",
+  "CONF_FIRST_TIME_DESC": "Lass uns ein paar Einstellungen vor der benutzung vornehmen!",
+  "CONF_REMINDER": "Du kannst diese Einstellungen jederzeit in den Einstellungen ändern.",
+  "PREF_STEAM_API_KEY": "Steam API Schlüssel",
   "PREF_GENERAL": "Generelles",
   "PREF_COLORS": "Farben",
   "PREF_ADVANCED": "Erweitert",
-  "PREF_STEAM_API_KEY": "Steam API Schlüssel",
   "PREF_RCON_PASSWORD": "RCon Passwort",
   "PREF_OPEN_IN_APP": "Öffne Profile in Steam"
 }

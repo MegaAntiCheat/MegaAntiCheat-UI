@@ -2,40 +2,39 @@ import React from 'react';
 import './Player.css';
 
 import { t } from '@i18n';
-import { markPlayer } from '@api/players';
+import { updatePlayer } from '@api/players';
 import { PopoutInfo } from '@components/TF2';
 import { ContextMenu, Select } from '@components/General';
 import { ContextMenuContext } from '@components/General/ContextMenu/ContextMenuProvider';
+import { hexToRGB } from '@api/utils';
 
 const localVerdict = [
   {
     label: 'PLAYER',
-    value: 'player',
+    value: 'Player',
   },
   {
     label: 'BOT',
-    value: 'bot',
+    value: 'Bot',
   },
   {
     label: 'CHEATER',
-    value: 'cheater',
+    value: 'Cheater',
   },
   {
     label: 'SUSPICIOUS',
-    value: 'suspicious',
+    value: 'Suspicious',
   },
   {
     label: 'TRUSTED',
-    value: 'trusted',
+    value: 'Trusted',
   },
 ];
 
 function displayProperVerdict(verdict: string) {
   if (verdict.toLowerCase() === 'none') return t('PLAYER');
 
-  const option = localVerdict.find(
-    (option) => option.value === verdict.toLowerCase(),
-  );
+  const option = localVerdict.find((option) => option.value === verdict);
 
   return option ? t(option.label.toUpperCase()) : t('PLAYER');
 }
@@ -51,14 +50,41 @@ function displayProperStatus(status: string) {
   return t('JOINING');
 }
 
+function displayColor(
+  playerColors: Record<string, string>,
+  player: PlayerInfo,
+) {
+  const ALPHA = '0.35';
+  const you = player.isSelf;
+  const verdict = player.localVerdict!;
+
+  const { convicted } = player;
+
+  if (you) return hexToRGB(playerColors['You'], ALPHA);
+
+  if (!verdict || verdict.includes('None') || verdict.includes('Player'))
+    return hexToRGB(playerColors['Player'], ALPHA);
+
+  if (convicted) return hexToRGB(playerColors['Cheater'], ALPHA);
+
+  return hexToRGB(playerColors[verdict], ALPHA);
+}
+
 interface PlayerProps {
   player: PlayerInfo;
   icon?: string;
   className?: string;
   onImageLoad?: () => void;
+  playerColors?: Record<string, string>;
 }
 
-const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
+const Player = ({
+  player,
+  icon,
+  className,
+  onImageLoad,
+  playerColors,
+}: PlayerProps) => {
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
   // Use "Player" as a verdict if the client isnt You
@@ -68,6 +94,7 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
   const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
+  const color = displayColor(playerColors!, player);
 
   const localizedLocalVerdict = localVerdict.map((verdict) => ({
     label: t(verdict.label),
@@ -95,16 +122,20 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
     }*/
 
     showMenu(event, menuItems);
+    console.log(player);
   };
 
   return (
-    <div className={`player-item ${className}`}>
+    <div
+      className={`player-item ${className}`}
+      style={{ backgroundColor: color }}
+    >
       <Select
         className="player-verdict"
         options={localizedLocalVerdict}
         placeholder={displayVerdict}
         disabled={player.isSelf}
-        onChange={(e) => markPlayer(player.steamID64, e.toString())}
+        onChange={(e) => updatePlayer(player.steamID64, e.toString())}
       />
       <PopoutInfo
         player={player}

@@ -6,15 +6,12 @@ import './ColorSelect.css';
 
 interface ColorSelectorProps {
   onChange?: (e: string) => void;
-  placeholder?: string;
+  value?: string;
 }
 
-const ColorSelector = ({
-  onChange,
-  placeholder = '#ffffff',
-}: ColorSelectorProps) => {
+const ColorSelector = ({ onChange, value = '#ffffff' }: ColorSelectorProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
-  const [selectedColor, setSelectedColor] = React.useState(placeholder);
+  const [selectedColor, setSelectedColor] = React.useState(value);
   const colorRef = React.useRef<HTMLDivElement>(null);
   const isFirstClickRef = React.useRef(true);
 
@@ -40,10 +37,9 @@ const ColorSelector = ({
 
   const handleClear = (event: React.MouseEvent) => {
     event.stopPropagation();
-    console.log('boop');
     setIsExpanded(false);
     setSelectedColor('none');
-    if (onChange) onChange(selectedColor);
+    if (onChange) onChange('none');
   };
 
   // Opening the Colorpicker for the first time counts as a click
