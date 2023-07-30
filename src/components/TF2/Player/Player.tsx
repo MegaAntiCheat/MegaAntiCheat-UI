@@ -110,7 +110,6 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
         player={player}
         className="player-popout"
         key={player.steamID64}
-        disabled={true}
       >
         <div className="player-profile" onContextMenu={handleContextMenu}>
           <img
