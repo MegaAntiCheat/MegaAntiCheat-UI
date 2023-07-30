@@ -9,6 +9,10 @@
   padding-bottom: 2px;
 }
 
+.player-item:hover {
+  background-color: var(--dark-hover-color);
+}
+
 .player-name,
 .player-time,
 .player-status {
