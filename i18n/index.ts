@@ -30,7 +30,8 @@ const t = (key: string, lang: string = currentLang) => {
     throw new Error(`Failed to load Language for ${lang}`);
   }
 
-  return translations[lang][key] || key;
+  // Always default to English
+  return translations[lang][key] || translations['English'][key];
 };
 
 export { currentLang, setLanguage, t, translations };
