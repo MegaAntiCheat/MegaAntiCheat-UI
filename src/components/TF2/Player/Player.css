@@ -18,6 +18,7 @@
 }
 
 .player-profile {
+  display: flex;
   position: relative;
   margin-left: 5px;
 }

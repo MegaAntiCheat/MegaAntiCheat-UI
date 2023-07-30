@@ -1,0 +1,18 @@
+.ctx-menu {
+  position: absolute;
+  background-color: var(--dark-bg-color);
+  border: 1px solid var(--dark-highlight-color);
+  color: white;
+  z-index: 999;
+  border-radius: 2px;
+  text-align: start;
+}
+
+.ctx-menu-item {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.ctx-menu-item:hover {
+  background-color: var(--dark-highlight-color);
+}

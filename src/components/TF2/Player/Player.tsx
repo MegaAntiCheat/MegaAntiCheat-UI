@@ -1,10 +1,11 @@
 import React from 'react';
 import './Player.css';
 
-import { Flex, Select } from '@components/General';
-import { PopoutInfo } from '@components/TF2';
-import { markPlayer } from '@api/players';
 import { t } from '@i18n';
+import { markPlayer } from '@api/players';
+import { PopoutInfo } from '@components/TF2';
+import { ContextMenu, Select } from '@components/General';
+import { ContextMenuContext } from '@components/General/ContextMenu/ContextMenuProvider';
 
 const localVerdict = [
   {
@@ -58,6 +59,8 @@ interface PlayerProps {
 }
 
 const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
+  // Context Menu
+  const { showMenu } = React.useContext(ContextMenuContext);
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')
@@ -71,8 +74,31 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
     value: verdict.value,
   }));
 
+  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const menuItems = [
+      {
+        label: 'Open Profile',
+        onClick: () => {
+          parent.open(player.steamInfo?.profileUrl);
+        },
+      },
+    ];
+
+    /*if (!player.isSelf) {
+      menuItems.push({
+        label: 'Votekick Player',
+        onClick: () => {
+          console.log('Soon:tm:');
+        },
+      });
+    }*/
+
+    showMenu(event, menuItems);
+  };
+
   return (
-    <Flex className={`player-item ${className}`}>
+    <div className={`player-item ${className}`}>
       <Select
         className="player-verdict"
         options={localizedLocalVerdict}
@@ -84,8 +110,9 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
         player={player}
         className="player-popout"
         key={player.steamID64}
+        disabled={true}
       >
-        <Flex className="player-profile">
+        <div className="player-profile" onContextMenu={handleContextMenu}>
           <img
             className="player-pfp"
             width={24}
@@ -100,7 +127,7 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
           >
             {player.name}
           </div>
-        </Flex>
+        </div>
       </PopoutInfo>
       {icon ? (
         <img
@@ -115,7 +142,8 @@ const Player = ({ player, icon, className, onImageLoad }: PlayerProps) => {
       )}
       <div className="player-status">{displayStatus}</div>
       <div className="player-time">{displayTime}</div>
-    </Flex>
+      <ContextMenu />
+    </div>
   );
 };
 

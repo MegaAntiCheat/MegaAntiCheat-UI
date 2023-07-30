@@ -33,5 +33,6 @@
   "PREF_COLORS": "Farben",
   "PREF_ADVANCED": "Erweitert",
   "PREF_STEAM_API_KEY": "Steam API Schlüssel",
-  "PREF_RCON_PASSWORD": "RCon Passwort"
+  "PREF_RCON_PASSWORD": "RCon Passwort",
+  "PREF_OPEN_IN_APP": "Öffne Profile in Steam"
 }

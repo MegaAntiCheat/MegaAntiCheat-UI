@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Accordion,
+  Checkbox,
   ColorSelector,
   Flex,
   Select,
@@ -37,6 +38,10 @@ const Preferences = () => {
                   doForceUpdate(!forceUpdate);
                 }}
               />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_OPEN_IN_APP')}</div>
+              <Checkbox />
             </Flex>
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">

@@ -13,6 +13,7 @@ interface PopoutInfoProps {
   player: PlayerInfo;
   className?: string;
   children: ReactNode;
+  disabled?: boolean;
 }
 
 function calculateKD(kills: number = 0, deaths: number = 0): string {
@@ -24,12 +25,19 @@ function calculateKD(kills: number = 0, deaths: number = 0): string {
   return (kills / deaths).toFixed(2);
 }
 
-const PopoutInfo = ({ player, className, children }: PopoutInfoProps) => {
+const PopoutInfo = ({
+  player,
+  className,
+  children,
+  disabled,
+}: PopoutInfoProps) => {
   const [showPopout, setShowPopout] = React.useState(false);
   const [popoutPosition, setPopoutPosition] = React.useState({ left: 0 });
   const popoutRef = React.useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (event: React.MouseEvent) => {
+    if (disabled) return;
+
     setShowPopout(true);
 
     // Calculate the left position based on the mouse position

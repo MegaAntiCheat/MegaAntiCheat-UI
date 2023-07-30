@@ -11,6 +11,7 @@ import ColorSelector from './ColorSelect/ColorSelect';
 import TextInput from './TextInput/TextInput';
 import Accordion from './Accordion/Accordion';
 import ContentPageContainer from './ContentPageContainer/ContentPageContainer';
+import ContextMenu from './ContextMenu/ContextMenu';
 
 export {
   SideMenu,
@@ -18,6 +19,7 @@ export {
   Flex,
   Divider,
   Checkbox,
+  ContextMenu,
   TextItem,
   Select,
   Tooltip,
