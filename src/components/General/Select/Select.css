@@ -56,9 +56,6 @@
   border: 1px solid var(--dark-bg-main-color);
   z-index: 999;
   max-height: 200px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
 
 .select-option {
@@ -67,6 +64,9 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   background-color: var(--dark-bg-color);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .select-option:hover {
