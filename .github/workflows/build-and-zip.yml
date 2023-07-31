@@ -29,7 +29,8 @@ jobs:
 
       - name: zip dist folder
         run: |
-          zip -r dist.zip dist
+          cd dist
+          zip -r ../dist.zip .
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
