@@ -19,6 +19,26 @@
   margin-bottom: 10px;
 }
 
+.preference-option.pref-password {
+  grid-template-columns: 50% 205px 24px;
+}
+
+.pref-password-reveal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.pref-password-reveal:hover {
+  cursor: pointer;
+  background-color: var(--dark-bg-color);
+  border-radius: 4px;
+}
+
 .preference-title {
   overflow: hidden;
   text-overflow: ellipsis;

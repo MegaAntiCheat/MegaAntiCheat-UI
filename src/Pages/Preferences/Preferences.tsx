@@ -17,9 +17,12 @@ import {
 
 import './Preferences.css';
 import { debounce } from '@api/utils';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Preferences = () => {
   const [settings, setSettings] = React.useState<Settings>(defaultSettings);
+  const [rconRevealed, setRconRevealed] = React.useState(false);
+  const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
   const languageOptions: SelectOption[] = Object.keys(translations).map(
@@ -165,25 +168,55 @@ const Preferences = () => {
             </Flex>
           </Accordion>
           <Accordion title={t('PREF_ADVANCED')}>
-            <Flex className="preference-option">
+            <Flex className="preference-option pref-password">
               <div className="preference-title">{t('PREF_STEAM_API_KEY')}</div>
               <TextInput
-                type="password"
+                type={steamApiKeyRevealed ? 'input' : 'password'}
                 value={settings?.internal.steamApiKey}
                 onChange={(e) =>
                   handleSettingChange('steamApiKey', e, 'internal')
                 }
               />
+              <div onClick={() => setSteamApiKeyRevealed(!steamApiKeyRevealed)}>
+                {steamApiKeyRevealed ? (
+                  <EyeOff
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                ) : (
+                  <Eye
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                )}
+              </div>
             </Flex>
-            <Flex className="preference-option">
+            <Flex className="preference-option pref-password">
               <div className="preference-title">{t('PREF_RCON_PASSWORD')}</div>
               <TextInput
-                type="password"
+                type={rconRevealed ? 'input' : 'password'}
                 value={settings?.internal.rconPassword}
                 onChange={(e) =>
                   handleSettingChange('rconPassword', e, 'internal')
                 }
               />
+              <div onClick={() => setRconRevealed(!rconRevealed)}>
+                {rconRevealed ? (
+                  <EyeOff
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                ) : (
+                  <Eye
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                )}
+              </div>
             </Flex>
           </Accordion>
         </div>
