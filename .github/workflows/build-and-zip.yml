@@ -27,13 +27,8 @@ jobs:
         run: |
           pnpm run build
 
-      - name: zip dist folder
-        run: |
-          cd dist
-          zip -r ../dist.zip .
-
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: dist.zip
+          path: dist
