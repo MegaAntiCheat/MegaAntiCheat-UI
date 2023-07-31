@@ -8,7 +8,9 @@ export const HISTORYFETCH = `${APIURL}/history/v1`;
 export const PREF_ENDPOINT = `${APIURL}/pref/v1`;
 export const USER_ENDPOINT = `${APIURL}/user/v1`;
 
-export const useFakedata = process.env.REACT_APP_USE_FAKEDATA ?? false;
+// This is used to get fakedata for the frontend.
+// dotenv breaks build, so we can't use that.
+export const useFakedata = true;
 
 export async function verifyBackend(): Promise<boolean> {
   return await fetch(SERVERFETCH)

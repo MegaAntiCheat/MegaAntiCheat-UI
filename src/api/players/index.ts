@@ -31,7 +31,6 @@ async function updatePlayer(
     console.log(`Marking Player: ${steamID64} with verdict: ${verdict}`);
 
     const response = await fetch(USER_ENDPOINT, options);
-    console.log(formBody, options, response);
 
     if (!response.ok) throw new Error('Failed to mark player.');
   } catch (e) {

@@ -178,6 +178,7 @@ const Preferences = () => {
             <Flex className="preference-option">
               <div className="preference-title">{t('PREF_RCON_PASSWORD')}</div>
               <TextInput
+                type="password"
                 value={settings?.internal.rconPassword}
                 onChange={(e) =>
                   handleSettingChange('rconPassword', e, 'internal')

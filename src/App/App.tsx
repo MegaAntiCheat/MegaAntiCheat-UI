@@ -73,7 +73,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
           }}
         >
           <div>{t('PREF_RCON_PASSWORD')}</div>
-          <TextInput type="password" onChange={(e) => setRconPassword(e)} />
+          <TextInput onChange={(e) => setRconPassword(e)} />
         </Flex>
 
         <div style={{ marginTop: '20px' }} />

@@ -79,7 +79,7 @@ export const defaultSettings: PreferenceResponse = {
     language: 'English',
     openInApp: false,
     colors: {
-      You: '#00ff00',
+      You: '##69c669',
       Player: 'none',
       Trusted: '#00ff00',
       Suspicious: '#ffff00',

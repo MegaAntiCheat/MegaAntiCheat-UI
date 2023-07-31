@@ -122,7 +122,6 @@ const Player = ({
     }*/
 
     showMenu(event, menuItems);
-    console.log(player);
   };
 
   return (

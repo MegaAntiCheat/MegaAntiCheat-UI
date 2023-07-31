@@ -7,10 +7,10 @@ export const fakedata: ServerInfoResponse = {
   players: [
     {
       steamID64: '76561198210264393',
-      isSelf: false,
+      isSelf: true,
       name: 'TheEntireUIDevelopmentTeam',
       tags: [],
-      localVerdict: 'Cheater',
+      localVerdict: 'Player',
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -29,7 +29,7 @@ export const fakedata: ServerInfoResponse = {
     },
     {
       steamID64: '456822423554124',
-      isSelf: true,
+      isSelf: false,
       name: 'Sammy',
       tags: [],
       localVerdict: 'None',
@@ -94,7 +94,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Only Human',
       tags: [],
-      localVerdict: 'None',
+      localVerdict: 'Cheater',
       gameInfo: {
         deaths: 0,
         state: 'Active',
