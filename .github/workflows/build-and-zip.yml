@@ -1,0 +1,38 @@
+name: Build and Zip
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install
+
+      - name: Build
+        run: |
+          pnpm run build
+
+      - name: zip dist folder
+        run: |
+          zip -r dist.zip dist
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist.zip
