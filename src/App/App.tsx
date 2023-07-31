@@ -59,6 +59,8 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
             }}
             className="link"
             href="https://steamcommunity.com/dev/apikey"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {t('PREF_STEAM_API_KEY')}
           </a>
@@ -96,7 +98,6 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 
 function App() {
   const [currentPage, setCurrentPage] = React.useState('');
-  const [, setLoading] = React.useState(true);
 
   const modal = useModal();
 
@@ -113,17 +114,17 @@ function App() {
     }
   };
 
-  const verifyConnection = async () => {
+  const isBackendConnected = async () => {
     try {
       const backendRunning = await verifyBackend();
       if (!backendRunning) throw new Error('Backend not running');
-      setLoading(false);
-      // Verify configuration if the backend is running
-      verifyConfigured();
+      return true;
     } catch (e) {
       console.error('Error verifying backend connection', e);
-      setLoading(false);
+      // Close any previous modal
+      modal.closeModal();
       modal.openModal(<CantConnectModal />);
+      return false;
     }
   };
 
@@ -131,12 +132,26 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      setLoading(false);
+      modal.closeModal();
+      return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
-      setLoading(false);
+      // Close any previous modal
+      modal.closeModal();
       modal.openModal(<ConfigurationModal closeModal={modal.closeModal} />);
+      return false;
     }
+  };
+
+  const verificationRoutine = async () => {
+    let connected = false;
+    do {
+      connected = await isBackendConnected();
+      if (!connected) {
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait 5 seconds before retrying
+      }
+    } while (!connected);
+    verifyConfigured();
   };
 
   React.useEffect(() => {
@@ -149,14 +164,11 @@ function App() {
     };
     setLanguageFromSettings();
 
-    // Don't verify backend if we're on the preferences page
-    // or if we're using fakedata (dev environment)
+    // Don't verify backend if we're using fakedata (dev environment)
     if (useFakedata) return;
-    if (currentPage === 'preferences') return;
 
-    verifyConnection();
-
-    const intervalId = setInterval(verifyConnection, 5000);
+    verificationRoutine();
+    const intervalId = setInterval(verificationRoutine, 5000);
 
     return () => {
       clearInterval(intervalId);
