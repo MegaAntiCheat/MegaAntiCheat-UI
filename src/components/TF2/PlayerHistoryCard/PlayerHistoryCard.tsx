@@ -41,7 +41,7 @@ function formVisibility(visibility: profileVisibility | undefined) {
 const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const playerHistoryRef = React.useRef<HTMLDivElement>(null);
 
-  const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
+  const pfp = player.steamInfo?.pfp ?? './person.png';
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
   const timeCreated = player.steamInfo?.timeCreated ?? 0;

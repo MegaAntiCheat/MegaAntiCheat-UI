@@ -93,7 +93,7 @@ const Player = ({
     : displayProperVerdict(player.localVerdict ?? t('PLAYER'));
   const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
-  const pfp = player.steamInfo?.pfp ?? './mac_logo.webp';
+  const pfp = player.steamInfo?.pfp ?? './person.png';
   const color = displayColor(playerColors!, player);
 
   const localizedLocalVerdict = localVerdict.map((verdict) => ({
