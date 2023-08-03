@@ -12,15 +12,17 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
 }) => {
   const menuIcon = (
     <a
-      className={`menu-icon ${collapsed ? 'collapsed' : ''}`}
+      className={`menu-icon ml-[5%] top-1 relative transition-all-[0.3s bottom ease-in-out] ${
+        collapsed ? 'collapsed' : ''
+      }`}
       href="https://github.com/MegaAntiCheat"
       target="_blank"
       rel="noopener noreferrer"
     >
       <img
-        width={32}
+        className="rounded-lg"
         height={32}
-        style={{ borderRadius: '10px' }}
+        width={32}
         src="./mac_logo.webp"
         alt="Logo"
       />
@@ -28,17 +30,27 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
   );
 
   return (
-    <span className="menu-header">
+    <span
+      className={`menu-header relative flex min-h-8 h-[88px] flex-col justify-center ${
+        collapsed ? 'collapsed' : ''
+      }`}
+    >
       {collapsed && menuIcon}
-      <div className="menu-header-flex">
+      <div className="menu-header-flex flex items-center justify-start">
         {!collapsed && menuIcon}
         {!collapsed && (
-          <span className={`menu-title ${collapsed ? 'collapsed' : ''}`}>
+          <span
+            className={`menu-title mr-[5%] ml-[3%] text-lg flex-grow transition-opacity-[0.5s ease-in-out] opacity-1 overflow-hidden ${
+              collapsed ? 'collapsed' : ''
+            }`}
+          >
             MegaAntiCheat
           </span>
         )}
         <span
-          className={`menu-toggle ${collapsed ? 'collapsed' : ''}`}
+          className={`menu-toggle w-8 h-8 absolute top-[50%] -translate-y-2/4 cursor-pointer right-5 ${
+            collapsed ? 'collapsed' : ''
+          }`}
           onClick={handleSymbolClick}
         >
           {collapsed ? (

@@ -37,7 +37,12 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
   }, []);
 
   return (
-    <div className={`side-menu ${collapsed ? 'collapsed' : ''}`} ref={MenuRef}>
+    <div
+      className={`side-menu h-screen z-50 bg-sidebar left-0 top-0 fixed lg:w-[50%] sm:w-[90%] ${
+        collapsed ? 'collapsed' : ''
+      }`}
+      ref={MenuRef}
+    >
       <MenuHeader collapsed={collapsed} handleSymbolClick={handleToggleClick} />
       <div className="side-menu-content">
         <Divider size={2} />

@@ -29,7 +29,9 @@ const SideMenuItem = ({
 
   return (
     <div
-      className={`sm-item-outer ${collapsed ? 'collapsed' : ''}`}
+      className={`sm-item-outer p-3 transition-colors delay-100 whitespace-nowrap hover:bg-secondary hover:cursor-pointer hover:rounded-sm ${
+        collapsed ? 'collapsed' : ''
+      }`}
       onClick={onClick}
     >
       {collapsed ? (
