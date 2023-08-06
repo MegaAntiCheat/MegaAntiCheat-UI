@@ -1,22 +1,3 @@
-.accordion-icon {
-  position: relative;
-  top: 23px;
-  padding-right: 10px;
-  color: white;
-}
-
-.accordion-divider {
-  width: 90%;
-  position: relative;
-  top: -7px;
-  margin-bottom: 15px;
-}
-
-.accordion-header {
-  cursor: pointer;
-  user-select: none;
-}
-
-.accordion-header:hover {
-  color: skyblue
+.acc-icon.open {
+  @apply rotate-180;
 }

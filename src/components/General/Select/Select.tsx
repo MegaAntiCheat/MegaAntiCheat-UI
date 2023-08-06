@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import './Select.css';
 import { t } from '@i18n';
 
@@ -50,11 +50,6 @@ const Select = ({
     }
   };
 
-  const handleArrowClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-    toggleOpen();
-  };
-
   const toggleOpen = () => {
     if (!disabled) setIsOpen(!isOpen);
   };
@@ -69,9 +64,7 @@ const Select = ({
   return (
     <div
       onClick={toggleOpen}
-      className={`select-item-container ${className}  ${
-        disabled ? 'disabled' : ''
-      }`}
+      className={`relative ${className}  ${disabled ? 'disabled' : ''}`}
       ref={selectRef}
       role="combobox"
       aria-haspopup="listbox"
@@ -84,9 +77,11 @@ const Select = ({
         <div className="select-text" aria-hidden="true">
           {selectedOption ? selectedOption : t('COMPONENT_SELECT')}
         </div>
-        <div className="select-icon" onClick={handleArrowClick}>
-          {isOpen ? <ChevronUp /> : <ChevronDown />}
-        </div>
+        <ChevronDown
+          className={`select-icon transition relative left-1.5 ${
+            isOpen ? 'open' : ''
+          }`}
+        />
       </div>
       {isOpen && (
         <div
@@ -94,7 +89,7 @@ const Select = ({
             shouldRenderOptionsBelow() ? 'below' : 'above'
           }`}
         >
-          <ul className="select-options" role="listbox">
+          <ul className="select-options select-none" role="listbox">
             {options.map((e) => (
               <li
                 className={`select-option ${

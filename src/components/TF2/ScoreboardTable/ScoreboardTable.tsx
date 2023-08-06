@@ -2,7 +2,6 @@ import React from 'react';
 import './ScoreboardTable.css';
 
 import { getAllSettings } from '@api/preferences';
-import { Flex } from '@components/General';
 import { Player } from '@components/TF2';
 import { t } from '@i18n';
 interface ScoreboardTableProps {
@@ -42,17 +41,22 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
 
   const renderTeam = (team?: PlayerInfo[], teamColor?: string) => {
     return (
+      // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half ${teamColor}`}>
-        <div className={`scoreboard-header ${teamColor?.toLowerCase()}`}>
+        <div
+          className={`text-4xl font-build mt-3 mb-9 ${teamColor?.toLowerCase()}`}
+        >
           {teamColor} ({team?.length ?? 0})
         </div>
-        <Flex className="scoreboard-nav">
+        <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
-          <div>{t('TEAM_NAV_STATUS')}</div>
-          <div>{t('TEAM_NAV_TIME')}</div>
-        </Flex>
-        <div className={`scoreboard-team ${teamColor?.toLowerCase()}`}>
+          <div className="hidden xs:[display:unset]">
+            {t('TEAM_NAV_STATUS')}
+          </div>
+          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
+        </div>
+        <div className={`${teamColor?.toLowerCase()}`}>
           {team?.map((player) => (
             <Player
               playerColors={playerColors}
@@ -68,9 +72,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   };
 
   return (
-    <div className="scoreboard-grid-container">
+    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-screen overflow-x-hidden">
       {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider" />
+      <div className="scoreboard-divider hidden sm:[display:unset] h-5/6 bg-highlight/10 w-[1px] mt-9" />
       {renderTeam(RED, 'RED')}
     </div>
   );

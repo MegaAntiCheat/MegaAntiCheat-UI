@@ -93,7 +93,7 @@ const Player = ({
     : displayProperVerdict(player.localVerdict ?? t('PLAYER'));
   const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
-  const pfp = player.steamInfo?.pfp ?? './person.png';
+  const pfp = player.steamInfo?.pfp ?? './person.webp';
   const color = displayColor(playerColors!, player);
 
   const localizedLocalVerdict = localVerdict.map((verdict) => ({
@@ -126,7 +126,7 @@ const Player = ({
 
   return (
     <div
-      className={`player-item ${className}`}
+      className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${className}`}
       style={{ backgroundColor: color }}
     >
       <Select
@@ -141,9 +141,12 @@ const Player = ({
         className="player-popout"
         key={player.steamID64}
       >
-        <div className="player-profile" onContextMenu={handleContextMenu}>
+        <div
+          className="player-profile flex ml-1"
+          onContextMenu={handleContextMenu}
+        >
           <img
-            className="player-pfp"
+            className="player-pfp rounded-s-sm mx-3"
             width={24}
             height={24}
             src={pfp}
@@ -151,7 +154,7 @@ const Player = ({
             onLoad={onImageLoad}
           />
           <div
-            className="player-name"
+            className="player-name text-ellipsis overflow-hidden whitespace-nowrap"
             onClick={() => parent.open(player.steamInfo?.profileUrl)}
           >
             {player.name}
@@ -169,8 +172,12 @@ const Player = ({
       ) : (
         <div />
       )}
-      <div className="player-status">{displayStatus}</div>
-      <div className="player-time">{displayTime}</div>
+      <div className="player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
+        {displayStatus}
+      </div>
+      <div className="player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
+        {displayTime}
+      </div>
       <ContextMenu />
     </div>
   );

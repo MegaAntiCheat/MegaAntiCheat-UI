@@ -1,16 +1,11 @@
-
 .side-menu.collapsed {
   @apply max-w-[50px];
 }
 
-.menu-header.collapsed {
-  @apply h-16 hidden;
-}
-
 .menu-toggle.collapsed {
-  @apply top-3 left-3 bottom-[unset] transform-[none];
+  @apply relative top-2 left-2 bottom-[unset] transform-none;
 }
 
 .menu-icon.collapsed {
-  @apply ml-0 mt-[8px] left-[8px] bottom-[-5px] relative transition-all bottom-0.3s ease-in-out;
+  @apply ml-1 left-1 relative -top-0.5;
 }

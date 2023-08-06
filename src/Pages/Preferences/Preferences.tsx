@@ -65,16 +65,19 @@ const Preferences = () => {
 
   if (loading) {
     return (
-      <TextItem className="page-header" fontSize="h1">
-        Loading...
-      </TextItem>
+      <div className="absolute top-[40%] left-[40%] translate-y-2/4">
+        <TextItem className="text-3xl font-bold" fontSize="h1">
+          Loading...
+        </TextItem>
+        <div className="spinner" />
+      </div>
     );
   }
 
   return (
     <>
       <div className="preference-container">
-        <TextItem className="page-header" fontSize="h1">
+        <TextItem className="page-header text-3xl font-bold my-6" fontSize="h1">
           {t('PREFERENCES')}
         </TextItem>
         <div className="preferences">

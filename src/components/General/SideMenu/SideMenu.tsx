@@ -3,8 +3,8 @@ import { History, Settings2, Users2 } from 'lucide-react';
 import { Divider, SideMenuItem } from '@components/General';
 import MenuHeader from './MenuHeader';
 
-import './SideMenu.css';
 import { t } from '@i18n';
+import './SideMenu.css';
 
 interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<string>>;
@@ -38,13 +38,13 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
 
   return (
     <div
-      className={`side-menu h-screen z-50 bg-sidebar left-0 top-0 fixed lg:w-[50%] sm:w-[90%] ${
+      className={`side-menu fixed left-0 top-0 h-screen z-50 bg-secondary outline-outline/30 outline-1 outline w-full sm:w-2/4 max-w-sm transition-all ease-in-out ${
         collapsed ? 'collapsed' : ''
       }`}
       ref={MenuRef}
     >
       <MenuHeader collapsed={collapsed} handleSymbolClick={handleToggleClick} />
-      <div className="side-menu-content">
+      <div>
         <Divider size={2} />
         <SideMenuItem
           title={t('PLAYERLIST')}

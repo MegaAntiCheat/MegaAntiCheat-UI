@@ -12,7 +12,7 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
 }) => {
   const menuIcon = (
     <a
-      className={`menu-icon ml-[5%] top-1 relative transition-all-[0.3s bottom ease-in-out] ${
+      className={`menu-icon ml-[5%] top-1 relative ${
         collapsed ? 'collapsed' : ''
       }`}
       href="https://github.com/MegaAntiCheat"
@@ -31,7 +31,7 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
 
   return (
     <span
-      className={`menu-header relative flex min-h-8 h-[88px] flex-col justify-center ${
+      className={`menu-header relative flex min-h-[32px] h-[88px] flex-col justify-center transition-all delay-200 ease-in-out ${
         collapsed ? 'collapsed' : ''
       }`}
     >
@@ -40,7 +40,7 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
         {!collapsed && menuIcon}
         {!collapsed && (
           <span
-            className={`menu-title mr-[5%] ml-[3%] text-lg flex-grow transition-opacity-[0.5s ease-in-out] opacity-1 overflow-hidden ${
+            className={`menu-title mr-[5%] ml-[3%] text-xl flex-grow transition-opacity opacity-1 overflow-hidden ${
               collapsed ? 'collapsed' : ''
             }`}
           >

@@ -22,6 +22,15 @@ code {
   display: none;
 }
 
+.red {
+  color: salmon;
+}
+
+.blu {
+  color: skyblue;
+}
+
+
 :root {
   --dark-background: #282c34;
   --dark-sidebar-color: #191919;

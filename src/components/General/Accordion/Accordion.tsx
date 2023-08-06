@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import './Accordion.css';
 import { Divider, Flex } from '@components/General';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 interface AccordionProps {
   title?: string;
@@ -23,18 +23,20 @@ const Accordion = ({
   };
 
   return (
-    <div className={`accordion ${className}`}>
+    <div className={`my-4 ${className}`}>
       <Flex
-        className={`accordion-header ${isOpen ? 'open' : ''}`}
+        className="cursor-pointer select-none hover:text-sky-300"
         onClick={toggleAccordion}
       >
-        <div className="accordion-icon">
-          {isOpen ? <ChevronUp /> : <ChevronDown />}
+        <div className="relative pr-3">
+          <ChevronDown
+            className={`acc-icon transition-all ${isOpen ? 'open' : ''}`}
+          />
         </div>
-        <h3 className="accordion-title">{title}</h3>
+        <h3 className="text-xl font-bold">{title}</h3>
       </Flex>
-      {isOpen && <Divider size={1} className="accordion-divider" />}
-      {isOpen && <div className="accordion-content">{children}</div>}
+      {isOpen && <Divider size={1} className="w-[85%] top-2 relative mb-8" />}
+      {isOpen && <div className="mb-2 select-none">{children}</div>}
     </div>
   );
 };
