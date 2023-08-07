@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { t } from '@i18n';
 import { fetchPlayerHistory } from '@api/players';
 import { PlayerHistoryCard } from '@components/TF2';
-import { Flex, Search, TextItem } from '@components/General';
+import { Search, TextItem } from '@components/General';
 
 import './PlayerHistory.css';
 
@@ -33,17 +33,18 @@ const PlayerHistory = () => {
 
   return (
     <div>
-      <TextItem fontSize="h1" className="page-header">
+      <TextItem
+        fontSize="h1"
+        className="relative text-3xl font-bold text-center my-5"
+      >
         {t('PLAYERHISTORY')}
       </TextItem>
-      <Flex className="history-options">
-        <Search
-          placeholder={t('PLAYER_SEARCH')}
-          className="history-search"
-          onChange={handleSearch}
-        />
-      </Flex>
-      <div className="playerhistory-container custom-scollbar">
+      <Search
+        placeholder={t('PLAYER_SEARCH')}
+        className="ml-4 mb-3 w-[calc(100%-40px)]"
+        onChange={handleSearch}
+      />
+      <div className="grid grid-cols-1 lg:grid-cols-2 custom-scollbar overflow-x-hidden max-h-[calc(100vh-120px)]">
         {searchResults.length > 0 ? (
           searchResults.map((player) => (
             <PlayerHistoryCard player={player} key={player.steamID64} />

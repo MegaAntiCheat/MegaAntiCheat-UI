@@ -22,6 +22,9 @@ module.exports = {
         scoreboardgrid: '1fr 3px 1fr',
         scoreboardgridsm: '1fr',
       },
+      gridTemplateRows: {
+        playerhistorycard: '40px 22px 40px auto',
+      },
       fontFamily: {
         build: ['"Build"', 'sans-serif'],
       },

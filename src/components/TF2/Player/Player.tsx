@@ -142,11 +142,11 @@ const Player = ({
         key={player.steamID64}
       >
         <div
-          className="player-profile flex ml-1"
+          className="player-profile flex ml-1 cursor-pointer"
           onContextMenu={handleContextMenu}
         >
           <img
-            className="player-pfp rounded-s-sm mx-3"
+            className="player-pfp rounded-s-sm mx-3 cursor-pointer"
             width={24}
             height={24}
             src={pfp}
@@ -163,7 +163,7 @@ const Player = ({
       </PopoutInfo>
       {icon ? (
         <img
-          className="player-badge"
+          className="player-badge mr-5"
           width={12}
           height={12}
           src={icon}

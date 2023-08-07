@@ -52,36 +52,30 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
 
   return (
     <div
-      className="phc-container"
+      className="mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis overflow-hidden whitespace-nowrap"
       key={player.steamID64}
       ref={playerHistoryRef}
     >
-      <div className="phc-left">
-        <img
-          width={128}
-          height={128}
-          src={pfp}
-          alt="Profile Picture"
-          className="phc-pfp"
-        />
-      </div>
-      <div className="phc-content">
-        <div className="phc-name">
+      <img
+        width={128}
+        height={128}
+        src={pfp}
+        alt="Profile Picture"
+        className="block h-32 w-32 rounded-md outline outline-highlight/30 outline-1"
+      />
+      <div>
+        <div className="flex text-3xl font-bold">
           <a
             href={player.steamInfo?.profileUrl}
             target="_blank"
-            className="redirect"
+            className="hover:text-sky-300 mr-2"
             rel="noreferrer"
           >
-            <div>{player.name}</div>
+            <div className="">{player.name}</div>
           </a>
           {profileVisibility.includes(t('PRIVATE')) && (
             <Tooltip content={t('TOOLTIP_PRIVATE')} direction="bottom">
-              <EyeOff
-                color="grey"
-                className="phc-private"
-                aria-label="Private"
-              />
+              <EyeOff color="grey" aria-label="Private" />
             </Tooltip>
           )}
         </div>
@@ -93,7 +87,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
           <div className="phc-bans">
             {vacBans ? (
               <Tooltip
-                className="phc-badge"
+                className=""
                 content={`${vacBans} VAC Ban${vacBans > 1 ? 's' : ''}`}
                 direction="top"
               >
@@ -109,7 +103,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
             )}
             {gameBans ? (
               <Tooltip
-                className="phc-badge"
+                className=""
                 content={`${gameBans} ${t('GAME')} Ban${
                   gameBans > 1 ? 's' : ''
                 }`}
