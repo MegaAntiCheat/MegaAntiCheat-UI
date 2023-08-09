@@ -8,12 +8,6 @@
   display: flex;
 }
 
-.App-sidebar {
-  flex: 0 0 50px;
-  min-height: 100vh;
-  color: white;
-}
-
 .App-content {
   flex: 1;
   min-height: 100vh;

@@ -18,9 +18,13 @@ const SideMenuItem = ({
 }: SideMenuItemProps) => {
   const SideMenuInner = () => {
     return (
-      <Flex className="sm-item-flex">
-        <div className="sm-item-icon">{Icon}</div>
-        <div className={`sm-item-title ${collapsed ? 'blocked' : ''}`}>
+      <Flex className="sm-item-flex items-center relative">
+        <div className="sm-item-icon relative ml-[3%]">{Icon}</div>
+        <div
+          className={`sm-item-title overflow-hidden text-lg ml-[5%] ${
+            collapsed ? 'blocked' : ''
+          }`}
+        >
           {title}
         </div>
       </Flex>
@@ -29,7 +33,9 @@ const SideMenuItem = ({
 
   return (
     <div
-      className={`sm-item-outer ${collapsed ? 'collapsed' : ''}`}
+      className={`sm-item-outer max-h-[52px] p-3 transition-all whitespace-nowrap hover:bg-highlight/5 hover:bg hover:cursor-pointer ${
+        collapsed ? 'collapsed' : ''
+      }`}
       onClick={onClick}
     >
       {collapsed ? (

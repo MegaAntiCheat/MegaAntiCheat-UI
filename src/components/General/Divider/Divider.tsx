@@ -10,7 +10,7 @@ interface DividerProps {
 const Divider = ({ size = 1, padding = 0, className = '' }: DividerProps) => {
   return (
     <div
-      className={`divider ${className}`}
+      className={`divider relative w-full rounded-xl bg-outline/20 ${className}`}
       style={{ height: `${size}px`, padding: `${padding}px` }}
     />
   );

@@ -1,6 +1,5 @@
-.select-item-container {
-  position: relative;
-  display: inline-block;
+.select-icon.open {
+  @apply rotate-180;
 }
 
 .select-head {
@@ -26,19 +25,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: 15px;
-  top: -1px;
+  vertical-align: auto;
   position: relative;
   user-select: none;
-}
-
-.select-icon {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  display: flex;
-  align-items: center;
-  transform: translateY(-50%);
 }
 
 .select-options-container {

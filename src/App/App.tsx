@@ -11,7 +11,6 @@ import {
 } from '../Pages';
 import { Modal } from '@components/Modal/Modal';
 import useModal from '@components/Modal/ModalHook';
-import { ContextMenuProvider } from '@components/General/ContextMenu/ContextMenuProvider';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
 
@@ -176,25 +175,23 @@ function App() {
   }, [currentPage]);
 
   return (
-    <ContextMenuProvider>
-      <div className="App">
-        {modal.showModal && (
-          <Modal
-            modalOptions={{ dismissable: false }}
-            show={modal.showModal}
-            onClose={modal.closeModal}
-          >
-            {modal.modalContent}
-          </Modal>
-        )}
-        <div className="App-sidebar">
-          <SideMenu setCurrentPage={setCurrentPage} />
-        </div>
-        <div className="App-content">
-          <ContentPageContainer>{renderPage()}</ContentPageContainer>
-        </div>
+    <div className="App">
+      {modal.showModal && (
+        <Modal
+          modalOptions={{ dismissable: false }}
+          show={modal.showModal}
+          onClose={modal.closeModal}
+        >
+          {modal.modalContent}
+        </Modal>
+      )}
+      <div className="App-sidebar">
+        <SideMenu setCurrentPage={setCurrentPage} />
       </div>
-    </ContextMenuProvider>
+      <div className="App-content">
+        <ContentPageContainer>{renderPage()}</ContentPageContainer>
+      </div>
+    </div>
   );
 }
 

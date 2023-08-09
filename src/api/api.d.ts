@@ -1,9 +1,3 @@
-enum profileVisibility {
-  Private = 1,
-  FriendsOnly = 2,
-  Public = 3,
-}
-
 interface Settings {
   external: {
     language?: string;
@@ -58,7 +52,7 @@ interface SteamInfo {
   profileUrl?: string;
   pfp?: string;
   pfpHash?: string;
-  profileVisibility?: profileVisibility;
+  profileVisibility?: 'Public' | 'Private' | 'Friends Only' | 'Unknown';
   timeCreated?: number;
   countryCode?: string;
   vacBans?: number;

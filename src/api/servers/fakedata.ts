@@ -46,7 +46,7 @@ export const fakedata: ServerInfoResponse = {
       steamInfo: {
         vacBans: 2,
         gameBans: 1,
-        profileVisibility: 2,
+        profileVisibility: 'Private',
       },
     },
     {
@@ -104,6 +104,10 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 0,
+      },
+      steamInfo: {
+        vacBans: 1,
+        profileVisibility: 'Friends Only',
       },
     },
     {

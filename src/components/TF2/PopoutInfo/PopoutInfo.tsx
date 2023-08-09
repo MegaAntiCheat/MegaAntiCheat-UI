@@ -48,8 +48,8 @@ const PopoutInfo = ({
     );
     if (gridContainer) {
       const gridRect = gridContainer.getBoundingClientRect();
-      // -50 seems to perfectly center the popout next to the cursor
-      const left = event.clientX - gridRect.left - 50;
+      // -55 seems to perfectly center the popout next to the cursor
+      const left = event.clientX - gridRect.left - 55;
       setPopoutPosition({ left });
     }
   };
@@ -73,15 +73,18 @@ const PopoutInfo = ({
       ref={popoutRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`popoutinfo-container ${className}`}
+      className={`relative ${className}`}
     >
       {children}
       {showPopout && (
         <div
-          className={`popoutinfo-content ${
-            shouldRenderOptionsBelow() ? 'below' : 'above'
-          }`}
-          style={{ left: popoutPosition.left, transform: 'translateX(-50%)' }}
+          className={`
+            pointer-events-none rounded-sm absolute
+          bg-secondary border-white/50 border-[1px]
+            p-2 max-w-[100px] z-40 -translate-x-2/4 ${
+              shouldRenderOptionsBelow() ? 'below' : 'above'
+            }`}
+          style={{ left: popoutPosition.left }}
         >
           <div>
             {t('KILLS')}: {player.gameInfo?.kills ?? 0}

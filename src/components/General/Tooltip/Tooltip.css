@@ -1,50 +1,21 @@
-.tooltip-container {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip {
-  position: absolute;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #333333f0;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 4px;
-  white-space: nowrap;
-  z-index: 9999;
-}
-
 .tooltip.right {
-  top: 50%;
-  left: 100%;
-  transform: translateY(-50%);
+  @apply top-2/4 left-full -translate-y-2/4;
 }
 
 .tooltip.left {
-  top: 50%;
-  right: 100%;
-  transform: translateY(-50%);
+
+  @apply top-2/4 right-full -translate-y-2/4;
 }
 
 .tooltip.top {
-  top: -50%;
-  left: 50%;
-  transform: translateX(-50%);
+  @apply bottom-full -translate-x-1/3;
 }
 
 .tooltip.bottom {
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  @apply top-full -translate-x-1/3;
 }
-
 
 .tooltip-container:hover .tooltip {
-  display: block;
+  @apply opacity-100;
 }
 
-.tooltip-container .tooltip {
-  display: none;
-}
