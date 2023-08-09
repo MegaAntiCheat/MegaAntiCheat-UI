@@ -606,10 +606,6 @@ video {
   z-index: 50;
 }
 
-.z-\[100\] {
-  z-index: 100;
-}
-
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
@@ -737,10 +733,6 @@ video {
 
 .h-\[88px\] {
   height: 88px;
-}
-
-.h-full {
-  height: 100%;
 }
 
 .h-screen {
@@ -940,10 +932,6 @@ video {
 .bg-secondary {
   --tw-bg-opacity: 1;
   background-color: rgb(25 31 39 / var(--tw-bg-opacity));
-}
-
-.bg-transparent\/30 {
-  background-color: rgb(0 0 0 / 0.3);
 }
 
 .p-1 {
