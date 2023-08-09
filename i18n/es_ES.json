@@ -18,6 +18,7 @@
   "PRIVATE": "Privado",
   "FRIENDS_ONLY": "Solo Amigos",
   "PUBLIC": "Público",
+  "PROFILE": "Perfil",
   "YOU": "Tú",
   "TOOLTIP_PRIVATE": "Este Perfil es Privado",
   "ACC_CREATION": "Creación",
@@ -29,9 +30,15 @@
   "PING": "Ping",
   "NAME": "Nombre",
   "COUNTRY": "País",
+  "LEARN_MORE": "Aprender Más",
+  "CONFIGURATION": "Configuración",
+  "CONF_FIRST_TIME": "Parece que es la primera vez que usas MegaAntiCheat.",
+  "CONF_FIRST_TIME_DESC": "Vamos a preparar todo para su uso!",
+  "CONF_REMINDER": "Puedes cambiar estas opciones después en las preferencias.",
   "PREF_GENERAL": "General",
   "PREF_COLORS": "Colores",
   "PREF_ADVANCED": "Avanzado",
   "PREF_STEAM_API_KEY": "Clave de Steam API",
-  "PREF_RCON_PASSWORD": "Contraseña RCon"
+  "PREF_RCON_PASSWORD": "Contraseña RCon",
+  "PREF_OPEN_IN_APP": "Abir Perfiles en Steam"
 }
