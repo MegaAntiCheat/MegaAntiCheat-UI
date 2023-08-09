@@ -59,7 +59,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
         </div>
         <div className={`${teamColor?.toLowerCase()}`}>
           {team?.map((player) => (
-            <ContextMenuProvider>
+            <ContextMenuProvider key={player.steamID64}>
               <Player
                 playerColors={playerColors}
                 className={teamColor?.toLowerCase()}

@@ -59,7 +59,9 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
           >
             <div className="relative bottom-0.5">{player.name}</div>
           </a>
-          {player.steamInfo?.profileVisibility === 1 /*Private*/ && (
+          {player.steamInfo?.profileVisibility?.includes(
+            'Private',
+          ) /*Private*/ && (
             <Tooltip
               content={t('TOOLTIP_PRIVATE')}
               direction="bottom"
@@ -68,7 +70,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
               <EyeOff color="grey" aria-label="Private" />
             </Tooltip>
           )}
-          {player.steamInfo?.profileVisibility === 2 /*Friends Only*/ && (
+          {player.steamInfo?.profileVisibility?.includes('Friends Only') && (
             <Tooltip
               content={t('FRIENDS_ONLY')}
               direction="bottom"
