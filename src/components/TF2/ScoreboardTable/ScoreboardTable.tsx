@@ -4,6 +4,7 @@ import './ScoreboardTable.css';
 import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
 import { t } from '@i18n';
+import { ContextMenuProvider } from '@components/General/ContextMenu/ContextMenuProvider';
 interface ScoreboardTableProps {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
@@ -58,13 +59,15 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
         </div>
         <div className={`${teamColor?.toLowerCase()}`}>
           {team?.map((player) => (
-            <Player
-              playerColors={playerColors}
-              className={teamColor?.toLowerCase()}
-              player={player}
-              key={player.steamID64}
-              onImageLoad={handlePFPImageLoad}
-            />
+            <ContextMenuProvider>
+              <Player
+                playerColors={playerColors}
+                className={teamColor?.toLowerCase()}
+                player={player}
+                key={player.steamID64}
+                onImageLoad={handlePFPImageLoad}
+              />
+            </ContextMenuProvider>
           ))}
         </div>
       </div>
