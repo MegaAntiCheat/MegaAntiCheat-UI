@@ -105,6 +105,10 @@ export const fakedata: ServerInfoResponse = {
         userid: '0',
         time: 0,
       },
+      steamInfo: {
+        vacBans: 1,
+        profileVisibility: 1,
+      },
     },
     {
       steamID64: '3243595415354124',

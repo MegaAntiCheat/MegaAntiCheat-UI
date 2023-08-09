@@ -1,5 +1,3 @@
-
-
 .tooltip.right {
   @apply top-2/4 left-full -translate-y-2/4;
 }
@@ -10,14 +8,12 @@
 }
 
 .tooltip.top {
-
-  @apply bottom-[unset];
+  @apply bottom-full -translate-x-1/3;
 }
 
 .tooltip.bottom {
-  @apply top-full translate-x-2/4;
+  @apply top-full -translate-x-1/3;
 }
-
 
 .tooltip-container:hover .tooltip {
   @apply opacity-100;

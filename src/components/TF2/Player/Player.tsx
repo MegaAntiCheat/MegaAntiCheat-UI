@@ -31,8 +31,8 @@ const localVerdict = [
   },
 ];
 
-function displayProperVerdict(verdict: string) {
-  if (verdict.toLowerCase() === 'none') return t('PLAYER');
+function displayProperVerdict(verdict: string | undefined) {
+  if (!verdict || verdict.toLowerCase() === 'none') return t('PLAYER');
 
   const option = localVerdict.find((option) => option.value === verdict);
 
@@ -76,6 +76,7 @@ interface PlayerProps {
   className?: string;
   onImageLoad?: () => void;
   playerColors?: Record<string, string>;
+  openInApp?: boolean;
 }
 
 const Player = ({
@@ -84,17 +85,21 @@ const Player = ({
   className,
   onImageLoad,
   playerColors,
+  openInApp,
 }: PlayerProps) => {
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')
-    : displayProperVerdict(player.localVerdict ?? t('PLAYER'));
+    : displayProperVerdict(player.localVerdict);
   const displayTime = formatTime(player.gameInfo?.time ?? 0);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const pfp = player.steamInfo?.pfp ?? './person.webp';
   const color = displayColor(playerColors!, player);
+  const urlToOpen = openInApp
+    ? `steam://url/SteamIDPage/id/${player.steamID64}`
+    : player.steamInfo?.profileUrl;
 
   const localizedLocalVerdict = localVerdict.map((verdict) => ({
     label: t(verdict.label),
@@ -107,8 +112,12 @@ const Player = ({
       {
         label: 'Open Profile',
         onClick: () => {
-          parent.open(player.steamInfo?.profileUrl);
+          parent.open(urlToOpen, '_blank');
         },
+      },
+      {
+        label: 'Copy SteamID64',
+        onClick: () => navigator.clipboard.writeText(player.steamID64),
       },
     ];
 
@@ -143,6 +152,7 @@ const Player = ({
       >
         <div
           className="player-profile flex ml-1 cursor-pointer"
+          key={player.steamID64}
           onContextMenu={handleContextMenu}
         >
           <img
@@ -154,8 +164,8 @@ const Player = ({
             onLoad={onImageLoad}
           />
           <div
-            className="player-name text-ellipsis overflow-hidden whitespace-nowrap"
-            onClick={() => parent.open(player.steamInfo?.profileUrl)}
+            className="player-name text-ellipsis overflow-hidden whitespace-nowrap select-none sm:select-all"
+            onClick={() => parent.open(urlToOpen, '_blank')}
           >
             {player.name}
           </div>

@@ -46,7 +46,7 @@ const ModalWrapper = ({
     <>
       <Modal
         isOpen={true}
-        className={`modal ${className}`}
+        className={`fixed top-0 left-0 z-[100] w-full h-full bg-transparent/30 ${className}`}
         overlayClassName="modal-overlay"
         ariaHideApp={false}
       >

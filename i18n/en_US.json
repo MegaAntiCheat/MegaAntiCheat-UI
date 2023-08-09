@@ -18,6 +18,7 @@
   "PRIVATE": "Private",
   "FRIENDS_ONLY": "Friends Only",
   "PUBLIC": "Public",
+  "PROFILE": "Profile",
   "YOU": "You",
   "TOOLTIP_PRIVATE": "This Profile is Private",
   "ACC_CREATION": "Creation",

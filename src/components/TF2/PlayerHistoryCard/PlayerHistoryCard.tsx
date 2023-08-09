@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip } from '@components/General';
-import { AlertOctagon, EyeOff, ShieldAlert } from 'lucide-react';
+import { AlertOctagon, EyeOff, ShieldAlert, Users2 } from 'lucide-react';
 import './PlayerHistoryCard.css';
 import { t } from '@i18n';
 
@@ -25,19 +25,6 @@ function formVerdict(verdict: string | undefined) {
   return t(verdict.toUpperCase());
 }
 
-function formVisibility(visibility: profileVisibility | undefined) {
-  switch (visibility) {
-    case 1:
-      return t('PRIVATE');
-    case 2:
-      return t('FRIENDS_ONLY');
-    case 3:
-      return t('PUBLIC');
-    default:
-      return t('PRIVATE');
-  }
-}
-
 const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const playerHistoryRef = React.useRef<HTMLDivElement>(null);
 
@@ -48,11 +35,10 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
 
   const displayVerdict = formVerdict(player.localVerdict);
   const displayAccCreation = formatCreationDate(timeCreated);
-  const profileVisibility = formVisibility(player.steamInfo?.profileVisibility);
 
   return (
     <div
-      className="mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis overflow-hidden whitespace-nowrap"
+      className="mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis overflow-x-auto overflow-y-hidden sm:overflow-hidden whitespace-nowrap"
       key={player.steamID64}
       ref={playerHistoryRef}
     >
@@ -71,23 +57,36 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
             className="hover:text-sky-300 mr-2"
             rel="noreferrer"
           >
-            <div className="">{player.name}</div>
+            <div className="relative bottom-0.5">{player.name}</div>
           </a>
-          {profileVisibility.includes(t('PRIVATE')) && (
-            <Tooltip content={t('TOOLTIP_PRIVATE')} direction="bottom">
+          {player.steamInfo?.profileVisibility === 1 /*Private*/ && (
+            <Tooltip
+              content={t('TOOLTIP_PRIVATE')}
+              direction="bottom"
+              className="bottom-0.5"
+            >
               <EyeOff color="grey" aria-label="Private" />
             </Tooltip>
           )}
+          {player.steamInfo?.profileVisibility === 2 /*Friends Only*/ && (
+            <Tooltip
+              content={t('FRIENDS_ONLY')}
+              direction="bottom"
+              className="bottom-0.5"
+            >
+              <Users2 color="grey" />
+            </Tooltip>
+          )}
         </div>
-        <div className="phc-profile-info phc-created">
+        <div className="text-gray-400">
           {t('ACC_CREATION')}: {displayAccCreation}
         </div>
-        <div className="phc-profile-info phc-verdict">{displayVerdict}</div>
-        <div className="phc-details">
-          <div className="phc-bans">
+        <div className="text-gray-400">{displayVerdict}</div>
+        <div className="flex align-middle">
+          <div className="relative mt-2.5">
             {vacBans ? (
               <Tooltip
-                className=""
+                className="mr-2"
                 content={`${vacBans} VAC Ban${vacBans > 1 ? 's' : ''}`}
                 direction="top"
               >
