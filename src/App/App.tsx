@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
-import { Button, Flex, SideMenu, TextInput } from '@components/General';
+import { Button, SideMenu, TextInput } from '@components/General';
 import {
   ContentPageContainer,
   PlayerHistory,
@@ -17,7 +17,7 @@ import { getAllSettings, setSettingKey } from '@api/preferences';
 const CantConnectModal = () => {
   return (
     <div className="App-modal">
-      <h2 style={{ textAlign: 'center' }}>Waiting for Backend</h2>
+      <h2 className="text-center">Waiting for Backend</h2>
 
       <div className="spinner" />
       <p>Please make sure the backend is running.</p>
@@ -32,29 +32,23 @@ interface ConfigurationModalProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
   const [steamAPIKey, setSteamAPIKey] = React.useState('');
-  const [rconPassword, setRconPassword] = React.useState('');
+  const [rconPassword, setRconPassword] = React.useState('mac_rcon');
 
   return (
     <div className="App-modal">
-      <h2 style={{ top: '-10px', position: 'relative' }}>
+      <h1 className="mb-6 relative text-2xl text-center">
         {t('CONFIGURATION')}
-      </h2>
-      <p>{t('CONF_FIRST_TIME')}</p>
-      <p>{t('CONF_FIRST_TIME_DESC')}</p>
-      <div style={{ marginBottom: '30px' }} />
-      <div>
-        <Flex
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '45% 30%',
-            overflow: 'hidden',
-          }}
-        >
+      </h1>
+      <p className="text-center">{t('CONF_FIRST_TIME')}</p>
+      <p className="text-center mb-6">{t('CONF_FIRST_TIME_DESC')}</p>
+      <div className="justify-center items-center">
+        <div className="flex justify-center">
           <a
             style={{
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
+              marginRight: '2rem',
             }}
             className="link"
             href="https://steamcommunity.com/dev/apikey"
@@ -63,21 +57,26 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
           >
             {t('PREF_STEAM_API_KEY')}
           </a>
-          <TextInput type="password" onChange={(e) => setSteamAPIKey(e)} />
-        </Flex>
+          <TextInput
+            value={steamAPIKey}
+            type="password"
+            onChange={(e) => setSteamAPIKey(e)}
+          />
+        </div>
         <div style={{ marginTop: '10px' }} />
-        <Flex
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '45% 30%',
-            overflow: 'hidden',
-          }}
-        >
-          <div>{t('PREF_RCON_PASSWORD')}</div>
-          <TextInput onChange={(e) => setRconPassword(e)} />
-        </Flex>
+        <div className="flex justify-center">
+          <div className="mr-8">{t('PREF_RCON_PASSWORD')}</div>
+          <TextInput
+            value={rconPassword}
+            onChange={(e) => setRconPassword(e)}
+          />
+        </div>
 
-        <div style={{ marginTop: '20px' }} />
+        <div className="text-sm text-gray-500 text-center">
+          {t('CONF_REMINDER')}
+        </div>
+
+        <div className="mt-5" />
         <Button
           className="mac-button middle"
           onClick={() => {
