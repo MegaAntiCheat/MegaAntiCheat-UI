@@ -87,24 +87,45 @@ const Player = ({
   playerColors,
   openInApp,
 }: PlayerProps) => {
+  const isFirstRefresh = React.useRef(true);
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
+  const [playtime, setPlaytime] = React.useState(0);
+
+  const pfp = player.steamInfo?.pfp ?? './person.webp';
+  const urlToOpen = openInApp
+    ? `steam://url/SteamIDPage/id/${player.steamID64}`
+    : player.steamInfo?.profileUrl;
+
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')
     : displayProperVerdict(player.localVerdict);
-  const displayTime = formatTime(player.gameInfo?.time ?? 0);
+  const displayTime = formatTime(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
-  const pfp = player.steamInfo?.pfp ?? './person.webp';
   const color = displayColor(playerColors!, player);
-  const urlToOpen = openInApp
-    ? `steam://url/SteamIDPage/id/${player.steamID64}`
-    : player.steamInfo?.profileUrl;
 
   const localizedLocalVerdict = localVerdict.map((verdict) => ({
     label: t(verdict.label),
     value: verdict.value,
   }));
+
+  // Update playtime on mount
+  React.useEffect(() => {
+    if (!isFirstRefresh.current) return;
+
+    setPlaytime(player.gameInfo?.time ?? 0);
+    isFirstRefresh.current = false;
+  }, [player.gameInfo?.time]);
+
+  // Update playtime every second
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setPlaytime((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
