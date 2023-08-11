@@ -24,3 +24,34 @@ export const debounce = (func: Function, wait: number) => {
     timeout = setTimeout(later, wait);
   };
 };
+
+/**
+ * Check if the image exists, if not, return a default one
+ **/
+export async function verifyImageExists(
+  pfp: string | undefined,
+  defaultImage: string,
+): Promise<string> {
+  if (!pfp) return defaultImage;
+  // Thanks CORS for making me do this garbage
+  return new Promise((resolve) => {
+    const img = document.createElement('img');
+
+    img.onload = () => {
+      resolve(pfp);
+    };
+
+    img.onerror = () => {
+      resolve(defaultImage);
+    };
+
+    // Hide the <img> tag to prevent it from affecting the page layout
+    img.style.display = 'none';
+
+    // Append the <img> tag to the document body (necessary for the load events to fire)
+    document.body.appendChild(img);
+
+    // Set the img source (this triggers the loading)
+    img.src = pfp;
+  });
+}

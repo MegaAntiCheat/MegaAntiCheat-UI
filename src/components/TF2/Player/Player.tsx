@@ -6,69 +6,14 @@ import { updatePlayer } from '@api/players';
 import { PopoutInfo } from '@components/TF2';
 import { ContextMenu, Select } from '@components/General';
 import { ContextMenuContext } from '@components/General/ContextMenu/ContextMenuProvider';
-import { hexToRGB } from '@api/utils';
-
-const localVerdict = [
-  {
-    label: 'PLAYER',
-    value: 'Player',
-  },
-  {
-    label: 'BOT',
-    value: 'Bot',
-  },
-  {
-    label: 'CHEATER',
-    value: 'Cheater',
-  },
-  {
-    label: 'SUSPICIOUS',
-    value: 'Suspicious',
-  },
-  {
-    label: 'TRUSTED',
-    value: 'Trusted',
-  },
-];
-
-function displayProperVerdict(verdict: string | undefined) {
-  if (!verdict || verdict.toLowerCase() === 'none') return t('PLAYER');
-
-  const option = localVerdict.find((option) => option.value === verdict);
-
-  return option ? t(option.label.toUpperCase()) : t('PLAYER');
-}
-
-function formatTime(seconds: number): string {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-}
-
-function displayProperStatus(status: string) {
-  if (status === 'Active') return t('IN_GAME');
-  return t('JOINING');
-}
-
-function displayColor(
-  playerColors: Record<string, string>,
-  player: PlayerInfo,
-) {
-  const ALPHA = '0.35';
-  const you = player.isSelf;
-  const verdict = player.localVerdict!;
-
-  const { convicted } = player;
-
-  if (you) return hexToRGB(playerColors['You'], ALPHA);
-
-  if (!verdict || verdict.includes('None') || verdict.includes('Player'))
-    return hexToRGB(playerColors['Player'], ALPHA);
-
-  if (convicted) return hexToRGB(playerColors['Cheater'], ALPHA);
-
-  return hexToRGB(playerColors[verdict], ALPHA);
-}
+import {
+  displayColor,
+  displayProperStatus,
+  formatTime,
+  localizeVerdict,
+  makeLocalizedVerdictOptions,
+} from './playerutils';
+import { verifyImageExists } from '@api/utils';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -91,8 +36,8 @@ const Player = ({
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
   const [playtime, setPlaytime] = React.useState(0);
+  const [pfp, setPfp] = React.useState<string>('./person.webp');
 
-  const pfp = player.steamInfo?.pfp ?? './person.webp';
   const urlToOpen = openInApp
     ? `steam://url/SteamIDPage/id/${player.steamID64}`
     : player.steamInfo?.profileUrl;
@@ -100,15 +45,12 @@ const Player = ({
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
     ? t('YOU')
-    : displayProperVerdict(player.localVerdict);
+    : localizeVerdict(player.localVerdict);
   const displayTime = formatTime(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const color = displayColor(playerColors!, player);
 
-  const localizedLocalVerdict = localVerdict.map((verdict) => ({
-    label: t(verdict.label),
-    value: verdict.value,
-  }));
+  const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
   // Update playtime on mount
   React.useEffect(() => {
@@ -126,6 +68,17 @@ const Player = ({
 
     return () => clearInterval(interval);
   }, []);
+
+  // Update pfp on mount
+  React.useEffect(() => {
+    if (!player.steamInfo?.pfp) return;
+
+    verifyImageExists(player.steamInfo?.pfp, './person.webp').then((src) => {
+      setPfp(src);
+
+      if (onImageLoad) onImageLoad();
+    });
+  }, [player.steamInfo?.pfp]);
 
   const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -161,7 +114,7 @@ const Player = ({
     >
       <Select
         className="player-verdict"
-        options={localizedLocalVerdict}
+        options={localizedLocalVerdictOptions}
         placeholder={displayVerdict}
         disabled={player.isSelf}
         onChange={(e) => updatePlayer(player.steamID64, e.toString())}

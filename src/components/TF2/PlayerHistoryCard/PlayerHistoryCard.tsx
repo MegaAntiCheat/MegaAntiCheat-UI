@@ -3,6 +3,7 @@ import { Tooltip } from '@components/General';
 import { AlertOctagon, EyeOff, ShieldAlert, Users2 } from 'lucide-react';
 import './PlayerHistoryCard.css';
 import { t } from '@i18n';
+import { verifyImageExists } from '@api/utils';
 
 interface PlayerHistoryCardProps {
   player: PlayerInfo;
@@ -27,14 +28,23 @@ function formVerdict(verdict: string | undefined) {
 
 const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const playerHistoryRef = React.useRef<HTMLDivElement>(null);
+  const [pfp, setPfp] = React.useState('./person.webp');
 
-  const pfp = player.steamInfo?.pfp ?? './person.webp';
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
   const timeCreated = player.steamInfo?.timeCreated ?? 0;
 
   const displayVerdict = formVerdict(player.localVerdict);
   const displayAccCreation = formatCreationDate(timeCreated);
+
+  // Update pfp on mount
+  React.useEffect(() => {
+    if (!player.steamInfo?.pfp) return;
+
+    verifyImageExists(player.steamInfo?.pfp, './person.webp').then((src) => {
+      setPfp(src);
+    });
+  }, [player.steamInfo?.pfp]);
 
   return (
     <div
