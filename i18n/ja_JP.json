@@ -18,6 +18,7 @@
   "PRIVATE": "非公開",
   "FRIENDS_ONLY": "フレンドのみ",
   "PUBLIC": "パブリック",
+  "PROFILE": "プロフィール",
   "YOU": "あなた",
   "TOOLTIP_PRIVATE": "このプロフィールは非公開です",
   "ACC_CREATION": "創造",
