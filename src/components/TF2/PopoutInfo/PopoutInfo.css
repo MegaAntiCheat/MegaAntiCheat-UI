@@ -1,7 +1,0 @@
-.popoutinfo-content.above {
-  @apply bottom-full;
-}
-
-.popoutinfo-content.below {
-  @apply top-full;
-}

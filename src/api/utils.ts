@@ -1,3 +1,5 @@
+import { t } from '@i18n';
+
 export function hexToRGB(hex: string, alpha: string) {
   if (hex === undefined || hex === 'none') return;
 
@@ -54,4 +56,20 @@ export async function verifyImageExists(
     // Set the img source (this triggers the loading)
     img.src = pfp;
   });
+}
+
+/**
+ * Turns seconds into a Creation
+ * @param number timeCreated in seconds
+ * @returns Creation date in a string | "Unknown"
+ */
+export function formatCreationDate(timeCreated: number): string {
+  if (!timeCreated) return t('UNKNOWN');
+
+  const unixTimestamp = timeCreated * 1000;
+  const date = new Date(unixTimestamp);
+
+  if (isNaN(date.getTime())) return t('UNKNOWN');
+
+  return date.toLocaleDateString();
 }

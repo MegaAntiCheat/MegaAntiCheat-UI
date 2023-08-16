@@ -21,6 +21,8 @@ module.exports = {
         scoreboardnavsm: '180px 130px',
         scoreboardgrid: '1fr 3px 1fr',
         scoreboardgridsm: '1fr',
+        playerdetails: '150px auto',
+        playerdetailscontent: '160px 3px auto',
       },
       gridTemplateRows: {
         playerhistorycard: '40px 22px 40px auto',

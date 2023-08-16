@@ -24,6 +24,15 @@ const localVerdict = [
   },
 ];
 
+function calculateKD(kills: number = 0, deaths: number = 0): string {
+  // No Kills, No KD
+  if (!kills) return '0.00';
+  // No Deaths but Kills, KD will always be Kills
+  if (!deaths) return kills.toFixed(2);
+  // Calculate KD
+  return (kills / deaths).toFixed(2);
+}
+
 function localizeVerdict(verdict: string | undefined) {
   if (!verdict || verdict.toLowerCase() === 'none') return t('PLAYER');
 
@@ -78,4 +87,5 @@ export {
   displayProperStatus,
   displayColor,
   makeLocalizedVerdictOptions,
+  calculateKD,
 };

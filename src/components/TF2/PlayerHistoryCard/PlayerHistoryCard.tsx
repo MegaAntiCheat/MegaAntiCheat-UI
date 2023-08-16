@@ -3,21 +3,10 @@ import { Tooltip } from '@components/General';
 import { AlertOctagon, EyeOff, ShieldAlert, Users2 } from 'lucide-react';
 import './PlayerHistoryCard.css';
 import { t } from '@i18n';
-import { verifyImageExists } from '@api/utils';
+import { formatCreationDate, verifyImageExists } from '@api/utils';
 
 interface PlayerHistoryCardProps {
   player: PlayerInfo;
-}
-
-function formatCreationDate(timeCreated: number): string {
-  if (!timeCreated) return t('UNKNOWN');
-
-  const unixTimestamp = timeCreated * 1000;
-  const date = new Date(unixTimestamp);
-
-  if (isNaN(date.getTime())) return t('UNKNOWN');
-
-  return date.toLocaleDateString();
 }
 
 function formVerdict(verdict: string | undefined) {

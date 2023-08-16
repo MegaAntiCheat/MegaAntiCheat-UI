@@ -3,7 +3,6 @@ import './Player.css';
 
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
-import { PopoutInfo } from '@components/TF2';
 import { ContextMenu, Select } from '@components/General';
 import { ContextMenuContext } from '@components/General/ContextMenu/ContextMenuProvider';
 import {
@@ -14,6 +13,7 @@ import {
   makeLocalizedVerdictOptions,
 } from './playerutils';
 import { verifyImageExists } from '@api/utils';
+import PlayerDetails from './PlayerDetails';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -35,8 +35,11 @@ const Player = ({
   const isFirstRefresh = React.useRef(true);
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
+
+  // States
   const [playtime, setPlaytime] = React.useState(0);
   const [pfp, setPfp] = React.useState<string>('./person.webp');
+  const [showPlayerDetails, setShowPlayerDetails] = React.useState(false);
 
   const urlToOpen = openInApp
     ? `steam://url/SteamIDPage/id/${player.steamID64}`
@@ -108,62 +111,67 @@ const Player = ({
   };
 
   return (
-    <div
-      className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${className}`}
-      style={{ backgroundColor: color }}
-    >
-      <Select
-        className="player-verdict"
-        options={localizedLocalVerdictOptions}
-        placeholder={displayVerdict}
-        disabled={player.isSelf}
-        onChange={(e) => updatePlayer(player.steamID64, e.toString())}
-      />
-      <PopoutInfo
-        player={player}
-        className="player-popout"
-        key={player.steamID64}
+    <>
+      <div
+        className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
+          showPlayerDetails ? 'expanded' : ''
+        } ${className}`}
+        style={{ backgroundColor: color }}
       >
-        <div
-          className="player-profile flex ml-1 cursor-pointer"
-          key={player.steamID64}
-          onContextMenu={handleContextMenu}
-        >
-          <img
-            className="player-pfp rounded-s-sm mx-3 cursor-pointer"
-            width={24}
-            height={24}
-            src={pfp}
-            alt="Profile"
-            onLoad={onImageLoad}
-          />
+        <Select
+          className="player-verdict"
+          options={localizedLocalVerdictOptions}
+          placeholder={displayVerdict}
+          disabled={player.isSelf}
+          onChange={(e) => updatePlayer(player.steamID64, e.toString())}
+        />
+        <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
           <div
-            className="player-name text-ellipsis overflow-hidden whitespace-nowrap select-none sm:select-all"
-            onClick={() => parent.open(urlToOpen, '_blank')}
+            className="flex ml-1 cursor-pointer select-none"
+            key={player.steamID64}
+            onContextMenu={handleContextMenu}
           >
-            {player.name}
+            <img
+              className="rounded-s-sm mx-3 cursor-pointer"
+              width={24}
+              height={24}
+              src={pfp}
+              alt="Profile"
+              onLoad={onImageLoad}
+            />
+            <div className="text-ellipsis overflow-hidden whitespace-nowrap select-none xs:select-all">
+              {player.name}
+            </div>
           </div>
         </div>
-      </PopoutInfo>
-      {icon ? (
-        <img
-          className="player-badge mr-5"
-          width={12}
-          height={12}
-          src={icon}
-          alt="Badge"
-        />
-      ) : (
-        <div />
-      )}
-      <div className="player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
-        {displayStatus}
+        {icon ? (
+          <img
+            className="player-badge mr-5"
+            width={12}
+            height={12}
+            src={icon}
+            alt="Badge"
+          />
+        ) : (
+          <div />
+        )}
+        <div className="player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
+          {displayStatus}
+        </div>
+        <div className="player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
+          {displayTime}
+        </div>
+        <ContextMenu />
       </div>
-      <div className="player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
-        {displayTime}
+      <div>
+        {showPlayerDetails && (
+          <>
+            <div className="bg-highlight/40 h-[1px]" />
+            <PlayerDetails player={player} bgColor={color} />
+          </>
+        )}
       </div>
-      <ContextMenu />
-    </div>
+    </>
   );
 };
 

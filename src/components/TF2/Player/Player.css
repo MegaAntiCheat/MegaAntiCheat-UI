@@ -1,0 +1,10 @@
+.expanded {
+  @apply bg-secondary
+}
+
+.gamestats {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  margin-right: 5px;
+}
