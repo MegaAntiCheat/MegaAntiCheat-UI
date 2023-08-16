@@ -39,23 +39,26 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
             <div className="relative flex items-center content-center">
               <div className="text-start">
                 <div>
-                  Created:{' '}
+                  {t('ACC_CREATION')}:{' '}
                   {formatCreationDate(player.steamInfo?.timeCreated ?? 0)}
                 </div>
 
                 <div>
-                  Country: {player?.steamInfo?.countryCode ?? t('UNKNOWN')}
+                  {t('COUNTRY')}:{' '}
+                  {player?.steamInfo?.countryCode ?? t('UNKNOWN')}
                 </div>
                 <div>VAC Bans: {vacBans}</div>
-                <div>Game Bans: {player?.steamInfo?.gameBans ?? 0}</div>
+                <div>
+                  {t('GAME')} Bans: {player?.steamInfo?.gameBans ?? 0}
+                </div>
               </div>
             </div>
             <div className="h-full bg-highlight/30 w-[1px]" />
-            <div className="select-none flex flex-wrap text-start">
+            <div className="select-none flex flex-wrap text-start justify-center">
               <div className="gamestats whitespace-nowrap">
                 <Crosshair width={18} height={18} />
                 <div className="ml-1.5">
-                  Kills: {player.gameInfo.kills ?? 0}
+                  {t('KILLS')}: {player.gameInfo.kills ?? 0}
                 </div>
               </div>
               <div className="gamestats">
@@ -63,7 +66,7 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                   <Skull width={18} height={18} />
                 </div>
                 <div className="ml-1.5 whitespace-nowrap">
-                  Deaths: {player.gameInfo.deaths ?? 0}
+                  {t('DEATHS')}: {player.gameInfo.deaths ?? 0}
                 </div>
               </div>
               <div className="gamestats">
@@ -80,7 +83,7 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                   <BarChart width={18} height={18} />
                 </div>
                 <div className="ml-1.5 whitespace-nowrap">
-                  Ping: {player.gameInfo.ping ?? 0}ms
+                  {t('PING')}: {player.gameInfo.ping ?? 0}ms
                 </div>
               </div>
             </div>
