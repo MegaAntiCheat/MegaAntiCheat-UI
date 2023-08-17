@@ -47,6 +47,12 @@ export const fakedata: ServerInfoResponse = {
         vacBans: 2,
         gameBans: 1,
         profileVisibility: 'Private',
+        friends: [
+          {
+            steamID64: '76561198210264393',
+            friendsSince: '34232',
+          },
+        ],
       },
     },
     {

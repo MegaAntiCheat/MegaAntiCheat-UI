@@ -22,6 +22,7 @@ interface PlayerProps {
   onImageLoad?: () => void;
   playerColors?: Record<string, string>;
   openInApp?: boolean;
+  userSteamID?: string;
 }
 
 const Player = ({
@@ -31,6 +32,7 @@ const Player = ({
   onImageLoad,
   playerColors,
   openInApp,
+  userSteamID,
 }: PlayerProps) => {
   const isFirstRefresh = React.useRef(true);
   // Context Menu
@@ -42,7 +44,7 @@ const Player = ({
   const [showPlayerDetails, setShowPlayerDetails] = React.useState(false);
 
   const urlToOpen = openInApp
-    ? `steam://url/SteamIDPage/id/${player.steamID64}`
+    ? `steam://url/SteamIDPage/${player.steamID64}`
     : player.steamInfo?.profileUrl;
 
   // Use "Player" as a verdict if the client isnt You
@@ -61,6 +63,7 @@ const Player = ({
 
     setPlaytime(player.gameInfo?.time ?? 0);
     isFirstRefresh.current = false;
+    console.log(urlToOpen);
   }, [player.gameInfo?.time]);
 
   // Update playtime every second
@@ -144,7 +147,7 @@ const Player = ({
             </div>
           </div>
         </div>
-        {icon ? (
+        {player.steamInfo?.friends?.some((p) => p.steamID64 === userSteamID) ? (
           <img
             className="player-badge mr-5"
             width={12}

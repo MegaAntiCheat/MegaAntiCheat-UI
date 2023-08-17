@@ -62,8 +62,8 @@ interface SteamInfo {
 }
 
 interface SteamFriend {
-  steamID64: number;
-  friendsSince: number;
+  steamID64: string;
+  friendsSince: string;
 }
 
 interface PlayerInfo {

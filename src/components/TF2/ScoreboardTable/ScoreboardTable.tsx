@@ -13,15 +13,20 @@ interface ScoreboardTableProps {
 const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   // Update the Scoreboard everytime a PFP is loaded
   const [, setLoadedPFPCount] = React.useState(0);
-  const [playerColors, setPlayerColors] = React.useState<
-    Settings['external']['colors']
+  // Store the users playerID
+  const [userSteamID, setUserSteamID] = React.useState('0');
+  const [playerSettings, setPlayerSettings] = React.useState<
+    Settings['external']
   >({
-    You: 'none',
-    Player: 'none',
-    Trusted: 'none',
-    Suspicious: 'none',
-    Cheater: 'none',
-    Bot: 'none',
+    colors: {
+      You: 'none',
+      Player: 'none',
+      Trusted: 'none',
+      Suspicious: 'none',
+      Cheater: 'none',
+      Bot: 'none',
+    },
+    openInApp: false,
   });
 
   const handlePFPImageLoad = () => {
@@ -31,14 +36,33 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   React.useEffect(() => {
     const fetchTeamColors = async () => {
       try {
-        const { colors } = (await getAllSettings()).external; // Replace this with the actual async function that fetches colors
-        setPlayerColors(colors);
+        const { external } = await getAllSettings(); // Replace this with the actual async function that fetches colors
+        setPlayerSettings(external);
       } catch (error) {
         console.error('Error fetching team colors:', error);
       }
     };
     fetchTeamColors();
   }, []);
+
+  React.useEffect(() => {
+    const fetchSelf = () => {
+      const combinedPlayers = RED?.concat(BLU ?? []);
+      const self = combinedPlayers?.find((player) => player.isSelf);
+      setUserSteamID(self?.steamID64 || '0');
+    };
+
+    fetchSelf(); // Initial fetch
+
+    const interval = setInterval(() => {
+      if (userSteamID !== '0') {
+        clearInterval(interval); // We found our user, wipe timer
+        return;
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [RED, BLU]);
 
   const renderTeam = (team?: PlayerInfo[], teamColor?: string) => {
     return (
@@ -61,11 +85,16 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
           {team?.map((player) => (
             <ContextMenuProvider key={player.steamID64}>
               <Player
-                playerColors={playerColors}
+                playerColors={playerSettings.colors}
                 className={teamColor?.toLowerCase()}
                 player={player}
                 key={player.steamID64}
                 onImageLoad={handlePFPImageLoad}
+                openInApp={playerSettings.openInApp}
+                userSteamID={userSteamID}
+                icon={
+                  'https://cdn.discordapp.com/attachments/1123073876897824848/1123080561435611199/icon_friend.png'
+                }
               />
             </ContextMenuProvider>
           ))}
