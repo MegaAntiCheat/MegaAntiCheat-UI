@@ -4,7 +4,7 @@ import './Player.css';
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
 import { ContextMenu, Select } from '@components/General';
-import { ContextMenuContext } from '@components/General/ContextMenu/ContextMenuProvider';
+import { ContextMenuContext } from '../../../Context/ContextMenuProvider';
 import {
   displayColor,
   displayProperStatus,

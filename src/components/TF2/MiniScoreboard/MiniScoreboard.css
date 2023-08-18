@@ -1,27 +1,33 @@
 .miniscore-container {
   position: absolute;
   display: grid;
+  grid-template-rows: 40px auto;
   font-size: 24px;
   font-weight: bold;
   font-family: 'Build';
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--dark-highlight-color);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 .miniscore-team-container {
-  margin-bottom: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .miniscore-team {
-  margin-bottom: 15px;
-  text-align: center;
+  display: flex;
+  justify-self: center;
+  transform: translateX(-50%);
 }
 
 .miniscore-text {
   font-size: 16px;
+  display: flex;
+  margin-right: auto;
 }
 
-.miniscore-value {
-  margin: -5px 20px;
+.miniscore-num {
+  margin-left: 10px;
 }

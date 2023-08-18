@@ -1,6 +1,5 @@
 import React from 'react';
 import './MiniScoreboard.css';
-import { Flex } from '@components/General';
 
 interface MiniScoreboardProps {
   RED?: PlayerInfo[];
@@ -19,7 +18,8 @@ interface MSBContentProps {
 
 function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
   const cheating = players?.filter(
-    (player) => player.localVerdict?.toLowerCase() === 'cheater',
+    (player) =>
+      player.localVerdict?.toLowerCase() === 'cheater' || player.convicted,
   );
   const suspicious = players?.filter(
     (player) => player.localVerdict?.toLowerCase() === 'suspicious',
@@ -34,20 +34,20 @@ const MiniScoreboardContent = ({ verdicts, team }: MSBContentProps) => {
   return (
     <>
       <div className={`miniscore-team ${team}`}>{team.toUpperCase()}</div>
-      <Flex className="miniscore-team-container">
-        <div className="miniscore-text">Convicted:</div>
-        <div className={`miniscore-value ${team}`}>
-          {verdicts.convicted.length}
+      <div className="miniscore-team-container">
+        <div className="miniscore-text">
+          Cheating:{' '}
+          <div className={`miniscore-num ${team}`}>
+            {verdicts.cheating.length}
+          </div>
         </div>
-        <div className="miniscore-text">Cheating:</div>
-        <div className={`miniscore-value ${team}`}>
-          {verdicts.cheating.length}
+        <div className="miniscore-text">
+          Suspicious:
+          <div className={`miniscore-num ${team}`}>
+            {verdicts.suspicious.length}
+          </div>
         </div>
-        <div className="miniscore-text">Suspicious:</div>
-        <div className={`miniscore-value ${team}`}>
-          {verdicts.suspicious.length}
-        </div>
-      </Flex>
+      </div>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import './ContextMenu.css';
 
-import { ContextMenuContext } from './ContextMenuProvider';
+import { ContextMenuContext } from '../../../Context/ContextMenuProvider';
 
 const ContextMenuContent = () => {
   const contextMenuRef = React.useRef<HTMLDivElement>(null);

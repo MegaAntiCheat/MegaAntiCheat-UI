@@ -9,10 +9,11 @@ import {
   PlayerList,
   Preferences,
 } from '../Pages';
-import { Modal } from '@components/Modal/Modal';
-import useModal from '@components/Modal/ModalHook';
+import { Modal } from '@components/General/Modal/Modal';
+import useModal from '@components/General/Modal/ModalHook';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
+import { useMinimode } from '../Context/MinimodeContext';
 
 const CantConnectModal = () => {
   return (
@@ -95,6 +96,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 };
 
 function App() {
+  const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState('');
 
   const modal = useModal();
@@ -184,9 +186,11 @@ function App() {
           {modal.modalContent}
         </Modal>
       )}
-      <div className="App-sidebar">
-        <SideMenu setCurrentPage={setCurrentPage} />
-      </div>
+      {!isMinimode && (
+        <div className="App-sidebar">
+          <SideMenu setCurrentPage={setCurrentPage} />
+        </div>
+      )}
       <div className="App-content">
         <ContentPageContainer>{renderPage()}</ContentPageContainer>
       </div>

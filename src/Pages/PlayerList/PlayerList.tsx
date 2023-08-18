@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { ScoreboardTable } from '@components/TF2';
+import React from 'react';
+import { useMinimode } from '../../Context/MinimodeContext';
+import { MiniScoreboard, ScoreboardTable } from '@components/TF2';
 import { emptyServerData, fetchAllServerInfo } from '@api/servers';
 import './PlayerList.css';
 
@@ -11,9 +12,11 @@ enum Teams {
 }
 
 const PlayerList = () => {
+  const { isMinimode } = useMinimode();
+
   const [data, setData] = React.useState(emptyServerData);
-  const [RED, setRED] = useState<PlayerInfo[]>([]);
-  const [BLU, setBLU] = useState<PlayerInfo[]>([]);
+  const [RED, setRED] = React.useState<PlayerInfo[]>([]);
+  const [BLU, setBLU] = React.useState<PlayerInfo[]>([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +57,11 @@ const PlayerList = () => {
   return (
     <>
       <div className="playerlist-max">
-        <ScoreboardTable RED={RED} BLU={BLU} />
+        {isMinimode ? (
+          <MiniScoreboard RED={RED} BLU={BLU} />
+        ) : (
+          <ScoreboardTable RED={RED} BLU={BLU} />
+        )}
       </div>
     </>
   );
