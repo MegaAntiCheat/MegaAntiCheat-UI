@@ -1,8 +1,9 @@
 import React from 'react';
 import { formatCreationDate, verifyImageExists } from '@api/utils';
-import { BarChart, CircleSlash2, Crosshair, Skull } from 'lucide-react';
+import { BarChart, CircleSlash2, Crosshair, Info, Skull } from 'lucide-react';
 import { calculateKD } from './playerutils';
 import { t } from '@i18n';
+import { Tooltip } from '@components/General';
 
 interface PlayerDetailsProps {
   player: PlayerInfo;
@@ -13,6 +14,8 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
   const [pfp, setPfp] = React.useState('./person.webp');
 
   const vacBans = player.steamInfo?.vacBans ?? 0;
+  const gameBans = player.steamInfo?.gameBans ?? 0;
+  const daysSinceLastBan = player.steamInfo?.daysSinceLastBan;
   // Update pfp on mount
   React.useEffect(() => {
     if (!player.steamInfo?.pfp) return;
@@ -47,9 +50,43 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                   {t('COUNTRY')}:{' '}
                   {player?.steamInfo?.countryCode ?? t('UNKNOWN')}
                 </div>
-                <div>VAC Bans: {vacBans}</div>
-                <div>
-                  {t('GAME')} Bans: {player?.steamInfo?.gameBans ?? 0}
+                <div className="flex">
+                  VAC Bans: {vacBans}{' '}
+                  {!!vacBans && (
+                    <Tooltip
+                      content={`Last ban ${
+                        daysSinceLastBan
+                          ? `${daysSinceLastBan} days`
+                          : 'some time'
+                      } ago`}
+                    >
+                      <Info
+                        color="grey"
+                        className="relative bottom-0.5 ml-1"
+                        width={14}
+                        height={14}
+                      />
+                    </Tooltip>
+                  )}
+                </div>
+                <div className="flex">
+                  {t('GAME')} Bans: {gameBans}
+                  {!!gameBans && (
+                    <Tooltip
+                      content={`Last ban ${
+                        daysSinceLastBan
+                          ? `${daysSinceLastBan} days`
+                          : 'some time'
+                      } ago`}
+                    >
+                      <Info
+                        color="grey"
+                        className="relative bottom-0.5 ml-1"
+                        width={14}
+                        height={14}
+                      />
+                    </Tooltip>
+                  )}
                 </div>
               </div>
             </div>
