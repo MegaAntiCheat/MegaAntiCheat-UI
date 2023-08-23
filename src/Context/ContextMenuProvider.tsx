@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ReactNode } from 'react';
 
-interface MenuItem {
+export interface MenuItem {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
+  multiOptions?: MenuItem[];
 }
 
 interface ContextMenuContextProps {

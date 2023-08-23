@@ -45,6 +45,8 @@ interface GameInfo {
   kills: number;
   deaths: number;
   time: number;
+  disconnected: boolean;
+  lastSeen: number;
 }
 
 interface SteamInfo {

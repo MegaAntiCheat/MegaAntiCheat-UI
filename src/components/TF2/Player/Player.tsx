@@ -4,7 +4,10 @@ import './Player.css';
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
 import { ContextMenu, Select } from '@components/General';
-import { ContextMenuContext } from '../../../Context/ContextMenuProvider';
+import {
+  ContextMenuContext,
+  MenuItem,
+} from '../../../Context/ContextMenuProvider';
 import {
   displayColor,
   displayProperStatus,
@@ -12,8 +15,10 @@ import {
   localizeVerdict,
   makeLocalizedVerdictOptions,
 } from './playerutils';
+
 import { verifyImageExists } from '@api/utils';
 import PlayerDetails from './PlayerDetails';
+import { kickPlayer } from '@api/commands';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -88,7 +93,7 @@ const Player = ({
 
   const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
-    const menuItems = [
+    const menuItems: MenuItem[] = [
       {
         label: 'Open Profile',
         onClick: () => {
@@ -101,14 +106,29 @@ const Player = ({
       },
     ];
 
-    /*if (!player.isSelf) {
+    if (!player.isSelf) {
       menuItems.push({
         label: 'Votekick Player',
-        onClick: () => {
-          console.log('Soon:tm:');
-        },
+        multiOptions: [
+          {
+            label: 'Cheating',
+            onClick: () => kickPlayer(player.gameInfo.userid, 'cheating'),
+          },
+          {
+            label: 'Scamming',
+            onClick: () => kickPlayer(player.gameInfo.userid, 'scamming'),
+          },
+          {
+            label: 'Idle',
+            onClick: () => kickPlayer(player.gameInfo.userid, 'idle'),
+          },
+          {
+            label: 'No Reason',
+            onClick: () => kickPlayer(player.gameInfo.userid, 'none'),
+          },
+        ],
       });
-    }*/
+    }
 
     showMenu(event, menuItems);
   };

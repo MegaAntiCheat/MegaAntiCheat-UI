@@ -20,6 +20,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 0,
+        disconnected: false,
+        lastSeen: 0,
       },
       steamInfo: {
         pfp: 'https://github.com/SammCheese.png',
@@ -42,11 +44,14 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 0,
+        disconnected: false,
+        lastSeen: 0,
       },
       steamInfo: {
         vacBans: 2,
         gameBans: 1,
         profileVisibility: 'Private',
+        daysSinceLastBan: 246,
         friends: [
           {
             steamID64: '76561198210264393',
@@ -70,6 +75,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 0,
+        disconnected: true,
+        lastSeen: 0,
       },
       steamInfo: {
         gameBans: 2,
@@ -90,6 +97,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 0,
+        disconnected: false,
+        lastSeen: 0,
       },
       steamInfo: {
         gameBans: 1,
@@ -110,6 +119,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 0,
+        disconnected: false,
+        lastSeen: 0,
       },
       steamInfo: {
         vacBans: 1,
@@ -131,6 +142,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 2300,
+        disconnected: false,
+        lastSeen: 0,
       },
     },
     {
@@ -148,6 +161,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 2300,
+        disconnected: false,
+        lastSeen: 0,
       },
     },
     {
@@ -165,6 +180,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 2300,
+        disconnected: false,
+        lastSeen: 0,
       },
     },
     {
@@ -182,6 +199,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 2300,
+        disconnected: false,
+        lastSeen: 0,
       },
     },
     {
@@ -199,6 +218,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 2300,
+        disconnected: false,
+        lastSeen: 0,
       },
     },
     {
@@ -216,6 +237,8 @@ export const fakedata: ServerInfoResponse = {
         ping: 40,
         userid: '0',
         time: 2300,
+        disconnected: false,
+        lastSeen: 0,
       },
     },
   ],

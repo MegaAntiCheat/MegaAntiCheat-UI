@@ -4,15 +4,35 @@
   border: 1px solid var(--dark-highlight-color);
   color: white;
   z-index: 999;
-  border-radius: 2px;
+  border-radius: 4px;
   text-align: start;
 }
 
 .ctx-menu-item {
-  padding: 5px;
+  padding: 4px;
+  padding-left: 6px;
   cursor: pointer;
+  padding-right: 15px;
+  white-space: nowrap;
 }
 
 .ctx-menu-item:hover {
   background-color: var(--dark-highlight-color);
+}
+
+.ctxitem-grid {
+  display: grid;
+  grid-template-columns: 95% 5%;
+}
+
+.ctx-menu.left {
+  transform: translateX(100%);
+  right: 0;
+  top: 0;
+}
+
+.ctx-menu.right {
+  transform: translateX(-100%);
+  left: 0;
+  top: 0;
 }
