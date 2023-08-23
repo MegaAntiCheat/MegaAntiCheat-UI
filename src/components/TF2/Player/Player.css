@@ -8,3 +8,7 @@
   align-items: center;
   margin-right: 5px;
 }
+
+.greyscale {
+  filter: grayscale(100%)
+}

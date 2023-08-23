@@ -57,8 +57,9 @@ function formatTime(seconds: number): string {
 }
 
 function displayProperStatus(status: string) {
-  if (status === 'Active') return t('IN_GAME');
-  return t('JOINING');
+  if (status === 'Disconnected') return t('DISCONNECTED');
+  if (status === 'Spawning') return t('JOINING');
+  return t('IN_GAME');
 }
 
 function displayColor(

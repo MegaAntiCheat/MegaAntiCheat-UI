@@ -25,6 +25,7 @@
   "GAME": "Game",
   "IN_GAME": "In-Game",
   "JOINING": "Joining",
+  "DISCONNECTED": "Disconnected",
   "KILLS": "Kills",
   "DEATHS": "Deaths",
   "PING": "Ping",

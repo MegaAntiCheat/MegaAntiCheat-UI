@@ -71,7 +71,7 @@ export const fakedata: ServerInfoResponse = {
       previousNames: ['Woah So Uncool!', 'Coping Hard', 'What?'],
       gameInfo: {
         deaths: 0,
-        state: 'Active',
+        state: 'Disconnected',
         kills: 0,
         team: 2,
         loss: 0,

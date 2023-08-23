@@ -6,8 +6,8 @@ import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '../../../Context/ContextMenuProvider';
 interface ScoreboardTableProps {
-  RED?: PlayerInfo[];
-  BLU?: PlayerInfo[];
+  RED: PlayerInfo[];
+  BLU: PlayerInfo[];
 }
 
 const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
@@ -64,14 +64,19 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     return () => clearInterval(interval);
   }, [RED, BLU]);
 
-  const renderTeam = (team?: PlayerInfo[], teamColor?: string) => {
+  const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
+    // Subtract amount of disconnected players from the actual playercount
+    const amountDisconnected = team?.filter(
+      (player) => player.gameInfo.disconnected,
+    ).length;
+
     return (
       // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half ${teamColor}`}>
         <div
           className={`text-4xl font-build mt-3 mb-9 ${teamColor?.toLowerCase()}`}
         >
-          {teamColor} ({team?.length ?? 0})
+          {teamColor} ({team?.length - amountDisconnected})
         </div>
         <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>

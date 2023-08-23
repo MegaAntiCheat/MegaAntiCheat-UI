@@ -63,6 +63,8 @@ const Player = ({
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
+  const { disconnected } = player.gameInfo;
+
   // Update playtime on mount
   React.useEffect(() => {
     if (!isFirstRefresh.current) return;
@@ -75,6 +77,7 @@ const Player = ({
   // Update playtime every second
   React.useEffect(() => {
     const interval = setInterval(() => {
+      if (player.gameInfo.disconnected) return;
       setPlaytime((prev) => prev + 1);
     }, 1000);
 
@@ -107,7 +110,7 @@ const Player = ({
       },
     ];
 
-    if (!player.isSelf) {
+    if (!player.isSelf && !disconnected) {
       menuItems.push({
         label: 'Votekick Player',
         multiOptions: [
@@ -140,7 +143,9 @@ const Player = ({
         className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
           showPlayerDetails ? 'expanded' : ''
         } ${className}`}
-        style={{ backgroundColor: color }}
+        style={{
+          backgroundColor: color,
+        }}
       >
         <Select
           className="player-verdict"
@@ -162,8 +167,13 @@ const Player = ({
               src={pfp}
               alt="Profile"
               onLoad={onImageLoad}
+              style={{ filter: disconnected ? 'grayscale(100%)' : 'inherit' }}
             />
-            <div className="text-ellipsis overflow-hidden whitespace-nowrap select-none xs:select-all">
+            <div
+              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none xs:select-all ${
+                disconnected ? 'greyscale' : ''
+              }`}
+            >
               {player.name}
             </div>
             {!!player.previousNames?.length && (
@@ -187,10 +197,18 @@ const Player = ({
         ) : (
           <div />
         )}
-        <div className="player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
+        <div
+          className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
+            disconnected ? 'greyscale' : ''
+          }`}
+        >
           {displayStatus}
         </div>
-        <div className="player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap">
+        <div
+          className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
+            disconnected ? 'greyscale' : ''
+          }`}
+        >
           {displayTime}
         </div>
         <ContextMenu />
