@@ -11,6 +11,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'TheEntireUIDevelopmentTeam',
       tags: [],
       localVerdict: 'Player',
+      previousNames: ['Also Samm-Cheese'],
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -35,6 +36,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'Sammy',
       tags: [],
       localVerdict: 'None',
+      previousNames: ['Samm-Cheese'],
       gameInfo: {
         deaths: 0,
         state: 'Active',
@@ -66,6 +68,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'Woah So Cool!',
       tags: [],
       localVerdict: 'None',
+      previousNames: ['Woah So Uncool!', 'Coping Hard', 'What?'],
       gameInfo: {
         deaths: 0,
         state: 'Active',

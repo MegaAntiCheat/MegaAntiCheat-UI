@@ -78,6 +78,7 @@ interface PlayerInfo {
   localVerdict?: string;
   steamInfo?: SteamInfo;
   customData?: object;
+  previousNames?: string[];
 }
 
 interface TeamData {

@@ -3,7 +3,7 @@ import './Player.css';
 
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
-import { ContextMenu, Select } from '@components/General';
+import { ContextMenu, Select, Tooltip } from '@components/General';
 import {
   ContextMenuContext,
   MenuItem,
@@ -15,10 +15,11 @@ import {
   localizeVerdict,
   makeLocalizedVerdictOptions,
 } from './playerutils';
+import PlayerDetails from './PlayerDetails';
 
 import { verifyImageExists } from '@api/utils';
-import PlayerDetails from './PlayerDetails';
 import { kickPlayer } from '@api/commands';
+import { Info } from 'lucide-react';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -165,6 +166,14 @@ const Player = ({
             <div className="text-ellipsis overflow-hidden whitespace-nowrap select-none xs:select-all">
               {player.name}
             </div>
+            {!!player.previousNames?.length && (
+              <Tooltip
+                className="ml-1 bottom-[1px]"
+                content={`Previous Names:\n${player.previousNames.join('\n')}`}
+              >
+                <Info color="grey" width={16} height={16} />
+              </Tooltip>
+            )}
           </div>
         </div>
         {player.steamInfo?.friends?.some((p) => p.steamID64 === userSteamID) ? (
