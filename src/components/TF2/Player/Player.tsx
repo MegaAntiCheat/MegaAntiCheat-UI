@@ -110,7 +110,7 @@ const Player = ({
       },
     ];
 
-    if (!player.isSelf && !disconnected) {
+    if (!disconnected) {
       menuItems.push({
         label: 'Votekick Player',
         multiOptions: [

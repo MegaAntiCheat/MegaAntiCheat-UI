@@ -1,9 +1,11 @@
 import React from 'react';
-import { Tooltip } from '@components/General';
+import { Select, Tooltip } from '@components/General';
 import { AlertOctagon, EyeOff, ShieldAlert, Users2 } from 'lucide-react';
 import './PlayerHistoryCard.css';
 import { t } from '@i18n';
 import { formatCreationDate, verifyImageExists } from '@api/utils';
+import { makeLocalizedVerdictOptions } from '../Player/playerutils';
+import { updatePlayer } from '@api/players';
 
 interface PlayerHistoryCardProps {
   player: PlayerInfo;
@@ -26,6 +28,8 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
   const displayVerdict = formVerdict(player.localVerdict);
   const displayAccCreation = formatCreationDate(timeCreated);
 
+  const verdictOptions = makeLocalizedVerdictOptions();
+
   // Update pfp on mount
   React.useEffect(() => {
     if (!player.steamInfo?.pfp) return;
@@ -37,7 +41,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
 
   return (
     <div
-      className="mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis overflow-x-auto overflow-y-hidden sm:overflow-hidden whitespace-nowrap"
+      className="phc-wrapper relative mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis whitespace-nowrap overflow-x-auto overflow-y-auto"
       key={player.steamID64}
       ref={playerHistoryRef}
     >
@@ -79,12 +83,19 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
             </Tooltip>
           )}
         </div>
-        <div className="text-gray-400">
+        <div className="text-gray-400 relative bottom-1">
           {t('ACC_CREATION')}: {displayAccCreation}
         </div>
-        <div className="text-gray-400">{displayVerdict}</div>
+        <Select
+          className="max-w-[120px] sticky z-30"
+          options={verdictOptions}
+          placeholder={displayVerdict}
+          disabled={player.isSelf}
+          onChange={(e) => updatePlayer(player.steamID64, e.toString())}
+        />
+
         <div className="flex align-middle">
-          <div className="relative mt-2.5">
+          <div className="relative mt-1.5">
             {vacBans ? (
               <Tooltip
                 className="mr-2"

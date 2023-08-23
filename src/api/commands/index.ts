@@ -2,9 +2,11 @@ import { COMMAND_ENDPOINT } from '@api/globals';
 
 async function execCommand(command: string, value: unknown) {
   const formBody = {
-    commands: {
-      [command]: value,
-    },
+    commands: [
+      {
+        [command]: value,
+      },
+    ],
   };
 
   const options = {
