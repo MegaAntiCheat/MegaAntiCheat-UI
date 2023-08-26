@@ -116,9 +116,6 @@ export const fakedata: ServerInfoResponse = {
       name: 'Only Human',
       tags: [],
       localVerdict: 'Cheater',
-      customData: {
-        alias: 'Not Human',
-      },
       gameInfo: {
         deaths: 0,
         state: 'Active',

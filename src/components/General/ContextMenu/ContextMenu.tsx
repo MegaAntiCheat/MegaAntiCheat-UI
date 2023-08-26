@@ -1,8 +1,8 @@
 import React from 'react';
 import './ContextMenu.css';
 
+import { ContextMenuContext } from '@context/ContextMenuProvider';
 import { ChevronRight } from 'lucide-react';
-import { ContextMenuContext } from '../../../context/ContextMenuProvider';
 
 const ContextMenuContent = () => {
   const contextMenuRef = React.useRef<HTMLDivElement>(null);
