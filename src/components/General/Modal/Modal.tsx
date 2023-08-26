@@ -1,6 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
+import ReactModal from 'react-modal';
+
+import { useModal } from '@context/ModalContext';
 
 interface ModalOptions {
   dismissable?: boolean;
@@ -9,8 +12,8 @@ interface ModalOptions {
 interface ModalProps {
   title?: string | React.ReactNode;
   footer?: React.ReactNode;
-  show: boolean;
-  children: React.ReactNode;
+  show?: boolean;
+  children?: React.ReactNode;
   className?: string;
   onClose?: () => void;
   modalOptions?: ModalOptions;
@@ -19,12 +22,12 @@ interface ModalProps {
 Modal.setAppElement('#root');
 
 const ModalWrapper = ({
-  children,
   className,
   onClose,
   modalOptions = { dismissable: true },
 }: ModalProps) => {
   const ModalRef = React.useRef<HTMLDivElement>(null);
+  const { closeModal, modalContent } = useModal();
 
   const handleClickOutside = (e: MouseEvent) => {
     if (ModalRef.current && !ModalRef.current.contains(e.target as Node)) {
@@ -44,14 +47,15 @@ const ModalWrapper = ({
 
   return (
     <>
-      <Modal
-        isOpen={true}
+      <ReactModal
+        isOpen={!!modalContent}
         className={`modal ${className}`}
         overlayClassName="modal-overlay"
         ariaHideApp={false}
+        onRequestClose={closeModal}
       >
-        <div ref={ModalRef}>{children}</div>
-      </Modal>
+        <div ref={ModalRef}>{modalContent}</div>
+      </ReactModal>
     </>
   );
 };

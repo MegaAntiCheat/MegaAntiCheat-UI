@@ -4,10 +4,7 @@ import './Player.css';
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
-import {
-  ContextMenuContext,
-  MenuItem,
-} from '../../../Context/ContextMenuProvider';
+import { ContextMenuContext, MenuItem } from '@context/ContextMenuProvider';
 import {
   displayColor,
   displayProperStatus,

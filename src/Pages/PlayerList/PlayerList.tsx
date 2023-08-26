@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMinimode } from '../../Context/MinimodeContext';
+import { useMinimode } from '@context/MinimodeContext';
 import { MiniScoreboard, ScoreboardTable } from '@components/TF2';
 import { emptyServerData, fetchAllServerInfo } from '@api/servers';
 import './PlayerList.css';

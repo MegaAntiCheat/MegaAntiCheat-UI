@@ -10,10 +10,10 @@ import {
   Preferences,
 } from '../Pages';
 import { Modal } from '@components/General/Modal/Modal';
-import useModal from '@components/General/Modal/ModalHook';
+import { useModal } from '@context/ModalContext';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
-import { useMinimode } from '../Context/MinimodeContext';
+import { useMinimode } from '@context/MinimodeContext';
 
 const CantConnectModal = () => {
   return (
@@ -99,7 +99,7 @@ function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState('');
 
-  const modal = useModal();
+  const { closeModal, openModal } = useModal();
 
   const renderPage = () => {
     switch (currentPage) {
@@ -122,8 +122,8 @@ function App() {
     } catch (e) {
       console.error('Error verifying backend connection', e);
       // Close any previous modal
-      modal.closeModal();
-      modal.openModal(<CantConnectModal />);
+      closeModal();
+      openModal(<CantConnectModal />);
       return false;
     }
   };
@@ -132,13 +132,13 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      modal.closeModal();
+      closeModal();
       return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
       // Close any previous modal
-      modal.closeModal();
-      modal.openModal(<ConfigurationModal closeModal={modal.closeModal} />);
+      closeModal();
+      openModal(<ConfigurationModal closeModal={closeModal} />);
       return false;
     }
   };
@@ -177,15 +177,7 @@ function App() {
 
   return (
     <div className="App">
-      {modal.showModal && (
-        <Modal
-          modalOptions={{ dismissable: false }}
-          show={modal.showModal}
-          onClose={modal.closeModal}
-        >
-          {modal.modalContent}
-        </Modal>
-      )}
+      <Modal />
       {!isMinimode && (
         <div className="App-sidebar">
           <SideMenu setCurrentPage={setCurrentPage} />

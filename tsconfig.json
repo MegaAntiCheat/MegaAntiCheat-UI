@@ -109,7 +109,8 @@
     "paths": {
       "@api/*": ["./src/api/*"],
       "@components/*": ["./src/components/*"],
-      "@i18n": ["./i18n"]
+      "@context/*": ["./src/context/*"],
+      "@i18n": ["./i18n"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
