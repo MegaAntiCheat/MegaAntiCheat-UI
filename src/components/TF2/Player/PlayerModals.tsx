@@ -1,6 +1,7 @@
 import React from 'react';
 import { updatePlayer } from '@api/players';
 import { Button, TextInput } from '@components/General';
+import { useModal } from '@context/ModalContext';
 
 interface ChangeAliasModalProps {
   player: PlayerInfo;
@@ -8,6 +9,8 @@ interface ChangeAliasModalProps {
 
 export const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
   const [alias, setAlias] = React.useState('');
+
+  const { closeModal } = useModal();
 
   return (
     <div className="text-center">
@@ -20,7 +23,10 @@ export const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
       </div>
       <div>
         <Button
-          onClick={() => updatePlayer(player.steamID64, undefined, { alias })}
+          onClick={() => {
+            updatePlayer(player.steamID64, undefined, { alias });
+            closeModal();
+          }}
         >
           Change
         </Button>

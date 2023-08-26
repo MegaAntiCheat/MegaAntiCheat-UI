@@ -8,6 +8,10 @@
   text-align: start;
 }
 
+.ctx-menu.above {
+  transform: translateY(-100%);
+}
+
 .ctx-menu-item {
   padding: 4px;
   padding-left: 6px;

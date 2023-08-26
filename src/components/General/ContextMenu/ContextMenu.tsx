@@ -47,6 +47,15 @@ const ContextMenuContent = () => {
     return spaceBelow <= width;
   };
 
+  const shouldRenderOptionsBelow = () => {
+    if (!contextMenuRef.current) return true;
+    const { top, height } = contextMenuRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const spaceBelow = windowHeight - top - height;
+    console.log(height, spaceBelow);
+    return spaceBelow >= height;
+  };
+
   React.useEffect(() => {
     document.addEventListener('click', handleOutsideClick);
     return () => {
@@ -55,12 +64,16 @@ const ContextMenuContent = () => {
   }, []);
 
   return (
-    <div style={style} className="ctx-menu" ref={contextMenuRef}>
+    <div
+      style={style}
+      className={`ctx-menu ${shouldRenderOptionsBelow() ? 'below' : 'above'}`}
+      ref={contextMenuRef}
+    >
       {menuItems.map((item, index) => (
         <>
           <div
             className="ctx-menu-item"
-            key={index}
+            key={item.label + index}
             onClick={() => {
               if (item?.onClick) onItemClick(item?.onClick);
             }}
@@ -84,9 +97,9 @@ const ContextMenuContent = () => {
             >
               {item.multiOptions &&
                 showMulti.includes(index) &&
-                item.multiOptions.map((menuItem) => (
+                item.multiOptions.map((menuItem, index) => (
                   <div
-                    key={menuItem.label}
+                    key={menuItem.label + index}
                     className="ctx-menu-item"
                     onClick={() => {
                       if (menuItem?.onClick) onItemClick(menuItem?.onClick);

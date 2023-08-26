@@ -14,7 +14,9 @@ const Tooltip = ({
   children,
   direction = 'top',
 }: TooltipProps) => {
-  const newLineHandledText = content.split('\n').map((str) => <p>{str}</p>);
+  const newLineHandledText = content
+    .split('\n')
+    .map((str, index) => <p key={index}>{str}</p>);
 
   return (
     <div className={`tooltip-container relative inline-block ${className}`}>

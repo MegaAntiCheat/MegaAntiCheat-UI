@@ -99,7 +99,7 @@ function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState('');
 
-  const { closeModal, openModal } = useModal();
+  const { closeModal, openModal, modalContent } = useModal();
 
   const renderPage = () => {
     switch (currentPage) {
@@ -132,7 +132,7 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      closeModal();
+      if (modalContent) closeModal();
       return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
