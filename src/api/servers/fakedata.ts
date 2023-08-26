@@ -14,7 +14,7 @@ export const fakedata: ServerInfoResponse = {
       customData: {
         alias: 'Samm-Cheese',
       },
-      previousNames: ['Also Samm-Cheese'],
+      previousNames: ['Also Samm-Cheese', 'Sammy'],
       gameInfo: {
         deaths: 0,
         state: 'Joining',
