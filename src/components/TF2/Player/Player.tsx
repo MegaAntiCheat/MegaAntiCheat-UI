@@ -7,6 +7,7 @@ import { ContextMenu, Select, Tooltip } from '@components/General';
 import { ContextMenuContext, MenuItem } from '@context/ContextMenuProvider';
 import {
   displayColor,
+  displayNamesList,
   displayProperStatus,
   formatTime,
   localizeVerdict,
@@ -17,6 +18,8 @@ import PlayerDetails from './PlayerDetails';
 import { verifyImageExists } from '@api/utils';
 import { kickPlayer } from '@api/commands';
 import { Info } from 'lucide-react';
+import { useModal } from '@context/ModalContext';
+import { ChangeAliasModal } from './PlayerModals';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -41,6 +44,9 @@ const Player = ({
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
 
+  // Modal
+  const { openModal } = useModal();
+
   // States
   const [playtime, setPlaytime] = React.useState(0);
   const [pfp, setPfp] = React.useState<string>('./person.webp');
@@ -56,6 +62,7 @@ const Player = ({
     : localizeVerdict(player.localVerdict);
   const displayTime = formatTime(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
+  const displayName = player.customData?.alias ?? player.name;
   const color = displayColor(playerColors!, player);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
@@ -104,6 +111,13 @@ const Player = ({
       {
         label: 'Copy SteamID64',
         onClick: () => navigator.clipboard.writeText(player.steamID64),
+      },
+      {
+        label: 'Change Alias',
+        onClick: () =>
+          openModal(<ChangeAliasModal player={player} />, {
+            dismissable: true,
+          }),
       },
     ];
 
@@ -171,12 +185,12 @@ const Player = ({
                 disconnected ? 'greyscale' : ''
               }`}
             >
-              {player.name}
+              {displayName}
             </div>
-            {!!player.previousNames?.length && (
+            {(!!player.previousNames?.length || player.customData?.alias) && (
               <Tooltip
                 className="ml-1 bottom-[1px]"
-                content={`Previous Names:\n${player.previousNames.join('\n')}`}
+                content={displayNamesList(player)}
               >
                 <Info color="grey" width={16} height={16} />
               </Tooltip>

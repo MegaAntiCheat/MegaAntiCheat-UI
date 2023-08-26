@@ -1,16 +1,9 @@
-.text-input-container {
-  position: relative;
-  width: fit-content;
-  border-radius: 3px;
-  background-color: var(--dark-bg-color);
-}
-
 .text-input {
   border: none;
   border-bottom: 2px solid white;
-  background-color: transparent;
+  background-color: var(--dark-bg-color);
   color: white;
-  padding: 4px;
+  padding: 3px;
   font-size: 16px;
 }
 

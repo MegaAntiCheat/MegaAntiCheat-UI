@@ -82,6 +82,17 @@ function displayColor(
   return hexToRGB(playerColors[verdict], ALPHA);
 }
 
+function displayNamesList(player: PlayerInfo): string {
+  let nameList = '';
+  const alias = player?.customData?.alias;
+
+  if (alias) nameList += `Current Name:\n\n${player.name}\n`;
+  if (player.previousNames?.length)
+    nameList += `Previous Names:\n\n${player.previousNames.join('\n')}`;
+
+  return nameList;
+}
+
 export {
   localizeVerdict,
   formatTime,
@@ -89,4 +100,5 @@ export {
   displayColor,
   makeLocalizedVerdictOptions,
   calculateKD,
+  displayNamesList,
 };

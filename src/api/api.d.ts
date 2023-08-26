@@ -77,8 +77,12 @@ interface PlayerInfo {
   convicted?: boolean;
   localVerdict?: string;
   steamInfo?: SteamInfo;
-  customData?: object;
+  customData?: CustomData;
   previousNames?: string[];
+}
+
+interface CustomData {
+  alias: string;
 }
 
 interface TeamData {

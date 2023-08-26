@@ -7,18 +7,27 @@ import {
 import { fakedata } from '@api/servers/fakedata';
 import { emptyServerData } from '@api/servers';
 
+interface UpdatePlayerForm {
+  [key: string]: UpdatePlayerBody;
+}
+
+interface UpdatePlayerBody {
+  localVerdict?: string;
+  customData?: Record<string, unknown>;
+}
+
 async function updatePlayer(
   steamID64: string,
-  verdict: string,
+  verdict?: string,
   customData?: Record<string, unknown>,
 ) {
   try {
-    const formBody = {
-      [steamID64]: {
-        localVerdict: verdict,
-        customData,
-      },
+    const formBody: UpdatePlayerForm = {
+      [steamID64]: {},
     };
+
+    if (verdict) formBody[steamID64].localVerdict = verdict;
+    if (customData) formBody[steamID64].customData = customData;
 
     const options = {
       method: 'PUT',

@@ -11,6 +11,9 @@ export const fakedata: ServerInfoResponse = {
       name: 'TheEntireUIDevelopmentTeam',
       tags: [],
       localVerdict: 'Player',
+      customData: {
+        alias: 'Samm-Cheese',
+      },
       previousNames: ['Also Samm-Cheese'],
       gameInfo: {
         deaths: 0,

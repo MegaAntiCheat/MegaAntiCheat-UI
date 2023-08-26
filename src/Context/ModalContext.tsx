@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 
 interface ModalContextProps {
-  openModal: (content: React.ReactNode) => void;
+  openModal: (content: React.ReactNode, modalOptions?: ModalOptions) => void;
   closeModal: () => void;
   modalContent: ReactNode;
   modalOptions?: ModalOptions;
