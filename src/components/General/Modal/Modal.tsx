@@ -21,13 +21,9 @@ interface ModalProps {
 
 Modal.setAppElement('#root');
 
-const ModalWrapper = ({
-  className,
-  onClose,
-  modalOptions = { dismissable: true },
-}: ModalProps) => {
+const ModalWrapper = ({ className, onClose }: ModalProps) => {
   const ModalRef = React.useRef<HTMLDivElement>(null);
-  const { closeModal, modalContent } = useModal();
+  const { closeModal, modalContent, modalOptions } = useModal();
 
   const handleClickOutside = (e: MouseEvent) => {
     if (ModalRef.current && !ModalRef.current.contains(e.target as Node)) {
@@ -36,7 +32,7 @@ const ModalWrapper = ({
   };
 
   React.useEffect(() => {
-    if (modalOptions.dismissable) {
+    if (modalOptions?.dismissable) {
       document.addEventListener('mousedown', handleClickOutside);
 
       return () => {
@@ -52,7 +48,7 @@ const ModalWrapper = ({
         className={`modal ${className}`}
         overlayClassName="modal-overlay"
         ariaHideApp={false}
-        onRequestClose={closeModal}
+        onRequestClose={modalOptions?.dismissable ? closeModal : void 0}
       >
         <div ref={ModalRef}>{modalContent}</div>
       </ReactModal>

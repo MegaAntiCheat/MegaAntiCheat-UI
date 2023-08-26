@@ -4,6 +4,11 @@ interface ModalContextProps {
   openModal: (content: React.ReactNode) => void;
   closeModal: () => void;
   modalContent: ReactNode;
+  modalOptions?: ModalOptions;
+}
+
+interface ModalOptions {
+  dismissable?: boolean;
 }
 
 const ModalContext = React.createContext<ModalContextProps | undefined>(
@@ -16,17 +21,22 @@ interface ModalProviderProps {
 
 export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [modalContent, setModalContent] = useState<ReactNode>(null);
+  const [modalOptions, setModalOptions] = useState<ModalOptions>({});
 
-  const openModal = (content: ReactNode) => {
+  const openModal = (content: ReactNode, options?: ModalOptions) => {
     setModalContent(content);
+    setModalOptions(options ?? {});
   };
 
   const closeModal = () => {
     setModalContent(null);
+    setModalOptions({});
   };
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal, modalContent }}>
+    <ModalContext.Provider
+      value={{ openModal, closeModal, modalContent, modalOptions }}
+    >
       {children}
       {modalContent}
     </ModalContext.Provider>
