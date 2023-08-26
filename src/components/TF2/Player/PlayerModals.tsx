@@ -1,7 +1,7 @@
 import React from 'react';
 import { updatePlayer } from '@api/players';
 import { Button, TextInput } from '@components/General';
-import { useModal } from '@context/ModalContext';
+import { useModal } from '../../../Context';
 
 interface ChangeAliasModalProps {
   player: PlayerInfo;

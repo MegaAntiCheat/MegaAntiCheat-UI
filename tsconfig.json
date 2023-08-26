@@ -109,7 +109,7 @@
     "paths": {
       "@api/*": ["./src/api/*"],
       "@components/*": ["./src/components/*"],
-      "@context/*": ["./src/context/*"],
+      "@context": ["./src/Context"],
       "@i18n": ["./i18n"]
     }
   },
