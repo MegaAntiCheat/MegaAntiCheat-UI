@@ -1,8 +1,8 @@
 import React from 'react';
-import { useMinimode } from '@context/MinimodeContext';
 import { MiniScoreboard, ScoreboardTable } from '@components/TF2';
 import { emptyServerData, fetchAllServerInfo } from '@api/servers';
 import './PlayerList.css';
+import { useMinimode } from '../../context/MinimodeContext';
 
 enum Teams {
   UNASSIGNED,

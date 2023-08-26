@@ -4,7 +4,7 @@ import './ScoreboardTable.css';
 import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
 import { t } from '@i18n';
-import { ContextMenuProvider } from '@context/ContextMenuProvider';
+import { ContextMenuProvider } from '../../../context/ContextMenuProvider';
 interface ScoreboardTableProps {
   RED: PlayerInfo[];
   BLU: PlayerInfo[];

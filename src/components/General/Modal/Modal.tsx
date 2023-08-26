@@ -2,8 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import './Modal.css';
 import ReactModal from 'react-modal';
-
-import { useModal } from '@context/ModalContext';
+import { useModal } from '../../../context/ModalContext';
 
 interface ModalOptions {
   dismissable?: boolean;
