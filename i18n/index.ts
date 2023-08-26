@@ -5,6 +5,7 @@ import ru_RU from './ru_RU.json';
 import tr_TR from './tr_TR.json';
 import ja_JP from './ja_JP.json';
 import ja_RYU from './ja_RYU.json';
+import uk_UA from './uk_UA.json';
 
 let currentLang = 'English';
 interface Translations {
@@ -19,6 +20,7 @@ const translations: { [key: string]: Translations } = {
   Turkish: tr_TR,
   Japanese: ja_JP,
   Uchinaguchi: ja_RYU,
+  Ukrainian: uk_UA,
 };
 
 const setLanguage = (lang: string) => {
