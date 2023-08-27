@@ -187,7 +187,8 @@ const Player = ({
             >
               {displayName}
             </div>
-            {(!!player.previousNames?.length || player.customData?.alias) && (
+            {((player.previousNames?.length ?? 0) > 1 ||
+              player.customData?.alias) && (
               <Tooltip
                 className="ml-1 bottom-[1px]"
                 content={displayNamesList(player)}
