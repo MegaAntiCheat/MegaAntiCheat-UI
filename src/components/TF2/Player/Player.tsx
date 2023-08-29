@@ -162,7 +162,12 @@ const Player = ({
           options={localizedLocalVerdictOptions}
           placeholder={displayVerdict}
           disabled={player.isSelf}
-          onChange={(e) => updatePlayer(player.steamID64, e.toString())}
+          onChange={(e) => {
+            updatePlayer(player.steamID64, e.toString());
+            // Immediately update local instance
+            // Causes new info to immediately show
+            player.localVerdict = e.toString();
+          }}
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
           <div
