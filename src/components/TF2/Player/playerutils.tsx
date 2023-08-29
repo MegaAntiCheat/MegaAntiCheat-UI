@@ -1,5 +1,9 @@
-import { hexToRGB } from '@api/utils';
+import React from 'react';
+
 import { t } from '@i18n';
+import { hexToRGB } from '@api/utils';
+import { ScrollText, Star } from 'lucide-react';
+import { Tooltip } from '@components/General';
 
 const localVerdict = [
   {
@@ -84,13 +88,26 @@ function displayColor(
 
 function displayNamesList(player: PlayerInfo): string {
   let nameList = '';
-  const alias = player?.customData?.alias;
 
-  if (alias) nameList += `Current Name:\n\n${player.name}\n`;
   if (player.previousNames?.length)
     nameList += `Previous Names:\n\n${player.previousNames.join('\n')}`;
 
   return nameList;
+}
+
+function buildIconList(player: PlayerInfo): React.ReactNode[] {
+  return [
+    player.customData?.alias && (
+      <Tooltip className="mr-1" content={`Actual Name:\n${player.name}`}>
+        <Star width={18} height={18} />
+      </Tooltip>
+    ),
+    player.customData?.playerNote && (
+      <Tooltip content={player.customData.playerNote}>
+        <ScrollText width={18} height={18} />
+      </Tooltip>
+    ),
+  ];
 }
 
 export {
@@ -101,4 +118,5 @@ export {
   makeLocalizedVerdictOptions,
   calculateKD,
   displayNamesList,
+  buildIconList,
 };

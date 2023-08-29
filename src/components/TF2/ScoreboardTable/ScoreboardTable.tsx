@@ -96,10 +96,6 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
                 key={player.steamID64}
                 onImageLoad={handlePFPImageLoad}
                 openInApp={playerSettings.openInApp}
-                userSteamID={userSteamID}
-                icon={
-                  'https://cdn.discordapp.com/attachments/1123073876897824848/1123080561435611199/icon_friend.png'
-                }
               />
             </ContextMenuProvider>
           ))}

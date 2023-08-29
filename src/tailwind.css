@@ -614,6 +614,10 @@ video {
   top: 50%;
 }
 
+.bottom-1\.5 {
+  bottom: 0.375rem;
+}
+
 .z-30 {
   z-index: 30;
 }
@@ -743,6 +747,14 @@ video {
 
 .mt-9 {
   margin-top: 2.25rem;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .block {
@@ -1289,7 +1301,7 @@ code {
   }
 
   .xs\:grid-cols-player {
-    grid-template-columns: 120px minmax(100px, 1fr) 18px minmax(0px, 100px) minmax(0px, 60px);
+    grid-template-columns: 120px minmax(100px, 1fr) 50px minmax(0px, 100px) minmax(0px, 60px);
   }
 
   .xs\:grid-cols-scoreboardnav {

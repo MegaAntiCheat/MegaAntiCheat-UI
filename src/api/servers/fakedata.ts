@@ -13,6 +13,7 @@ export const fakedata: ServerInfoResponse = {
       localVerdict: 'Player',
       customData: {
         alias: 'Samm-Cheese',
+        playerNote: 'Who even is this guy LOL',
       },
       previousNames: ['Also Samm-Cheese', 'Sammy'],
       gameInfo: {
@@ -40,6 +41,9 @@ export const fakedata: ServerInfoResponse = {
       tags: [],
       localVerdict: 'None',
       previousNames: ['Samm-Cheese'],
+      customData: {
+        alias: 'Sammster',
+      },
       gameInfo: {
         deaths: 0,
         state: 'Active',
@@ -116,6 +120,9 @@ export const fakedata: ServerInfoResponse = {
       name: 'Only Human',
       tags: [],
       localVerdict: 'Cheater',
+      customData: {
+        playerNote: 'He isnt really a human, just a bot',
+      },
       gameInfo: {
         deaths: 0,
         state: 'Active',

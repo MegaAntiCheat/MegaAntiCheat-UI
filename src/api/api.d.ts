@@ -82,7 +82,8 @@ interface PlayerInfo {
 }
 
 interface CustomData {
-  alias: string;
+  alias?: string;
+  playerNote?: string;
 }
 
 interface TeamData {

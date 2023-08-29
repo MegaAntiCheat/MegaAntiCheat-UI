@@ -6,6 +6,7 @@ import { updatePlayer } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
 import { ContextMenuContext, MenuItem } from '../../../Context';
 import {
+  buildIconList,
   displayColor,
   displayNamesList,
   displayProperStatus,
@@ -33,12 +34,10 @@ interface PlayerProps {
 
 const Player = ({
   player,
-  icon,
   className,
   onImageLoad,
   playerColors,
   openInApp,
-  userSteamID,
 }: PlayerProps) => {
   const isFirstRefresh = React.useRef(true);
   // Context Menu
@@ -187,10 +186,9 @@ const Player = ({
             >
               {displayName}
             </div>
-            {((player.previousNames?.length ?? 0) > 1 ||
-              player.customData?.alias) && (
+            {(player.previousNames?.length ?? 0) > 1 && (
               <Tooltip
-                className="ml-1 bottom-[1px]"
+                className="ml-1 bottom-[1px] mr-3"
                 content={displayNamesList(player)}
               >
                 <Info color="grey" width={16} height={16} />
@@ -198,17 +196,9 @@ const Player = ({
             )}
           </div>
         </div>
-        {player.steamInfo?.friends?.some((p) => p.steamID64 === userSteamID) ? (
-          <img
-            className="player-badge mr-5"
-            width={12}
-            height={12}
-            src={icon}
-            alt="Badge"
-          />
-        ) : (
-          <div />
-        )}
+        <div className="flex flex-wrap justify-center bottom-[1px] relative">
+          {buildIconList(player)}
+        </div>
         <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
             disconnected ? 'greyscale' : ''
