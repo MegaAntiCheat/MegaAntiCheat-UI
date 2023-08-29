@@ -95,15 +95,26 @@ function displayNamesList(player: PlayerInfo): string {
   return nameList;
 }
 
+function buildPlayerNote(customData: CustomData) {
+  let note = '';
+  if (customData.tfbd) note += `TFBD: ${customData.tfbd.join(', ')}\n`;
+  if (customData.playerNote) note += `${customData.playerNote}\n`;
+  return note;
+}
+
 function buildIconList(player: PlayerInfo): React.ReactNode[] {
+  const alias = player.customData?.alias;
+  const playerNote = player.customData?.playerNote;
+  const tfbd = player.customData?.tfbd;
+
   return [
-    player.customData?.alias && (
+    !!alias && (
       <Tooltip className="mr-1" content={`Actual Name:\n${player.name}`}>
         <Star width={18} height={18} />
       </Tooltip>
     ),
-    player.customData?.playerNote && (
-      <Tooltip content={player.customData.playerNote}>
+    (!!playerNote || !!tfbd) && (
+      <Tooltip content={buildPlayerNote(player.customData)}>
         <ScrollText width={18} height={18} />
       </Tooltip>
     ),

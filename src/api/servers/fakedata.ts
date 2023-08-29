@@ -14,6 +14,7 @@ export const fakedata: ServerInfoResponse = {
       customData: {
         alias: 'Samm-Cheese',
         playerNote: 'Who even is this guy LOL',
+        tfbd: ['Racist', 'Dumb'],
       },
       previousNames: ['Also Samm-Cheese', 'Sammy'],
       gameInfo: {
@@ -76,6 +77,7 @@ export const fakedata: ServerInfoResponse = {
       tags: [],
       localVerdict: 'None',
       previousNames: ['Woah So Uncool!', 'Coping Hard', 'What?'],
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Disconnected',
@@ -98,6 +100,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'OptimusPrimus',
       tags: [],
       localVerdict: 'None',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Active',
@@ -146,6 +149,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'Panzerwagenfahrer IV',
       tags: [],
       localVerdict: 'None',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -165,6 +169,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'The Hearts of Iron',
       tags: [],
       localVerdict: 'None',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -184,6 +189,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'Faker',
       tags: [],
       localVerdict: 'None',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -203,6 +209,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'DoesHotter',
       tags: [],
       localVerdict: 'Bot',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -222,6 +229,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'The Cool Person',
       tags: [],
       localVerdict: 'None',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Joining',
@@ -241,6 +249,7 @@ export const fakedata: ServerInfoResponse = {
       name: 'Only Human',
       tags: [],
       localVerdict: 'None',
+      customData: {},
       gameInfo: {
         deaths: 0,
         state: 'Joining',
