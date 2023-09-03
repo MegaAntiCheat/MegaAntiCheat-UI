@@ -25,6 +25,7 @@
   "GAME": "ゲーム",
   "IN_GAME": "ゲーム内",
   "JOINING": "参加",
+  "DISCONNECTED": "切断",
   "KILLS": "キル数",
   "DEATHS": "死亡者数",
   "PING": "Ping",
