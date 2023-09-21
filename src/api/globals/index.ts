@@ -11,7 +11,7 @@ export const COMMAND_ENDPOINT = `${APIURL}/commands/v1`;
 
 // This is used to get fakedata for the frontend.
 // dotenv breaks build, so we can't use that.
-export const useFakedata = true;
+export const useFakedata = false;
 
 export async function verifyBackend(): Promise<boolean> {
   return await fetch(SERVERFETCH)
