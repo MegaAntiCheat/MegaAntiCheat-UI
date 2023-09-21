@@ -41,17 +41,18 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
           <div className="grid grid-cols-playerdetailscontent overflow-x-auto">
             <div className="relative flex items-center content-center">
               <div className="text-start">
-                <div>
-                  {t('ACC_CREATION')}:{' '}
+                <div className="flex">
+                  <div className="font-semibold mr-1">{t('ACC_CREATION')}:</div>
                   {formatCreationDate(player.steamInfo?.timeCreated ?? 0)}
                 </div>
 
-                <div>
-                  {t('COUNTRY')}:{' '}
+                <div className="flex">
+                  <div className="font-semibold mr-1"> {t('COUNTRY')}: </div>
                   {player?.steamInfo?.countryCode ?? t('UNKNOWN')}
                 </div>
                 <div className="flex">
-                  VAC Bans: {vacBans}{' '}
+                  <div className="font-semibold mr-1">VAC Bans: </div>
+                  <div>{vacBans}</div>
                   {!!vacBans && (
                     <Tooltip
                       content={`Last ban ${
@@ -70,7 +71,8 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                   )}
                 </div>
                 <div className="flex">
-                  {t('GAME')} Bans: {gameBans}
+                  <div className="font-semibold mr-1">{t('GAME')} Bans: </div>
+                  <div>{gameBans}</div>
                   {!!gameBans && (
                     <Tooltip
                       content={`Last ban ${
@@ -94,33 +96,38 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
             <div className="select-none flex flex-wrap text-start justify-center">
               <div className="gamestats whitespace-nowrap">
                 <Crosshair width={18} height={18} />
-                <div className="ml-1.5">
-                  {t('KILLS')}: {player.gameInfo.kills ?? 0}
+                <div className="ml-1.5 flex">
+                  <div className="font-semibold mr-1">{t('KILLS')}: </div>
+                  <div>{player.gameInfo.kills ?? 0}</div>
                 </div>
               </div>
               <div className="gamestats">
                 <div className="gamestat-icon">
                   <Skull width={18} height={18} />
                 </div>
-                <div className="ml-1.5 whitespace-nowrap">
-                  {t('DEATHS')}: {player.gameInfo.deaths ?? 0}
+                <div className="ml-1.5 whitespace-nowrap flex">
+                  <div className="font-semibold mr-1"> {t('DEATHS')}: </div>
+                  <div>{player.gameInfo.deaths ?? 0}</div>
                 </div>
               </div>
               <div className="gamestats">
                 <div className="gamestat-icon">
                   <CircleSlash2 width={16} height={16} />
                 </div>
-                <div className="ml-1.5 whitespace-nowrap">
-                  K/D:{' '}
-                  {calculateKD(player.gameInfo.kills, player.gameInfo.deaths)}
+                <div className="ml-1.5 whitespace-nowrap flex">
+                  <div className="font-semibold mr-1">K/D: </div>
+                  <div>
+                    {calculateKD(player.gameInfo.kills, player.gameInfo.deaths)}
+                  </div>
                 </div>
               </div>
               <div className="gamestats">
                 <div className="gamestat-icon">
                   <BarChart width={18} height={18} />
                 </div>
-                <div className="ml-1.5 whitespace-nowrap">
-                  {t('PING')}: {player.gameInfo.ping ?? 0}ms
+                <div className="ml-1.5 whitespace-nowrap flex">
+                  <div className="font-semibold mr-1">{t('PING')}: </div>
+                  <div>{player.gameInfo.ping ?? 0}ms</div>
                 </div>
               </div>
             </div>
