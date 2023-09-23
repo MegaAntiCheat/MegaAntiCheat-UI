@@ -14,8 +14,8 @@
     "start": "webpack serve",
     "lint": "pnpm exec eslint . && pnpm exec prettier -c \"src/**/*\"",
     "lint:fix": "pnpm exec eslint --fix . && pnpm exec prettier --write \"src/**/*\"",
-    "build": "pnpm run lint && tailwind -i ./src/index.css -o ./src/tailwind.css && webpack",
-    "dev": "concurrently -k \"webpack serve\" \"tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch\" \"tsc -w\""
+    "build": "pnpm run lint && tailwind -i ./src/index.css -o ./src/tailwind.css && webpack --mode production",
+    "dev": "concurrently -k \"webpack serve --mode development\" \"tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch\" \"tsc -w\""
   },
   "devDependencies": {
     "@types/node": "^20.4.2",
