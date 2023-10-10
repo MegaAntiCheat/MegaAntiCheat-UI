@@ -1297,7 +1297,7 @@ code {
   }
 
   .xs\:grid-cols-player {
-    grid-template-columns: 120px minmax(100px, 1fr) 50px minmax(0px, 100px) minmax(0px, 60px);
+    grid-template-columns: 120px minmax(100px, 1fr) 80px minmax(0px, 100px) minmax(0px, 60px);
   }
 
   .xs\:grid-cols-scoreboardnav {

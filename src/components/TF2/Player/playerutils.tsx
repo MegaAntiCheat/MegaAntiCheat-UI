@@ -2,7 +2,7 @@ import React from 'react';
 
 import { t } from '@i18n';
 import { hexToRGB } from '@api/utils';
-import { ScrollText, Star } from 'lucide-react';
+import { CalendarClock, ScrollText, ShieldAlert, Star } from 'lucide-react';
 import { Tooltip } from '@components/General';
 
 const localVerdict = [
@@ -54,7 +54,7 @@ function makeLocalizedVerdictOptions() {
   }));
 }
 
-function formatTime(seconds: number): string {
+function formatTimeToString(seconds: number): string {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
@@ -90,7 +90,9 @@ function displayNamesList(player: PlayerInfo): string {
   let nameList = '';
 
   if (player.previousNames?.length)
-    nameList += `Previous Names:\n\n${player.previousNames.join('\n')}`;
+    nameList += `${t('TOOLTIP_PREVIOUS_NAME')}\n\n${player.previousNames.join(
+      '\n',
+    )}`;
 
   return nameList;
 }
@@ -106,16 +108,32 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
   const alias = player.customData?.alias;
   const playerNote = player.customData?.playerNote;
   const tfbd = player.customData?.tfbd;
+  const accCreationTime = player.steamInfo?.timeCreated ?? 0;
+  const hasBans =
+    (player.steamInfo?.gameBans ?? 0) + (player.steamInfo?.vacBans ?? 0);
 
   return [
     !!alias && (
-      <Tooltip className="mr-1" content={`Actual Name:\n${player.name}`}>
+      <Tooltip
+        className="mr-1"
+        content={`${t('TOOLTIP_ACTUAL_NAME')}\n${player.name}`}
+      >
         <Star width={18} height={18} />
       </Tooltip>
     ),
     (!!playerNote || !!tfbd) && (
-      <Tooltip content={buildPlayerNote(player.customData)}>
+      <Tooltip className="mr-1" content={buildPlayerNote(player.customData)}>
         <ScrollText width={18} height={18} />
+      </Tooltip>
+    ),
+    accCreationTime < 30 * 24 * 60 * 60 && ( // 2 Months
+      <Tooltip className="mr-1" content={t('TOOLTIP_NEW_ACCOUNT')}>
+        <CalendarClock width={18} height={18} />
+      </Tooltip>
+    ),
+    !!hasBans && (
+      <Tooltip className="mr-1" content={t('TOOLTIP_HAS_BANS')}>
+        <ShieldAlert width={18} height={18} />
       </Tooltip>
     ),
   ];
@@ -123,7 +141,7 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
 
 export {
   localizeVerdict,
-  formatTime,
+  formatTimeToString,
   displayProperStatus,
   displayColor,
   makeLocalizedVerdictOptions,

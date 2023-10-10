@@ -15,7 +15,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         player:
-          '120px minmax(100px, 1fr) 50px minmax(0px, 100px) minmax(0px, 60px)',
+          '120px minmax(100px, 1fr) 80px minmax(0px, 100px) minmax(0px, 60px)',
         playersm: '120px minmax(100px, 1fr) 18px',
         scoreboardnav: '130px minmax(95px, 1fr) 90px 55px',
         scoreboardnavsm: '180px 130px',

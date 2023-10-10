@@ -10,7 +10,7 @@ import {
   displayColor,
   displayNamesList,
   displayProperStatus,
-  formatTime,
+  formatTimeToString,
   localizeVerdict,
   makeLocalizedVerdictOptions,
 } from './playerutils';
@@ -59,7 +59,7 @@ const Player = ({
   const displayVerdict = player.isSelf
     ? t('YOU')
     : localizeVerdict(player.localVerdict);
-  const displayTime = formatTime(playtime);
+  const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias ?? player.name;
   const color = displayColor(playerColors!, player);

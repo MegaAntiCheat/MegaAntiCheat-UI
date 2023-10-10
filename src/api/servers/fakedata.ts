@@ -32,7 +32,7 @@ export const fakedata: ServerInfoResponse = {
       steamInfo: {
         pfp: 'https://github.com/SammCheese.png',
         countryCode: 'X',
-        timeCreated: 1318493205,
+        timeCreated: 258459215,
       },
     },
     {
