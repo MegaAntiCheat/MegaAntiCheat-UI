@@ -1,17 +1,42 @@
 import React from 'react';
 import { formatCreationDate, verifyImageExists } from '@api/utils';
-import { BarChart, CircleSlash2, Crosshair, Info, Skull } from 'lucide-react';
+import {
+  BarChart,
+  CheckCircle,
+  CircleSlash2,
+  Crosshair,
+  Info,
+  RefreshCw,
+  SendHorizonal,
+  Skull,
+  XCircle,
+} from 'lucide-react';
 import { calculateKD } from './playerutils';
 import { t } from '@i18n';
-import { Tooltip } from '@components/General';
+import { Search, Tooltip } from '@components/General';
+import { updatePlayer } from '@api/players';
 
 interface PlayerDetailsProps {
   player: PlayerInfo;
   bgColor?: string;
 }
 
+enum SentState {
+  IDLE = 0,
+  SENDING = 1,
+  SUCCESS = 2,
+  FAILED = 3,
+}
+
 const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
   const [pfp, setPfp] = React.useState('./person.webp');
+  const [playerNote, setPlayerNote] = React.useState(
+    player.customData.playerNote,
+  );
+
+  const [noteSentStatus, setNoteSentStatus] = React.useState<SentState>(
+    SentState.IDLE,
+  );
 
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
@@ -28,10 +53,10 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
   return (
     <>
       <div
-        className="playerdetails h-40 w-full"
+        className="playerdetails h-min w-full align-middle content-center"
         style={{ backgroundColor: bgColor }}
       >
-        <div className=" bg-secondary/50 grid grid-cols-playerdetails p-2.5 top-1.5 mx-1.5 relative rounded-[3px]">
+        <div className=" bg-secondary/50 grid grid-cols-playerdetails p-2.5 mx-1.5 top-1 relative rounded-[3px] rounded-b-none">
           <img
             className="outline outline-highlight/60 outline-1"
             src={pfp}
@@ -130,6 +155,69 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                   <div>{player.gameInfo.ping ?? 0}ms</div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className="mx-[6px] pb-2 mt-2 bottom-1 content-normal bg-secondary/50 relative rounded-b-[3px]">
+          <div className="flex mx-2.5 items-center relative">
+            <Search
+              className="relative w-full mr-1"
+              placeholder="Add Player Note"
+              value={playerNote}
+              onChange={(e) => setPlayerNote(e)}
+            />
+            <div
+              className="hover:cursor-pointer"
+              onClick={async () => {
+                setNoteSentStatus(SentState.SENDING);
+
+                try {
+                  const res = await updatePlayer(player.steamID64, undefined, {
+                    playerNote: playerNote,
+                  });
+
+                  if (!res) throw new Error('Failed to Update player note');
+
+                  setNoteSentStatus(SentState.SUCCESS); // Success
+                } catch (e) {
+                  setNoteSentStatus(SentState.FAILED); // Failed
+                }
+
+                setTimeout(() => {
+                  setNoteSentStatus(0); // Idle
+                }, 3000);
+              }}
+            >
+              {noteSentStatus === 0 && (
+                <SendHorizonal
+                  className="p-1 hover:bg-secondary rounded"
+                  width={40}
+                  height={40}
+                />
+              )}
+              {noteSentStatus === 1 && (
+                <RefreshCw
+                  className="p-1 rounded animate-spin"
+                  width={40}
+                  height={40}
+                />
+              )}
+              {noteSentStatus === 2 && (
+                <CheckCircle
+                  className="p-1 hover:bg-secondary rounded"
+                  color="green"
+                  width={40}
+                  height={40}
+                />
+              )}
+              {noteSentStatus === 3 && (
+                <XCircle
+                  className="p-1 hover:bg-secondary rounded"
+                  color="red"
+                  width={40}
+                  height={40}
+                />
+              )}
             </div>
           </div>
         </div>

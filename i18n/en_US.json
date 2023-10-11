@@ -43,7 +43,7 @@
   "PREF_RCON_PASSWORD": "RCon Password",
   "PREF_OPEN_IN_APP": "Open Profiles in Steam",
   "TOOLTIP_ACTUAL_NAME": "Actual Name:",
-  "TOOLTIP_PREVIOUS_NAME": "Previous Name:",
+  "TOOLTIP_PREVIOUS_NAME": "Previous Name(s):",
   "TOOLTIP_BANS_DAYS": "day(s) since last ban",
   "TOOLTIP_BANS_VAC": "VAC ban(s) on record",
   "TOOLTIP_BANS_GAME": "game ban(s) on record",

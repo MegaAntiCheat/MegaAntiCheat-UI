@@ -42,8 +42,10 @@ async function updatePlayer(
     const response = await fetch(USER_ENDPOINT, options);
 
     if (!response.ok) throw new Error('Failed to mark player.');
+
+    return 1;
   } catch (e) {
-    console.error(e);
+    return 0;
   }
 }
 

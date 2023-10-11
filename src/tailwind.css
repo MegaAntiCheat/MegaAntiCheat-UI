@@ -598,10 +598,6 @@ video {
   top: 0.25rem;
 }
 
-.top-1\.5 {
-  top: 0.375rem;
-}
-
 .top-2 {
   top: 0.5rem;
 }
@@ -632,9 +628,24 @@ video {
   margin-right: 0.375rem;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.mx-2\.5 {
+  margin-left: 0.625rem;
+  margin-right: 0.625rem;
+}
+
 .mx-3 {
   margin-left: 0.75rem;
   margin-right: 0.75rem;
+}
+
+.mx-\[6px\] {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .my-1 {
@@ -737,6 +748,10 @@ video {
   margin-top: 0.375rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -773,10 +788,6 @@ video {
   height: 8rem;
 }
 
-.h-40 {
-  height: 10rem;
-}
-
 .h-5\/6 {
   height: 83.333333%;
 }
@@ -795,6 +806,11 @@ video {
 
 .h-full {
   height: 100%;
+}
+
+.h-min {
+  height: -moz-min-content;
+  height: min-content;
 }
 
 .h-screen {
@@ -867,6 +883,16 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -919,6 +945,10 @@ video {
   flex-wrap: wrap;
 }
 
+.content-normal {
+  align-content: normal;
+}
+
 .content-center {
   align-content: center;
 }
@@ -965,6 +995,10 @@ video {
   white-space: nowrap;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .rounded-\[3px\] {
   border-radius: 3px;
 }
@@ -979,6 +1013,16 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded-b-\[3px\] {
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.rounded-b-none {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .rounded-s-sm {
@@ -1054,6 +1098,10 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 
 .pl-2 {
@@ -1282,6 +1330,11 @@ code {
 
 .hover\:bg-highlight\/5:hover {
   background-color: rgb(234 235 243 / 0.05);
+}
+
+.hover\:bg-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(25 31 39 / var(--tw-bg-opacity));
 }
 
 .hover\:text-sky-300:hover {
