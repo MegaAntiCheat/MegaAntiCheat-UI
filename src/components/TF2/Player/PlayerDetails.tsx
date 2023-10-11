@@ -169,6 +169,8 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
             <div
               className="hover:cursor-pointer"
               onClick={async () => {
+                if (noteSentStatus != SentState.IDLE) return;
+
                 setNoteSentStatus(SentState.SENDING);
 
                 try {
