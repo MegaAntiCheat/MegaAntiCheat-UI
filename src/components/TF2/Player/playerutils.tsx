@@ -132,7 +132,14 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
       </Tooltip>
     ),
     !!hasBans && (
-      <Tooltip className="mr-1" content={t('TOOLTIP_HAS_BANS')}>
+      <Tooltip
+        className="mr-1"
+        content={`${player.steamInfo?.vacBans ?? 0} ${t('TOOLTIP_BANS_VAC')}\n${
+          player.steamInfo?.gameBans ?? 0
+        } ${t('TOOLTIP_BANS_GAME')}\n${
+          player.steamInfo?.daysSinceLastBan ?? 0
+        } ${t('TOOLTIP_BANS_DAYS')}`}
+      >
         <ShieldAlert width={18} height={18} />
       </Tooltip>
     ),
