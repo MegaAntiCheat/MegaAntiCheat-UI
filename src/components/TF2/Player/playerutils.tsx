@@ -105,6 +105,7 @@ function buildPlayerNote(customData: CustomData) {
 }
 
 function buildIconList(player: PlayerInfo): React.ReactNode[] {
+  const now = Date.now() / 1000;
   const alias = player.customData?.alias;
   const playerNote = player.customData?.playerNote;
   const tfbd = player.customData?.tfbd;
@@ -126,7 +127,7 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
         <ScrollText width={18} height={18} />
       </Tooltip>
     ),
-    accCreationTime < 30 * 24 * 60 * 60 && ( // 2 Months
+    accCreationTime > now - 60 * 24 * 60 * 60 && ( // 2 Months
       <Tooltip className="mr-1" content={t('TOOLTIP_NEW_ACCOUNT')}>
         <CalendarClock width={18} height={18} />
       </Tooltip>
