@@ -126,7 +126,7 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
         <ScrollText width={18} height={18} />
       </Tooltip>
     ),
-    accCreationTime < 30 * 24 * 60 * 60 && ( // 2 Months
+    accCreationTime < 60 * 24 * 60 * 60 && ( // 2 Months
       <Tooltip className="mr-1" content={t('TOOLTIP_NEW_ACCOUNT')}>
         <CalendarClock width={18} height={18} />
       </Tooltip>
