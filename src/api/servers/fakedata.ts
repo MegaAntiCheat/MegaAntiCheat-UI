@@ -242,6 +242,9 @@ export const fakedata: ServerInfoResponse = {
         disconnected: false,
         lastSeen: 0,
       },
+      steamInfo: {
+        timeCreated: Date.now() / 1000 - 61 * 24 * 60 * 60, // 61 days before now
+      },
     },
     {
       steamID64: '324234424',
@@ -261,6 +264,9 @@ export const fakedata: ServerInfoResponse = {
         time: 2300,
         disconnected: false,
         lastSeen: 0,
+      },
+      steamInfo: {
+        timeCreated: Date.now() / 1000 - 59 * 24 * 60 * 60, // 59 days before now
       },
     },
   ],
