@@ -5,6 +5,7 @@ import MenuHeader from './MenuHeader';
 
 import { t } from '@i18n';
 import './SideMenu.css';
+import { escape } from 'querystring';
 
 interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<string>>;
@@ -29,10 +30,18 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
     handleToggleCollapse();
   };
 
+  const handleEscapePress = (event: KeyboardEvent) => {
+    if (event.key !== 'Escape') return;
+
+    setCollapsed(true);
+  };
+
   React.useEffect(() => {
     document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('keydown', handleEscapePress);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('keydown', handleEscapePress);
     };
   }, []);
 
