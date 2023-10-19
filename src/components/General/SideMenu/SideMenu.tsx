@@ -5,7 +5,6 @@ import MenuHeader from './MenuHeader';
 
 import { t } from '@i18n';
 import './SideMenu.css';
-import { escape } from 'querystring';
 
 interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<string>>;
