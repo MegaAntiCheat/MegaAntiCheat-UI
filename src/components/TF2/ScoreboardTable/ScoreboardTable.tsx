@@ -11,8 +11,6 @@ interface ScoreboardTableProps {
 }
 
 const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
-  // Update the Scoreboard everytime a PFP is loaded
-  const [, setLoadedPFPCount] = React.useState(0);
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
   const [playerSettings, setPlayerSettings] = React.useState<
@@ -28,10 +26,6 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     },
     openInApp: false,
   });
-
-  const handlePFPImageLoad = () => {
-    setLoadedPFPCount((prevCount) => prevCount + 1);
-  };
 
   React.useEffect(() => {
     const fetchTeamColors = async () => {
@@ -88,13 +82,13 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
         </div>
         <div className={`${teamColor?.toLowerCase()}`}>
           {team?.map((player) => (
+            // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
                 playerColors={playerSettings.colors}
                 className={teamColor?.toLowerCase()}
                 player={player}
                 key={player.steamID64}
-                onImageLoad={handlePFPImageLoad}
                 openInApp={playerSettings.openInApp}
               />
             </ContextMenuProvider>

@@ -88,7 +88,7 @@ export const fakedata: ServerInfoResponse = {
         userid: '0',
         time: 0,
         disconnected: true,
-        lastSeen: 0,
+        lastSeen: 3244,
       },
       steamInfo: {
         gameBans: 2,

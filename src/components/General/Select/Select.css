@@ -34,7 +34,7 @@
   position: absolute;
   left: 0;
   width: 100%;
-  z-index: 9999;
+  z-index: 30;
 }
 
 .select-options {
@@ -43,7 +43,7 @@
   padding: 0;
   background-color: var(--dark-bg-color);
   border: 1px solid var(--dark-bg-main-color);
-  z-index: 999;
+  z-index: 30;
   max-height: 200px;
 }
 

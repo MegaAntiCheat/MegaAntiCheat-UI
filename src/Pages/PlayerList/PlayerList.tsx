@@ -36,8 +36,8 @@ const PlayerList = () => {
 
   React.useEffect(() => {
     const players = Object.values(data.players);
-    let newRED: PlayerInfo[] = [];
-    let newBLU: PlayerInfo[] = [];
+    const newRED: PlayerInfo[] = [];
+    const newBLU: PlayerInfo[] = [];
 
     for (const player of players) {
       if (player.gameInfo?.team === Teams.RED) {
@@ -46,21 +46,29 @@ const PlayerList = () => {
         newBLU.push(player);
       }
     }
-    // Sort after kills (highest to lowest)
-    newRED = newRED.sort((a, b) => b.gameInfo?.kills - a.gameInfo?.kills);
-    newBLU = newBLU.sort((a, b) => b.gameInfo?.kills - a.gameInfo?.kills);
 
-    setRED(newRED);
-    setBLU(newBLU);
+    const sortByKillsDesc = (a: PlayerInfo, b: PlayerInfo) =>
+      b.gameInfo?.kills - a.gameInfo.kills;
+
+    setRED(newRED.sort(sortByKillsDesc));
+    setBLU(newBLU.sort(sortByKillsDesc));
   }, [data]);
+
+  const sortedRED = React.useMemo(() => {
+    return [...RED].sort((a, b) => b.gameInfo?.kills - a.gameInfo?.kills);
+  }, [RED]);
+
+  const sortedBLU = React.useMemo(() => {
+    return [...BLU].sort((a, b) => b.gameInfo?.kills - a.gameInfo?.kills);
+  }, [BLU]);
 
   return (
     <>
       <div className="playerlist-max">
         {isMinimode ? (
-          <MiniScoreboard RED={RED} BLU={BLU} />
+          <MiniScoreboard RED={sortedRED} BLU={sortedBLU} />
         ) : (
-          <ScoreboardTable RED={RED} BLU={BLU} />
+          <ScoreboardTable RED={sortedRED} BLU={sortedBLU} />
         )}
       </div>
     </>
