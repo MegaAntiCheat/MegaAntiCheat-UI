@@ -1,13 +1,13 @@
 import React from 'react';
 import { updatePlayer } from '@api/players';
 import { Button, TextInput } from '@components/General';
-import { useModal } from '../../../Context';
+import { useModal } from '../../../../Context';
 
 interface ChangeAliasModalProps {
   player: PlayerInfo;
 }
 
-export const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
+const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
   const [alias, setAlias] = React.useState('');
 
   const { closeModal } = useModal();
@@ -34,3 +34,5 @@ export const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
     </div>
   );
 };
+
+export default ChangeAliasModal;

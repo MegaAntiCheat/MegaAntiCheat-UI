@@ -796,10 +796,6 @@ video {
   height: 2rem;
 }
 
-.h-\[100vh\] {
-  height: 100vh;
-}
-
 .h-\[1px\] {
   height: 1px;
 }
@@ -843,10 +839,6 @@ video {
 
 .w-8 {
   width: 2rem;
-}
-
-.w-\[100vw\] {
-  width: 100vw;
 }
 
 .w-\[1px\] {

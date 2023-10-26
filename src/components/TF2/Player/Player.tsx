@@ -20,7 +20,7 @@ import { verifyImageExists } from '@api/utils';
 import { kickPlayer } from '@api/commands';
 import { Info } from 'lucide-react';
 import { useModal } from '../../../Context';
-import { ChangeAliasModal } from './PlayerModals';
+import ChangeAliasModal from './Modals/ChangeAliasModal';
 
 interface PlayerProps {
   player: PlayerInfo;
