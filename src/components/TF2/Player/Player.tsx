@@ -68,6 +68,18 @@ const Player = ({
 
   const { disconnected } = player.gameInfo;
 
+  // Prevent text selection on click (e.g Dropdown)
+  React.useEffect(() => {
+    function preventDefault(e: MouseEvent) {
+      if (e.detail != 2) return;
+
+      e.preventDefault();
+    }
+    document.addEventListener('mousedown', preventDefault);
+
+    return () => document.removeEventListener('mousedown', preventDefault);
+  }, []);
+
   // Update playtime on mount
   React.useEffect(() => {
     if (!isFirstRefresh.current) return;
