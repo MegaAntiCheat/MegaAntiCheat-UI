@@ -9,3 +9,7 @@
 .menu-icon.collapsed {
   @apply ml-1 left-1 relative -top-0.5;
 }
+
+.side-menu:not(.collapsed) {
+  @apply shadow-2xl shadow-black
+}
