@@ -106,7 +106,7 @@ function buildPlayerNote(customData: CustomData) {
 
 function buildIconList(player: PlayerInfo): React.ReactNode[] {
   const now = Date.now() / 1000;
-  const alias = player.customData?.alias;
+  const hasAlias = player.customData?.alias !== undefined;
   const playerNote = player.customData?.playerNote;
   const tfbd = player.customData?.tfbd;
   const accCreationTime = player.steamInfo?.timeCreated ?? 0;
@@ -114,7 +114,7 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
     (player.steamInfo?.gameBans ?? 0) + (player.steamInfo?.vacBans ?? 0);
 
   return [
-    !!alias && (
+    hasAlias && (
       <Tooltip
         className="mr-1"
         content={`${t('TOOLTIP_ACTUAL_NAME')}\n${player.name}`}

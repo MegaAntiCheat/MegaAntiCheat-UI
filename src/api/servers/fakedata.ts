@@ -76,8 +76,10 @@ export const fakedata: ServerInfoResponse = {
       name: 'Woah So Cool!',
       tags: [],
       localVerdict: 'None',
-      previousNames: ['Woah So Uncool!', 'Coping Hard', 'What?'],
-      customData: {},
+      previousNames: ['Woah So Uncool!'],
+      customData: {
+        alias: '',
+      },
       gameInfo: {
         deaths: 0,
         state: 'Disconnected',
