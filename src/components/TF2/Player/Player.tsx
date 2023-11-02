@@ -120,8 +120,17 @@ const Player = ({
         },
       },
       {
-        label: 'Copy SteamID64',
-        onClick: () => navigator.clipboard.writeText(player.steamID64),
+        label: 'Copy...',
+        multiOptions: [
+          {
+            label: 'Name',
+            onClick: () => navigator.clipboard.writeText(player.name),
+          },
+          {
+            label: 'SteamID64',
+            onClick: () => navigator.clipboard.writeText(player.steamID64),
+          },
+        ],
       },
       {
         label: 'Change Alias',
@@ -197,7 +206,7 @@ const Player = ({
               style={{ filter: disconnected ? 'grayscale(100%)' : 'inherit' }}
             />
             <div
-              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none xs:select-all ${
+              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none ${
                 disconnected ? 'greyscale' : ''
               }`}
             >
