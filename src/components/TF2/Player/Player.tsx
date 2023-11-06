@@ -61,7 +61,7 @@ const Player = ({
     : localizeVerdict(player.localVerdict);
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
-  const displayName = player.customData?.alias ?? player.name;
+  const displayName = player.customData?.alias || player.name;
   const color = displayColor(playerColors!, player);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();

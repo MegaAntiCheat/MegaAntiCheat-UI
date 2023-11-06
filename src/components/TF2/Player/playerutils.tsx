@@ -106,7 +106,7 @@ function buildPlayerNote(customData: CustomData) {
 
 function buildIconList(player: PlayerInfo): React.ReactNode[] {
   const now = Date.now() / 1000;
-  const hasAlias = player.customData?.alias !== undefined;
+  const hasAlias = !!player.customData?.alias;
   const playerNote = player.customData?.playerNote;
   const tfbd = player.customData?.tfbd;
   const accCreationTime = player.steamInfo?.timeCreated ?? 0;

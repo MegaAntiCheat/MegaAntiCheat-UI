@@ -1343,12 +1343,6 @@ code {
 }
 
 @media (min-width: 475px) {
-  .xs\:select-all {
-    -webkit-user-select: all;
-       -moz-user-select: all;
-            user-select: all;
-  }
-
   .xs\:grid-cols-player {
     grid-template-columns: 120px minmax(100px, 1fr) 80px minmax(0px, 100px) minmax(0px, 60px);
   }
