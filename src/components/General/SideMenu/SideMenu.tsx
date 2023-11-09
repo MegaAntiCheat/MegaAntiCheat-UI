@@ -45,35 +45,45 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
   }, []);
 
   return (
-    <div
-      className={`side-menu fixed left-0 top-0 h-screen z-50 bg-secondary outline-outline/30 outline-1 outline w-full sm:w-2/4 max-w-sm transition-all ease-in-out ${
-        collapsed ? 'collapsed' : ''
-      }`}
-      ref={MenuRef}
-    >
-      <MenuHeader collapsed={collapsed} handleSymbolClick={handleToggleClick} />
-      <div>
-        <Divider size={2} />
-        <SideMenuItem
-          title={t('PLAYERLIST')}
-          Icon={<Users2 />}
+    <>
+      <div
+        className={`side-menu fixed left-0 top-0 h-screen z-50 bg-secondary outline-outline/30 outline-1 outline w-full sm:w-2/4 max-w-sm transition-all ease-in-out ${
+          collapsed ? 'collapsed' : ''
+        }`}
+        ref={MenuRef}
+      >
+        <MenuHeader
           collapsed={collapsed}
-          onClick={() => setCurrentPage('playerlist')}
+          handleSymbolClick={handleToggleClick}
         />
-        <SideMenuItem
-          title={t('PLAYERHISTORY')}
-          Icon={<History />}
-          collapsed={collapsed}
-          onClick={() => setCurrentPage('playerhistory')}
-        />
-        <SideMenuItem
-          title={t('PREFERENCES')}
-          Icon={<Settings2 />}
-          collapsed={collapsed}
-          onClick={() => setCurrentPage('preferences')}
-        />
+        <div>
+          <Divider size={2} />
+          <SideMenuItem
+            title={t('PLAYERLIST')}
+            Icon={<Users2 />}
+            collapsed={collapsed}
+            onClick={() => setCurrentPage('playerlist')}
+          />
+          <SideMenuItem
+            title={t('PLAYERHISTORY')}
+            Icon={<History />}
+            collapsed={collapsed}
+            onClick={() => setCurrentPage('playerhistory')}
+          />
+          <SideMenuItem
+            title={t('PREFERENCES')}
+            Icon={<Settings2 />}
+            collapsed={collapsed}
+            onClick={() => setCurrentPage('preferences')}
+          />
+        </div>
       </div>
-    </div>
+      <div
+        className={`w-[100vw] h-[100vh] z-40 ${
+          !collapsed ? ' bg-black/10' : ''
+        }`}
+      />
+    </>
   );
 };
 
