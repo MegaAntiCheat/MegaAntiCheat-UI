@@ -19,8 +19,10 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     colors: {
       You: 'none',
       Player: 'none',
+      Friend: 'none',
       Trusted: 'none',
       Suspicious: 'none',
+      FriendOfCheater: 'none',
       Cheater: 'none',
       Bot: 'none',
     },

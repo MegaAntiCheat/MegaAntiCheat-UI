@@ -5,8 +5,10 @@ interface Settings {
     colors?: {
       You: string;
       Player: string;
+      Friend: string;
       Trusted: string;
       Suspicious: string;
+      FriendOfCheater: string;
       Cheater: string;
       Bot: string;
     };

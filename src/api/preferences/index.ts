@@ -67,8 +67,10 @@ interface Settings {
   colors: {
     You: string;
     Player: string;
+    Friend: string;
     Trusted: string;
     Suspicious: string;
+    FriendOfCheater: string;
     Cheater: string;
     Bot: string;
   };
@@ -79,12 +81,14 @@ export const defaultSettings: PreferenceResponse = {
     language: 'English',
     openInApp: false,
     colors: {
-      You: '#69c669',
+      You: '#55cccc',
       Player: 'none',
+      Friend: '#55aa55',
       Trusted: '#00ff00',
       Suspicious: '#ffff00',
+      FriendOfCheater: '#aaaaaa',
       Cheater: '#ff0000',
-      Bot: '#6f0307',
+      Bot: '#aa5555',
     },
   },
   internal: {
