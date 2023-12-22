@@ -72,6 +72,7 @@ interface Settings {
     Suspicious: string;
     FriendOfCheater: string;
     Cheater: string;
+    Convict: string;
     Bot: string;
   };
 }
@@ -81,14 +82,15 @@ export const defaultSettings: PreferenceResponse = {
     language: 'English',
     openInApp: false,
     colors: {
-      You: '#55cccc',
+      You: '#00aaaa',
       Player: 'none',
-      Friend: '#55aa55',
-      Trusted: '#00ff00',
-      Suspicious: '#ffff00',
-      FriendOfCheater: '#aaaaaa',
-      Cheater: '#ff0000',
-      Bot: '#aa5555',
+      Friend: '#007700',
+      Trusted: '#00ee00',
+      Suspicious: '#aaaa00',
+      FriendOfCheater: '#888888',
+      Cheater: '#ee0000',
+      Convict: '#ee0066',
+      Bot: '#880000',
     },
   },
   internal: {

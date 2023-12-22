@@ -732,10 +732,6 @@ video {
   margin-right: 0.5rem;
 }
 
-.mr-3 {
-  margin-right: 0.75rem;
-}
-
 .mr-8 {
   margin-right: 2rem;
 }
@@ -768,8 +764,16 @@ video {
   margin-top: 2.25rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
+.mr-9 {
+  margin-right: 2.25rem;
 }
 
 .block {
@@ -867,11 +871,6 @@ video {
 
 .w-\[calc\(100\%-40px\)\] {
   width: calc(100% - 40px);
-}
-
-.w-\[max-content\] {
-  width: -moz-max-content;
-  width: max-content;
 }
 
 .w-full {

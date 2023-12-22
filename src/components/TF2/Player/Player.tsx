@@ -30,6 +30,8 @@ interface PlayerProps {
   playerColors?: Record<string, string>;
   openInApp?: boolean;
   userSteamID?: string;
+  friendsInLobby: string[];
+  cheatersInLobby: string[];
 }
 
 const Player = ({
@@ -38,6 +40,8 @@ const Player = ({
   onImageLoad,
   playerColors,
   openInApp,
+  cheatersInLobby,
+  friendsInLobby,
 }: PlayerProps) => {
   const isFirstRefresh = React.useRef(true);
   // Context Menu
@@ -62,7 +66,12 @@ const Player = ({
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
-  const color = displayColor(playerColors!, player);
+  const color = displayColor(
+    playerColors!,
+    player,
+    cheatersInLobby,
+    friendsInLobby,
+  );
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 

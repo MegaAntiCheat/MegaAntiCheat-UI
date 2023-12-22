@@ -69,6 +69,8 @@ function displayProperStatus(status: string) {
 function displayColor(
   playerColors: Record<string, string>,
   player: PlayerInfo,
+  cheatersInLobby: string[],
+  friendsInLobby: string[],
 ) {
   const ALPHA = '0.35';
   const you = player.isSelf;
@@ -78,10 +80,17 @@ function displayColor(
 
   if (you) return hexToRGB(playerColors['You'], ALPHA);
 
-  if (!verdict || verdict.includes('None') || verdict.includes('Player'))
-    return hexToRGB(playerColors['Player'], ALPHA);
+  if (convicted) return hexToRGB(playerColors['Convict'], ALPHA);
 
-  if (convicted) return hexToRGB(playerColors['Cheater'], ALPHA);
+  if (!verdict || verdict.includes('None') || verdict.includes('Player')) {
+    if (friendsInLobby.includes(player.steamID64))
+      return hexToRGB(playerColors['Friend'], ALPHA);
+
+    if (player.friends?.some((f) => cheatersInLobby.includes(f.steamID64)))
+      return hexToRGB(playerColors['FriendOfCheater'], ALPHA);
+
+    return hexToRGB(playerColors['Player'], ALPHA);
+  }
 
   return hexToRGB(playerColors[verdict], ALPHA);
 }

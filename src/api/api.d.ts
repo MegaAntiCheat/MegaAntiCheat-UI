@@ -10,6 +10,7 @@ interface Settings {
       Suspicious: string;
       FriendOfCheater: string;
       Cheater: string;
+      Convict: string;
       Bot: string;
     };
   };
