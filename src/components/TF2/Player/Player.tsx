@@ -215,7 +215,7 @@ const Player = ({
             {(player.previousNames?.filter((v) => v != player.customData?.alias)
               .length ?? 0) >= 1 && (
               <Tooltip
-                className="ml-1 bottom-[1px] mr-3"
+                className="ml-1 bottom-[1px]"
                 content={displayNamesList(player)}
               >
                 <Info color="grey" width={16} height={16} />
@@ -223,7 +223,7 @@ const Player = ({
             )}
           </div>
         </div>
-        <div className="flex flex-wrap justify-center bottom-[1px] relative">
+        <div className="flex flex-wrap justify-center bottom-[1px] relative ml-1">
           {buildIconList(player)}
         </div>
         <div

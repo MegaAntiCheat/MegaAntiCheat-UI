@@ -768,6 +768,10 @@ video {
   margin-top: 2.25rem;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 .block {
   display: block;
 }
@@ -863,6 +867,11 @@ video {
 
 .w-\[calc\(100\%-40px\)\] {
   width: calc(100% - 40px);
+}
+
+.w-\[max-content\] {
+  width: -moz-max-content;
+  width: max-content;
 }
 
 .w-full {
@@ -1360,7 +1369,7 @@ code {
 
 @media (min-width: 475px) {
   .xs\:grid-cols-player {
-    grid-template-columns: 120px minmax(100px, 1fr) 80px minmax(0px, 100px) minmax(0px, 60px);
+    grid-template-columns: 120px minmax(100px, 1fr) max-content minmax(0px, 100px) minmax(0px, 60px);
   }
 
   .xs\:grid-cols-scoreboardnav {
