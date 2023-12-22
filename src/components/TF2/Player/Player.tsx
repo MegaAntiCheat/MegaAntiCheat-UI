@@ -223,7 +223,11 @@ const Player = ({
             )}
           </div>
         </div>
-        <div className="flex flex-wrap justify-center bottom-[1px] relative ml-1">
+        <div
+          className={`flex flex-wrap justify-center bottom-[1px] relative ml-1 ${
+            disconnected ? 'greyscale' : ''
+          }`}
+        >
           {buildIconList(player)}
         </div>
         <div
