@@ -83,7 +83,10 @@ function displayColor(
   if (convicted) return hexToRGB(playerColors['Convict'], ALPHA);
 
   if (!verdict || verdict.includes('None') || verdict.includes('Player')) {
-    if (friendsInLobby.includes(player.steamID64))
+    if (
+      player.tags?.includes('Friend') ||
+      friendsInLobby.includes(player.steamID64)
+    )
       return hexToRGB(playerColors['Friend'], ALPHA);
 
     if (player.friends?.some((f) => cheatersInLobby.includes(f.steamID64)))

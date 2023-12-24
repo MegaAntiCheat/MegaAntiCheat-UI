@@ -45,7 +45,7 @@ export const fakedata: ServerInfoResponse = {
       steamID64: '456822423554124',
       isSelf: false,
       name: 'Sammy',
-      tags: [],
+      tags: ['Friend'],
       localVerdict: 'None',
       previousNames: ['Samm-Cheese'],
       customData: {
