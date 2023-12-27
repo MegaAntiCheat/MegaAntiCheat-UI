@@ -67,11 +67,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
       (player) => player.gameInfo.disconnected,
     ).length;
 
-    const cheaters = RED.concat(BLU)
-      .filter(
-        (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
-      )
-      .map((p) => p.steamID64);
+    const cheaters = RED.concat(BLU).filter(
+      (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
+    );
 
     return (
       // Keep the classname for the popoutinfo alignment

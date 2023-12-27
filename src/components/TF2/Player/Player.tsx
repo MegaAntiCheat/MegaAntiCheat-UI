@@ -30,7 +30,7 @@ interface PlayerProps {
   playerColors?: Record<string, string>;
   openInApp?: boolean;
   userSteamID?: string;
-  cheatersInLobby: string[];
+  cheatersInLobby: PlayerInfo[];
 }
 
 const Player = ({
@@ -230,7 +230,7 @@ const Player = ({
             disconnected ? 'greyscale' : ''
           }`}
         >
-          {buildIconList(player)}
+          {buildIconList(player, cheatersInLobby)}
         </div>
         <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${

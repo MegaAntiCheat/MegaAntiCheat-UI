@@ -76,6 +76,10 @@ export const fakedata: ServerInfoResponse = {
           steamID64: '76561198210264393',
           friendsSince: '34232',
         },
+        {
+          steamID64: '324234424',
+          friendsSince: '34232',
+        },
       ],
     },
     {
@@ -288,6 +292,10 @@ export const fakedata: ServerInfoResponse = {
       friends: [
         {
           steamID64: '3243595415354124',
+          friendsSince: '34232',
+        },
+        {
+          steamID64: '456822423554124',
           friendsSince: '34232',
         },
       ],
