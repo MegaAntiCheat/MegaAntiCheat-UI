@@ -67,10 +67,6 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
       (player) => player.gameInfo.disconnected,
     ).length;
 
-    const friends =
-      RED.concat(BLU)
-        .find((p) => p.isSelf)
-        ?.friends?.map((f) => f.steamID64) ?? [];
     const cheaters = RED.concat(BLU)
       .filter(
         (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
@@ -104,7 +100,6 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
                 key={player.steamID64}
                 openInApp={playerSettings.openInApp}
                 cheatersInLobby={cheaters}
-                friendsInLobby={friends}
               />
             </ContextMenuProvider>
           ))}

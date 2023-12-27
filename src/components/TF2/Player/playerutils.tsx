@@ -70,7 +70,6 @@ function displayColor(
   playerColors: Record<string, string>,
   player: PlayerInfo,
   cheatersInLobby: string[],
-  friendsInLobby: string[],
 ) {
   const ALPHA = '0.35';
   const you = player.isSelf;
@@ -83,10 +82,7 @@ function displayColor(
   if (convicted) return hexToRGB(playerColors['Convict'], ALPHA);
 
   if (!verdict || verdict.includes('None') || verdict.includes('Player')) {
-    if (
-      player.tags?.includes('Friend') ||
-      friendsInLobby.includes(player.steamID64)
-    )
+    if (player.tags?.includes('Friend'))
       return hexToRGB(playerColors['Friend'], ALPHA);
 
     if (player.friends?.some((f) => cheatersInLobby.includes(f.steamID64)))

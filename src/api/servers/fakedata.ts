@@ -50,6 +50,7 @@ export const fakedata: ServerInfoResponse = {
       previousNames: ['Samm-Cheese'],
       customData: {
         alias: 'Sammster',
+        playerNote: 'Some note',
       },
       gameInfo: {
         deaths: 0,
@@ -68,6 +69,7 @@ export const fakedata: ServerInfoResponse = {
         gameBans: 1,
         profileVisibility: 'Private',
         daysSinceLastBan: 246,
+        timeCreated: Date.now() / 1000 - 30 * 24 * 60 * 60, // 30 days before now
       },
       friends: [
         {
