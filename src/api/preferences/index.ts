@@ -57,6 +57,7 @@ interface PreferenceResponse {
     tf2Directory: string;
     rconPassword: string;
     steamApiKey: string;
+    friendsApiUsage: string;
   };
   external: Settings;
 }
@@ -94,6 +95,7 @@ export const defaultSettings: PreferenceResponse = {
     },
   },
   internal: {
+    friendsApiUsage: '',
     tf2Directory: '',
     steamApiKey: '',
     rconPassword: '',

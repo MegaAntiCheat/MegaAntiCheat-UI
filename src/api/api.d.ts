@@ -17,6 +17,7 @@ interface Settings {
   internal: {
     steamApiKey?: string;
     rconPassword?: string;
+    friendsApiUsage?: string;
   };
 }
 

@@ -32,6 +32,23 @@ const Preferences = () => {
     }),
   );
 
+  const friendsApiUsageOptions: SelectOption[] = [
+    {
+      label: t('PREF_FRIEND_API_USAGE_ALL'),
+      value: 'All',
+    },
+    {
+      label: t('PREF_FRIEND_API_USAGE_CHEATERS_ONLY'),
+      value: 'CheatersOnly',
+    },
+    {
+      label: t('PREF_FRIEND_API_USAGE_NONE'),
+      value: 'None',
+    },
+  ];
+
+  console.log(settings.internal?.friendsApiUsage);
+
   React.useEffect(() => {
     const fetchSettings = async () => {
       const settings = await getAllSettings();
@@ -254,6 +271,23 @@ const Preferences = () => {
                   />
                 )}
               </div>
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('PREF_FRIEND_API_USAGE')}
+              </div>
+              <Select
+                className="preference-select"
+                placeholder={
+                  friendsApiUsageOptions.find((o) => {
+                    return o.value === settings.internal?.friendsApiUsage;
+                  })?.label ?? 'Select'
+                }
+                options={friendsApiUsageOptions}
+                onChange={(e) => {
+                  handleSettingChange('friendsApiUsage', e, 'internal');
+                }}
+              />
             </Flex>
           </Accordion>
         </div>
