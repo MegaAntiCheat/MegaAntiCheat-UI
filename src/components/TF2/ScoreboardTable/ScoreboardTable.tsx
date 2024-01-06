@@ -19,8 +19,11 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     colors: {
       You: 'none',
       Player: 'none',
+      Friend: 'none',
       Trusted: 'none',
       Suspicious: 'none',
+      FriendOfCheater: 'none',
+      Convict: 'none',
       Cheater: 'none',
       Bot: 'none',
     },
@@ -64,6 +67,10 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
       (player) => player.gameInfo.disconnected,
     ).length;
 
+    const cheaters = RED.concat(BLU).filter(
+      (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
+    );
+
     return (
       // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half ${teamColor}`}>
@@ -90,6 +97,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
                 player={player}
                 key={player.steamID64}
                 openInApp={playerSettings.openInApp}
+                cheatersInLobby={cheaters}
               />
             </ContextMenuProvider>
           ))}

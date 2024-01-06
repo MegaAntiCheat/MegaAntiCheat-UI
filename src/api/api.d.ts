@@ -5,15 +5,19 @@ interface Settings {
     colors?: {
       You: string;
       Player: string;
+      Friend: string;
       Trusted: string;
       Suspicious: string;
+      FriendOfCheater: string;
       Cheater: string;
+      Convict: string;
       Bot: string;
     };
   };
   internal: {
     steamApiKey?: string;
     rconPassword?: string;
+    friendsApiUsage?: string;
   };
 }
 
@@ -60,7 +64,6 @@ interface SteamInfo {
   vacBans?: number;
   gameBans?: number;
   daysSinceLastBan?: null | number;
-  friends?: SteamFriend[];
 }
 
 interface SteamFriend {
@@ -79,6 +82,8 @@ interface PlayerInfo {
   steamInfo?: SteamInfo;
   customData: CustomData;
   previousNames?: string[];
+  friends?: SteamFriend[];
+  friendsIsPublic?: boolean;
 }
 
 interface CustomData {

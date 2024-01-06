@@ -34,16 +34,23 @@ export const fakedata: ServerInfoResponse = {
         countryCode: 'X',
         timeCreated: 1438431685,
       },
+      friends: [
+        {
+          steamID64: '456822423554124',
+          friendsSince: '34232',
+        },
+      ],
     },
     {
       steamID64: '456822423554124',
       isSelf: false,
       name: 'Sammy',
-      tags: [],
+      tags: ['Friend'],
       localVerdict: 'None',
       previousNames: ['Samm-Cheese'],
       customData: {
         alias: 'Sammster',
+        playerNote: 'Some note',
       },
       gameInfo: {
         deaths: 0,
@@ -62,20 +69,25 @@ export const fakedata: ServerInfoResponse = {
         gameBans: 1,
         profileVisibility: 'Private',
         daysSinceLastBan: 246,
-        friends: [
-          {
-            steamID64: '76561198210264393',
-            friendsSince: '34232',
-          },
-        ],
+        timeCreated: Date.now() / 1000 - 30 * 24 * 60 * 60, // 30 days before now
       },
+      friends: [
+        {
+          steamID64: '76561198210264393',
+          friendsSince: '34232',
+        },
+        {
+          steamID64: '324234424',
+          friendsSince: '34232',
+        },
+      ],
     },
     {
       steamID64: '54822487235354124',
       isSelf: false,
       name: 'Woah So Cool!',
       tags: [],
-      localVerdict: 'None',
+      localVerdict: 'Cheater',
       previousNames: ['Woah So Uncool!'],
       customData: {
         alias: '',
@@ -124,6 +136,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Only Human',
       tags: [],
+      convicted: true,
       localVerdict: 'Cheater',
       customData: {
         playerNote: 'He isnt really a human, just a bot',
@@ -164,13 +177,19 @@ export const fakedata: ServerInfoResponse = {
         disconnected: false,
         lastSeen: 0,
       },
+      friends: [
+        {
+          steamID64: '324234424',
+          friendsSince: '34232',
+        },
+      ],
     },
     {
       steamID64: '3297834415354124',
       isSelf: false,
       name: 'The Hearts of Iron',
       tags: [],
-      localVerdict: 'None',
+      localVerdict: 'Suspicious',
       customData: {},
       gameInfo: {
         deaths: 0,
@@ -230,7 +249,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'The Cool Person',
       tags: [],
-      localVerdict: 'None',
+      localVerdict: 'Trusted',
       customData: {},
       gameInfo: {
         deaths: 0,
@@ -253,7 +272,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'Only Human',
       tags: [],
-      localVerdict: 'None',
+      localVerdict: 'Cheater',
       customData: {},
       gameInfo: {
         deaths: 0,
@@ -270,6 +289,16 @@ export const fakedata: ServerInfoResponse = {
       steamInfo: {
         timeCreated: Date.now() / 1000 - 59 * 24 * 60 * 60, // 59 days before now
       },
+      friends: [
+        {
+          steamID64: '3243595415354124',
+          friendsSince: '34232',
+        },
+        {
+          steamID64: '456822423554124',
+          friendsSince: '34232',
+        },
+      ],
     },
   ],
 };

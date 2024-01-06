@@ -57,6 +57,7 @@ interface PreferenceResponse {
     tf2Directory: string;
     rconPassword: string;
     steamApiKey: string;
+    friendsApiUsage: string;
   };
   external: Settings;
 }
@@ -67,9 +68,12 @@ interface Settings {
   colors: {
     You: string;
     Player: string;
+    Friend: string;
     Trusted: string;
     Suspicious: string;
+    FriendOfCheater: string;
     Cheater: string;
+    Convict: string;
     Bot: string;
   };
 }
@@ -79,15 +83,19 @@ export const defaultSettings: PreferenceResponse = {
     language: 'English',
     openInApp: false,
     colors: {
-      You: '#69c669',
+      You: '#00aaaa',
       Player: 'none',
-      Trusted: '#00ff00',
-      Suspicious: '#ffff00',
-      Cheater: '#ff0000',
-      Bot: '#6f0307',
+      Friend: '#007700',
+      Trusted: '#00ee00',
+      Suspicious: '#aaaa00',
+      FriendOfCheater: '#888888',
+      Cheater: '#ee0000',
+      Convict: '#ee0066',
+      Bot: '#880000',
     },
   },
   internal: {
+    friendsApiUsage: '',
     tf2Directory: '',
     steamApiKey: '',
     rconPassword: '',

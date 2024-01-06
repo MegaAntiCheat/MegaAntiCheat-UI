@@ -2,7 +2,13 @@ import React from 'react';
 
 import { t } from '@i18n';
 import { hexToRGB } from '@api/utils';
-import { CalendarClock, ScrollText, ShieldAlert, Star } from 'lucide-react';
+import {
+  CalendarClock,
+  ScrollText,
+  ShieldAlert,
+  Star,
+  Users2,
+} from 'lucide-react';
 import { Tooltip } from '@components/General';
 
 const localVerdict = [
@@ -69,6 +75,7 @@ function displayProperStatus(status: string) {
 function displayColor(
   playerColors: Record<string, string>,
   player: PlayerInfo,
+  cheatersInLobby: PlayerInfo[],
 ) {
   const ALPHA = '0.35';
   const you = player.isSelf;
@@ -78,12 +85,37 @@ function displayColor(
 
   if (you) return hexToRGB(playerColors['You'], ALPHA);
 
-  if (!verdict || verdict.includes('None') || verdict.includes('Player'))
-    return hexToRGB(playerColors['Player'], ALPHA);
+  if (convicted) return hexToRGB(playerColors['Convict'], ALPHA);
 
-  if (convicted) return hexToRGB(playerColors['Cheater'], ALPHA);
+  if (!verdict || verdict.includes('None') || verdict.includes('Player')) {
+    if (player.tags?.includes('Friend'))
+      return hexToRGB(playerColors['Friend'], ALPHA);
+
+    if (hasCheaterFriendsInLobby(player, cheatersInLobby))
+      return hexToRGB(playerColors['FriendOfCheater'], ALPHA);
+
+    return hexToRGB(playerColors['Player'], ALPHA);
+  }
 
   return hexToRGB(playerColors[verdict], ALPHA);
+}
+
+function getCheaterFriendsInLobby(
+  player: PlayerInfo,
+  cheatersInLobby: PlayerInfo[],
+): PlayerInfo[] {
+  return cheatersInLobby.filter(
+    (c) => player.friends?.some((f) => f.steamID64 === c.steamID64),
+  );
+}
+
+function hasCheaterFriendsInLobby(
+  player: PlayerInfo,
+  cheatersInLobby: PlayerInfo[],
+): boolean {
+  return cheatersInLobby.some(
+    (c) => player.friends?.some((f) => f.steamID64 === c.steamID64),
+  );
 }
 
 function displayNamesList(player: PlayerInfo): string {
@@ -104,14 +136,22 @@ function buildPlayerNote(customData: CustomData) {
   return note;
 }
 
-function buildIconList(player: PlayerInfo): React.ReactNode[] {
+function buildIconList(
+  player: PlayerInfo,
+  cheatersInLobby: PlayerInfo[],
+): React.ReactNode[] {
   const now = Date.now() / 1000;
   const hasAlias = !!player.customData?.alias;
   const playerNote = player.customData?.playerNote;
   const tfbd = player.customData?.tfbd;
   const accCreationTime = player.steamInfo?.timeCreated ?? 0;
+  const daysOld = (now - accCreationTime) / (24 * 60 * 60);
   const hasBans =
     (player.steamInfo?.gameBans ?? 0) + (player.steamInfo?.vacBans ?? 0);
+  const cheaterFriendsInLobby = getCheaterFriendsInLobby(
+    player,
+    cheatersInLobby,
+  );
 
   return [
     hasAlias && (
@@ -127,8 +167,11 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
         <ScrollText width={18} height={18} />
       </Tooltip>
     ),
-    accCreationTime > now - 60 * 24 * 60 * 60 && ( // 2 Months
-      <Tooltip className="mr-1" content={t('TOOLTIP_NEW_ACCOUNT')}>
+    daysOld < 60 && ( // 2 Months
+      <Tooltip
+        className="mr-1"
+        content={t('TOOLTIP_NEW_ACCOUNT').replace('%1%', daysOld.toFixed(0))}
+      >
         <CalendarClock width={18} height={18} />
       </Tooltip>
     ),
@@ -142,6 +185,17 @@ function buildIconList(player: PlayerInfo): React.ReactNode[] {
         } ${t('TOOLTIP_BANS_DAYS')}`}
       >
         <ShieldAlert width={18} height={18} />
+      </Tooltip>
+    ),
+    !!cheaterFriendsInLobby?.length && (
+      <Tooltip
+        className="mr-1"
+        content={[
+          t('TOOLTIP_FRIENDS_WITH_CHEATERS'),
+          ...cheaterFriendsInLobby.map((cf) => cf.name),
+        ].join('\n')}
+      >
+        <Users2 width={18} height={18} />
       </Tooltip>
     ),
   ];

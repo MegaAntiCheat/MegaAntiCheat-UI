@@ -32,6 +32,23 @@ const Preferences = () => {
     }),
   );
 
+  const friendsApiUsageOptions: SelectOption[] = [
+    {
+      label: t('PREF_FRIEND_API_USAGE_ALL'),
+      value: 'All',
+    },
+    {
+      label: t('PREF_FRIEND_API_USAGE_CHEATERS_ONLY'),
+      value: 'CheatersOnly',
+    },
+    {
+      label: t('PREF_FRIEND_API_USAGE_NONE'),
+      value: 'None',
+    },
+  ];
+
+  console.log(settings.internal?.friendsApiUsage);
+
   React.useEffect(() => {
     const fetchSettings = async () => {
       const settings = await getAllSettings();
@@ -103,6 +120,7 @@ const Preferences = () => {
             </Flex>
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">
+            <TextItem className="mr-9">{t('PREF_COLORS_PRECEDENCE')}</TextItem>
             <Flex className="preference-option">
               <div className="preference-title">{t('YOU')}</div>
               <ColorSelector
@@ -115,34 +133,12 @@ const Preferences = () => {
               />
             </Flex>
             <Flex className="preference-option">
-              <div className="preference-title">{t('PLAYER')}</div>
+              <div className="preference-title">{t('CONVICT')}</div>
               <ColorSelector
-                value={settings.external.colors?.Player}
+                value={settings.external.colors?.Convict}
                 onChange={(e) => {
                   handleDebouncedSettingChange('colors', {
-                    Player: e,
-                  });
-                }}
-              />
-            </Flex>
-            <Flex className="preference-option">
-              <div className="preference-title">{t('TRUSTED')}</div>
-              <ColorSelector
-                value={settings.external.colors?.Trusted}
-                onChange={(e) => {
-                  handleDebouncedSettingChange('colors', {
-                    Trusted: e,
-                  });
-                }}
-              />
-            </Flex>
-            <Flex className="preference-option">
-              <div className="preference-title">{t('SUSPICIOUS')}</div>
-              <ColorSelector
-                value={settings.external.colors?.Suspicious}
-                onChange={(e) => {
-                  handleDebouncedSettingChange('colors', {
-                    Suspicious: e,
+                    Convict: e,
                   });
                 }}
               />
@@ -165,6 +161,61 @@ const Preferences = () => {
                 onChange={(e) => {
                   handleDebouncedSettingChange('colors', {
                     Bot: e,
+                  });
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('SUSPICIOUS')}</div>
+              <ColorSelector
+                value={settings.external.colors?.Suspicious}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Suspicious: e,
+                  });
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('TRUSTED')}</div>
+              <ColorSelector
+                value={settings.external.colors?.Trusted}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Trusted: e,
+                  });
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('FRIEND')}</div>
+              <ColorSelector
+                value={settings.external.colors?.Friend}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Friend: e,
+                  });
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('FRIEND_OF_CHEATER')}</div>
+              <ColorSelector
+                value={settings.external.colors?.FriendOfCheater}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    FriendOfCheater: e,
+                  });
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PLAYER')}</div>
+              <ColorSelector
+                value={settings.external.colors?.Player}
+                onChange={(e) => {
+                  handleDebouncedSettingChange('colors', {
+                    Player: e,
                   });
                 }}
               />
@@ -220,6 +271,23 @@ const Preferences = () => {
                   />
                 )}
               </div>
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('PREF_FRIEND_API_USAGE')}
+              </div>
+              <Select
+                className="preference-select"
+                placeholder={
+                  friendsApiUsageOptions.find((o) => {
+                    return o.value === settings.internal?.friendsApiUsage;
+                  })?.label ?? 'Select'
+                }
+                options={friendsApiUsageOptions}
+                onChange={(e) => {
+                  handleSettingChange('friendsApiUsage', e, 'internal');
+                }}
+              />
             </Flex>
           </Accordion>
         </div>

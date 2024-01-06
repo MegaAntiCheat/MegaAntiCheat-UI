@@ -30,6 +30,7 @@ interface PlayerProps {
   playerColors?: Record<string, string>;
   openInApp?: boolean;
   userSteamID?: string;
+  cheatersInLobby: PlayerInfo[];
 }
 
 const Player = ({
@@ -38,6 +39,7 @@ const Player = ({
   onImageLoad,
   playerColors,
   openInApp,
+  cheatersInLobby,
 }: PlayerProps) => {
   const isFirstRefresh = React.useRef(true);
   // Context Menu
@@ -62,7 +64,7 @@ const Player = ({
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
-  const color = displayColor(playerColors!, player);
+  const color = displayColor(playerColors!, player, cheatersInLobby);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
@@ -215,7 +217,7 @@ const Player = ({
             {(player.previousNames?.filter((v) => v != player.customData?.alias)
               .length ?? 0) >= 1 && (
               <Tooltip
-                className="ml-1 bottom-[1px] mr-3"
+                className="ml-1 bottom-[1px]"
                 content={displayNamesList(player)}
               >
                 <Info color="grey" width={16} height={16} />
@@ -223,8 +225,12 @@ const Player = ({
             )}
           </div>
         </div>
-        <div className="flex flex-wrap justify-center bottom-[1px] relative">
-          {buildIconList(player)}
+        <div
+          className={`flex flex-wrap justify-center bottom-[1px] relative ml-1 ${
+            disconnected ? 'greyscale' : ''
+          }`}
+        >
+          {buildIconList(player, cheatersInLobby)}
         </div>
         <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
