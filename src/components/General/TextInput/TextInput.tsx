@@ -6,6 +6,7 @@ interface TextInputProps {
   onChange?: (event: string) => void;
   placeholder?: string;
   type?: string;
+  withIcon?: boolean;
 }
 
 const TextInput = ({
@@ -13,6 +14,7 @@ const TextInput = ({
   onChange,
   placeholder,
   type = 'text',
+  withIcon = false,
 }: TextInputProps) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -23,7 +25,7 @@ const TextInput = ({
     <div className="text-input-container">
       <input
         type={type}
-        className="text-input"
+        className={`text-input ${withIcon ? 'with-icon' : ''}`}
         placeholder={placeholder}
         value={value}
         onChange={handleInputChange}

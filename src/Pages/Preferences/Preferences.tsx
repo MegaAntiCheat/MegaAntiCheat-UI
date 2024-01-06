@@ -230,8 +230,12 @@ const Preferences = () => {
                 onChange={(e) =>
                   handleSettingChange('steamApiKey', e, 'internal')
                 }
+                withIcon
               />
-              <div onClick={() => setSteamApiKeyRevealed(!steamApiKeyRevealed)}>
+              <div
+                className="flex items-center"
+                onClick={() => setSteamApiKeyRevealed(!steamApiKeyRevealed)}
+              >
                 {steamApiKeyRevealed ? (
                   <EyeOff
                     width={24}
@@ -255,8 +259,12 @@ const Preferences = () => {
                 onChange={(e) =>
                   handleSettingChange('rconPassword', e, 'internal')
                 }
+                withIcon
               />
-              <div onClick={() => setRconRevealed(!rconRevealed)}>
+              <div
+                className="flex items-center"
+                onClick={() => setRconRevealed(!rconRevealed)}
+              >
                 {rconRevealed ? (
                   <EyeOff
                     width={24}
