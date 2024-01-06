@@ -100,7 +100,7 @@ function displayColor(
   return hexToRGB(playerColors[verdict], ALPHA);
 }
 
-function getCheatersInLobby(
+function getCheaterFriendsInLobby(
   player: PlayerInfo,
   cheatersInLobby: PlayerInfo[],
 ): PlayerInfo[] {
@@ -148,7 +148,10 @@ function buildIconList(
   const daysOld = (now - accCreationTime) / (24 * 60 * 60);
   const hasBans =
     (player.steamInfo?.gameBans ?? 0) + (player.steamInfo?.vacBans ?? 0);
-  const cheaterFriendsInLobby = getCheatersInLobby(player, cheatersInLobby);
+  const cheaterFriendsInLobby = getCheaterFriendsInLobby(
+    player,
+    cheatersInLobby,
+  );
 
   return [
     hasAlias && (
