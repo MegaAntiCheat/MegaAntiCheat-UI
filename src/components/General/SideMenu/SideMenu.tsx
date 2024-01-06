@@ -1,16 +1,17 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { History, Settings2, Users2 } from 'lucide-react';
 import { Divider, SideMenuItem } from '@components/General';
 import MenuHeader from './MenuHeader';
 
 import { t } from '@i18n';
 import './SideMenu.css';
+import { MENU_ITEMS, PAGES } from '../../../constants/menuConstants';
 
 interface SideMenuProps {
-  setCurrentPage: Dispatch<SetStateAction<string>>;
+  setCurrentPage: Dispatch<SetStateAction<PAGES>>;
+  currentPage: PAGES;
 }
 
-const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
+const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
   const [collapsed, setCollapsed] = React.useState(true);
   const MenuRef = React.useRef<HTMLDivElement>(null);
 
@@ -58,24 +59,15 @@ const SideMenu = ({ setCurrentPage }: SideMenuProps) => {
         />
         <div>
           <Divider size={2} />
-          <SideMenuItem
-            title={t('PLAYERLIST')}
-            Icon={<Users2 />}
-            collapsed={collapsed}
-            onClick={() => setCurrentPage('playerlist')}
-          />
-          <SideMenuItem
-            title={t('PLAYERHISTORY')}
-            Icon={<History />}
-            collapsed={collapsed}
-            onClick={() => setCurrentPage('playerhistory')}
-          />
-          <SideMenuItem
-            title={t('PREFERENCES')}
-            Icon={<Settings2 />}
-            collapsed={collapsed}
-            onClick={() => setCurrentPage('preferences')}
-          />
+          {MENU_ITEMS.map(({ titleKey, icon, page }) => (
+            <SideMenuItem
+              title={t(titleKey)}
+              Icon={icon}
+              collapsed={collapsed}
+              onClick={() => setCurrentPage(page)}
+              selected={currentPage === page}
+            />
+          ))}
         </div>
       </div>
       <div

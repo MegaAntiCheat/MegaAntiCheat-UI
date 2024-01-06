@@ -23,6 +23,13 @@
   color: #0077ff;
 }
 
+.steam-api-key {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 2rem;
+}
+
 *::-webkit-scrollbar {
   width: 6px;
   height: 4px;

@@ -14,6 +14,7 @@ import { useModal } from '../Context';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
 import { useMinimode } from '../Context';
+import { PAGES } from '../constants/menuConstants';
 
 const CantConnectModal = () => {
   return (
@@ -30,7 +31,6 @@ interface ConfigurationModalProps {
   closeModal: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
   const [steamAPIKey, setSteamAPIKey] = React.useState('');
   const [rconPassword, setRconPassword] = React.useState('mac_rcon');
@@ -45,13 +45,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
       <div className="justify-center items-center">
         <div className="flex justify-center">
           <a
-            style={{
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-              marginRight: '2rem',
-            }}
-            className="link"
+            className="link steam-api-key"
             href="https://steamcommunity.com/dev/apikey"
             target="_blank"
             rel="noopener noreferrer"
@@ -97,17 +91,17 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 
 function App() {
   const { isMinimode } = useMinimode();
-  const [currentPage, setCurrentPage] = React.useState('');
+  const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
 
   const { closeModal, openModal, modalContent } = useModal();
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'playerlist':
+      case PAGES.PLAYER_LIST:
         return <PlayerList />;
-      case 'preferences':
+      case PAGES.PREFERENCES:
         return <Preferences />;
-      case 'playerhistory':
+      case PAGES.PLAYER_HISTORY:
         return <PlayerHistory />;
       default:
         return <PlayerList />;
@@ -180,7 +174,7 @@ function App() {
       <Modal />
       {!isMinimode && (
         <div className="App-sidebar">
-          <SideMenu setCurrentPage={setCurrentPage} />
+          <SideMenu setCurrentPage={setCurrentPage} currentPage={currentPage} />
         </div>
       )}
       <div className="App-content">

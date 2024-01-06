@@ -8,6 +8,7 @@ interface SideMenuItemProps {
   Icon?: ReactElement;
   onClick?: () => void;
   collapsed?: boolean;
+  selected?: boolean;
 }
 
 const SideMenuItem = ({
@@ -15,6 +16,7 @@ const SideMenuItem = ({
   Icon = <Book />,
   onClick,
   collapsed = false,
+  selected = false,
 }: SideMenuItemProps) => {
   const SideMenuInner = () => {
     return (
@@ -33,9 +35,9 @@ const SideMenuItem = ({
 
   return (
     <div
-      className={`sm-item-outer max-h-[52px] p-3 transition-all whitespace-nowrap hover:bg-highlight/5 hover:bg hover:cursor-pointer ${
-        collapsed ? 'collapsed' : ''
-      }`}
+      className={`sm-item-outer max-h-[52px] p-3 transition-all whitespace-nowrap ${
+        selected ? 'bg-highlight/10' : 'hover:bg-highlight/5'
+      } hover:cursor-pointer ${collapsed ? 'collapsed' : ''}`}
       onClick={onClick}
     >
       {collapsed ? (

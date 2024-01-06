@@ -1,6 +1,6 @@
 .text-input {
   border: none;
-  border-bottom: 2px solid white;
+  border-bottom: 1px solid white;
   background-color: var(--dark-bg-color);
   color: white;
   padding: 3px;
@@ -9,4 +9,10 @@
 
 .text-input:focus {
   outline: none;
+  border-bottom: 2px solid white;
+}
+
+.with-icon {
+  width: calc(100% + 26px);
+  padding-right: 28px;
 }
