@@ -19,7 +19,9 @@ interface MSBContentProps {
 function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
   const cheating = players?.filter(
     (player) =>
-      player.localVerdict?.toLowerCase() === 'cheater' || player.convicted,
+      player.localVerdict?.toLowerCase() === 'cheater' ||
+      player.localVerdict?.toLowerCase() === 'bot' ||
+      player.convicted,
   );
   const suspicious = players?.filter(
     (player) => player.localVerdict?.toLowerCase() === 'suspicious',
