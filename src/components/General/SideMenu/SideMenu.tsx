@@ -61,6 +61,7 @@ const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
           <Divider size={2} />
           {MENU_ITEMS.map(({ titleKey, icon, page }) => (
             <SideMenuItem
+              key={page}
               title={t(titleKey)}
               Icon={icon}
               collapsed={collapsed}

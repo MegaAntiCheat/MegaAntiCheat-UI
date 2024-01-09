@@ -156,6 +156,7 @@ function buildIconList(
   return [
     hasAlias && (
       <Tooltip
+        key="alias"
         className="mr-1"
         content={`${t('TOOLTIP_ACTUAL_NAME')}\n${player.name}`}
       >
@@ -163,12 +164,17 @@ function buildIconList(
       </Tooltip>
     ),
     (!!playerNote || !!tfbd) && (
-      <Tooltip className="mr-1" content={buildPlayerNote(player.customData)}>
+      <Tooltip
+        className="mr-1"
+        key="playernote"
+        content={buildPlayerNote(player.customData)}
+      >
         <ScrollText width={18} height={18} />
       </Tooltip>
     ),
     daysOld < 60 && ( // 2 Months
       <Tooltip
+        key="age"
         className="mr-1"
         content={t('TOOLTIP_NEW_ACCOUNT').replace('%1%', daysOld.toFixed(0))}
       >
@@ -177,6 +183,7 @@ function buildIconList(
     ),
     !!hasBans && (
       <Tooltip
+        key="hasbans"
         className="mr-1"
         content={`${player.steamInfo?.vacBans ?? 0} ${t('TOOLTIP_BANS_VAC')}\n${
           player.steamInfo?.gameBans ?? 0
@@ -189,11 +196,11 @@ function buildIconList(
     ),
     !!cheaterFriendsInLobby?.length && (
       <Tooltip
+        key="cheaterfriends"
         className="mr-1"
-        content={[
-          t('TOOLTIP_FRIENDS_WITH_CHEATERS'),
-          ...cheaterFriendsInLobby.map((cf) => cf.name),
-        ].join('\n')}
+        content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
+          .map((cf) => cf.name)
+          .join('\n')}`}
       >
         <Users2 width={18} height={18} />
       </Tooltip>

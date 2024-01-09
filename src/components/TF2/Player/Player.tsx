@@ -88,7 +88,6 @@ const Player = ({
 
     setPlaytime(player.gameInfo?.time ?? 0);
     isFirstRefresh.current = false;
-    console.log(urlToOpen);
   }, [player.gameInfo?.time]);
 
   // Update playtime every second
