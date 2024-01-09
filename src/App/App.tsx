@@ -53,7 +53,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
             {t('PREF_STEAM_API_KEY')}
           </a>
           <TextInput
-            value={steamAPIKey}
+            defaultValue={steamAPIKey}
             type="password"
             onChange={(e) => setSteamAPIKey(e)}
           />
@@ -62,7 +62,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
         <div className="flex justify-center">
           <div className="mr-8">{t('PREF_RCON_PASSWORD')}</div>
           <TextInput
-            value={rconPassword}
+            defaultValue={rconPassword}
             onChange={(e) => setRconPassword(e)}
           />
         </div>

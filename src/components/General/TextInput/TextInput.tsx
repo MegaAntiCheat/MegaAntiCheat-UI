@@ -4,7 +4,9 @@ import './TextInput.css';
 interface TextInputProps {
   value?: string;
   onChange?: (event: string) => void;
+  onLeave?: (event: string) => void;
   placeholder?: string;
+  defaultValue?: string;
   type?: string;
   withIcon?: boolean;
 }
@@ -12,22 +14,27 @@ interface TextInputProps {
 const TextInput = ({
   value,
   onChange,
+  onLeave,
   placeholder,
+  defaultValue = '',
   type = 'text',
   withIcon = false,
 }: TextInputProps) => {
+  const [input, setInput] = React.useState(defaultValue || value || '');
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    if (typeof onChange === 'function') onChange(inputValue);
+    setInput(event.target.value);
+    onChange && onChange(input);
   };
 
   return (
     <div className="text-input-container">
       <input
+        onBlur={() => onLeave && onLeave(input)}
         type={type}
         className={`text-input ${withIcon ? 'with-icon' : ''}`}
         placeholder={placeholder}
-        value={value}
+        value={input}
         onChange={handleInputChange}
       />
     </div>
