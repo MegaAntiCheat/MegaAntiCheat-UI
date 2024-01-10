@@ -17,17 +17,21 @@ interface MSBContentProps {
 }
 
 function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
-  const cheating = players?.filter(
+  const playersInGame = players?.filter(
+    (player) => !player.gameInfo.disconnected,
+  );
+
+  const cheating = playersInGame?.filter(
     (player) =>
       player.localVerdict?.toLowerCase() === 'cheater' ||
       player.localVerdict?.toLowerCase() === 'bot' ||
       player.convicted,
   );
-  const suspicious = players?.filter(
+  const suspicious = playersInGame?.filter(
     (player) => player.localVerdict?.toLowerCase() === 'suspicious',
   );
 
-  const convicted = players?.filter((player) => player.convicted);
+  const convicted = playersInGame?.filter((player) => player.convicted);
 
   return { suspicious, cheating, convicted };
 }
@@ -61,8 +65,8 @@ const MiniScoreboard = ({ RED, BLU }: MiniScoreboardProps) => {
   return (
     <>
       <div className="miniscore-container">
-        {RED && <MiniScoreboardContent verdicts={verdictsRED} team="red" />}
         {BLU && <MiniScoreboardContent verdicts={verdictsBLU} team="blu" />}
+        {RED && <MiniScoreboardContent verdicts={verdictsRED} team="red" />}
       </div>
     </>
   );
