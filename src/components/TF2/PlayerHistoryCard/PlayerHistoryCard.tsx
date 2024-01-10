@@ -41,7 +41,7 @@ const PlayerHistoryCard = ({ player }: PlayerHistoryCardProps) => {
 
   return (
     <div
-      className="phc-wrapper relative mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis whitespace-nowrap overflow-x-auto overflow-y-auto"
+      className="phc-wrapper relative mx-3 my-1 py-4 px-4 mx-full max-h-40 bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis whitespace-nowrap"
       key={player.steamID64}
       ref={playerHistoryRef}
     >
