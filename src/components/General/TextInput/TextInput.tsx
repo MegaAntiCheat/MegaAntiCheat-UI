@@ -20,11 +20,11 @@ const TextInput = ({
   type = 'text',
   withIcon = false,
 }: TextInputProps) => {
-  const [input, setInput] = React.useState(defaultValue || value || '');
+  const [input, setInput] = React.useState(value || defaultValue);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange && onChange(event.target.value);
     setInput(event.target.value);
-    onChange && onChange(input);
   };
 
   return (
