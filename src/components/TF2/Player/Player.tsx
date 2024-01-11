@@ -86,7 +86,7 @@ const Player = ({
   React.useEffect(() => {
     if (
       !isFirstRefresh.current &&
-      Math.abs(playtime - (player.gameInfo?.time ?? playtime)) <= 2
+      Math.abs(playtime - (player.gameInfo?.time ?? playtime)) <= 3
     ) {
       return;
     }
