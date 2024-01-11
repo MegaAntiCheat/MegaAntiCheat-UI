@@ -158,6 +158,7 @@ function buildIconList(
       <Tooltip
         key="alias"
         className="mr-1"
+        direction="left"
         content={`${t('TOOLTIP_ACTUAL_NAME')}\n${player.name}`}
       >
         <Star width={18} height={18} />
@@ -167,6 +168,7 @@ function buildIconList(
       <Tooltip
         className="mr-1"
         key="playernote"
+        direction="left"
         content={buildPlayerNote(player.customData)}
       >
         <ScrollText width={18} height={18} />
@@ -176,6 +178,7 @@ function buildIconList(
       <Tooltip
         key="age"
         className="mr-1"
+        direction="left"
         content={t('TOOLTIP_NEW_ACCOUNT').replace('%1%', daysOld.toFixed(0))}
       >
         <CalendarClock width={18} height={18} />
@@ -185,6 +188,7 @@ function buildIconList(
       <Tooltip
         key="hasbans"
         className="mr-1"
+        direction="left"
         content={`${player.steamInfo?.vacBans ?? 0} ${t('TOOLTIP_BANS_VAC')}\n${
           player.steamInfo?.gameBans ?? 0
         } ${t('TOOLTIP_BANS_GAME')}\n${
@@ -198,6 +202,7 @@ function buildIconList(
       <Tooltip
         key="cheaterfriends"
         className="mr-1"
+        direction="left"
         content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
           .map((cf) => cf.name)
           .join('\n')}`}
