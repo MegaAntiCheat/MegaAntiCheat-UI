@@ -68,7 +68,7 @@ const Player = ({
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
-  const { disconnected } = player.gameInfo;
+  const disconnected = displayStatus === 'Disconnected';
 
   // Prevent text selection on click (e.g Dropdown)
   React.useEffect(() => {
@@ -231,13 +231,13 @@ const Player = ({
         >
           {buildIconList(player, cheatersInLobby)}
         </div>
-        <div
+        {/* <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
             disconnected ? 'greyscale' : ''
           }`}
         >
           {displayStatus}
-        </div>
+        </div> */}
         <div
           className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
             disconnected ? 'greyscale' : ''

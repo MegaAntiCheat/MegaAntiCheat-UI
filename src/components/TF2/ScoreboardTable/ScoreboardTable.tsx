@@ -82,9 +82,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
         <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
-          <div className="hidden xs:[display:unset]">
+          {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
-          </div>
+          </div> */}
           <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
         <div className={`${teamColor?.toLowerCase()}`}>
