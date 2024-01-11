@@ -82,9 +82,14 @@ const Player = ({
     return () => document.removeEventListener('mousedown', preventDefault);
   }, []);
 
-  // Update playtime on mount
+  // Sync time if not yet set or out of sync (e.g. switched servers)
   React.useEffect(() => {
-    if (!isFirstRefresh.current) return;
+    if (
+      !isFirstRefresh.current &&
+      Math.abs(playtime - (player.gameInfo?.time ?? playtime)) <= 2
+    ) {
+      return;
+    }
 
     setPlaytime(player.gameInfo?.time ?? 0);
     isFirstRefresh.current = false;
