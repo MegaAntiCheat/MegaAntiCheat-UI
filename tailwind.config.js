@@ -14,9 +14,9 @@ module.exports = {
         outline: '#c5c6d1',
       },
       gridTemplateColumns: {
-        player: '120px minmax(100px, 1fr) max-content minmax(0px, 60px)',
+        player: '122px minmax(100px, 1fr) max-content minmax(0px, 60px)',
         playersm: '120px minmax(100px, 1fr) 18px',
-        scoreboardnav: '130px minmax(95px, 1fr) 55px',
+        scoreboardnav: '114px minmax(95px, 1fr) 55px',
         scoreboardnavsm: '180px 130px',
         scoreboardgrid: '1fr 3px 1fr',
         scoreboardgridsm: '1fr',
