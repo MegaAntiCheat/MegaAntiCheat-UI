@@ -4,6 +4,7 @@ import { t } from '@i18n';
 import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
+  DoorOpen,
   ScrollText,
   ShieldAlert,
   Star,
@@ -152,6 +153,7 @@ function buildIconList(
     player,
     cheatersInLobby,
   );
+  const joining = player.gameInfo.state === 'Spawning';
 
   return [
     hasAlias && (
@@ -208,6 +210,16 @@ function buildIconList(
           .join('\n')}`}
       >
         <Users2 width={18} height={18} />
+      </Tooltip>
+    ),
+    joining && (
+      <Tooltip
+        key="joining"
+        className="mr-1"
+        direction="left"
+        content={`${t('TOOLTIP_JOINING')}`}
+      >
+        <DoorOpen width={18} height={18} />
       </Tooltip>
     ),
   ];

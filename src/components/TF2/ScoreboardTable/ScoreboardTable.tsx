@@ -64,7 +64,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
-      (player) => player.gameInfo.disconnected,
+      (player) => player.gameInfo.state === 'Disconnected',
     ).length;
 
     const cheaters = RED.concat(BLU).filter(

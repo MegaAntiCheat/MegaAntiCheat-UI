@@ -98,7 +98,7 @@ const Player = ({
   // Update playtime every second
   React.useEffect(() => {
     const interval = setInterval(() => {
-      if (player.gameInfo.disconnected) return;
+      if (player.gameInfo.state === 'Disconnected') return;
       setPlaytime((prev) => prev + 1);
     }, 1000);
 
