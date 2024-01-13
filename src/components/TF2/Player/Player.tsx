@@ -64,7 +64,7 @@ const Player = ({
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
-  const color = displayColor(playerColors!, player, cheatersInLobby);
+  let color = displayColor(playerColors!, player, cheatersInLobby);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
@@ -175,6 +175,7 @@ const Player = ({
         className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
           showPlayerDetails ? 'expanded' : ''
         } ${className}`}
+        id={`player-display-div-${player.steamID64}`}
         style={{
           backgroundColor: color,
         }}
@@ -189,6 +190,11 @@ const Player = ({
             // Immediately update local instance
             // Causes new info to immediately show
             player.localVerdict = e.toString();
+            color = displayColor(playerColors!, player, cheatersInLobby);
+            const newColour = color ? `background-color: ${color}` : '';
+            document
+              .getElementById(`player-display-div-${player.steamID64}`)
+              ?.setAttribute('style', newColour);
           }}
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
