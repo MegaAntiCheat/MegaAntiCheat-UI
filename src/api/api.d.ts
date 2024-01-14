@@ -45,7 +45,7 @@ interface GameInfo {
   team: number;
   ping: number;
   loss: number;
-  state: string;
+  state: 'Active' | 'Spawning' | 'Disconnected';
   kills: number;
   deaths: number;
   time: number;
