@@ -98,12 +98,12 @@ const Player = ({
   // Update playtime every second
   React.useEffect(() => {
     const interval = setInterval(() => {
-      if (player.gameInfo.state === 'Disconnected') return;
+      if (disconnected) return;
       setPlaytime((prev) => prev + 1);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [disconnected]);
 
   // Update pfp on mount
   React.useEffect(() => {
