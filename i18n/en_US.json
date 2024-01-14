@@ -57,5 +57,6 @@
   "TOOLTIP_BANS_GAME": "game ban(s) on record",
   "TOOLTIP_NEW_ACCOUNT": "Account is %1% day(s) old",
   "TOOLTIP_FRIENDS_WITH_CHEATERS": "Friends with cheater(s):",
-  "TOOLTIP_JOINING": "Joining"
+  "TOOLTIP_JOINING": "Joining",
+  "TOOLTIP_MEGASCATTERBOMB_REAL": "This is the real megascatterbomb. Say hi!"
 }

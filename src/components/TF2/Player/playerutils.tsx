@@ -154,6 +154,14 @@ function buildIconList(
     cheatersInLobby,
   );
   const joining = player.gameInfo.state === 'Spawning';
+  const kiwi_source =
+    player.gameInfo.state === 'Disconnected'
+      ? './kiwi_gray.webp'
+      : player.gameInfo.team === 2
+      ? './kiwi_red.webp'
+      : player.gameInfo.team === 3
+      ? './kiwi_blue.webp'
+      : './kiwi_white.webp';
 
   return [
     hasAlias && (
@@ -222,6 +230,21 @@ function buildIconList(
         <LogIn width={18} height={18} />
       </Tooltip>
     ),
+    // A special hardcode for me (Youtuber privledge)
+    // Added a check for the name including "megascatterbomb" in case I wish to alias.
+    // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
+    // else until they have the ability to toggle their icons on/off without doing a code change)
+    player.steamID64 === '76561198022053157' &&
+      player.name.toLowerCase().includes('megascatterbomb') && (
+        <Tooltip
+          key="megascatterbomb"
+          className="mr-1"
+          direction="left"
+          content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
+        >
+          <img className="mr-1" height={18} width={18} src={kiwi_source} />
+        </Tooltip>
+      ),
   ];
 }
 
