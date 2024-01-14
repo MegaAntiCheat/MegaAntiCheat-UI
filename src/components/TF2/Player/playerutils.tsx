@@ -4,7 +4,7 @@ import { t } from '@i18n';
 import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
-  DoorOpen,
+  LogIn,
   ScrollText,
   ShieldAlert,
   Star,
@@ -219,7 +219,7 @@ function buildIconList(
         direction="left"
         content={`${t('TOOLTIP_JOINING')}`}
       >
-        <DoorOpen width={18} height={18} />
+        <LogIn width={18} height={18} />
       </Tooltip>
     ),
   ];
