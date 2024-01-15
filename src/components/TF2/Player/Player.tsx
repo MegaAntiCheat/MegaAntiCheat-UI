@@ -64,14 +64,16 @@ const Player = ({
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
+
   // const color = displayColor(playerColors!, player, cheatersInLobby);
-  
+
   const [color, setColor] = React.useState<string | undefined>(
     displayColor(playerColors!, player, cheatersInLobby),
   );
+
   React.useEffect(() => {
     setColor(displayColor(playerColors!, player, cheatersInLobby));
-  }, [player.localVerdict]);
+  }, [player.localVerdict, playerColors, player, cheatersInLobby]);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
