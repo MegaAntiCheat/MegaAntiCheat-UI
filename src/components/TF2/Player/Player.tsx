@@ -64,7 +64,16 @@ const Player = ({
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
-  const color = displayColor(playerColors!, player, cheatersInLobby);
+
+  // const color = displayColor(playerColors!, player, cheatersInLobby);
+
+  const [color, setColor] = React.useState<string | undefined>(
+    displayColor(playerColors!, player, cheatersInLobby),
+  );
+
+  React.useEffect(() => {
+    setColor(displayColor(playerColors!, player, cheatersInLobby));
+  }, [player.localVerdict, playerColors, player, cheatersInLobby]);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
@@ -180,6 +189,7 @@ const Player = ({
         className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
           showPlayerDetails ? 'expanded' : ''
         } ${className}`}
+        id={`player-display-div-${player.steamID64}`}
         style={{
           backgroundColor: color,
         }}
@@ -190,10 +200,11 @@ const Player = ({
           placeholder={displayVerdict}
           disabled={player.isSelf}
           onChange={(e) => {
-            updatePlayer(player.steamID64, e.toString());
             // Immediately update local instance
             // Causes new info to immediately show
             player.localVerdict = e.toString();
+            updatePlayer(player.steamID64, e.toString());
+            setColor(displayColor(playerColors!, player, cheatersInLobby));
           }}
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>

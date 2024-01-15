@@ -59,7 +59,8 @@ const PlayerNotebox = ({ player }: PlayerNoteBoxProps) => {
         className="hover:cursor-pointer"
         onClick={async () => {
           if (noteSentStatus != SentState.IDLE) return;
-
+          const old = player.customData.playerNote;
+          player.customData.playerNote = playerNote;
           setNoteSentStatus(SentState.SENDING);
 
           try {
@@ -72,6 +73,7 @@ const PlayerNotebox = ({ player }: PlayerNoteBoxProps) => {
             setNoteSentStatus(SentState.SUCCESS); // Success
           } catch (e) {
             setNoteSentStatus(SentState.FAILED); // Failed
+            player.customData.playerNote = old;
           }
 
           setTimeout(() => {
