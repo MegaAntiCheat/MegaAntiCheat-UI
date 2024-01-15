@@ -991,10 +991,6 @@ video {
   overflow-x: auto;
 }
 
-.overflow-y-auto {
-  overflow-y: auto;
-}
-
 .overflow-x-hidden {
   overflow-x: hidden;
 }
@@ -1360,11 +1356,11 @@ code {
 
 @media (min-width: 475px) {
   .xs\:grid-cols-player {
-    grid-template-columns: 120px minmax(100px, 1fr) max-content minmax(0px, 100px) minmax(0px, 60px);
+    grid-template-columns: 122px minmax(100px, 1fr) max-content minmax(0px, 60px);
   }
 
   .xs\:grid-cols-scoreboardnav {
-    grid-template-columns: 130px minmax(95px, 1fr) 90px 55px;
+    grid-template-columns: 114px minmax(95px, 1fr) 55px;
   }
 
   .xs\:\[display\:unset\] {

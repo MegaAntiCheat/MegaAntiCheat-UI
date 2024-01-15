@@ -68,7 +68,7 @@ const Player = ({
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
-  const { disconnected } = player.gameInfo;
+  const disconnected = displayStatus === 'Disconnected';
 
   // Prevent text selection on click (e.g Dropdown)
   React.useEffect(() => {
@@ -82,9 +82,14 @@ const Player = ({
     return () => document.removeEventListener('mousedown', preventDefault);
   }, []);
 
-  // Update playtime on mount
+  // Sync time if not yet set or out of sync (e.g. switched servers)
   React.useEffect(() => {
-    if (!isFirstRefresh.current) return;
+    if (
+      !isFirstRefresh.current &&
+      Math.abs(playtime - (player.gameInfo?.time ?? playtime)) <= 3
+    ) {
+      return;
+    }
 
     setPlaytime(player.gameInfo?.time ?? 0);
     isFirstRefresh.current = false;
@@ -93,12 +98,12 @@ const Player = ({
   // Update playtime every second
   React.useEffect(() => {
     const interval = setInterval(() => {
-      if (player.gameInfo.disconnected) return;
+      if (disconnected) return;
       setPlaytime((prev) => prev + 1);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [disconnected]);
 
   // Update pfp on mount
   React.useEffect(() => {
@@ -231,13 +236,13 @@ const Player = ({
         >
           {buildIconList(player, cheatersInLobby)}
         </div>
-        <div
+        {/* <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
             disconnected ? 'greyscale' : ''
           }`}
         >
           {displayStatus}
-        </div>
+        </div> */}
         <div
           className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
             disconnected ? 'greyscale' : ''

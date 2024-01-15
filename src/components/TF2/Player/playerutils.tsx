@@ -4,6 +4,7 @@ import { t } from '@i18n';
 import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
+  LogIn,
   ScrollText,
   ShieldAlert,
   Star,
@@ -152,12 +153,22 @@ function buildIconList(
     player,
     cheatersInLobby,
   );
+  const joining = player.gameInfo.state === 'Spawning';
+  const kiwi_source =
+    player.gameInfo.state === 'Disconnected'
+      ? './kiwi_gray.webp'
+      : player.gameInfo.team === 2
+      ? './kiwi_red.webp'
+      : player.gameInfo.team === 3
+      ? './kiwi_blue.webp'
+      : './kiwi_white.webp';
 
   return [
     hasAlias && (
       <Tooltip
         key="alias"
         className="mr-1"
+        direction="left"
         content={`${t('TOOLTIP_ACTUAL_NAME')}\n${player.name}`}
       >
         <Star width={18} height={18} />
@@ -167,6 +178,7 @@ function buildIconList(
       <Tooltip
         className="mr-1"
         key="playernote"
+        direction="left"
         content={buildPlayerNote(player.customData)}
       >
         <ScrollText width={18} height={18} />
@@ -176,6 +188,7 @@ function buildIconList(
       <Tooltip
         key="age"
         className="mr-1"
+        direction="left"
         content={t('TOOLTIP_NEW_ACCOUNT').replace('%1%', daysOld.toFixed(0))}
       >
         <CalendarClock width={18} height={18} />
@@ -185,6 +198,7 @@ function buildIconList(
       <Tooltip
         key="hasbans"
         className="mr-1"
+        direction="left"
         content={`${player.steamInfo?.vacBans ?? 0} ${t('TOOLTIP_BANS_VAC')}\n${
           player.steamInfo?.gameBans ?? 0
         } ${t('TOOLTIP_BANS_GAME')}\n${
@@ -198,6 +212,7 @@ function buildIconList(
       <Tooltip
         key="cheaterfriends"
         className="mr-1"
+        direction="left"
         content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
           .map((cf) => cf.name)
           .join('\n')}`}
@@ -205,6 +220,31 @@ function buildIconList(
         <Users2 width={18} height={18} />
       </Tooltip>
     ),
+    joining && (
+      <Tooltip
+        key="joining"
+        className="mr-1"
+        direction="left"
+        content={`${t('TOOLTIP_JOINING')}`}
+      >
+        <LogIn width={18} height={18} />
+      </Tooltip>
+    ),
+    // A special hardcode for me (Youtuber privilege)
+    // Added a check for the name including "megascatterbomb" in case I wish to alias.
+    // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
+    // else until they have the ability to toggle their icons on/off without doing a code change)
+    player.steamID64 === '76561198022053157' &&
+      player.name.toLowerCase().includes('megascatterbomb') && (
+        <Tooltip
+          key="megascatterbomb"
+          className="mr-1"
+          direction="left"
+          content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
+        >
+          <img height={18} width={18} src={kiwi_source} />
+        </Tooltip>
+      ),
   ];
 }
 

@@ -5,6 +5,7 @@ interface MiniScoreboardProps {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
 }
+
 interface Verdicts {
   suspicious: PlayerInfo[];
   cheating: PlayerInfo[];
@@ -18,7 +19,7 @@ interface MSBContentProps {
 
 function calculateSusAndCheater(players: PlayerInfo[]): Verdicts {
   const playersInGame = players?.filter(
-    (player) => !player.gameInfo.disconnected,
+    (player) => player.gameInfo.state !== 'Disconnected',
   );
 
   const cheating = playersInGame?.filter(

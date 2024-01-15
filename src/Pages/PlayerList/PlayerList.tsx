@@ -27,7 +27,7 @@ const PlayerList = () => {
     // First Render: Refresh the data Immediately without having to wait for the interval
     fetchData();
 
-    const intervalHandle = setInterval(fetchData, 10000);
+    const intervalHandle = setInterval(fetchData, 3000);
 
     return () => {
       clearInterval(intervalHandle);
