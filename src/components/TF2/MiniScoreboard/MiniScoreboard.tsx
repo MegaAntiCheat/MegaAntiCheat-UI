@@ -5,6 +5,7 @@ interface MiniScoreboardProps {
   RED?: PlayerInfo[];
   BLU?: PlayerInfo[];
 }
+
 interface Verdicts {
   suspicious: PlayerInfo[];
   cheating: PlayerInfo[];

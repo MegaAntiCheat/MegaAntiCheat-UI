@@ -230,7 +230,7 @@ function buildIconList(
         <LogIn width={18} height={18} />
       </Tooltip>
     ),
-    // A special hardcode for me (Youtuber privledge)
+    // A special hardcode for me (Youtuber privilege)
     // Added a check for the name including "megascatterbomb" in case I wish to alias.
     // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
     // else until they have the ability to toggle their icons on/off without doing a code change)
