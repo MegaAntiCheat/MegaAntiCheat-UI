@@ -242,7 +242,7 @@ function buildIconList(
           direction="left"
           content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
         >
-          <img className="mr-1" height={18} width={18} src={kiwi_source} />
+          <img height={18} width={18} src={kiwi_source} />
         </Tooltip>
       ),
   ];
