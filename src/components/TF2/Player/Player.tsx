@@ -199,6 +199,7 @@ const Player = ({
             // Causes new info to imm{ediately show
             player.localVerdict = e.toString();
             updatePlayer(player.steamID64, e.toString());
+            setColor(displayColor(playerColors!, player, cheatersInLobby));
           }}
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
