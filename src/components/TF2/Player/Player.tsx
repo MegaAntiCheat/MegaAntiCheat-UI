@@ -65,11 +65,12 @@ const Player = ({
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
   // const color = displayColor(playerColors!, player, cheatersInLobby);
-  const [color, setColor] = React.useState<string | undefined>(undefined);
+  
+  const [color, setColor] = React.useState<string | undefined>(
+    displayColor(playerColors!, player, cheatersInLobby),
+  );
   React.useEffect(() => {
-    console.log('immediate update');
     setColor(displayColor(playerColors!, player, cheatersInLobby));
-    
   }, [player.localVerdict]);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
@@ -193,7 +194,7 @@ const Player = ({
           disabled={player.isSelf}
           onChange={(e) => {
             // Immediately update local instance
-            // Causes new info to immediately show
+            // Causes new info to imm{ediately show
             player.localVerdict = e.toString();
             updatePlayer(player.steamID64, e.toString());
           }}
