@@ -196,7 +196,7 @@ const Player = ({
           disabled={player.isSelf}
           onChange={(e) => {
             // Immediately update local instance
-            // Causes new info to imm{ediately show
+            // Causes new info to immediately show
             player.localVerdict = e.toString();
             updatePlayer(player.steamID64, e.toString());
             setColor(displayColor(playerColors!, player, cheatersInLobby));
