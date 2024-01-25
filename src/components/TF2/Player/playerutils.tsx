@@ -11,29 +11,7 @@ import {
   Users2,
 } from 'lucide-react';
 import { Tooltip } from '@components/General';
-
-const localVerdict = [
-  {
-    label: 'PLAYER',
-    value: 'Player',
-  },
-  {
-    label: 'BOT',
-    value: 'Bot',
-  },
-  {
-    label: 'CHEATER',
-    value: 'Cheater',
-  },
-  {
-    label: 'SUSPICIOUS',
-    value: 'Suspicious',
-  },
-  {
-    label: 'TRUSTED',
-    value: 'Trusted',
-  },
-];
+import { LOCAL_VERDICT_OPTIONS } from '../../../constants/playerConstants';
 
 function calculateKD(kills: number = 0, deaths: number = 0): string {
   // No Kills, No KD
@@ -47,7 +25,9 @@ function calculateKD(kills: number = 0, deaths: number = 0): string {
 function localizeVerdict(verdict: string | undefined) {
   if (!verdict || verdict.toLowerCase() === 'none') return t('PLAYER');
 
-  const option = localVerdict.find((option) => option.value === verdict);
+  const option = LOCAL_VERDICT_OPTIONS.find(
+    (option) => option.value === verdict,
+  );
 
   if (!option) console.error('Invalid verdict: ', verdict);
 
@@ -55,7 +35,7 @@ function localizeVerdict(verdict: string | undefined) {
 }
 
 function makeLocalizedVerdictOptions() {
-  return localVerdict.map((option) => ({
+  return LOCAL_VERDICT_OPTIONS.map((option) => ({
     label: t(option.label.toUpperCase()),
     value: option.value,
   }));

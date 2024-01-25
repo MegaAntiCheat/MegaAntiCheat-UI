@@ -1,10 +1,21 @@
 import React from 'react';
-import './ScoreboardTable.css';
 
 import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
-import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
+import {
+  DEFAULT_HEADER_SORT,
+  RATING_SORT_ORDER,
+  SORT_OPTIONS,
+  SORT_TYPES,
+  SORTABLE_SCOREBOARD_HEADERS,
+  TableHeaderSorting,
+} from '../../../constants/tableConstants';
+import { SortableTableHeader } from './SortableTableHeader';
+import { VERDICT_TYPES } from '../../../constants/playerConstants';
+
+import './ScoreboardTable.css';
+
 interface ScoreboardTableProps {
   RED: PlayerInfo[];
   BLU: PlayerInfo[];
@@ -62,6 +73,8 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   }, [RED, BLU]);
 
   const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
+    const [currentSort, updateCurrentSorting] =
+      React.useState(DEFAULT_HEADER_SORT);
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
       (player) => player.gameInfo.state === 'Disconnected',
@@ -70,6 +83,69 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     const cheaters = RED.concat(BLU).filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
+
+    const getSortedPlayers = React.useCallback(() => {
+      if (currentSort.sortType === SORT_TYPES.UNSORTED) {
+        return team;
+      }
+
+      switch (currentSort.sortValue) {
+        case SORT_OPTIONS.SORT_BY_USER: {
+          return team.sort((curr, next) => {
+            // this check is here in all cases to ensure that the current user
+            // is always displayed first within the table.
+            // This makes sense to me but maybe there should be a setting for this
+            // ¯\_(；一_一)_/¯
+            if (next.isSelf) {
+              return 1;
+            }
+
+            return currentSort.sortType === SORT_TYPES.SORT_ASC
+              ? curr.name.localeCompare(next.name)
+              : next.name.localeCompare(curr.name);
+          });
+        }
+
+        case SORT_OPTIONS.SORT_BY_TIME: {
+          return team.sort((curr, next) => {
+            if (next.isSelf) {
+              return 1;
+            }
+
+            return currentSort.sortType === SORT_TYPES.SORT_ASC
+              ? curr.gameInfo.time - next.gameInfo.time
+              : next.gameInfo.time - curr.gameInfo.time;
+          });
+        }
+
+        case SORT_OPTIONS.SORT_BY_RATING: {
+          return team.sort((curr, next) => {
+            if (next.isSelf) {
+              return 1;
+            }
+
+            const currRatingScore =
+              RATING_SORT_ORDER[
+                (curr.localVerdict as VERDICT_TYPES | undefined) ?? 'None'
+              ];
+            const nextRatingScore =
+              RATING_SORT_ORDER[
+                (next.localVerdict as VERDICT_TYPES | undefined) ?? 'None'
+              ];
+
+            return currentSort.sortType === SORT_TYPES.SORT_ASC
+              ? currRatingScore - nextRatingScore
+              : nextRatingScore - currRatingScore;
+          });
+        }
+
+        default: {
+          return team;
+        }
+      }
+    }, [currentSort, team]);
+
+    const sortedPlayers = getSortedPlayers();
 
     return (
       // Keep the classname for the popoutinfo alignment
@@ -80,15 +156,21 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
           {teamColor} ({team?.length - amountDisconnected})
         </div>
         <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
-          <div>{t('TEAM_NAV_RATING')}</div>
-          <div>{t('TEAM_NAV_USER')}</div>
+          {SORTABLE_SCOREBOARD_HEADERS.map((header) => (
+            <SortableTableHeader
+              header={header}
+              currentSort={currentSort}
+              changeSort={(newSort: TableHeaderSorting) => {
+                updateCurrentSorting(newSort);
+              }}
+            />
+          ))}
           {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
           </div> */}
-          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
         <div className={`${teamColor?.toLowerCase()}`}>
-          {team?.map((player) => (
+          {sortedPlayers?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
