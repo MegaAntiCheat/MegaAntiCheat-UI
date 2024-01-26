@@ -52,9 +52,9 @@
   "PREF_FRIEND_API_USAGE_NONE": "Nadie",
   "TOOLTIP_ACTUAL_NAME": "Nombre Real:",
   "TOOLTIP_PREVIOUS_NAME": "Nombre(s) Antiguo(s):",
-  "TOOLTIP_BANS_DAYS": "día(s) desde el último bloqueo",
-  "TOOLTIP_BANS_VAC": "Bloqueo(s) VAC registrados",
-  "TOOLTIP_BANS_GAME": "Bloqueo(s) de juego registrados",
+  "TOOLTIP_BANS_DAYS": "%1% día(s) desde el último bloqueo",
+  "TOOLTIP_BANS_VAC": "%1% Bloqueo(s) VAC registrados",
+  "TOOLTIP_BANS_GAME": "%1% Bloqueo(s) de juego registrados",
   "TOOLTIP_NEW_ACCOUNT": "La Cuenta tiene %1% día(s) de antigüedad",
   "TOOLTIP_FRIENDS_WITH_CHEATERS": "Amigos con tramposo(s):"
 }

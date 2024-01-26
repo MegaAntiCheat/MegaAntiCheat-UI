@@ -52,9 +52,9 @@
   "PREF_FRIEND_API_USAGE_NONE": "Выключено",
   "TOOLTIP_ACTUAL_NAME": "Имя игрока:",
   "TOOLTIP_PREVIOUS_NAME": "Предыдущие имена:",
-  "TOOLTIP_BANS_DAYS": "дней с предыдущего бана",
-  "TOOLTIP_BANS_VAC": "VAC бан в истории аккаунта",
-  "TOOLTIP_BANS_GAME": "игровых банов в истории аккаунта",
+  "TOOLTIP_BANS_DAYS": "%1% дней с предыдущего бана",
+  "TOOLTIP_BANS_VAC": "%1% VAC бан в истории аккаунта",
+  "TOOLTIP_BANS_GAME": "%1% игровых банов в истории аккаунта",
   "TOOLTIP_NEW_ACCOUNT": "Аккаунт создан %1% дней назад",
   "TOOLTIP_FRIENDS_WITH_CHEATERS": "В списке друзей следующих читеров:"
 }
