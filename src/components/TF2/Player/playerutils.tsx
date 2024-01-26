@@ -199,11 +199,10 @@ function buildIconList(
         key="hasbans"
         className="mr-1"
         direction="left"
-        content={`${player.steamInfo?.vacBans ?? 0} ${t('TOOLTIP_BANS_VAC')}\n${
-          player.steamInfo?.gameBans ?? 0
-        } ${t('TOOLTIP_BANS_GAME')}\n${
-          player.steamInfo?.daysSinceLastBan ?? 0
-        } ${t('TOOLTIP_BANS_DAYS')}`}
+        content={
+        `${t('TOOLTIP_BANS_VAC').replace('%1%', player.steamInfo?.vacBans?.toFixed(0) ?? "0")}\n` +
+        `${t('TOOLTIP_BANS_GAME').replace('%1%', player.steamInfo?.gameBans?.toFixed(0) ?? "0")}\n` +
+        `${t('TOOLTIP_BANS_DAYS').replace('%1%', player.steamInfo?.daysSinceLastBan?.toFixed(0) ?? "0")}` }
       >
         <ShieldAlert width={18} height={18} />
       </Tooltip>
