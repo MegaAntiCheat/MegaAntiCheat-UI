@@ -12,7 +12,7 @@ export enum SORT_OPTIONS {
   SORT_BY_RATING,
 }
 
-export interface TableHeaderSorting {
+export interface Sorting {
   sortValue: SORT_OPTIONS;
   sortType: SORT_TYPES;
 }
@@ -23,9 +23,9 @@ export interface SortableHeader {
   hideWhenSmall?: boolean;
 }
 
-export const DEFAULT_HEADER_SORT: TableHeaderSorting = {
-  sortValue: SORT_OPTIONS.SORT_BY_USER,
-  sortType: SORT_TYPES.UNSORTED,
+export const DEFAULT_SORT_ORDER: Sorting = {
+  sortValue: SORT_OPTIONS.SORT_BY_TIME,
+  sortType: SORT_TYPES.SORT_DESC,
 };
 
 export const SORTABLE_SCOREBOARD_HEADERS: SortableHeader[] = [

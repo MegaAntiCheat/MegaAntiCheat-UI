@@ -118,6 +118,15 @@ const Preferences = () => {
                 onChange={(e) => handleSettingChange('openInApp', e)}
               />
             </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('PREF_SORT_DISCONNECTED_LAST')}
+              </div>
+              <Checkbox
+                checked={settings?.external.sortDisconnectedLast}
+                onChange={(e) => handleSettingChange('sortDisconnectedLast', e)}
+              />
+            </Flex>
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">
             <TextItem className="mr-9">{t('PREF_COLORS_PRECEDENCE')}</TextItem>

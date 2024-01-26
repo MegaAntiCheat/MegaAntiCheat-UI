@@ -9,13 +9,13 @@ import {
 import {
   SORT_TYPES,
   SortableHeader,
-  TableHeaderSorting,
+  Sorting,
 } from '../../../constants/tableConstants';
 
 interface SortableTableHeaderProps {
   header: SortableHeader;
-  changeSort: (sorting: TableHeaderSorting) => void;
-  currentSort: TableHeaderSorting;
+  changeSort: (sorting: Sorting) => void;
+  currentSort: Sorting;
 }
 
 export const SortableTableHeader = ({
@@ -39,22 +39,24 @@ export const SortableTableHeader = ({
   };
 
   return (
-    <button
-      className={`gap-1 items-center ${
-        header?.hideWhenSmall ? 'xs:flex hidden' : 'flex'
-      }`}
-      onClick={() => {
-        changeSort({
-          sortValue: header.sortValue,
-          sortType:
-            currentSort.sortType === SORT_TYPES.SORT_ASC
-              ? SORT_TYPES.SORT_DESC
-              : SORT_TYPES.SORT_ASC,
-        });
-      }}
-    >
-      {t(header.nameKey)}
-      <SortIcon size={16} />
-    </button>
+    <div>
+      <button
+        className={`gap-1 items-center ${
+          header?.hideWhenSmall ? 'xs:flex hidden' : 'flex'
+        }`}
+        onClick={() => {
+          changeSort({
+            sortValue: header.sortValue,
+            sortType:
+              currentSort.sortType === SORT_TYPES.SORT_ASC
+                ? SORT_TYPES.SORT_DESC
+                : SORT_TYPES.SORT_ASC,
+          });
+        }}
+      >
+        {t(header.nameKey)}
+        <SortIcon size={16} />
+      </button>
+    </div>
   );
 };

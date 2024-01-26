@@ -4,15 +4,12 @@ import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
 import { ContextMenuProvider } from '@context';
 import {
-  DEFAULT_HEADER_SORT,
-  RATING_SORT_ORDER,
-  SORT_OPTIONS,
-  SORT_TYPES,
+  DEFAULT_SORT_ORDER,
   SORTABLE_SCOREBOARD_HEADERS,
-  TableHeaderSorting,
+  Sorting,
 } from '../../../constants/tableConstants';
 import { SortableTableHeader } from './SortableTableHeader';
-import { VERDICT_TYPES } from '../../../constants/playerConstants';
+import { sortByFilter } from './soreboardUtils';
 
 import './ScoreboardTable.css';
 
@@ -40,6 +37,8 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     },
     openInApp: false,
   });
+  const [currentSort, updateCurrentSorting] =
+    React.useState<Sorting>(DEFAULT_SORT_ORDER);
 
   React.useEffect(() => {
     const fetchTeamColors = async () => {
@@ -73,8 +72,6 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   }, [RED, BLU]);
 
   const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
-    const [currentSort, updateCurrentSorting] =
-      React.useState(DEFAULT_HEADER_SORT);
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
       (player) => player.gameInfo.state === 'Disconnected',
@@ -84,66 +81,15 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
 
-    const getSortedPlayers = React.useCallback(() => {
-      if (currentSort.sortType === SORT_TYPES.UNSORTED) {
-        return team;
-      }
-
-      switch (currentSort.sortValue) {
-        case SORT_OPTIONS.SORT_BY_USER: {
-          return team.sort((curr, next) => {
-            // this check is here in all cases to ensure that the current user
-            // is always displayed first within the table.
-            // This makes sense to me but maybe there should be a setting for this
-            // ¯\_(；一_一)_/¯
-            if (next.isSelf) {
-              return 1;
-            }
-
-            return currentSort.sortType === SORT_TYPES.SORT_ASC
-              ? curr.name.localeCompare(next.name)
-              : next.name.localeCompare(curr.name);
-          });
-        }
-
-        case SORT_OPTIONS.SORT_BY_TIME: {
-          return team.sort((curr, next) => {
-            if (next.isSelf) {
-              return 1;
-            }
-
-            return currentSort.sortType === SORT_TYPES.SORT_ASC
-              ? curr.gameInfo.time - next.gameInfo.time
-              : next.gameInfo.time - curr.gameInfo.time;
-          });
-        }
-
-        case SORT_OPTIONS.SORT_BY_RATING: {
-          return team.sort((curr, next) => {
-            if (next.isSelf) {
-              return 1;
-            }
-
-            const currRatingScore =
-              RATING_SORT_ORDER[
-                (curr.localVerdict as VERDICT_TYPES | undefined) ?? 'None'
-              ];
-            const nextRatingScore =
-              RATING_SORT_ORDER[
-                (next.localVerdict as VERDICT_TYPES | undefined) ?? 'None'
-              ];
-
-            return currentSort.sortType === SORT_TYPES.SORT_ASC
-              ? currRatingScore - nextRatingScore
-              : nextRatingScore - currRatingScore;
-          });
-        }
-
-        default: {
-          return team;
-        }
-      }
-    }, [currentSort, team]);
+    const getSortedPlayers = React.useCallback(
+      () =>
+        sortByFilter({
+          currentSort,
+          team,
+          playerSettings,
+        }),
+      [currentSort, team],
+    );
 
     const sortedPlayers = getSortedPlayers();
 
@@ -160,7 +106,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
             <SortableTableHeader
               header={header}
               currentSort={currentSort}
-              changeSort={(newSort: TableHeaderSorting) => {
+              changeSort={(newSort: Sorting) => {
                 updateCurrentSorting(newSort);
               }}
             />
