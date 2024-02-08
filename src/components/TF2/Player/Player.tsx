@@ -4,7 +4,7 @@ import './Player.css';
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
-import { ContextMenuContext, MenuItem } from '../../../Context';
+import { ContextMenuContext, MenuItem } from '@context';
 import {
   buildIconList,
   displayColor,
@@ -19,7 +19,7 @@ import PlayerDetails from './PlayerDetails';
 import { verifyImageExists } from '@api/utils';
 import { kickPlayer } from '@api/commands';
 import { Info } from 'lucide-react';
-import { useModal } from '../../../Context';
+import { useModal } from '@context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
 
 interface PlayerProps {
