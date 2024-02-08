@@ -105,8 +105,8 @@ function getCheaterFriendsInLobby(
   player: PlayerInfo,
   cheatersInLobby: PlayerInfo[],
 ): PlayerInfo[] {
-  return cheatersInLobby.filter(
-    (c) => player.friends?.some((f) => f.steamID64 === c.steamID64),
+  return cheatersInLobby.filter((c) =>
+    player.friends?.some((f) => f.steamID64 === c.steamID64),
   );
 }
 
@@ -114,8 +114,8 @@ function hasCheaterFriendsInLobby(
   player: PlayerInfo,
   cheatersInLobby: PlayerInfo[],
 ): boolean {
-  return cheatersInLobby.some(
-    (c) => player.friends?.some((f) => f.steamID64 === c.steamID64),
+  return cheatersInLobby.some((c) =>
+    player.friends?.some((f) => f.steamID64 === c.steamID64),
   );
 }
 
@@ -158,10 +158,10 @@ function buildIconList(
     player.gameInfo.state === 'Disconnected'
       ? './kiwi_gray.webp'
       : player.gameInfo.team === 2
-      ? './kiwi_red.webp'
-      : player.gameInfo.team === 3
-      ? './kiwi_blue.webp'
-      : './kiwi_white.webp';
+        ? './kiwi_red.webp'
+        : player.gameInfo.team === 3
+          ? './kiwi_blue.webp'
+          : './kiwi_white.webp';
 
   return [
     hasAlias && (
