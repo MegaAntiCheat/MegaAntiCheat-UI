@@ -12,11 +12,10 @@ export default defineConfig({
   publicDir: '../public',
   resolve: {
     alias: {
-      '@api': path.resolve(__dirname, './src/api'), // replace with actual path
-      '@components': path.resolve(__dirname, './src/components'), // replace with actual path
-      '@context': path.resolve(__dirname, './src/Context'), // replace with actual path
-      '@i18n': path.resolve(__dirname, './i18n'), // replace with actual path
-      // add more aliases as needed
+      '@api': path.resolve(__dirname, './src/api'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@context': path.resolve(__dirname, './src/Context'),
+      '@i18n': path.resolve(__dirname, './i18n'),
     },
   },
 });
