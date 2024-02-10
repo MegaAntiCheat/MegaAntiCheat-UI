@@ -9,6 +9,5 @@
 *.css
 
 # Configuration
-webpack.config.js
 tsconfig.json
 package*.json

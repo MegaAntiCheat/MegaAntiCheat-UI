@@ -11,7 +11,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "start": "webpack serve",
+    "start": "vite",
     "lint": "pnpm exec eslint . && pnpm exec prettier -c \"src/**/*\"",
     "lint:fix": "pnpm exec eslint --fix . && pnpm exec prettier --write \"src/**/*\"",
     "build": "pnpm run lint && tailwind -i ./src/index.css -o ./src/tailwind.css && vite build",
@@ -46,9 +46,6 @@
     "ts-loader": "^9.5.0",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.2.2",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
