@@ -18,4 +18,7 @@ export default defineConfig({
       '@i18n': path.resolve(__dirname, './i18n'),
     },
   },
+  server: {
+    port: 3621,
+  },
 });
