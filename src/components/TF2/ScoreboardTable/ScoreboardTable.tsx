@@ -107,9 +107,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   };
 
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-screen overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-auto lg:h-screen overflow-x-hidden">
       {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider hidden sm:[display:unset] h-5/6 bg-highlight/10 w-[1px] mt-9" />
+      <div className="scoreboard-divider lg:[display:block] h-5/6 bg-highlight/10 w-[1px] mt-9" />
       {renderTeam(RED, 'RED')}
     </div>
   );
