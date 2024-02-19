@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import './Select.css';
 import { t } from '@i18n';
+import { setFreezeUpdates } from '../../../Pages/PlayerList/PlayerList';
 
 interface SelectProps {
   options: SelectOption[];
@@ -11,6 +12,7 @@ interface SelectProps {
   disabled?: boolean;
   onMouseEnter?: (event: React.MouseEvent) => void;
   onMouseLeave?: (event: React.MouseEvent) => void;
+  shouldFreezeUpdates?: boolean
 }
 
 const Select = ({
@@ -51,7 +53,10 @@ const Select = ({
   };
 
   const toggleOpen = () => {
-    if (!disabled) setIsOpen(!isOpen);
+    if (!disabled) {
+      setFreezeUpdates(!isOpen);
+      setIsOpen(!isOpen);
+    } 
   };
 
   React.useEffect(() => {

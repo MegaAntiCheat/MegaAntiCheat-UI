@@ -22,6 +22,9 @@ const PlayerList = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
+      if(freezeUpdates) {
+        return;
+      }
       const newData = await fetchAllServerInfo();
       setData(newData);
     };
@@ -62,7 +65,7 @@ const PlayerList = () => {
     setBLU(newBLU.sort(sortByKillsDesc));
     setSPEC(newSPEC.sort(sortByKillsDesc));
     setUNASSIGNED(newUNASSIGNED.sort(sortByKillsDesc));
-    
+
   }, [data]);
 
   const sortedRED = React.useMemo(() => {
@@ -93,5 +96,11 @@ const PlayerList = () => {
     </>
   );
 };
+
+export let freezeUpdates: boolean = false
+
+export const setFreezeUpdates = (freeze: boolean) => {
+    freezeUpdates = freeze;
+}
 
 export default PlayerList;
