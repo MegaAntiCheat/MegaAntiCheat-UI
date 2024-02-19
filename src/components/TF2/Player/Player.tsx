@@ -199,7 +199,6 @@ const Player = ({
           options={localizedLocalVerdictOptions}
           placeholder={displayVerdict}
           disabled={player.isSelf}
-          shouldFreezeUpdates={true}
           onChange={(e) => {
             // Immediately update local instance
             // Causes new info to immediately show

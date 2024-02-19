@@ -22,9 +22,6 @@ const PlayerList = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      if(freezeUpdates) {
-        return;
-      }
       const newData = await fetchAllServerInfo();
       setData(newData);
     };
@@ -96,11 +93,5 @@ const PlayerList = () => {
     </>
   );
 };
-
-export let freezeUpdates: boolean = false
-
-export const setFreezeUpdates = (freeze: boolean) => {
-    freezeUpdates = freeze;
-}
 
 export default PlayerList;
