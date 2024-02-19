@@ -79,7 +79,7 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
       // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half ${teamColor}`}>
         <div
-          className={`text-4xl font-build mt-3 mb-9 ${teamColor?.toLowerCase()}`}
+          className={`text-4xl font-build mt-4 mb-3 ${teamColor?.toLowerCase()}`}
         >
           {teamColor} ({team?.length - amountDisconnected})
         </div>
@@ -91,7 +91,7 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
           </div> */}
           <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
-        <div className={`${teamColor?.toLowerCase()}`}>
+        <div className={`${teamColor?.toLowerCase()} mb-4`}>
           {team?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
@@ -111,13 +111,13 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
   };
 
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-max-content lg:h-screen overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-max-content lg:h-max-content overflow-x-hidden">
       {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-9" />
+      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
       {renderTeam(RED, 'RED')}
-      <div className="scoreboard-divider lg:[display:none] h-auto bg-highlight/10 w-[1px] mt-9" />
+      <div className="scoreboard-divider lg:[display:none] h-auto bg-highlight/10 w-[1px] mt-0" />
       {renderTeam(SPEC, 'SPECTATOR')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-9" />
+      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
       {renderTeam(UNASSIGNED, 'UNASSIGNED')}
     </div>
   );
