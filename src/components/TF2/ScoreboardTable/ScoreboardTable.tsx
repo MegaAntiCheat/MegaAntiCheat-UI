@@ -8,9 +8,11 @@ import { ContextMenuProvider } from '@context';
 interface ScoreboardTableProps {
   RED: PlayerInfo[];
   BLU: PlayerInfo[];
+  SPEC: PlayerInfo[];
+  UNASSIGNED: PlayerInfo[];
 }
 
-const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
+const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
   const [playerSettings, setPlayerSettings] = React.useState<
@@ -44,7 +46,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
 
   React.useEffect(() => {
     const fetchSelf = () => {
-      const combinedPlayers = RED?.concat(BLU ?? []);
+      const combinedPlayers = RED?.concat(BLU ?? [], SPEC ?? [], UNASSIGNED ?? []);
       const self = combinedPlayers?.find((player) => player.isSelf);
       setUserSteamID(self?.steamID64 || '0');
     };
@@ -59,7 +61,7 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [RED, BLU]);
+  }, [RED, BLU, SPEC, UNASSIGNED]);
 
   const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
     // Subtract amount of disconnected players from the actual playercount
@@ -67,7 +69,9 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
       (player) => player.gameInfo.state === 'Disconnected',
     ).length;
 
-    const cheaters = RED.concat(BLU).filter(
+    const combinedPlayers = RED?.concat(BLU ?? [], SPEC ?? [], UNASSIGNED ?? []);
+
+    const cheaters = combinedPlayers.filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
 
@@ -107,10 +111,14 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
   };
 
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-auto lg:h-screen overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-max-content lg:h-screen overflow-x-hidden">
       {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider lg:[display:block] h-5/6 bg-highlight/10 w-[1px] mt-9" />
+      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-9" />
       {renderTeam(RED, 'RED')}
+      <div className="scoreboard-divider lg:[display:none] h-auto bg-highlight/10 w-[1px] mt-9" />
+      {renderTeam(SPEC, 'SPECTATOR')}
+      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-9" />
+      {renderTeam(UNASSIGNED, 'UNASSIGNED')}
     </div>
   );
 };
