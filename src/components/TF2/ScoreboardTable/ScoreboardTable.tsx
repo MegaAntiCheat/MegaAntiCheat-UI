@@ -63,7 +63,7 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
     return () => clearInterval(interval);
   }, [RED, BLU, SPEC, UNASSIGNED]);
 
-  const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
+  const renderTeam = (team: PlayerInfo[], teamName?: string) => {
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
       (player) => player.gameInfo.state === 'Disconnected',
@@ -77,11 +77,11 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
 
     return (
       // Keep the classname for the popoutinfo alignment
-      <div className={`scoreboard-grid-half ${teamColor}`}>
+      <div className={`scoreboard-grid-half ${teamName}`}>
         <div
-          className={`text-4xl font-build mt-4 mb-3 ${teamColor?.toLowerCase()}`}
+          className={`text-4xl font-build mt-4 mb-3 ${teamName?.toLowerCase()}`}
         >
-          {teamColor} ({team?.length - amountDisconnected})
+          {t(teamName ?? "UNASSIGNED").toUpperCase()} ({team?.length - amountDisconnected})
         </div>
         <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
@@ -91,13 +91,13 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
           </div> */}
           <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
-        <div className={`${teamColor?.toLowerCase()} mb-4`}>
+        <div className={`${teamName?.toLowerCase()} mb-4`}>
           {team?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
                 playerColors={playerSettings.colors}
-                className={teamColor?.toLowerCase()}
+                className={teamName?.toLowerCase()}
                 player={player}
                 key={player.steamID64}
                 openInApp={playerSettings.openInApp}
