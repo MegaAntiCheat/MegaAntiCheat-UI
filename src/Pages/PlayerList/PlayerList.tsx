@@ -62,7 +62,6 @@ const PlayerList = () => {
     setBLU(newBLU.sort(sortByKillsDesc));
     setSPEC(newSPEC.sort(sortByKillsDesc));
     setUNASSIGNED(newUNASSIGNED.sort(sortByKillsDesc));
-
   }, [data]);
 
   const sortedRED = React.useMemo(() => {
@@ -78,16 +77,23 @@ const PlayerList = () => {
   }, [SPEC]);
 
   const sortedUNASSIGNED = React.useMemo(() => {
-    return [...UNASSIGNED].sort((a, b) => b.gameInfo?.kills - a.gameInfo?.kills);
+    return [...UNASSIGNED].sort(
+      (a, b) => b.gameInfo?.kills - a.gameInfo?.kills,
+    );
   }, [UNASSIGNED]);
 
   return (
     <>
       <div className="playerlist-max">
         {isMinimode ? (
-          <MiniScoreboard RED={sortedRED} BLU={sortedBLU}/>
+          <MiniScoreboard RED={sortedRED} BLU={sortedBLU} />
         ) : (
-          <ScoreboardTable RED={sortedRED} BLU={sortedBLU} SPEC={sortedSPEC} UNASSIGNED={sortedUNASSIGNED} />
+          <ScoreboardTable
+            RED={sortedRED}
+            BLU={sortedBLU}
+            SPEC={sortedSPEC}
+            UNASSIGNED={sortedUNASSIGNED}
+          />
         )}
       </div>
     </>

@@ -12,7 +12,12 @@ interface ScoreboardTableProps {
   UNASSIGNED: PlayerInfo[];
 }
 
-const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) => {
+const ScoreboardTable = ({
+  BLU,
+  RED,
+  SPEC,
+  UNASSIGNED,
+}: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
   const [playerSettings, setPlayerSettings] = React.useState<
@@ -46,7 +51,11 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
 
   React.useEffect(() => {
     const fetchSelf = () => {
-      const combinedPlayers = RED?.concat(BLU ?? [], SPEC ?? [], UNASSIGNED ?? []);
+      const combinedPlayers = RED?.concat(
+        BLU ?? [],
+        SPEC ?? [],
+        UNASSIGNED ?? [],
+      );
       const self = combinedPlayers?.find((player) => player.isSelf);
       setUserSteamID(self?.steamID64 || '0');
     };
@@ -69,7 +78,11 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
       (player) => player.gameInfo.state === 'Disconnected',
     ).length;
 
-    const combinedPlayers = RED?.concat(BLU ?? [], SPEC ?? [], UNASSIGNED ?? []);
+    const combinedPlayers = RED?.concat(
+      BLU ?? [],
+      SPEC ?? [],
+      UNASSIGNED ?? [],
+    );
 
     const cheaters = combinedPlayers.filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
@@ -81,7 +94,8 @@ const ScoreboardTable = ({ BLU, RED, SPEC, UNASSIGNED}: ScoreboardTableProps) =>
         <div
           className={`text-4xl font-build mt-4 mb-3 ${teamName?.toLowerCase()}`}
         >
-          {t(teamName ?? "UNASSIGNED").toUpperCase()} ({team?.length - amountDisconnected})
+          {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
+          {team?.length - amountDisconnected})
         </div>
         <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>

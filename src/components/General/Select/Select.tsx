@@ -53,7 +53,7 @@ const Select = ({
   const toggleOpen = () => {
     if (!disabled) {
       setIsOpen(!isOpen);
-    } 
+    }
   };
 
   React.useEffect(() => {
