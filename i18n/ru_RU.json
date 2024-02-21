@@ -56,5 +56,7 @@
   "TOOLTIP_BANS_VAC": "%1% VAC бан в истории аккаунта",
   "TOOLTIP_BANS_GAME": "%1% игровых банов в истории аккаунта",
   "TOOLTIP_NEW_ACCOUNT": "Аккаунт создан %1% дней назад",
-  "TOOLTIP_FRIENDS_WITH_CHEATERS": "В списке друзей следующих читеров:"
+  "TOOLTIP_FRIENDS_WITH_CHEATERS": "В списке друзей следующих читеров:",
+  "TOOLTIP_JOINING": "Присоединяется",
+  "TOOLTIP_MEGASCATTERBOMB_REAL": "Это настоящий megascatterbomb. Приветствуйте!"
 }
