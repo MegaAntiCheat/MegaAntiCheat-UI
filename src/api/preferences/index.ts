@@ -65,6 +65,7 @@ interface PreferenceResponse {
 interface Settings {
   language: string;
   openInApp: boolean;
+  sortDisconnectedLast: boolean;
   colors: {
     You: string;
     Player: string;
@@ -82,6 +83,7 @@ export const defaultSettings: PreferenceResponse = {
   external: {
     language: 'English',
     openInApp: false,
+    sortDisconnectedLast: true,
     colors: {
       You: '#00aaaa',
       Player: 'none',

@@ -2,6 +2,7 @@ interface Settings {
   external: {
     language?: string;
     openInApp?: boolean;
+    sortDisconnectedLast?: boolean;
     colors?: {
       You: string;
       Player: string;

@@ -1,10 +1,18 @@
 import React from 'react';
-import './ScoreboardTable.css';
 
 import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
-import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
+import {
+  DEFAULT_SORT_ORDER,
+  SORTABLE_SCOREBOARD_HEADERS,
+  Sorting,
+} from '../../../constants/tableConstants';
+import { SortableTableHeader } from './SortableTableHeader';
+import { sortByFilter } from './soreboardUtils';
+
+import './ScoreboardTable.css';
+
 interface ScoreboardTableProps {
   RED: PlayerInfo[];
   BLU: PlayerInfo[];
@@ -29,6 +37,8 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     },
     openInApp: false,
   });
+  const [currentSort, updateCurrentSorting] =
+    React.useState<Sorting>(DEFAULT_SORT_ORDER);
 
   React.useEffect(() => {
     const fetchTeamColors = async () => {
@@ -71,6 +81,18 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
 
+    const getSortedPlayers = React.useCallback(
+      () =>
+        sortByFilter({
+          currentSort,
+          team,
+          playerSettings,
+        }),
+      [currentSort, team],
+    );
+
+    const sortedPlayers = getSortedPlayers();
+
     return (
       // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half ${teamColor}`}>
@@ -80,15 +102,21 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
           {teamColor} ({team?.length - amountDisconnected})
         </div>
         <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
-          <div>{t('TEAM_NAV_RATING')}</div>
-          <div>{t('TEAM_NAV_USER')}</div>
+          {SORTABLE_SCOREBOARD_HEADERS.map((header) => (
+            <SortableTableHeader
+              header={header}
+              currentSort={currentSort}
+              changeSort={(newSort: Sorting) => {
+                updateCurrentSorting(newSort);
+              }}
+            />
+          ))}
           {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
           </div> */}
-          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
         <div className={`${teamColor?.toLowerCase()}`}>
-          {team?.map((player) => (
+          {sortedPlayers?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
