@@ -58,5 +58,9 @@
   "TOOLTIP_NEW_ACCOUNT": "Account is %1% day(s) old",
   "TOOLTIP_FRIENDS_WITH_CHEATERS": "Friends with cheater(s):",
   "TOOLTIP_JOINING": "Joining",
-  "TOOLTIP_MEGASCATTERBOMB_REAL": "This is the real megascatterbomb. Say hi!"
+  "TOOLTIP_MEGASCATTERBOMB_REAL": "This is the real megascatterbomb. Say hi!",
+  "SPECTATOR": "Spectator",
+  "RED": "RED",
+  "BLU": "BLU",
+  "UNASSIGNED": "Unassigned"
 }

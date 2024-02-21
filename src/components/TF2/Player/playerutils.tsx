@@ -157,6 +157,10 @@ function buildIconList(
   const kiwi_source =
     player.gameInfo.state === 'Disconnected'
       ? './kiwi_gray.webp'
+      : player.gameInfo.team === 0
+      ? './kiwi_unassigned.webp'
+      : player.gameInfo.team === 1
+      ? './kiwi_spectator.webp'
       : player.gameInfo.team === 2
       ? './kiwi_red.webp'
       : player.gameInfo.team === 3
