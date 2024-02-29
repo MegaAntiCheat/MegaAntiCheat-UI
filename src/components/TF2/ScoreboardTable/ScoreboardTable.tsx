@@ -90,14 +90,14 @@ const ScoreboardTable = ({
 
     return (
       // Keep the classname for the popoutinfo alignment
-      <div className={`scoreboard-grid-half ${teamName}`}>
+      <div className={`scoreboard-grid-half pb-[10px] ${teamName}`}>
         <div
-          className={`text-4xl font-build mt-4 mb-3 ${teamName?.toLowerCase()}`}
+          className={`text-4xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
         >
           {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
           {team?.length - amountDisconnected})
         </div>
-        <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
+        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
           {/* <div className="hidden xs:[display:unset]">
@@ -105,7 +105,7 @@ const ScoreboardTable = ({
           </div> */}
           <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
-        <div className={`${teamName?.toLowerCase()} mb-4`}>
+        <div className={`${teamName?.toLowerCase()}`}>
           {team?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
@@ -130,9 +130,7 @@ const ScoreboardTable = ({
       <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
         <div>
           {renderTeam(BLU, 'BLU')}
-          <div className="mb-10"/>
           {renderTeam(SPEC, 'SPECTATOR')}
-          <div className="mb-10"/>
           {renderTeam(UNASSIGNED, 'UNASSIGNED')}
         </div>
         <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
@@ -149,9 +147,7 @@ const ScoreboardTable = ({
         <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
         <div>
           {renderTeam(RED, 'RED')}
-          <div className="mb-10"/>
           {renderTeam(SPEC, 'SPECTATOR')}
-          <div className="mb-10"/>
           {renderTeam(UNASSIGNED, 'UNASSIGNED')}
         </div>    
       </div>
