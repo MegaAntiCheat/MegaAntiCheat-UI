@@ -124,6 +124,40 @@ const ScoreboardTable = ({
     );
   };
 
+  // For Versus Saxton Hale (and any other gamemodes with a significant team imbalance), we want to leave one half to RED team and the other half for BLU, SPEC, and UNASSIGNED.
+  if(RED.length >= 12 && RED.length > BLU.length + SPEC.length + UNASSIGNED.length + 8) {
+    return (
+      <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+        <div>
+          {renderTeam(BLU, 'BLU')}
+          <div className="mb-10"/>
+          {renderTeam(SPEC, 'SPECTATOR')}
+          <div className="mb-10"/>
+          {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+        </div>
+        <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        {renderTeam(RED, 'RED')}        
+      </div>
+    );
+  }
+
+  // Need to do the opposite as well for zombie infection
+  if(BLU.length >= 12 && BLU.length > RED.length + SPEC.length + UNASSIGNED.length + 8) {
+    return (
+      <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+        {renderTeam(BLU, 'BLU')}
+        <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        <div>
+          {renderTeam(RED, 'RED')}
+          <div className="mb-10"/>
+          {renderTeam(SPEC, 'SPECTATOR')}
+          <div className="mb-10"/>
+          {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+        </div>    
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
       {renderTeam(BLU, 'BLU')}
