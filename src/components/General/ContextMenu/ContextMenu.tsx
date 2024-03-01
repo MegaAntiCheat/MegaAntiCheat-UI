@@ -1,7 +1,7 @@
 import React from 'react';
 import './ContextMenu.css';
 
-import { ContextMenuContext } from '../../../Context';
+import { ContextMenuContext } from '@context';
 import { ChevronRight } from 'lucide-react';
 
 const ContextMenuContent = () => {

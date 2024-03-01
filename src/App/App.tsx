@@ -10,10 +10,10 @@ import {
   Preferences,
 } from '../Pages';
 import { Modal } from '@components/General/Modal/Modal';
-import { useModal } from '../Context';
+import { useModal } from '@context';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
-import { useMinimode } from '../Context';
+import { useMinimode } from '@context';
 import { PAGES } from '../constants/menuConstants';
 
 const CantConnectModal = () => {
