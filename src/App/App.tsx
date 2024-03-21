@@ -93,6 +93,7 @@ function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
 
   const renderPage = () => {
