@@ -126,7 +126,7 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      if (modalContent) closeModal();
+      closeModal();
       return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
@@ -142,7 +142,7 @@ function App() {
     do {
       connected = await isBackendConnected();
       if (!connected) {
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait 5 seconds before retrying
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
       }
     } while (!connected);
     verifyConfigured();
@@ -162,7 +162,7 @@ function App() {
     if (useFakedata) return;
 
     verificationRoutine();
-    const intervalId = setInterval(verificationRoutine, 5000);
+    const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
       clearInterval(intervalId);
