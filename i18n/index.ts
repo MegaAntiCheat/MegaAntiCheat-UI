@@ -43,7 +43,7 @@ const t = (key: string, lang: string = currentLang) => {
   // If an entry isn't translated, it defaults to English and logs a warning
   if (translations[lang][key]) {
     return translations[lang][key];
-  } else
+  } else {
     console.warning(`No translation for ${key} in ${lang}`);
     return translations['English'][key];
   }
