@@ -79,7 +79,7 @@ const Player = ({
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
-  const disconnected = displayStatus === 'Disconnected';
+  const disconnected = displayStatus === 'Disconnected' && relevance === undefined;
 
   // Prevent text selection on click (e.g Dropdown)
   React.useEffect(() => {
@@ -188,7 +188,7 @@ const Player = ({
   return (
     <>
       <div
-        className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
+        className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm ${relevance ? 'xs:grid-cols-playerhistory' : 'xs:grid-cols-player'} hover:bg-highlight/5 ${
           showPlayerDetails ? 'expanded' : ''
         } ${className}`}
         id={`player-display-div-${player.steamID64}`}

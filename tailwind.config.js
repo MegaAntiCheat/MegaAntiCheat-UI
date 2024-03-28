@@ -15,8 +15,10 @@ module.exports = {
       },
       gridTemplateColumns: {
         player: '122px minmax(100px, 1fr) max-content minmax(0px, 60px)',
+        playerhistory: '122px minmax(100px, 1fr) max-content 115px',
         playersm: '120px minmax(100px, 1fr) 18px',
         scoreboardnav: '114px minmax(95px, 1fr) 55px',
+        scoreboardnavhistory: '114px minmax(95px, 1fr) 110px',
         scoreboardnavsm: '180px 130px',
         scoreboardgrid: '1fr 3px 1fr',
         scoreboardgridsm: '1fr',

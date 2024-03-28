@@ -86,7 +86,7 @@ const ScoreboardTable = ({
           {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
           {team?.length - amountDisconnected})
         </div>
-        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
+        <div className={`flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm ${RELEVANCE ? 'xs:grid-cols-scoreboardnavhistory' : 'xs:grid-cols-scoreboardnav'}`}>
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
           {/* <div className="hidden xs:[display:unset]">

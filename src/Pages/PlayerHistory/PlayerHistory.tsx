@@ -25,6 +25,7 @@ const PlayerHistory = () => {
       const recentDataPromise = fetchRecentPlayers();
       //const archiveDataPromise = fetchArchivedPlayers();
       setAllRecent(await recentDataPromise);
+      setFilteredRecent(await recentDataPromise)
       //setAllArchive(await archiveDataPromise);
     };
 
@@ -70,8 +71,8 @@ const PlayerHistory = () => {
       <div className="playerlist-max">
         <ScoreboardTable
           DATA = {new Map<string, PlayerInfo[]>([
-            ["RECENT", allRecent],
-            ["ARCHIVE", allArchive]
+            ["RECENT", filteredRecent],
+            ["ARCHIVE", filteredArchive]
         ])}
           RELEVANCE={new Map<string, SearchRelevance>([
             ["RECENT", recentRelevance],
@@ -132,8 +133,8 @@ function search(data: PlayerInfo[], query: string, caseSensitive: boolean): { re
         return i;
       }
     }
-    relevance.set(p.steamID64, t("SEARCH_REL_NONE"));
-    return searchPredicates.length;
+    //relevance.set(p.steamID64, t("SEARCH_REL_NONE"));
+    return -1;
   }
 
   out.sort((a, b) => {
