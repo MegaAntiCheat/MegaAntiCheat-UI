@@ -44,7 +44,7 @@ const t = (key: string, lang: string = currentLang) => {
   if (translations[lang][key]) {
     return translations[lang][key];
   } else {
-    console.warning(`No translation for ${key} in ${lang}`);
+    console.warn(`No translation for ${key} in ${lang}`);
     return translations['English'][key];
   }
 };
