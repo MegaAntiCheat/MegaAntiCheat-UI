@@ -6,17 +6,11 @@ import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
 interface ScoreboardTableProps {
-  RED: PlayerInfo[];
-  BLU: PlayerInfo[];
-  SPEC: PlayerInfo[];
-  UNASSIGNED: PlayerInfo[];
+  DATA: Map<string, PlayerInfo[]>
 }
 
 const ScoreboardTable = ({
-  BLU,
-  RED,
-  SPEC,
-  UNASSIGNED,
+  DATA
 }: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -51,11 +45,7 @@ const ScoreboardTable = ({
 
   React.useEffect(() => {
     const fetchSelf = () => {
-      const combinedPlayers = RED?.concat(
-        BLU ?? [],
-        SPEC ?? [],
-        UNASSIGNED ?? [],
-      );
+      const combinedPlayers = Array.from(DATA.values()).flat();
       const self = combinedPlayers?.find((player) => player.isSelf);
       setUserSteamID(self?.steamID64 || '0');
     };
@@ -70,7 +60,7 @@ const ScoreboardTable = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [RED, BLU, SPEC, UNASSIGNED]);
+  }, [DATA]);
 
   const renderTeam = (team: PlayerInfo[], teamName?: string) => {
     // Subtract amount of disconnected players from the actual playercount
@@ -78,11 +68,7 @@ const ScoreboardTable = ({
       (player) => player.gameInfo.state === 'Disconnected',
     ).length;
 
-    const combinedPlayers = RED?.concat(
-      BLU ?? [],
-      SPEC ?? [],
-      UNASSIGNED ?? [],
-    );
+    const combinedPlayers = Array.from(DATA.values()).flat();
 
     const cheaters = combinedPlayers.filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
@@ -126,48 +112,59 @@ const ScoreboardTable = ({
 
   // For Versus Saxton Hale (and any other gamemodes with a significant team imbalance), we want to leave one half to RED team and the other half for BLU, SPEC, and UNASSIGNED.
   if (
-    RED.length >= 12 &&
-    RED.length > BLU.length + SPEC.length + UNASSIGNED.length + 8
+    ["RED", "BLU", "SPECTATOR", "UNASSIGNED"].every(t => DATA.has(t)) &&
+    DATA.get("RED")!.length >= 12 &&
+    DATA.get("RED")!.length > DATA.get("BLU")!.length + DATA.get("SPECTATOR")!.length + DATA.get("UNASSIGNED")!.length + 8
   ) {
     return (
       <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
         <div>
-          {renderTeam(BLU, 'BLU')}
-          {renderTeam(SPEC, 'SPECTATOR')}
-          {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+          {renderTeam(DATA.get("BLU")!, "BLU")}
+          {renderTeam(DATA.get("SPECTATOR")!, "SPECTATOR")}
+          {renderTeam(DATA.get("UNASSIGNED")!, "UNASSIGNED")}
         </div>
         <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
-        {renderTeam(RED, 'RED')}
+        {renderTeam(DATA.get("RED")!, "RED")}
       </div>
     );
   }
 
   // Need to do the opposite as well for zombie infection
   if (
-    BLU.length >= 12 &&
-    BLU.length > RED.length + SPEC.length + UNASSIGNED.length + 8
+    ["RED", "BLU", "SPECTATOR", "UNASSIGNED"].every(t => DATA.has(t)) &&
+    DATA.get("BLU")!.length >= 12 &&
+    DATA.get("BLU")!.length > DATA.get("RED")!.length + DATA.get("SPECTATOR")!.length + DATA.get("UNASSIGNED")!.length + 8
   ) {
     return (
       <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
-        {renderTeam(BLU, 'BLU')}
+        {renderTeam(DATA.get("BLU")!, "BLU")}
         <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
         <div>
-          {renderTeam(RED, 'RED')}
-          {renderTeam(SPEC, 'SPECTATOR')}
-          {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+        {renderTeam(DATA.get("RED")!, "RED")}
+          {renderTeam(DATA.get("SPECTATOR")!, "SPECTATOR")}
+          {renderTeam(DATA.get("UNASSIGNED")!, "UNASSIGNED")}
         </div>
       </div>
     );
   }
 
+  let getDefaultLayout = function(data: Map<string, PlayerInfo[]>): React.JSX.Element[] {
+    let entries = Array.from(data.entries());
+    let out = [];
+    for(let i = 0; i < data.size; i++) {
+      if (i % 2 == 1) {
+        out.push(<>
+          <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        </>)
+      }
+      out.push(renderTeam(entries[i][1], entries[i][0]))
+    }
+    return out;
+  }
+
   return (
     <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
-      {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
-      {renderTeam(RED, 'RED')}
-      {renderTeam(SPEC, 'SPECTATOR')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
-      {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+      {getDefaultLayout(DATA)}
     </div>
   );
 };

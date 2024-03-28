@@ -38,6 +38,14 @@ code {
   color: antiquewhite
 }
 
+.recent {
+  color: aquamarine
+}
+
+.archive {
+  color: khaki
+}
+
 .disconnected {
   color: gray
 }

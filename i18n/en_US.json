@@ -62,5 +62,7 @@
   "SPECTATOR": "Spectator",
   "RED": "RED",
   "BLU": "BLU",
-  "UNASSIGNED": "Unassigned"
+  "UNASSIGNED": "Unassigned",
+  "RECENT": "Recent",
+  "ARCHIVE": "Archive"
 }

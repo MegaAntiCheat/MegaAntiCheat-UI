@@ -89,10 +89,12 @@ const PlayerList = () => {
           <MiniScoreboard RED={sortedRED} BLU={sortedBLU} />
         ) : (
           <ScoreboardTable
-            RED={sortedRED}
-            BLU={sortedBLU}
-            SPEC={sortedSPEC}
-            UNASSIGNED={sortedUNASSIGNED}
+            DATA = {new Map<string, PlayerInfo[]>([
+                ["RED", sortedRED],
+                ["BLU", sortedBLU],
+                ["SPECTATOR", sortedSPEC],
+                ["UNASSIGNED", sortedUNASSIGNED]
+            ])}
           />
         )}
       </div>
