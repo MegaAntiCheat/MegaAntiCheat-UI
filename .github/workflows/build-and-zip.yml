@@ -3,7 +3,7 @@ name: Build and Zip
 on:
   push:
     branches:
-      - '**'
+      - main
 
 jobs:
   build-and-zip:
