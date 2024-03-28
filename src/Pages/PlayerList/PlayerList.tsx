@@ -95,7 +95,6 @@ const PlayerList = () => {
                 ["SPECTATOR", sortedSPEC],
                 ["UNASSIGNED", sortedUNASSIGNED]
             ])}
-            LIVE={true}
           />
         )}
       </div>

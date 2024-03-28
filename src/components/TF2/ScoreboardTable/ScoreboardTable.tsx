@@ -5,14 +5,15 @@ import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
+import { SearchRelevance } from '../../../Pages/PlayerHistory/PlayerHistory';
 interface ScoreboardTableProps {
   DATA: Map<string, PlayerInfo[]>
-  LIVE: boolean
+  RELEVANCE?: Map<string, SearchRelevance> | undefined // For each team, map steam ids to search relevance
 }
 
 const ScoreboardTable = ({
   DATA,
-  LIVE
+  RELEVANCE
 }: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -64,7 +65,7 @@ const ScoreboardTable = ({
     return () => clearInterval(interval);
   }, [DATA]);
 
-  const renderTeam = (team: PlayerInfo[], teamName?: string) => {
+  const renderTeam = (team: PlayerInfo[], teamName: string) => {
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
       (player) => player.gameInfo.state === 'Disconnected',
@@ -91,8 +92,7 @@ const ScoreboardTable = ({
           {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
           </div> */}
-          {LIVE ? <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div> : undefined}
-          
+          <div className="hidden xs:[display:unset]">{t(RELEVANCE ? 'TEAM_NAV_RELEVANCE' : 'TEAM_NAV_TIME')}</div>
         </div>
         <div className={`${teamName?.toLowerCase()}`}>
           {team?.map((player) => (
@@ -105,6 +105,7 @@ const ScoreboardTable = ({
                 key={player.steamID64}
                 openInApp={playerSettings.openInApp}
                 cheatersInLobby={cheaters}
+                relevance={RELEVANCE ? (RELEVANCE?.get(teamName)?.get(player.steamID64) ?? "") : undefined}
               />
             </ContextMenuProvider>
           ))}

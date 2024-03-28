@@ -18,18 +18,21 @@ const Checkbox = ({
   onChange,
   checked,
 }: CheckboxProps) => {
-  const [, setIntChecked] = React.useState(checked);
+  const [isChecked, setIntChecked] = React.useState(checked);
+
+  React.useEffect(() => {
+  }, [isChecked])
 
   const handleClick = () => {
-    if (onChange) onChange(!checked);
+    if (onChange) onChange(!isChecked);
 
-    if (!disabled) setIntChecked(!checked);
+    if (!disabled) setIntChecked(!isChecked);
   };
 
   return (
     <label className={`checkbox-wrapper ${className}`} onClick={handleClick}>
-      <span className={`checkbox-icon ${checked ? 'checked' : ''}`}>
-        {checked ? (
+      <span className={`checkbox-icon ${isChecked ? 'checked' : ''}`}>
+        {isChecked ? (
           <CheckSquare width={26} height={26} />
         ) : (
           <Square width={26} height={26} />

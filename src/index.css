@@ -50,6 +50,9 @@ code {
   color: gray
 }
 
+.case-sensitive-checkbox {
+  color: whitesmoke
+}
 
 :root {
   --dark-background: #282c34;

@@ -31,6 +31,7 @@ interface PlayerProps {
   openInApp?: boolean;
   userSteamID?: string;
   cheatersInLobby: PlayerInfo[];
+  relevance?: string | undefined
 }
 
 const Player = ({
@@ -40,6 +41,7 @@ const Player = ({
   playerColors,
   openInApp,
   cheatersInLobby,
+  relevance
 }: PlayerProps) => {
   const isFirstRefresh = React.useRef(true);
   // Context Menu
@@ -254,12 +256,13 @@ const Player = ({
         >
           {displayStatus}
         </div> */}
+        
         <div
           className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
-            disconnected ? 'disconnected' : ''
+            (!relevance && disconnected) ? 'disconnected' : ''
           }`}
         >
-          {displayTime}
+          {relevance ?? displayTime}
         </div>
         <ContextMenu />
       </div>
