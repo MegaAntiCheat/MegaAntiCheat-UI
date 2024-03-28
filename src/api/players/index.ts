@@ -74,7 +74,7 @@ async function fetchPlayerInfos({
   }
 }
 
-async function fetchPlayerHistory(
+async function fetchRecentPlayers(
   amount: number = 100,
   startfrom: number = 0,
 ): Promise<PlayerInfo[]> {
@@ -94,4 +94,4 @@ async function fetchPlayerHistory(
   }
 }
 
-export { fetchPlayerInfos, fetchPlayerHistory, updatePlayer };
+export { fetchPlayerInfos, fetchRecentPlayers, updatePlayer };

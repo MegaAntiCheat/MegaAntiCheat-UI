@@ -7,10 +7,12 @@ import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
 interface ScoreboardTableProps {
   DATA: Map<string, PlayerInfo[]>
+  LIVE: boolean
 }
 
 const ScoreboardTable = ({
-  DATA
+  DATA,
+  LIVE
 }: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -89,7 +91,8 @@ const ScoreboardTable = ({
           {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
           </div> */}
-          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
+          {LIVE ? <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div> : undefined}
+          
         </div>
         <div className={`${teamName?.toLowerCase()}`}>
           {team?.map((player) => (

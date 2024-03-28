@@ -1,35 +1,45 @@
 import React, { useState } from 'react';
 import { t } from '@i18n';
-import { fetchPlayerHistory } from '@api/players';
+import { fetchRecentPlayers } from '@api/players';
 import { PlayerHistoryCard, ScoreboardTable } from '@components/TF2';
 import { Search, TextItem } from '@components/General';
 
 import './PlayerHistory.css';
 
 const PlayerHistory = () => {
-  const [players, setPlayers] = useState<PlayerInfo[]>([]);
-  const [recentResults, setRecentResults] = useState<PlayerInfo[]>([]);
-  const [archiveResults, setArchiveResults] = useState<PlayerInfo[]>([]);
+  const [allRecent, setAllRecent] = useState<PlayerInfo[]>([]);
+  const [filteredRecent, setFilteredRecent] = useState<PlayerInfo[]>([]);
+  const [allArchive, setAllArchive] = useState<PlayerInfo[]>([]);
+  const [filteredArchive, setFilteredArchive] = useState<PlayerInfo[]>([]);
+  const [query, setQuery] = useState<string>('');
 
   React.useEffect(() => {
     const fetchHistoryData = async () => {
-      const newData = await fetchPlayerHistory();
-      setRecentResults(newData);
-      setArchiveResults([]);
+      const recentDataPromise = fetchRecentPlayers();
+      //const archiveDataPromise = fetchArchivedPlayers();
+      setAllRecent(await recentDataPromise);
+      //setAllArchive(await archiveDataPromise);
     };
 
     fetchHistoryData();
   }, []);
 
-  const handleSearch = (query: string) => {
+  React.useEffect(() => {
     if (query.trim() === '') {
-      setRecentResults(players);
+      setFilteredRecent(allRecent);
+      setFilteredArchive(allArchive);
     } else {
-      const filteredResults = players.filter((player) =>
+      setFilteredRecent(allRecent.filter((player) =>
         player.name.toLowerCase().includes(query.toLowerCase()),
-      );
-      setRecentResults(filteredResults);
+      ));
+      setFilteredArchive(allArchive.filter((player) =>
+        player.name.toLowerCase().includes(query.toLowerCase()),
+      ));
     }
+  }, [query]);
+
+  const handleSearch = (query: string) => {
+    setQuery(query);
   };
 
   return (
@@ -42,9 +52,10 @@ const PlayerHistory = () => {
       <div className="playerlist-max">
         <ScoreboardTable
           DATA = {new Map<string, PlayerInfo[]>([
-            ["RECENT", recentResults],
-            ["ARCHIVE", archiveResults]
+            ["RECENT", filteredRecent],
+            ["ARCHIVE", filteredArchive]
         ])}
+          LIVE={false}
         />
       </div>
     </>
