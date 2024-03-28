@@ -289,7 +289,7 @@ const Preferences = () => {
                 placeholder={
                   friendsApiUsageOptions.find((o) => {
                     return o.value === settings.internal?.friendsApiUsage;
-                  })?.label ?? 'Select'
+                  })?.label ?? t('COMPONENT_SELECT')
                 }
                 options={friendsApiUsageOptions}
                 onChange={(e) => {
