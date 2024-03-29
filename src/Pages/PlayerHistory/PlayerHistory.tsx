@@ -59,7 +59,7 @@ const PlayerHistory = () => {
       <div className='flex'>
         <Search
           placeholder={t('PLAYER_SEARCH')}
-          className="ml-4 mt-3 mb-3 w-[calc(100%-400px)]"
+          className="ml-4 mt-3 mb-3 w-[calc(100%-200px)]"
           onChange={handleSearch}
         />
         <Checkbox
