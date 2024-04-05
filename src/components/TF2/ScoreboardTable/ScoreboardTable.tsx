@@ -9,22 +9,25 @@ import { SearchRelevance } from '../../../Pages/PlayerHistory/PlayerHistory';
 import { ArrowUpFromDot } from 'lucide-react';
 
 interface ScoreboardTableProps {
-  players: Map<string, Map<string, React.JSX.Element>>
+  players: Map<string, PlayerInfo[]>
   extraDataHeader: string
   columnSpacing: string
+  //TODO: eslint whatever the fuck
+  buildPlayer: (player: any) => React.JSX.Element
 }
 
 const ScoreboardTable = ({
   players,
   extraDataHeader,
-  columnSpacing
+  columnSpacing,
+  buildPlayer
 }: ScoreboardTableProps) => {
-  const renderTeam = (team: Map<string, React.JSX.Element>, teamName: string) => {
-    const teamEntries = Array.from(team.entries());
+  const renderTeam = (team: PlayerInfo[], teamName: string) => {
+
     // Subtract amount of disconnected players from the actual playercount
-    // const amountDisconnected = teamEntries.filter(
-    //   (player) => player.props.grayedOut,
-    // ).length;
+    const amountDisconnected = team.filter(
+      (player) => player.gameInfo?.state === "Disconnected"
+    ).length;
 
     return (
       // Keep the classname for the popoutinfo alignment
@@ -33,7 +36,7 @@ const ScoreboardTable = ({
           className={`text-4xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
         >
           {t(teamName).toUpperCase()} (
-          {team.size})
+          {team.length - amountDisconnected})
         </div>
         <div className={`flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnav${columnSpacing}sm xs:grid-cols-scoreboardnav${columnSpacing}`}>
           <div>{t('TEAM_NAV_RATING')}</div>
@@ -44,10 +47,10 @@ const ScoreboardTable = ({
           <div className="hidden xs:[display:unset]">{t(extraDataHeader)}</div>
         </div>
         <div className={`${teamName?.toLowerCase()}`}>
-          {teamEntries.map((e) => (
+          {team.map((p) => (
             // Provide the Context Menu Provider to the Element
-            <ContextMenuProvider key={e[0]}>
-              {e[1]}
+            <ContextMenuProvider key={p.steamID64}>
+              {buildPlayer(p)}
             </ContextMenuProvider>
           ))}
         </div>
@@ -55,7 +58,7 @@ const ScoreboardTable = ({
     );
   };
 
-  let getDefaultLayout = function(data: Map<string, Map<string, React.JSX.Element>>): React.JSX.Element[] {
+  let getDefaultLayout = function(data: Map<string, PlayerInfo[]>): React.JSX.Element[] {
     let entries = Array.from(data.entries());
     let out = [];
     for(let i = 0; i < data.size; i++) {

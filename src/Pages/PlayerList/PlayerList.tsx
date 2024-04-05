@@ -113,16 +113,10 @@ const PlayerList = () => {
   }
 
   const [sortedRED, sortedBLU, sortedSPEC, sortedUNASSIGNED] = [RED, BLU, SPEC, UNASSIGNED].map(t => {
-    return React.useMemo(() => {
-      return new Map<string, React.JSX.Element>(
-        [...t]
-        .sort(playerSort)
-        .map(p => [p.steamID64, buildPlayer(p)])
-      )
-    }, [t]);
+    return t.sort(playerSort);
   });
 
-  const players = new Map<string, Map<string, React.JSX.Element>>([
+  const players = new Map<string, PlayerInfo[]>([
       ["RED", sortedRED],
       ["BLU", sortedBLU],
       ["SPECTATOR", sortedSPEC],
@@ -142,6 +136,7 @@ const PlayerList = () => {
             players={players}
             extraDataHeader='TIME'
             columnSpacing='player'
+            buildPlayer={buildPlayer}
           />
         )}
       </div>
