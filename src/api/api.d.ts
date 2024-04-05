@@ -72,7 +72,7 @@ interface SteamFriend {
 
 interface PlayerInfo {
   name: string;
-  gameInfo: GameInfo;
+  gameInfo?: GameInfo;
   isSelf: boolean;
   tags?: string[];
   steamID64: string;
@@ -83,6 +83,13 @@ interface PlayerInfo {
   previousNames?: string[];
   friends?: SteamFriend[];
   friendsIsPublic?: boolean;
+}
+
+interface PlayerUIProperties {
+  icons: React.ReactNode[]
+  details: React.JSX.Element
+  cheaters: PlayerInfo[];
+  relevance?: string
 }
 
 interface CustomData {

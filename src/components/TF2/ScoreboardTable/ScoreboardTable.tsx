@@ -6,6 +6,9 @@ import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
 import { SearchRelevance } from '../../../Pages/PlayerHistory/PlayerHistory';
+
+type PlayerBuilder = (player: PlayerInfo, others: PlayerInfo[], colors?: Record<string, string>) => React.JSX.Element
+
 interface ScoreboardTableProps {
   DATA: Map<string, PlayerInfo[]>
   RELEVANCE?: Map<string, SearchRelevance> | undefined // For each team, map steam ids to search relevance
@@ -13,7 +16,7 @@ interface ScoreboardTableProps {
 
 const ScoreboardTable = ({
   DATA,
-  RELEVANCE
+  RELEVANCE,
 }: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -68,7 +71,7 @@ const ScoreboardTable = ({
   const renderTeam = (team: PlayerInfo[], teamName: string) => {
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
-      (player) => player.gameInfo.state === 'Disconnected',
+      (player) => player.gameInfo?.state === 'Disconnected',
     ).length;
 
     const combinedPlayers = Array.from(DATA.values()).flat();
@@ -98,15 +101,7 @@ const ScoreboardTable = ({
           {team?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
-              <Player
-                playerColors={playerSettings.colors}
-                className={teamName?.toLowerCase()}
-                player={player}
-                key={player.steamID64}
-                openInApp={playerSettings.openInApp}
-                cheatersInLobby={cheaters}
-                relevance={RELEVANCE ? (RELEVANCE?.get(teamName)?.get(player.steamID64) ?? "") : undefined}
-              />
+              {}
             </ContextMenuProvider>
           ))}
         </div>

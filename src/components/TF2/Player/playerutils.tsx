@@ -11,6 +11,8 @@ import {
   Users2,
 } from 'lucide-react';
 import { Tooltip } from '@components/General';
+import Player from './Player';
+import PlayerDetails from './LivePlayerDetails';
 
 const localVerdict = [
   {
@@ -74,10 +76,13 @@ function displayProperStatus(status: string) {
 }
 
 function displayColor(
-  playerColors: Record<string, string>,
+  playerColors: Record<string, string> | undefined,
   player: PlayerInfo,
   cheatersInLobby: PlayerInfo[],
-) {
+): string | undefined {
+  if(playerColors === undefined) {
+    return undefined;
+  }
   const ALPHA = '0.35';
   const you = player.isSelf;
   const verdict = player.localVerdict!;
@@ -153,17 +158,17 @@ function buildIconList(
     player,
     cheatersInLobby,
   );
-  const joining = player.gameInfo.state === 'Spawning';
+  const joining = player.gameInfo?.state === 'Spawning';
   const kiwi_source =
-    player.gameInfo.state === 'Disconnected'
+    player.gameInfo?.state === 'Disconnected'
       ? './kiwi_gray.webp'
-      : player.gameInfo.team === 0
+      : player.gameInfo?.team === 0
       ? './kiwi_unassigned.webp'
-      : player.gameInfo.team === 1
+      : player.gameInfo?.team === 1
       ? './kiwi_spectator.webp'
-      : player.gameInfo.team === 2
+      : player.gameInfo?.team === 2
       ? './kiwi_red.webp'
-      : player.gameInfo.team === 3
+      : player.gameInfo?.team === 3
       ? './kiwi_blue.webp'
       : './kiwi_white.webp';
 

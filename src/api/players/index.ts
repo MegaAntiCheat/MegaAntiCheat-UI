@@ -1,6 +1,7 @@
 import {
   HISTORYFETCH,
   PLAYERFETCH,
+  PLAYERRECORDFETCH,
   useFakedata,
   USER_ENDPOINT,
 } from '@api/globals';
@@ -94,4 +95,21 @@ async function fetchRecentPlayers(
   }
 }
 
-export { fetchPlayerInfos, fetchRecentPlayers, updatePlayer };
+async function fetchArchivedPlayers(): Promise<PlayerInfo[]> {
+  try {
+    if (useFakedata) return fakedata.players;
+
+    const response = await fetch(
+      `${PLAYERRECORDFETCH}`,
+    );
+
+    if (!response.ok) throw new Error('Failed to fetch player records');
+
+    return response.json();
+  } catch (e) {
+    console.error(e);
+    return emptyServerData.players;
+  }
+}
+
+export { fetchPlayerInfos, fetchRecentPlayers, fetchArchivedPlayers, updatePlayer };
