@@ -76,7 +76,7 @@ const PlayerHistory = () => {
       </div>
       <div className="playerlist-max">
         <ScoreboardTable
-        players={new Map<string, React.JSX.Element[]>()}
+        players={new Map<string, Map<string, React.JSX.Element>>()}
         extraDataHeader='RELEVANCE'
         columnSpacing='playerhistory'
         />
