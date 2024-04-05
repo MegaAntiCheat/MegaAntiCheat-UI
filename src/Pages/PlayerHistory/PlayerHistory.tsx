@@ -5,6 +5,7 @@ import { PlayerHistoryCard, ScoreboardTable } from '@components/TF2';
 import { Checkbox, Search, TextItem } from '@components/General';
 
 import './PlayerHistory.css';
+import { getAllSettings } from '@api/preferences';
 
 // Maps Steam IDs of each search result to its relevance
 export type SearchRelevance = Map<string, string>;
@@ -54,6 +55,11 @@ const PlayerHistory = () => {
     setQuery(query);
   };
 
+//   const players = new Map<string, React.JSX.Element[]>([
+//     ["RECENT", filteredRecent],
+//     ["ARCHIVE", filteredArchive]
+// ])
+
   return (
     <>
       <div className='flex'>
@@ -70,14 +76,9 @@ const PlayerHistory = () => {
       </div>
       <div className="playerlist-max">
         <ScoreboardTable
-          DATA = {new Map<string, PlayerInfo[]>([
-            ["RECENT", filteredRecent],
-            ["ARCHIVE", filteredArchive]
-        ])}
-          RELEVANCE={new Map<string, SearchRelevance>([
-            ["RECENT", recentRelevance],
-            ["ARCHIVE", archiveRelevance]
-        ])}
+        players={new Map<string, React.JSX.Element[]>()}
+        extraDataHeader='RELEVANCE'
+        columnSpacing='playerhistory'
         />
       </div>
     </>

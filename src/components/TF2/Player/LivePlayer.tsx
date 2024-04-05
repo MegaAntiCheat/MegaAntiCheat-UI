@@ -30,15 +30,14 @@ interface LivePlayerProps {
     cheatersInLobby,
     relevance
   }: LivePlayerProps) => {
-
-    const isFirstRefresh = React.useRef(true);
-
+    
     let verdict = player.localVerdict ?? "Player";
     if(player.isSelf) verdict = "Self";
     else if(player.convicted) verdict = "Convict"; 
 
     const [playtime, setPlaytime] = React.useState(-1);
     const [pfp, setPfp] = React.useState<string>('./person.webp');
+    const [firstRefresh, setFirstRefresh] = React.useState<boolean>(false);
 
     const disconnected = player.gameInfo?.state === "Disconnected";
 
@@ -76,14 +75,14 @@ interface LivePlayerProps {
     // Sync time if not yet set or out of sync (e.g. switched servers)
     React.useEffect(() => {
       if (
-        !isFirstRefresh.current &&
+        !firstRefresh &&
         Math.abs(playtime - (player.gameInfo?.time ?? playtime)) <= 3
       ) {
         return;
       }
 
       setPlaytime(player.gameInfo?.time ?? 0);
-      isFirstRefresh.current = false;
+      setFirstRefresh(false);
     }, [player.gameInfo?.time]);
 
     let note: React.JSX.Element | undefined;
@@ -160,3 +159,5 @@ interface LivePlayerProps {
     </>
     )
   }
+
+  export default LivePlayer;
