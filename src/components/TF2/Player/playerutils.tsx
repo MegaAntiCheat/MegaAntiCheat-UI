@@ -158,14 +158,14 @@ function buildIconList(
     player.gameInfo.state === 'Disconnected'
       ? './kiwi_gray.webp'
       : player.gameInfo.team === 0
-      ? './kiwi_unassigned.webp'
-      : player.gameInfo.team === 1
-      ? './kiwi_spectator.webp'
-      : player.gameInfo.team === 2
-      ? './kiwi_red.webp'
-      : player.gameInfo.team === 3
-      ? './kiwi_blue.webp'
-      : './kiwi_white.webp';
+        ? './kiwi_unassigned.webp'
+        : player.gameInfo.team === 1
+          ? './kiwi_spectator.webp'
+          : player.gameInfo.team === 2
+            ? './kiwi_red.webp'
+            : player.gameInfo.team === 3
+              ? './kiwi_blue.webp'
+              : './kiwi_white.webp';
 
   return [
     hasAlias && (
