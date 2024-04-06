@@ -127,7 +127,6 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      closeModal();
       return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
@@ -140,12 +139,15 @@ function App() {
 
   const verificationRoutine = async () => {
     let connected = false;
+    let dead = false;
     do {
       connected = await isBackendConnected();
       if (!connected) {
+        dead = true;
         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
       }
     } while (!connected);
+    if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
     verifyConfigured();
   };
 
