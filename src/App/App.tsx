@@ -147,7 +147,7 @@ function App() {
         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
       }
     } while (!connected);
-    if(dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
+    if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
     verifyConfigured();
   };
 
