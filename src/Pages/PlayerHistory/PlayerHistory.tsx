@@ -55,7 +55,7 @@ const PlayerHistory = () => {
 
     if(query.trim() !== '') {
       newRecent = search(newRecent, query, caseSensitive);
-      newArchive = search(newRecent, query, caseSensitive);
+      newArchive = search(newArchive, query, caseSensitive);
     } else {
       newRecent.sort(defaultSort);
       newArchive.sort(defaultSort);
@@ -95,7 +95,7 @@ type SearchFunction = {f: (p: ArchivePlayerInfo) => boolean, note: string};
 // Filters, sorts, and appends the "relevance" property to the player info.
 function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean): ArchivePlayerInfo[] {
   let out = [...data]; // Avoid modifying input as it's part of a useState
-  let relevance = new Map<string, string>();
+  let relevance = new Map<string, {value: number, note: string}>();
   const lQuery = query.toLowerCase();
 
   // All the predicates for searching via text query.
@@ -135,7 +135,7 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
   const getRelevance = function (p: ArchivePlayerInfo): number {
     for(let i = 0; i < searchPredicates.length; i++) {
       if(searchPredicates[i].f(p)) {
-        relevance.set(p.steamID64, t(searchPredicates[i].note));
+        relevance.set(p.steamID64, {value: i, note: t(searchPredicates[i].note)});
         return i;
       }
     }
@@ -143,14 +143,16 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
     return -1;
   }
 
+  out.forEach(p => getRelevance(p));
+
   return out
     .filter((p) => relevance.has(p.steamID64))
     .sort((a, b) => {
-      return getRelevance(a) - getRelevance(b);
+      return relevance.get(a.steamID64)!.value - relevance.get(b.steamID64)!.value;
     })
     .map(p => {
       return {
-        searchRelevance: relevance.get(p.steamID64),
+        searchRelevance: relevance.get(p.steamID64)?.note,
         ...p
       };
     })
