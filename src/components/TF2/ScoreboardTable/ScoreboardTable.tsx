@@ -8,9 +8,16 @@ import { ContextMenuProvider } from '@context';
 interface ScoreboardTableProps {
   RED: PlayerInfo[];
   BLU: PlayerInfo[];
+  SPEC: PlayerInfo[];
+  UNASSIGNED: PlayerInfo[];
 }
 
-const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
+const ScoreboardTable = ({
+  BLU,
+  RED,
+  SPEC,
+  UNASSIGNED,
+}: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
   const [playerSettings, setPlayerSettings] = React.useState<
@@ -44,7 +51,11 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
 
   React.useEffect(() => {
     const fetchSelf = () => {
-      const combinedPlayers = RED?.concat(BLU ?? []);
+      const combinedPlayers = RED?.concat(
+        BLU ?? [],
+        SPEC ?? [],
+        UNASSIGNED ?? [],
+      );
       const self = combinedPlayers?.find((player) => player.isSelf);
       setUserSteamID(self?.steamID64 || '0');
     };
@@ -59,27 +70,34 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [RED, BLU]);
+  }, [RED, BLU, SPEC, UNASSIGNED]);
 
-  const renderTeam = (team: PlayerInfo[], teamColor?: string) => {
+  const renderTeam = (team: PlayerInfo[], teamName?: string) => {
     // Subtract amount of disconnected players from the actual playercount
     const amountDisconnected = team?.filter(
       (player) => player.gameInfo.state === 'Disconnected',
     ).length;
 
-    const cheaters = RED.concat(BLU).filter(
+    const combinedPlayers = RED?.concat(
+      BLU ?? [],
+      SPEC ?? [],
+      UNASSIGNED ?? [],
+    );
+
+    const cheaters = combinedPlayers.filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
 
     return (
       // Keep the classname for the popoutinfo alignment
-      <div className={`scoreboard-grid-half ${teamColor}`}>
+      <div className={`scoreboard-grid-half pb-[10px] ${teamName}`}>
         <div
-          className={`text-4xl font-build mt-3 mb-9 ${teamColor?.toLowerCase()}`}
+          className={`text-4xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
         >
-          {teamColor} ({team?.length - amountDisconnected})
+          {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
+          {team?.length - amountDisconnected})
         </div>
-        <div className="flex-1 ml-5 mb-5 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
+        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
           {/* <div className="hidden xs:[display:unset]">
@@ -87,13 +105,13 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
           </div> */}
           <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
-        <div className={`${teamColor?.toLowerCase()}`}>
+        <div className={`${teamName?.toLowerCase()}`}>
           {team?.map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
                 playerColors={playerSettings.colors}
-                className={teamColor?.toLowerCase()}
+                className={teamName?.toLowerCase()}
                 player={player}
                 key={player.steamID64}
                 openInApp={playerSettings.openInApp}
@@ -106,11 +124,50 @@ const ScoreboardTable = ({ BLU, RED }: ScoreboardTableProps) => {
     );
   };
 
+  // For Versus Saxton Hale (and any other gamemodes with a significant team imbalance), we want to leave one half to RED team and the other half for BLU, SPEC, and UNASSIGNED.
+  if (
+    RED.length >= 12 &&
+    RED.length > BLU.length + SPEC.length + UNASSIGNED.length + 8
+  ) {
+    return (
+      <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+        <div>
+          {renderTeam(BLU, 'BLU')}
+          {renderTeam(SPEC, 'SPECTATOR')}
+          {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+        </div>
+        <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        {renderTeam(RED, 'RED')}
+      </div>
+    );
+  }
+
+  // Need to do the opposite as well for zombie infection
+  if (
+    BLU.length >= 12 &&
+    BLU.length > RED.length + SPEC.length + UNASSIGNED.length + 8
+  ) {
+    return (
+      <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+        {renderTeam(BLU, 'BLU')}
+        <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        <div>
+          {renderTeam(RED, 'RED')}
+          {renderTeam(SPEC, 'SPECTATOR')}
+          {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid text-center h-screen overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
       {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider hidden sm:[display:unset] h-5/6 bg-highlight/10 w-[1px] mt-9" />
+      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
       {renderTeam(RED, 'RED')}
+      {renderTeam(SPEC, 'SPECTATOR')}
+      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+      {renderTeam(UNASSIGNED, 'UNASSIGNED')}
     </div>
   );
 };

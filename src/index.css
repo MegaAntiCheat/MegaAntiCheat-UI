@@ -30,6 +30,18 @@ code {
   color: skyblue;
 }
 
+.spectator {
+  color: lightcyan
+}
+
+.unassigned {
+  color: antiquewhite
+}
+
+.disconnected {
+  color: gray
+}
+
 
 :root {
   --dark-background: #282c34;
