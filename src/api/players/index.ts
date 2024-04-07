@@ -78,9 +78,9 @@ async function fetchPlayerInfos({
 async function fetchRecentPlayers(
   amount: number = 100,
   startfrom: number = 0,
-): Promise<PlayerInfo[]> {
+): Promise<ArchivePlayerInfo[]> {
   try {
-    if (useFakedata) return fakedata.players;
+    if (useFakedata) [];
 
     const response = await fetch(
       `${HISTORYFETCH}?from=${startfrom}&to=${startfrom + amount}`,
@@ -91,13 +91,13 @@ async function fetchRecentPlayers(
     return response.json();
   } catch (e) {
     console.error(e);
-    return emptyServerData.players;
+    return [];
   }
 }
 
-async function fetchArchivedPlayers(): Promise<PlayerInfo[]> {
+async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
   try {
-    if (useFakedata) return fakedata.players;
+    if (useFakedata) return [];
 
     const response = await fetch(
       `${PLAYERRECORDFETCH}`,
@@ -108,7 +108,7 @@ async function fetchArchivedPlayers(): Promise<PlayerInfo[]> {
     return response.json();
   } catch (e) {
     console.error(e);
-    return emptyServerData.players;
+    return [];
   }
 }
 export { fetchPlayerInfos, fetchRecentPlayers, fetchArchivedPlayers, updatePlayer };
