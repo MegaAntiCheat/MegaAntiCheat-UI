@@ -5,6 +5,7 @@ export const APIURL = `http://localhost:${port}/mac`;
 export const SERVERFETCH = `${APIURL}/game/v1`;
 export const PLAYERFETCH = `${APIURL}/user/v1`;
 export const HISTORYFETCH = `${APIURL}/history/v1`;
+export const PLAYERRECORDFETCH = `${APIURL}/playerlist/v1`;
 export const PREF_ENDPOINT = `${APIURL}/pref/v1`;
 export const USER_ENDPOINT = `${APIURL}/user/v1`;
 export const COMMAND_ENDPOINT = `${APIURL}/commands/v1`;
