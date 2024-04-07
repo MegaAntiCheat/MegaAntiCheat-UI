@@ -115,7 +115,7 @@ const ArchiveTable = ({
     <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
       {renderTeam(RECENT, 'RECENT')}
       <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
-      {renderTeam(ARCHIVE, 'RED')}
+      {renderTeam(ARCHIVE, 'ARCHIVE')}
     </div>
   );
 };
