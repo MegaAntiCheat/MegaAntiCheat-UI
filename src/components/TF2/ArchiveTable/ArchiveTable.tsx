@@ -1,5 +1,5 @@
 import React from 'react';
-import './ScoreboardTable.css';
+import './ArchiveTable.css';
 
 import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMinimode } from '@context';
 import { MiniScoreboard, ScoreboardTable } from '@components/TF2';
-import './PlayerList.css';
+import './PlayerHistory.css';
 import ArchiveTable from '@components/TF2/ArchiveTable/ArchiveTable';
 import { fetchArchivedPlayers, fetchRecentPlayers } from '@api/players';
 import { t } from '@i18n';
