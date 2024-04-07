@@ -5,6 +5,8 @@ import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
   LogIn,
+  RefreshCcw,
+  RotateCw,
   ScrollText,
   ShieldAlert,
   Star,
@@ -75,7 +77,7 @@ function displayProperStatus(status: string) {
 
 function displayColor<T extends PlayerInfo | ArchivePlayerInfo>(
   playerColors: Record<string, string>,
-  player: PlayerInfo,
+  player: T,
   cheatersInLobby: T[],
 ) {
   const ALPHA = '0.35';
@@ -102,7 +104,7 @@ function displayColor<T extends PlayerInfo | ArchivePlayerInfo>(
 }
 
 function getCheaterFriendsInLobby<T extends PlayerInfo | ArchivePlayerInfo>(
-  player: PlayerInfo,
+  player: T,
   cheatersInLobby: T[],
 ): T[] {
   return cheatersInLobby.filter(
@@ -111,7 +113,7 @@ function getCheaterFriendsInLobby<T extends PlayerInfo | ArchivePlayerInfo>(
 }
 
 function hasCheaterFriendsInLobby<T extends PlayerInfo | ArchivePlayerInfo>(
-  player: PlayerInfo,
+  player: T,
   cheatersInLobby: T[],
 ): boolean {
   return cheatersInLobby.some(
@@ -119,7 +121,7 @@ function hasCheaterFriendsInLobby<T extends PlayerInfo | ArchivePlayerInfo>(
   );
 }
 
-function displayNamesList(player: PlayerInfo): string {
+function displayNamesList(player: PlayerInfo | ArchivePlayerInfo): string {
   let nameList = '';
 
   if (player.previousNames?.length)
@@ -267,9 +269,9 @@ function buildIconList<T extends PlayerInfo | ArchivePlayerInfo>(
   ];
 }
 
-function buildIconListFromArchive<T extends PlayerInfo | ArchivePlayerInfo>(
-  player: PlayerInfo,
-  cheatersInLobby: PlayerInfo[],
+function buildIconListFromArchive(
+  player: ArchivePlayerInfo,
+  cheatersInLobby: ArchivePlayerInfo[],
 ): React.ReactNode[] {
   const now = Date.now() / 1000;
   const hasAlias = !!player.customData?.alias;
@@ -283,6 +285,7 @@ function buildIconListFromArchive<T extends PlayerInfo | ArchivePlayerInfo>(
     player,
     cheatersInLobby,
   );
+  const stale = false; // TODO: add detections for stale data.
 
   const kiwi_source = './kiwi_white.webp';
 
@@ -372,9 +375,18 @@ function buildIconListFromArchive<T extends PlayerInfo | ArchivePlayerInfo>(
         <Users2 width={18} height={18} />
       </Tooltip>
     ),
-    // Add an icon if the data on this account is potentially stale.
+    // Add a refresh icon if the data on this account is potentially stale.
     stale && (
-      <ToolTip/>
+      <Tooltip
+        key="stale"
+        className="mr-1"
+        direction="left"
+        content={
+          `${t('DATA_LAST_RETRIEVED')} insert_date_here\nClick to refresh`
+        }
+      >
+        <RefreshCcw width={18} height={18}/>
+      </Tooltip>
     ),
   ];
 }
@@ -388,4 +400,5 @@ export {
   calculateKD,
   displayNamesList,
   buildIconList,
+  buildIconListFromArchive
 };

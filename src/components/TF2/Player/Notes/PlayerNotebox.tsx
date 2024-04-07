@@ -36,7 +36,7 @@ function SentStatusIcon({ status }: StatusIconProps) {
 }
 
 interface PlayerNoteBoxProps {
-  player: PlayerInfo;
+  player: PlayerInfo | ArchivePlayerInfo;
 }
 
 const PlayerNotebox = ({ player }: PlayerNoteBoxProps) => {

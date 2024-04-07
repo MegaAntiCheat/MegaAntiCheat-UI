@@ -7,6 +7,7 @@ import { ContextMenu, Select, Tooltip } from '@components/General';
 import { ContextMenuContext, MenuItem } from '../../../Context';
 import {
   buildIconList,
+  buildIconListFromArchive,
   displayColor,
   displayNamesList,
   displayProperStatus,
@@ -21,6 +22,7 @@ import { kickPlayer } from '@api/commands';
 import { Info } from 'lucide-react';
 import { useModal } from '../../../Context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
+import ArchivePlayerDetails from './ArchivePlayerDetails';
 
 interface ArchivePlayerProps {
   player: ArchivePlayerInfo;
@@ -61,8 +63,6 @@ const ArchivePlayer = ({
   const displayVerdict = player.isSelf
     ? t('YOU')
     : localizeVerdict(player.localVerdict);
-  const displayTime = formatTimeToString(playtime);
-  const displayStatus = displayProperStatus(player.gameInfo!.state!);
   const displayName = player.customData?.alias || player.name;
 
   // const color = displayColor(playerColors!, player, cheatersInLobby);
@@ -76,8 +76,6 @@ const ArchivePlayer = ({
   }, [player.localVerdict, playerColors, player, cheatersInLobby]);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
-
-  const disconnected = displayStatus === 'Disconnected';
 
   // Prevent text selection on click (e.g Dropdown)
   React.useEffect(() => {
@@ -133,30 +131,6 @@ const ArchivePlayer = ({
       },
     ];
 
-    if (!disconnected) {
-      menuItems.push({
-        label: 'Votekick Player',
-        multiOptions: [
-          {
-            label: 'Cheating',
-            onClick: () => kickPlayer(player.gameInfo.userid, 'cheating'),
-          },
-          {
-            label: 'Scamming',
-            onClick: () => kickPlayer(player.gameInfo.userid, 'scamming'),
-          },
-          {
-            label: 'Idle',
-            onClick: () => kickPlayer(player.gameInfo.userid, 'idle'),
-          },
-          {
-            label: 'No Reason',
-            onClick: () => kickPlayer(player.gameInfo.userid, 'none'),
-          },
-        ],
-      });
-    }
-
     showMenu(event, menuItems);
   };
 
@@ -197,12 +171,10 @@ const ArchivePlayer = ({
               src={pfp}
               alt="Profile"
               onLoad={onImageLoad}
-              style={{ filter: disconnected ? 'grayscale(100%)' : 'inherit' }}
+              style={{ filter: 'inherit' }}
             />
             <div
-              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none ${
-                disconnected ? 'disconnected' : ''
-              }`}
+              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none`}
             >
               {displayName}
             </div>
@@ -218,11 +190,9 @@ const ArchivePlayer = ({
           </div>
         </div>
         <div
-          className={`flex flex-wrap justify-center bottom-[1px] relative ml-1 ${
-            disconnected ? 'disconnected' : ''
-          }`}
+          className={`flex flex-wrap justify-center bottom-[1px] relative ml-1`}
         >
-          {buildIconList(player, cheatersInLobby)}
+          {buildIconListFromArchive(player, cheatersInLobby)}
         </div>
         {/* <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
@@ -232,11 +202,9 @@ const ArchivePlayer = ({
           {displayStatus}
         </div> */}
         <div
-          className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
-            disconnected ? 'disconnected' : ''
-          }`}
+          className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap`}
         >
-          {displayTime}
+          {player.searchRelevance}
         </div>
         <ContextMenu />
       </div>
@@ -244,7 +212,7 @@ const ArchivePlayer = ({
         {showPlayerDetails && (
           <>
             <div className="bg-highlight/40 h-[1px]" />
-            <PlayerDetails player={player} bgColor={color} />
+            <ArchivePlayerDetails player={player} bgColor={color} />
           </>
         )}
       </div>
