@@ -83,6 +83,7 @@ const PlayerHistory = () => {
           <ArchiveTable
             RECENT={RECENT}
             ARCHIVE={ARCHIVE}
+            query={query}
           />
         
       </div>

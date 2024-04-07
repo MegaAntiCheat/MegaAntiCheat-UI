@@ -11,11 +11,13 @@ import ArchivePlayer from '../Player/ArchivePlayer';
 interface ArchiveTableProps {
   RECENT: ArchivePlayerInfo[];
   ARCHIVE: ArchivePlayerInfo[];
+  query: string
 }
 
 const ArchiveTable = ({
   RECENT,
-  ARCHIVE
+  ARCHIVE,
+  query
 }: ArchiveTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -83,9 +85,10 @@ const ArchiveTable = ({
     const totalPages = Math.ceil(team.length / maxPerPage); 
 
     const [page, setPage] = React.useState<number>(1);
+    
     React.useEffect(() => {
       setPage(1);
-    }, [team]);
+    }, [query]);
 
     return (
       // Keep the classname for the popoutinfo alignment

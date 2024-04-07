@@ -15,14 +15,15 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
   };
 
   return (
-    <div>
+    <div className='flex justify-center'>
       {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
         <button
           key={page}
           disabled={page === selectedPage}
           onClick={() => handlePageChange(page)}
+          className={`p-2 ${page === selectedPage ? 'bg-white text-black' : ''}`}
         >
-          {page + ''}
+          {page + ' '}
         </button>
       ))}
     </div>
