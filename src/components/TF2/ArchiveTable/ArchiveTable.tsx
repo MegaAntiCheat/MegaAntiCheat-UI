@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import './ArchiveTable.css';
 
 import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
+import PageSelector from '@components/General/PageSelector/PageSelector';
 import ArchivePlayer from '../Player/ArchivePlayer';
+
 interface ArchiveTableProps {
   RECENT: ArchivePlayerInfo[];
   ARCHIVE: ArchivePlayerInfo[];
@@ -69,11 +71,21 @@ const ArchiveTable = ({
 
   const renderTeam = (team: ArchivePlayerInfo[], teamName?: string) => {
 
+    const usePages = teamName === 'ARCHIVE';
     const combinedPlayers = RECENT.concat(ARCHIVE);
+
+    const maxPerPage = 200;
 
     const cheaters = ARCHIVE.filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
+
+    const totalPages = Math.ceil(team.length / maxPerPage); 
+
+    const [page, setPage] = React.useState<number>(1);
+    React.useEffect(() => {
+      setPage(1);
+    }, [team]);
 
     return (
       // Keep the classname for the popoutinfo alignment
@@ -84,6 +96,15 @@ const ArchiveTable = ({
           {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
           {team?.length})
         </div>
+        <div
+          className={`text-xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
+        >
+          {usePages && totalPages > 1 && (<PageSelector
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />)}
+        </div>
         <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
@@ -93,7 +114,10 @@ const ArchiveTable = ({
           <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
         </div>
         <div className={`${teamName?.toLowerCase()}`}>
-          {team?.map((player) => (
+          {team.filter((v, i) => {
+            return i >= ( (page-1) * maxPerPage) && i < (page * maxPerPage)
+          })
+          .map((player) => (
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <ArchivePlayer
@@ -112,7 +136,7 @@ const ArchiveTable = ({
   };
 
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-[calc(100vh-56px)] overflow-x-hidden">
       {renderTeam(RECENT, 'RECENT')}
       <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
       {renderTeam(ARCHIVE, 'ARCHIVE')}
