@@ -27,7 +27,6 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
 
   const getButtonsToDisplay = (page: number): number[] => {
     let numbersToDisplay = Math.floor(width / widthOfButtons) - 2;
-    console.log(numbersToDisplay);
     if(numbersToDisplay % 2 === 0) numbersToDisplay++;
 
     if (numbersToDisplay >= totalPages + 2) {
