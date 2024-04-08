@@ -31,7 +31,6 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
     if(numbersToDisplay % 2 === 0) numbersToDisplay++;
 
     if (numbersToDisplay >= totalPages + 2) {
-      console.log(`Displaying all ${numbersToDisplay} numbers`)
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
@@ -64,7 +63,6 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
 
   React.useEffect(() => {
     if (containerRef.current) {
-      console.log('Element width:', containerRef.current.offsetWidth);
       setWidth(containerRef.current.offsetWidth);
     }
   }, []);
