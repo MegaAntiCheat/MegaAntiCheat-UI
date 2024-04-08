@@ -249,7 +249,7 @@ function buildIconList<T extends PlayerInfo | ArchivePlayerInfo>(
         className="mr-1"
         direction="left"
         content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
-          .map((cf) => cf.name)
+          .map((cf) => cf.name || cf.steamID64)
           .join('\n')}`}
       >
         <Users2 width={18} height={18} />
@@ -369,7 +369,7 @@ function buildIconListFromArchive(
         className="mr-1"
         direction="left"
         content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
-          .map((cf) => cf.name)
+          .map((cf) => cf.name || cf.steamID64)
           .join('\n')}`}
       >
         <Users2 width={18} height={18} />
