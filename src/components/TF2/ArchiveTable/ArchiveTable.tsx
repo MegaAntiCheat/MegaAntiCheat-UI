@@ -76,7 +76,7 @@ const ArchiveTable = ({
     const usePages = teamName === 'ARCHIVE';
     const combinedPlayers = RECENT.concat(ARCHIVE);
 
-    const maxPerPage = 200;
+    const maxPerPage = 100;
 
     const cheaters = ARCHIVE.filter(
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
