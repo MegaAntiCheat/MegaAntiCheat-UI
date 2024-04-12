@@ -287,11 +287,9 @@ function buildIconListFromArchive(
   );
 
   let stale = false;
-  const modifiedDate = player.modified ? new Date(player.modified) : player.modified;
 
   const fetchedDate = player.steamInfo?.fetched ? new Date(player.steamInfo?.fetched) : null;
-
-  if(!fetchedDate || Date.now() - (fetchedDate.getUTCMilliseconds()) > (24 * 60 * 60 * 1000)) {
+  if(!fetchedDate || (Date.now() - fetchedDate.valueOf()) > (24 * 60 * 60 * 1000)) {
     stale = true;
   }
 
