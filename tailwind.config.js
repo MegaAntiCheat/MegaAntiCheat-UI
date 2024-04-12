@@ -29,6 +29,9 @@ module.exports = {
       fontFamily: {
         build: ['"Build"', 'sans-serif'],
       },
+      minWidth: {
+        pageselectorbutton: '40px'
+      }
     },
     screens: {
       xs: '475px',

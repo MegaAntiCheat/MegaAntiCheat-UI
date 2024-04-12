@@ -73,7 +73,6 @@ const ArchiveTable = ({
 
   const renderTeam = (team: ArchivePlayerInfo[], teamName?: string) => {
 
-    const usePages = teamName === 'ARCHIVE';
     const combinedPlayers = RECENT.concat(ARCHIVE);
 
     const maxPerPage = 100;
@@ -83,6 +82,7 @@ const ArchiveTable = ({
     );
 
     const totalPages = Math.ceil(team.length / maxPerPage); 
+    const usePages = true;
 
     const [page, setPage] = React.useState<number>(1);
     
@@ -102,7 +102,7 @@ const ArchiveTable = ({
         <div
           className={`text-xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
         >
-          {usePages && totalPages > 1 && (<PageSelector
+          {usePages && (<PageSelector
             currentPage={page}
             totalPages={totalPages}
             onPageChange={setPage}

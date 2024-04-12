@@ -8,6 +8,9 @@ interface PageSelectorProps {
 }
 
 const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, onPageChange }) => {
+
+  if(totalPages === 0) totalPages = 1;
+
   const [selectedPage, setSelectedPage] = React.useState(currentPage);
   const [width, setWidth] = React.useState(-1);
 
@@ -26,6 +29,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
   const widthOfButtons = 40;
 
   const getButtonsToDisplay = (page: number): number[] => {
+
     let numbersToDisplay = Math.floor(width / widthOfButtons) - 2;
     if(numbersToDisplay % 2 === 0) numbersToDisplay++;
 
@@ -58,23 +62,28 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
     return Array.from(pages);
   }
 
-  const containerRef = React.useRef<HTMLDivElement>(null);
-
   React.useEffect(() => {
-    if (containerRef.current) {
-      setWidth(containerRef.current.offsetWidth);
+    function handleResize() {
+      if(window.innerWidth < 1024) { // lg
+        setWidth((window.innerWidth - 100));
+      } else {
+        setWidth((window.innerWidth - 50) / 2);
+      }
     }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const buttonsToDisplay = getButtonsToDisplay(currentPage);
 
   return (
-    <div ref={containerRef} className='flex justify-center'>
+    <div className='flex justify-center'>
       <button
         key={"prev"}
         disabled={selectedPage === 1}
         onClick={() => handlePageChange("prev")}
-        className={`min-w-[${widthOfButtons}px] p-2 ${selectedPage === 1 ? 'text-black' : ''}`}
+        className={`min-w-pageselectorbutton p-2 ${selectedPage === 1 ? 'text-black' : ''}`}
       >
         {'<'}
       </button>
@@ -84,7 +93,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
             key={page}
             disabled={page === selectedPage}
             onClick={() => handlePageChange(page)}
-            className={`min-w-[${widthOfButtons}px] p-2 ${page === selectedPage ? 'bg-white text-black' : ''}`}
+            className={`min-w-pageselectorbutton p-2 ${page === selectedPage ? 'bg-white text-black' : ''}`}
           >
             {page + ' '}
           </button>
@@ -94,7 +103,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ totalPages, currentPage, on
         key={"next"}
         disabled={selectedPage === totalPages}
         onClick={() => handlePageChange("next")}
-        className={`min-w-[${widthOfButtons}px] p-2 ${selectedPage === totalPages ? 'text-black' : ''}`}
+        className={`min-w-pageselectorbutton p-2 ${selectedPage === totalPages ? 'text-black' : ''}`}
       >
         {'>'}
       </button>
