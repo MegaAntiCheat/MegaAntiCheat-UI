@@ -285,7 +285,15 @@ function buildIconListFromArchive(
     player,
     cheatersInLobby,
   );
-  const stale = false; // TODO: add detections for stale data.
+
+  let stale = false;
+  const modifiedDate = player.modified ? new Date(player.modified) : player.modified;
+
+  const fetchedDate = player.steamInfo?.fetched ? new Date(player.steamInfo?.fetched) : null;
+
+  if(!fetchedDate || Date.now() - (fetchedDate.getUTCMilliseconds()) > (24 * 60 * 60 * 1000)) {
+    stale = true;
+  }
 
   const kiwi_source = './kiwi_white.webp';
 
@@ -381,11 +389,12 @@ function buildIconListFromArchive(
         key="stale"
         className="mr-1"
         direction="left"
-        content={
-          `${t('DATA_LAST_RETRIEVED')} insert_date_here\nClick to refresh`
+        content={fetchedDate ? 
+          `${t('DATA_LAST_RETRIEVED')} ${fetchedDate?.toLocaleDateString()}\n${t(`CLICK_TO_REFRESH`)}` :
+          `${t('NO_DATA')}\n${t('CLICK_TO_COLLECT_DATA')}`
         }
       >
-        <RefreshCcw width={18} height={18}/>
+        <RotateCw width={18} height={18}/>
       </Tooltip>
     ),
   ];

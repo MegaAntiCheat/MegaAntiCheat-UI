@@ -63,6 +63,7 @@ interface SteamInfo {
   vacBans?: number;
   gameBans?: number;
   daysSinceLastBan?: null | number;
+  fetched?: number
 }
 
 interface SteamFriend {
@@ -98,6 +99,9 @@ interface ArchivePlayerInfo {
   friends: SteamFriend[];
   friendsIsPublic?: boolean;
   searchRelevance?: string;
+  modified?: string;
+  created?: string;
+  lastSeen?: string;
 }
 
 interface CustomData {

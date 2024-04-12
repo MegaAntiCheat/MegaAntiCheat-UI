@@ -76,7 +76,7 @@ async function fetchPlayerInfos({
 }
 
 async function fetchRecentPlayers(
-  amount: number = 100,
+  amount: number = Number.MAX_SAFE_INTEGER,
   startfrom: number = 0,
 ): Promise<ArchivePlayerInfo[]> {
   try {
