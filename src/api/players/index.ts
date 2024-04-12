@@ -75,6 +75,31 @@ async function fetchPlayerInfos({
   }
 }
 
+async function updateSteamInfo(
+  steamIDs: string[]
+): Promise<PlayerInfo[]> {
+  try {
+    if (useFakedata) return [];
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ users: steamIDs }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response = await fetch(USER_ENDPOINT, options);
+
+    if (!response.ok) throw new Error('Failed to fetch player history');
+
+    return response.json();
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}
+
 async function fetchRecentPlayers(
   amount: number = Number.MAX_SAFE_INTEGER,
   startfrom: number = 0,
@@ -111,4 +136,4 @@ async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
     return [];
   }
 }
-export { fetchPlayerInfos, fetchRecentPlayers, fetchArchivedPlayers, updatePlayer };
+export { fetchPlayerInfos, fetchRecentPlayers, fetchArchivedPlayers, updatePlayer, updateSteamInfo };

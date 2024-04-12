@@ -2,7 +2,7 @@ import React from 'react';
 import './Player.css';
 
 import { t } from '@i18n';
-import { updatePlayer } from '@api/players';
+import { updatePlayer, updateSteamInfo } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
 import { ContextMenuContext, MenuItem } from '../../../Context';
 import {
@@ -43,7 +43,6 @@ const ArchivePlayer = ({
   openInApp,
   cheatersInLobby,
 }: ArchivePlayerProps) => {
-  const isFirstRefresh = React.useRef(true);
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
 
@@ -51,7 +50,6 @@ const ArchivePlayer = ({
   const { openModal } = useModal();
 
   // States
-  const [playtime, setPlaytime] = React.useState(0);
   const [pfp, setPfp] = React.useState<string>('./person.webp');
   const [showPlayerDetails, setShowPlayerDetails] = React.useState(false);
 
@@ -128,6 +126,12 @@ const ArchivePlayer = ({
           openModal(<ChangeAliasModal steamID64={player.steamID64} name={player.customData.alias ?? player.name}/>, {
             dismissable: true,
           }),
+      },
+      {
+        label: 'Refresh Data',
+        onClick: () => {
+          updateSteamInfo([player.steamID64]);
+        }
       },
     ];
 

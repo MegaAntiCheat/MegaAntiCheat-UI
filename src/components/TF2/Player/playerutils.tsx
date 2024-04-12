@@ -13,6 +13,7 @@ import {
   Users2,
 } from 'lucide-react';
 import { Tooltip } from '@components/General';
+import { updateSteamInfo } from '@api/players';
 
 const localVerdict = [
   {
@@ -392,7 +393,10 @@ function buildIconListFromArchive(
           `${t('NO_DATA')}\n${t('CLICK_TO_COLLECT_DATA')}`
         }
       >
-        <RotateCw width={18} height={18}/>
+        <RotateCw onClick={(event) => {
+          event.preventDefault();
+          updateSteamInfo([player.steamID64]);
+        }} width={18} height={18}/>
       </Tooltip>
     ),
   ];
