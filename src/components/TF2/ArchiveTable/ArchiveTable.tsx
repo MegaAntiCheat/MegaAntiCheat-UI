@@ -11,13 +11,15 @@ import ArchivePlayer from '../Player/ArchivePlayer';
 interface ArchiveTableProps {
   RECENT: ArchivePlayerInfo[];
   ARCHIVE: ArchivePlayerInfo[];
-  query: string
+  query: string,
+  refresh: [string[], React.Dispatch<React.SetStateAction<string[]>>]
 }
 
 const ArchiveTable = ({
   RECENT,
   ARCHIVE,
-  query
+  query,
+  refresh
 }: ArchiveTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -130,6 +132,14 @@ const ArchiveTable = ({
                 key={player.steamID64}
                 openInApp={playerSettings.openInApp}
                 cheatersInLobby={cheaters}
+                isRefreshing={refresh[0].includes(player.steamID64)}
+                setRefreshing={(b : boolean) => {
+                  if(b) {
+                    refresh[1](refresh[0].concat(player.steamID64));
+                  } else {
+                    refresh[1](refresh[0].filter(id => id !== player.steamID64));
+                  }
+                }}
               />
             </ContextMenuProvider>
           ))}

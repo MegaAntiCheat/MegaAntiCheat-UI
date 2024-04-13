@@ -273,6 +273,8 @@ function buildIconList<T extends PlayerInfo | ArchivePlayerInfo>(
 function buildIconListFromArchive(
   player: ArchivePlayerInfo,
   cheatersInLobby: ArchivePlayerInfo[],
+  isRefreshing: boolean,
+  setRefreshing: (b: boolean) => void
 ): React.ReactNode[] {
   const now = Date.now() / 1000;
   const hasAlias = !!player.customData?.alias;
@@ -393,9 +395,13 @@ function buildIconListFromArchive(
           `${t('NO_DATA')}\n${t('CLICK_TO_COLLECT_DATA')}`
         }
       >
-        <RotateCw onClick={(event) => {
+        <RotateCw className={isRefreshing ? 'refresh-spinner' : ''} onClick={(event) => {
           event.preventDefault();
-          updateSteamInfo([player.steamID64]);
+          setRefreshing(true);
+          updateSteamInfo([player.steamID64]).then((r) => {
+            player.steamInfo = r[0].steamInfo;
+            setRefreshing(false);
+          });
         }} width={18} height={18}/>
       </Tooltip>
     ),

@@ -21,6 +21,9 @@ const PlayerHistory = () => {
   const [query, setQuery] = React.useState<string>(' ');
   const [caseSensitive, setCaseSensitive] = React.useState<boolean>(false);
 
+  // Tracks which results the user is currently refreshing.
+  const [refreshing, setRefreshing] = React.useState<string[]>([]);
+
   const defaultSort = (a: ArchivePlayerInfo, b: ArchivePlayerInfo) => {
     return b.steamID64.localeCompare(a.steamID64);
   }
@@ -31,11 +34,12 @@ const PlayerHistory = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const newRecentDataPromise = fetchRecentPlayers();
-      const newArchiveDataPromise = fetchArchivedPlayers();
+      if(refreshing.length > 0) return;
+      const [newRecentData, newArchiveData] = [await fetchRecentPlayers(), await fetchArchivedPlayers()];
+      if(refreshing.length > 0) return;
       setData({
-        recent: await newRecentDataPromise,
-        archive: await newArchiveDataPromise
+        recent: newRecentData,
+        archive: newArchiveData
       })
     };
 
@@ -60,6 +64,7 @@ const PlayerHistory = () => {
       newRecent.sort(defaultSort);
       newArchive.sort(defaultSort);
     }
+    if(refreshing.length > 0) return;
     setRecent(newRecent);
     setArchive(newArchive);
   }, [data, query, caseSensitive]);
@@ -84,6 +89,7 @@ const PlayerHistory = () => {
             RECENT={RECENT}
             ARCHIVE={ARCHIVE}
             query={query}
+            refresh={[refreshing, setRefreshing]}
           />
         
       </div>

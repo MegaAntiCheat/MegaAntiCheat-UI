@@ -33,6 +33,8 @@ interface ArchivePlayerProps {
   openInApp?: boolean;
   userSteamID?: string;
   cheatersInLobby: ArchivePlayerInfo[];
+  isRefreshing: boolean,
+  setRefreshing: (b: boolean) => void
 }
 
 const ArchivePlayer = ({
@@ -42,6 +44,8 @@ const ArchivePlayer = ({
   playerColors,
   openInApp,
   cheatersInLobby,
+  isRefreshing,
+  setRefreshing
 }: ArchivePlayerProps) => {
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
@@ -130,7 +134,10 @@ const ArchivePlayer = ({
       {
         label: 'Refresh Data',
         onClick: () => {
-          updateSteamInfo([player.steamID64]);
+          setRefreshing(true);
+          updateSteamInfo([player.steamID64]).then(() => {
+            setRefreshing(false);
+          });
         }
       },
     ];
@@ -196,7 +203,7 @@ const ArchivePlayer = ({
         <div
           className={`flex flex-wrap justify-center bottom-[1px] relative ml-1`}
         >
-          {buildIconListFromArchive(player, cheatersInLobby)}
+          {buildIconListFromArchive(player, cheatersInLobby, isRefreshing, setRefreshing)}
         </div>
         {/* <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
