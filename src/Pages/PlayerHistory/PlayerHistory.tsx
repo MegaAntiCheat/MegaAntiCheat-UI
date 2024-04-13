@@ -64,7 +64,6 @@ const PlayerHistory = () => {
       newRecent.sort(defaultSort);
       newArchive.sort(defaultSort);
     }
-    if(refreshing.length > 0) return;
     setRecent(newRecent);
     setArchive(newArchive);
   }, [data, query, caseSensitive]);
