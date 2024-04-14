@@ -148,7 +148,7 @@ const ArchivePlayer = ({
   return (
     <>
       <div
-        className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
+        className={`player-item items-center py-0.5 px-1 grid grid-cols-historysm xs:grid-cols-history hover:bg-highlight/5 ${
           showPlayerDetails ? 'expanded' : ''
         } ${className}`}
         id={`player-display-div-${player.steamID64}`}
@@ -212,11 +212,12 @@ const ArchivePlayer = ({
         >
           {displayStatus}
         </div> */}
-        <div
-          className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap`}
+        <Tooltip
+        content={t((player.searchRelevance ?? "") + "_DETAILED")}
+        direction='left'
         >
-          {player.searchRelevance}
-        </div>
+          {t(player.searchRelevance ?? "")}
+        </Tooltip>
         <ContextMenu />
       </div>
       <div>

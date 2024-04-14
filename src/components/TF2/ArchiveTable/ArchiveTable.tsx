@@ -110,13 +110,13 @@ const ArchiveTable = ({
             onPageChange={setPage}
           />)}
         </div>
-        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
+        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavhistorysm xs:grid-cols-scoreboardnavhistory">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
           {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
           </div> */}
-          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
+          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_RELEVANCE')}</div>
         </div>
         <div className={`${teamName?.toLowerCase()}`}>
           {team.filter((v, i) => {

@@ -20,7 +20,7 @@ export enum SteamIDType {
 
 // Get a SteamID64 from a permalink profile url or from the other forms of Steam ID
 // Returns undefined if invalid.
-export async function getSteamID64(input: string): Promise<string | undefined> {
+export function getSteamID64(input: string): string | undefined {
     const type = getSteamIDType(input);
     switch (type) {
     case SteamIDType.SteamID2:

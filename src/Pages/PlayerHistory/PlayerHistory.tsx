@@ -8,6 +8,7 @@ import { t } from '@i18n';
 import { stringify } from 'querystring';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
+import { getSteamID64 } from '@api/steamid';
 
 // Maps Steam IDs of each search result to its relevance
 export type SearchRelevance = Map<string, string>;
@@ -108,7 +109,7 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
   // The earlier the first true predicate is in this list, the higher it will appear in the search results.
   // Many functions have case sensitive variants that can be toggled by the user.
   const searchPredicates: SearchFunction[] = [
-    {f: (p) => query === p.steamID64, note: 'SEARCH_REL_STEAMID'}, // Exact SteamID // TODO: Handle SteamID3 and SteamID2 results
+    {f: (p) => getSteamID64(query) === p.steamID64, note: 'SEARCH_REL_STEAMID'}, // Exact SteamID
 
     {f: (p) => caseSensitive && query === p.customData.alias, note: 'SEARCH_REL_CUSTOMNAME_EXACT_CASE'}, // Exact custom alias
     {f: (p) => lQuery === p.customData.alias?.toLowerCase(), note: 'SEARCH_REL_CUSTOMNAME_EXACT'},
@@ -141,7 +142,7 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
   const getRelevance = function (p: ArchivePlayerInfo): number {
     for(let i = 0; i < searchPredicates.length; i++) {
       if(searchPredicates[i].f(p)) {
-        relevance.set(p.steamID64, {value: i, note: t(searchPredicates[i].note)});
+        relevance.set(p.steamID64, {value: i, note: searchPredicates[i].note});
         return i;
       }
     }
