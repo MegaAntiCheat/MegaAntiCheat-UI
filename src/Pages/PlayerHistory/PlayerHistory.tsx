@@ -56,7 +56,7 @@ const PlayerHistory = () => {
 
   React.useEffect(() => {
     let newRecent = [...data.recent];
-    let newArchive = [...data.archive]; 
+    let newArchive = [...data.archive];
 
     if(query.trim() !== '') {
       newRecent = search(newRecent, query, caseSensitive);
@@ -160,8 +160,8 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
     })
     .map(p => {
       return {
+        ...p,
         searchRelevance: relevance.get(p.steamID64)?.note,
-        ...p
       };
     })
 }
