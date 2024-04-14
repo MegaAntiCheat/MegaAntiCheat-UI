@@ -73,7 +73,7 @@ function convertSteamID2toSteamID64(steamID: string): string {
   // eslint-disable-next-line prefer-const
   let [strX, strY, strZ]: string[] = steamID.split(':');
   strX = strX.substring(6); // Remove STEAM_ from X
-  const [x, y, z]: bigint[] = [BigInt(strX), BigInt(strY), BigInt(strZ)];
+  const [, y, z]: bigint[] = [BigInt(strX), BigInt(strY), BigInt(strZ)];
   return (z + z + y + steamID64Base).toString();
 }
 // Converts [U:1:1234] type to 76561197960265728 type
@@ -81,7 +81,7 @@ function convertSteamID3toSteamID64(steamID: string): string {
   // eslint-disable-next-line prefer-const
   let [, strY, strZ]: string[] = steamID.split(':');
   strZ = strZ.substring(0, strZ.length - 1); // Remove brackets from Z
-  const [y, z]: bigint[] = [BigInt(strY), BigInt(strZ)];
+  const [, z]: bigint[] = [BigInt(strY), BigInt(strZ)];
   return (z + steamID64Base).toString();
 }
 // Converts 76561197960265728 type to [U:1:1234] type

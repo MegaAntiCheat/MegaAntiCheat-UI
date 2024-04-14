@@ -1,8 +1,7 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import './ArchiveTable.css';
 
 import { getAllSettings } from '@api/preferences';
-import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
 import PageSelector from '@components/General/PageSelector/PageSelector';
@@ -72,8 +71,6 @@ const ArchiveTable = ({
   }, [RECENT, ARCHIVE]);
 
   const renderTeam = (team: ArchivePlayerInfo[], teamName?: string) => {
-    const combinedPlayers = RECENT.concat(ARCHIVE);
-
     const maxPerPage = 100;
 
     const cheaters = ARCHIVE.filter(

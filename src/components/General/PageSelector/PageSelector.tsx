@@ -1,4 +1,3 @@
-import { toContainElement } from '@testing-library/jest-dom/matchers';
 import React from 'react';
 
 interface PageSelectorProps {

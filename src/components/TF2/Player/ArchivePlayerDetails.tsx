@@ -1,7 +1,6 @@
 import React from 'react';
 import { formatCreationDate, verifyImageExists } from '@api/utils';
-import { BarChart, CircleSlash2, Crosshair, Info, Skull } from 'lucide-react';
-import { calculateKD } from './playerutils';
+import { Info } from 'lucide-react';
 import { t } from '@i18n';
 import { Tooltip } from '@components/General';
 

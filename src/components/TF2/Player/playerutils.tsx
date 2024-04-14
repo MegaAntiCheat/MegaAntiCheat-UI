@@ -5,7 +5,6 @@ import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
   LogIn,
-  RefreshCcw,
   RotateCw,
   ScrollText,
   ShieldAlert,
@@ -140,7 +139,7 @@ function buildPlayerNote(customData: CustomData) {
   return note;
 }
 
-function buildIconList<T extends PlayerInfo | ArchivePlayerInfo>(
+function buildIconList(
   player: PlayerInfo,
   cheatersInLobby: PlayerInfo[],
 ): React.ReactNode[] {

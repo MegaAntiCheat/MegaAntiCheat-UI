@@ -6,19 +6,14 @@ import { updatePlayer, updateSteamInfo } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
 import { ContextMenuContext, MenuItem } from '../../../Context';
 import {
-  buildIconList,
   buildIconListFromArchive,
   displayColor,
   displayNamesList,
-  displayProperStatus,
-  formatTimeToString,
   localizeVerdict,
   makeLocalizedVerdictOptions,
 } from './playerutils';
-import PlayerDetails from './PlayerDetails';
 
 import { verifyImageExists } from '@api/utils';
-import { kickPlayer } from '@api/commands';
 import { Info } from 'lucide-react';
 import { useModal } from '../../../Context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
