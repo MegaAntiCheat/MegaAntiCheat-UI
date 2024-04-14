@@ -55,7 +55,7 @@ const Player = ({
 
   const urlToOpen = openInApp
     ? `steam://url/SteamIDPage/${player.steamID64}`
-    : player.steamInfo?.profileUrl;
+    : `https://steamcommunity.com/profiles/${player.steamID64}`;
 
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
@@ -150,9 +150,15 @@ const Player = ({
       {
         label: 'Change Alias',
         onClick: () =>
-          openModal(<ChangeAliasModal player={player} />, {
-            dismissable: true,
-          }),
+          openModal(
+            <ChangeAliasModal
+              steamID64={player.steamID64}
+              name={player.customData.alias ?? player.name}
+            />,
+            {
+              dismissable: true,
+            },
+          ),
       },
     ];
 

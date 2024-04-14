@@ -38,6 +38,14 @@ code {
   color: antiquewhite
 }
 
+.recent {
+  color: aquamarine
+}
+
+.archive {
+  color: khaki
+}
+
 .disconnected {
   color: gray
 }
@@ -50,6 +58,14 @@ code {
   --dark-bg-color: rgba(25, 31, 39, 1);
   --dark-highlight-color: rgba(197, 198, 209, 0.2);
   --dark-hover-color: rgba(234, 235, 243, 0.05);
+}
+
+.refresh-spinner {
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
 }
 
 .spinner,

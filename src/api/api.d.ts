@@ -63,6 +63,7 @@ interface SteamInfo {
   vacBans?: number;
   gameBans?: number;
   daysSinceLastBan?: null | number;
+  fetched?: string;
 }
 
 interface SteamFriend {
@@ -85,15 +86,28 @@ interface PlayerInfo {
   friendsIsPublic?: boolean;
 }
 
+interface ArchivePlayerInfo {
+  name: string;
+  isSelf: boolean;
+  tags?: string[];
+  steamID64: string;
+  convicted?: boolean;
+  localVerdict?: string;
+  steamInfo?: SteamInfo;
+  customData: CustomData;
+  previousNames?: string[];
+  friends: SteamFriend[];
+  friendsIsPublic?: boolean;
+  searchRelevance?: string;
+  modified?: string;
+  created?: string;
+  lastSeen?: string;
+}
+
 interface CustomData {
   alias?: string;
   playerNote?: string;
   tfbd?: string[];
-}
-
-interface TeamData {
-  RED: PlayerInfo[];
-  BLU: PlayerInfo[];
 }
 
 interface GameModeInfo {

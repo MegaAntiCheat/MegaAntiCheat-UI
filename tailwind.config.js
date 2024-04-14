@@ -15,9 +15,13 @@ module.exports = {
       },
       gridTemplateColumns: {
         player: '122px minmax(100px, 1fr) max-content minmax(0px, 60px)',
+        history: '122px minmax(100px, 1fr) max-content minmax(0px, 110px)',
         playersm: '120px minmax(100px, 1fr) 18px',
+        historysm: '120px minmax(100px, 1fr) 18px',
         scoreboardnav: '114px minmax(95px, 1fr) 55px',
+        scoreboardnavhistory: '114px minmax(95px, 1fr) 110px',
         scoreboardnavsm: '180px 130px',
+        scoreboardnavhistorysm: '180px 130px',
         scoreboardgrid: '1fr 3px 1fr',
         scoreboardgridsm: '1fr',
         playerdetails: '150px auto',
@@ -28,6 +32,9 @@ module.exports = {
       },
       fontFamily: {
         build: ['"Build"', 'sans-serif'],
+      },
+      minWidth: {
+        pageselectorbutton: '40px',
       },
     },
     screens: {
