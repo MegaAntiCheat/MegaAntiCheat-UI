@@ -63,7 +63,7 @@ interface SteamInfo {
   vacBans?: number;
   gameBans?: number;
   daysSinceLastBan?: null | number;
-  fetched?: string
+  fetched?: string;
 }
 
 interface SteamFriend {

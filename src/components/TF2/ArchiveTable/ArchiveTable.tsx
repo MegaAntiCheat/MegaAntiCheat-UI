@@ -11,15 +11,15 @@ import ArchivePlayer from '../Player/ArchivePlayer';
 interface ArchiveTableProps {
   RECENT: ArchivePlayerInfo[];
   ARCHIVE: ArchivePlayerInfo[];
-  query: string,
-  refresh: [string[], React.Dispatch<React.SetStateAction<string[]>>]
+  query: string;
+  refresh: [string[], React.Dispatch<React.SetStateAction<string[]>>];
 }
 
 const ArchiveTable = ({
   RECENT,
   ARCHIVE,
   query,
-  refresh
+  refresh,
 }: ArchiveTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = React.useState('0');
@@ -54,9 +54,7 @@ const ArchiveTable = ({
 
   React.useEffect(() => {
     const fetchSelf = () => {
-      const combinedPlayers = RECENT?.concat(
-        ARCHIVE ?? []
-      );
+      const combinedPlayers = RECENT?.concat(ARCHIVE ?? []);
       const self = combinedPlayers?.find((player) => player.isSelf);
       setUserSteamID(self?.steamID64 || '0');
     };
@@ -74,7 +72,6 @@ const ArchiveTable = ({
   }, [RECENT, ARCHIVE]);
 
   const renderTeam = (team: ArchivePlayerInfo[], teamName?: string) => {
-
     const combinedPlayers = RECENT.concat(ARCHIVE);
 
     const maxPerPage = 100;
@@ -83,11 +80,11 @@ const ArchiveTable = ({
       (p) => p.convicted || ['Cheater', 'Bot'].includes(p.localVerdict ?? ''),
     );
 
-    const totalPages = Math.ceil(team.length / maxPerPage); 
+    const totalPages = Math.ceil(team.length / maxPerPage);
     const usePages = true;
 
     const [page, setPage] = React.useState<number>(1);
-    
+
     React.useEffect(() => {
       setPage(1);
     }, [query]);
@@ -98,17 +95,18 @@ const ArchiveTable = ({
         <div
           className={`text-4xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
         >
-          {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
-          {team?.length})
+          {t(teamName ?? 'UNASSIGNED').toUpperCase()} ({team?.length})
         </div>
         <div
           className={`text-xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
         >
-          {usePages && (<PageSelector
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-          />)}
+          {usePages && (
+            <PageSelector
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
+          )}
         </div>
         <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavhistorysm xs:grid-cols-scoreboardnavhistory">
           <div>{t('TEAM_NAV_RATING')}</div>
@@ -116,33 +114,38 @@ const ArchiveTable = ({
           {/* <div className="hidden xs:[display:unset]">
             {t('TEAM_NAV_STATUS')}
           </div> */}
-          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_RELEVANCE')}</div>
+          <div className="hidden xs:[display:unset]">
+            {t('TEAM_NAV_RELEVANCE')}
+          </div>
         </div>
         <div className={`${teamName?.toLowerCase()}`}>
-          {team.filter((v, i) => {
-            return i >= ( (page-1) * maxPerPage) && i < (page * maxPerPage)
-          })
-          .map((player) => (
-            // Provide the Context Menu Provider to the Element
-            <ContextMenuProvider key={player.steamID64}>
-              <ArchivePlayer
-                playerColors={playerSettings.colors}
-                className={teamName?.toLowerCase()}
-                player={player}
-                key={player.steamID64}
-                openInApp={playerSettings.openInApp}
-                cheatersInLobby={cheaters}
-                isRefreshing={refresh[0].includes(player.steamID64)}
-                setRefreshing={(b : boolean) => {
-                  if(b) {
-                    refresh[1](refresh[0].concat(player.steamID64));
-                  } else {
-                    refresh[1](refresh[0].filter(id => id !== player.steamID64));
-                  }
-                }}
-              />
-            </ContextMenuProvider>
-          ))}
+          {team
+            .filter((v, i) => {
+              return i >= (page - 1) * maxPerPage && i < page * maxPerPage;
+            })
+            .map((player) => (
+              // Provide the Context Menu Provider to the Element
+              <ContextMenuProvider key={player.steamID64}>
+                <ArchivePlayer
+                  playerColors={playerSettings.colors}
+                  className={teamName?.toLowerCase()}
+                  player={player}
+                  key={player.steamID64}
+                  openInApp={playerSettings.openInApp}
+                  cheatersInLobby={cheaters}
+                  isRefreshing={refresh[0].includes(player.steamID64)}
+                  setRefreshing={(b: boolean) => {
+                    if (b) {
+                      refresh[1](refresh[0].concat(player.steamID64));
+                    } else {
+                      refresh[1](
+                        refresh[0].filter((id) => id !== player.steamID64),
+                      );
+                    }
+                  }}
+                />
+              </ContextMenuProvider>
+            ))}
         </div>
       </div>
     );

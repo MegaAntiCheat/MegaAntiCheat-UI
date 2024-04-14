@@ -75,9 +75,7 @@ async function fetchPlayerInfos({
   }
 }
 
-async function updateSteamInfo(
-  steamIDs: string[]
-): Promise<PlayerInfo[]> {
+async function updateSteamInfo(steamIDs: string[]): Promise<PlayerInfo[]> {
   try {
     if (useFakedata) return [];
 
@@ -124,9 +122,7 @@ async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
   try {
     if (useFakedata) return [];
 
-    const response = await fetch(
-      `${PLAYERRECORDFETCH}`,
-    );
+    const response = await fetch(`${PLAYERRECORDFETCH}`);
 
     if (!response.ok) throw new Error('Failed to fetch player records');
 
@@ -136,4 +132,10 @@ async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
     return [];
   }
 }
-export { fetchPlayerInfos, fetchRecentPlayers, fetchArchivedPlayers, updatePlayer, updateSteamInfo };
+export {
+  fetchPlayerInfos,
+  fetchRecentPlayers,
+  fetchArchivedPlayers,
+  updatePlayer,
+  updateSteamInfo,
+};

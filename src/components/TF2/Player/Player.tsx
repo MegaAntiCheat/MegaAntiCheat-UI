@@ -150,9 +150,15 @@ const Player = ({
       {
         label: 'Change Alias',
         onClick: () =>
-          openModal(<ChangeAliasModal steamID64={player.steamID64} name={player.customData.alias ?? player.name} />, {
-            dismissable: true,
-          }),
+          openModal(
+            <ChangeAliasModal
+              steamID64={player.steamID64}
+              name={player.customData.alias ?? player.name}
+            />,
+            {
+              dismissable: true,
+            },
+          ),
       },
     ];
 

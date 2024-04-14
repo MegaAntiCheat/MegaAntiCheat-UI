@@ -34,8 +34,8 @@ module.exports = {
         build: ['"Build"', 'sans-serif'],
       },
       minWidth: {
-        pageselectorbutton: '40px'
-      }
+        pageselectorbutton: '40px',
+      },
     },
     screens: {
       xs: '475px',

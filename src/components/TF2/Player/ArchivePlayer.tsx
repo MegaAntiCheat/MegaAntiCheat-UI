@@ -33,8 +33,8 @@ interface ArchivePlayerProps {
   openInApp?: boolean;
   userSteamID?: string;
   cheatersInLobby: ArchivePlayerInfo[];
-  isRefreshing: boolean,
-  setRefreshing: (b: boolean) => void
+  isRefreshing: boolean;
+  setRefreshing: (b: boolean) => void;
 }
 
 const ArchivePlayer = ({
@@ -45,7 +45,7 @@ const ArchivePlayer = ({
   openInApp,
   cheatersInLobby,
   isRefreshing,
-  setRefreshing
+  setRefreshing,
 }: ArchivePlayerProps) => {
   // Context Menu
   const { showMenu } = React.useContext(ContextMenuContext);
@@ -127,9 +127,15 @@ const ArchivePlayer = ({
       {
         label: 'Change Alias',
         onClick: () =>
-          openModal(<ChangeAliasModal steamID64={player.steamID64} name={player.customData.alias ?? player.name}/>, {
-            dismissable: true,
-          }),
+          openModal(
+            <ChangeAliasModal
+              steamID64={player.steamID64}
+              name={player.customData.alias ?? player.name}
+            />,
+            {
+              dismissable: true,
+            },
+          ),
       },
       {
         label: 'Refresh Data',
@@ -138,7 +144,7 @@ const ArchivePlayer = ({
           updateSteamInfo([player.steamID64]).then(() => {
             setRefreshing(false);
           });
-        }
+        },
       },
     ];
 
@@ -185,7 +191,9 @@ const ArchivePlayer = ({
               style={{ filter: 'inherit' }}
             />
             <div
-              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none`}
+              className={
+                'text-ellipsis overflow-hidden whitespace-nowrap select-none'
+              }
             >
               {displayName}
             </div>
@@ -201,9 +209,14 @@ const ArchivePlayer = ({
           </div>
         </div>
         <div
-          className={`flex flex-wrap justify-center bottom-[1px] relative ml-1`}
+          className={'flex flex-wrap justify-center bottom-[1px] relative ml-1'}
         >
-          {buildIconListFromArchive(player, cheatersInLobby, isRefreshing, setRefreshing)}
+          {buildIconListFromArchive(
+            player,
+            cheatersInLobby,
+            isRefreshing,
+            setRefreshing,
+          )}
         </div>
         {/* <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
@@ -213,10 +226,10 @@ const ArchivePlayer = ({
           {displayStatus}
         </div> */}
         <Tooltip
-        content={t((player.searchRelevance ?? "") + "_DETAILED")}
-        direction='left'
+          content={t((player.searchRelevance ?? '') + '_DETAILED')}
+          direction="left"
         >
-          {t(player.searchRelevance ?? "")}
+          {t(player.searchRelevance ?? '')}
         </Tooltip>
         <ContextMenu />
       </div>

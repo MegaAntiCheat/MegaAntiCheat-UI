@@ -11,7 +11,10 @@ interface ArchivePlayerDetailsProps {
   bgColor?: string;
 }
 
-const ArchivePlayerDetails = ({ player, bgColor }: ArchivePlayerDetailsProps) => {
+const ArchivePlayerDetails = ({
+  player,
+  bgColor,
+}: ArchivePlayerDetailsProps) => {
   const [pfp, setPfp] = React.useState('./person.webp');
 
   const vacBans = player.steamInfo?.vacBans ?? 0;
@@ -94,8 +97,7 @@ const ArchivePlayerDetails = ({ player, bgColor }: ArchivePlayerDetailsProps) =>
               </div>
             </div>
             <div className="h-full bg-highlight/30 w-[1px]" />
-            <div className="select-none flex flex-wrap text-start justify-center">
-            </div>
+            <div className="select-none flex flex-wrap text-start justify-center"></div>
           </div>
         </div>
         <div className="mx-[6px] pb-2 mt-2 bottom-1 content-normal bg-secondary/50 relative rounded-b-[3px]">

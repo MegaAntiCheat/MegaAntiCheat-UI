@@ -176,16 +176,16 @@ function buildIconList<T extends PlayerInfo | ArchivePlayerInfo>(
     // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
     // else until they have the ability to toggle their icons on/off without doing a code change)
     player.steamID64 === '76561198022053157' &&
-    player.name.toLowerCase().includes('megascatterbomb') && (
-      <Tooltip
-        key="megascatterbomb"
-        className="mr-1"
-        direction="left"
-        content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
-      >
-        <img height={18} width={18} src={kiwi_source} />
-      </Tooltip>
-    ),
+      player.name.toLowerCase().includes('megascatterbomb') && (
+        <Tooltip
+          key="megascatterbomb"
+          className="mr-1"
+          direction="left"
+          content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
+        >
+          <img height={18} width={18} src={kiwi_source} />
+        </Tooltip>
+      ),
     // Add a star if this player has a custom alias set by the user
     hasAlias && (
       <Tooltip
@@ -274,7 +274,7 @@ function buildIconListFromArchive(
   player: ArchivePlayerInfo,
   cheatersInLobby: ArchivePlayerInfo[],
   isRefreshing: boolean,
-  setRefreshing: (b: boolean) => void
+  setRefreshing: (b: boolean) => void,
 ): React.ReactNode[] {
   const now = Date.now() / 1000;
   const hasAlias = !!player.customData?.alias;
@@ -291,8 +291,13 @@ function buildIconListFromArchive(
 
   let stale = false;
 
-  const fetchedDate = player.steamInfo?.fetched ? new Date(player.steamInfo?.fetched) : null;
-  if(!fetchedDate || (Date.now() - fetchedDate.valueOf()) > (24 * 60 * 60 * 1000)) {
+  const fetchedDate = player.steamInfo?.fetched
+    ? new Date(player.steamInfo?.fetched)
+    : null;
+  if (
+    !fetchedDate ||
+    Date.now() - fetchedDate.valueOf() > 24 * 60 * 60 * 1000
+  ) {
     stale = true;
   }
 
@@ -304,16 +309,16 @@ function buildIconListFromArchive(
     // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
     // else until they have the ability to toggle their icons on/off without doing a code change)
     player.steamID64 === '76561198022053157' &&
-    player.name.toLowerCase().includes('megascatterbomb') && (
-      <Tooltip
-        key="megascatterbomb"
-        className="mr-1"
-        direction="left"
-        content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
-      >
-        <img height={18} width={18} src={kiwi_source} />
-      </Tooltip>
-    ),
+      player.name.toLowerCase().includes('megascatterbomb') && (
+        <Tooltip
+          key="megascatterbomb"
+          className="mr-1"
+          direction="left"
+          content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
+        >
+          <img height={18} width={18} src={kiwi_source} />
+        </Tooltip>
+      ),
     // Add a star if this player has a custom alias set by the user
     hasAlias && (
       <Tooltip
@@ -390,19 +395,27 @@ function buildIconListFromArchive(
         key="stale"
         className="mr-1"
         direction="left"
-        content={fetchedDate ? 
-          `${t('DATA_LAST_RETRIEVED')} ${fetchedDate?.toLocaleDateString()}\n${t(`CLICK_TO_REFRESH`)}` :
-          `${t('NO_DATA')}\n${t('CLICK_TO_COLLECT_DATA')}`
+        content={
+          fetchedDate
+            ? `${t(
+                'DATA_LAST_RETRIEVED',
+              )} ${fetchedDate?.toLocaleDateString()}\n${t('CLICK_TO_REFRESH')}`
+            : `${t('NO_DATA')}\n${t('CLICK_TO_COLLECT_DATA')}`
         }
       >
-        <RotateCw className={isRefreshing ? 'refresh-spinner' : ''} onClick={(event) => {
-          event.preventDefault();
-          setRefreshing(true);
-          updateSteamInfo([player.steamID64]).then((r) => {
-            player.steamInfo = r[0].steamInfo;
-            setRefreshing(false);
-          });
-        }} width={18} height={18}/>
+        <RotateCw
+          className={isRefreshing ? 'refresh-spinner' : ''}
+          onClick={(event) => {
+            event.preventDefault();
+            setRefreshing(true);
+            updateSteamInfo([player.steamID64]).then((r) => {
+              player.steamInfo = r[0].steamInfo;
+              setRefreshing(false);
+            });
+          }}
+          width={18}
+          height={18}
+        />
       </Tooltip>
     ),
   ];
@@ -417,5 +430,5 @@ export {
   calculateKD,
   displayNamesList,
   buildIconList,
-  buildIconListFromArchive
+  buildIconListFromArchive,
 };
