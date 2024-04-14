@@ -220,12 +220,13 @@ const ArchivePlayer = ({
         >
           {displayStatus}
         </div> */}
-        <Tooltip
-          content={t((player.searchRelevance ?? '') + '_DETAILED')}
+        {player.searchRelevance && (<Tooltip
+          content={t((player.searchRelevance) + '_DETAILED')}
           direction="left"
         >
-          {t(player.searchRelevance ?? '')}
+          {t(player.searchRelevance)}
         </Tooltip>
+        )}
         <ContextMenu />
       </div>
       <div>
