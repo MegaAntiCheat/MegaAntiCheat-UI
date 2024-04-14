@@ -79,9 +79,10 @@ const PlayerHistory = () => {
         />
         <Checkbox
           className="case-sensitive-checkbox ml-4 mt-3 mb-3 h-4 items-center"
+          checked={caseSensitive}
           onChange={setCaseSensitive}
         />
-        <p className='items-center ml-4 mt-3 mb-3 h-4'>{t('CASE_SENSITIVE')}</p>
+        <div className='items-center pl-[10px] pt-[18px] '>{t('CASE_SENSITIVE')}</div>
       </div>
       <div className="playerlist-max">
         
