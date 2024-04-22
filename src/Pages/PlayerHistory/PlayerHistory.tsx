@@ -1,7 +1,7 @@
 import React from 'react';
 import './PlayerHistory.css';
 import ArchiveTable from '@components/TF2/ArchiveTable/ArchiveTable';
-import { fetchArchivedPlayers, fetchRecentPlayers } from '@api/players';
+import { fetchArchivedPlayers, fetchRecentPlayers, updatePlayer } from '@api/players';
 import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
@@ -23,17 +23,6 @@ const PlayerHistory = () => {
 
   // Tracks which results the user is currently refreshing.
   const [refreshing, setRefreshing] = React.useState<string[]>([]);
-
-  const recentSort = (a: ArchivePlayerInfo, b: ArchivePlayerInfo) => {
-    // Doing these checks is redundant but it prevents unnecessary object creation.
-    if(!a.lastSeen && !b.lastSeen) return 0;
-    if(!a.lastSeen) return 1;
-    if(!b.lastSeen) return -1;
-
-    const dateA = new Date(a.lastSeen ?? 0);
-    const dateB = new Date(b.lastSeen ?? 0);
-    return dateB.valueOf() - dateA.valueOf();
-  };
 
   const archiveSort = (a: ArchivePlayerInfo, b: ArchivePlayerInfo) => {
     return b.steamID64.localeCompare(a.steamID64);
@@ -75,7 +64,7 @@ const PlayerHistory = () => {
       newRecent = search(newRecent, query, caseSensitive);
       newArchive = search(newArchive, query, caseSensitive);
     } else {
-      newRecent.sort(recentSort);
+      // newRecent is already sorted in the desired order (most recent first)
       newArchive.sort(archiveSort);
     }
     setRecent(newRecent);
