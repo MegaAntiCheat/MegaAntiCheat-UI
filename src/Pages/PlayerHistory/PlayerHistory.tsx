@@ -6,6 +6,7 @@ import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
+import { Button } from '@components/General';
 
 // Maps Steam IDs of each search result to its relevance
 export type SearchRelevance = Map<string, string>;
@@ -20,6 +21,8 @@ const PlayerHistory = () => {
 
   const [query, setQuery] = React.useState<string>(' ');
   const [caseSensitive, setCaseSensitive] = React.useState<boolean>(false);
+
+  const [allowAdd, setAllowAdd] = React.useState<boolean>(false);
 
   // Tracks which results the user is currently refreshing.
   const [refreshing, setRefreshing] = React.useState<string[]>([]);
@@ -63,9 +66,15 @@ const PlayerHistory = () => {
     if (query.trim() !== '') {
       newRecent = search(newRecent, query, caseSensitive);
       newArchive = search(newArchive, query, caseSensitive);
+
+      const query64 = getSteamID64(query.trim());
+      const result = query64 && ![newRecent, newArchive].flat().some(p => p.steamID64 === query64);
+      console.log(result);
+      setAllowAdd(!!result);
     } else {
       // newRecent is already sorted in the desired order (most recent first)
       newArchive.sort(archiveSort);
+      setAllowAdd(false);
     }
     setRecent(newRecent);
     setArchive(newArchive);
@@ -76,9 +85,13 @@ const PlayerHistory = () => {
       <div className="flex">
         <Search
           placeholder={t('PLAYER_SEARCH')}
-          className="ml-4 mt-3 mb-3 w-[calc(100%-200px)]"
+          className="ml-4 mt-3 mb-3 w-[calc(100%-350px)]"
           onChange={handleSearch}
         />
+        <button
+          className={`ml-4 mt-3 mb-3 h-10v w-[100px] rounded-sm items-center ${allowAdd ? "bg-blue-700" : "bg-gray-400"}`}
+          disabled={!allowAdd}
+        >{t('ADD_PLAYER')}</button>
         <Checkbox
           className="case-sensitive-checkbox ml-4 mt-3 mb-3 h-4 items-center"
           checked={caseSensitive}
