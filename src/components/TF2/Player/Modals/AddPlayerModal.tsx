@@ -77,7 +77,7 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
 
   return (
     <div
-      className="phc-wrapper relative mx-3 my-1 py-4 px-4 mx-full max-h-100 min-w-[750px] bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis whitespace-nowrap"
+      className="phc-wrapper relative mx-3 my-1 py-4 px-4 mx-full max-h-100 min-w-[770px] bg-secondary shadow-sm rounded-md flex space-x-4 text-ellipsis whitespace-nowrap"
       key={steamID64}
       ref={playerHistoryRef}
     >
@@ -88,7 +88,7 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
         alt="Profile Picture"
         className="block h-32 w-32 rounded-md outline outline-highlight/30 outline-1"
       />
-      <div className='min-w-[700px]'>
+      <div className='min-w-[600px]'>
         <div className="flex text-3xl font-bold">
           <a
             href={playerInfo?.steamInfo?.profileUrl}
@@ -136,7 +136,7 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
             }}
           />
           <div className="flex flex-grow w-max-content ml-1 p-1 border border-gray-700">
-            <Search className="" placeholder={t('SET_CUSTOM_ALIAS')} onChange={(alias: string) => {
+            <Search className="min-w-[400px]" placeholder={t('SET_CUSTOM_ALIAS')} onChange={(alias: string) => {
               setParameters({
                 ...parameters,
                 customAlias: alias
@@ -144,15 +144,15 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
             }}/>
           </div>
         </div>
-        <div className="flex min-w-[700px] my-1 p-1 border border-gray-700">
-          <Search className="min-w-[700px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={(note: string) => {
+        <div className="flex min-w-[600px] my-1 p-1 border border-gray-700">
+          <Search className="min-w-[575px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={(note: string) => {
             setParameters({
               ...parameters,
               customNote: note
             })
           }}/>
         </div>
-        <div className="flex min-w-[700px] my-1">
+        <div className="flex min-w-[600px] my-1">
           <button
               className={"ml-auto mt-3 mb-0 h-10 w-[100px] rounded-sm items-center bg-red-700"}
               disabled={false}
