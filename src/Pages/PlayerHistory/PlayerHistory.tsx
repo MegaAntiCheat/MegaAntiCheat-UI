@@ -1,7 +1,11 @@
 import React from 'react';
 import './PlayerHistory.css';
 import ArchiveTable from '@components/TF2/ArchiveTable/ArchiveTable';
-import { fetchArchivedPlayers, fetchRecentPlayers, updatePlayer } from '@api/players';
+import {
+  fetchArchivedPlayers,
+  fetchRecentPlayers,
+  updatePlayer,
+} from '@api/players';
 import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
@@ -24,7 +28,9 @@ const PlayerHistory = () => {
   const [query, setQuery] = React.useState<string>(' ');
   const [caseSensitive, setCaseSensitive] = React.useState<boolean>(false);
 
-  const [playerToAdd, setPlayerToAdd] = React.useState<string | undefined>(undefined);
+  const [playerToAdd, setPlayerToAdd] = React.useState<string | undefined>(
+    undefined,
+  );
 
   // Tracks which results the user is currently refreshing.
   const [refreshing, setRefreshing] = React.useState<string[]>([]);
@@ -72,7 +78,11 @@ const PlayerHistory = () => {
       newArchive = search(newArchive, query, caseSensitive);
 
       const query64 = getSteamID64(query.trim());
-      const result = (query64 && ![newRecent, newArchive].flat().some(p => p.steamID64 === query64)) ? query64 : undefined;
+      const result =
+        query64 &&
+        ![newRecent, newArchive].flat().some((p) => p.steamID64 === query64)
+          ? query64
+          : undefined;
       setPlayerToAdd(result);
     } else {
       // newRecent is already sorted in the desired order (most recent first)
@@ -92,20 +102,19 @@ const PlayerHistory = () => {
           onChange={handleSearch}
         />
         <button
-          className={`ml-4 mt-3 mb-3 h-10v w-[100px] rounded-sm items-center ${playerToAdd ? "bg-blue-700" : "bg-gray-400"}`}
+          className={`ml-4 mt-3 mb-3 h-10v w-[100px] rounded-sm items-center ${
+            playerToAdd ? 'bg-blue-700' : 'bg-gray-400'
+          }`}
           disabled={!playerToAdd}
           onClick={() => {
-            if(!playerToAdd) return;
-            openModal(
-              <AddPlayerModal
-                steamID64={playerToAdd}
-              />,
-              {
-                dismissable: true
-              }
-            )
+            if (!playerToAdd) return;
+            openModal(<AddPlayerModal steamID64={playerToAdd} />, {
+              dismissable: true,
+            });
           }}
-        >{t('ADD_PLAYER')}</button>
+        >
+          {t('ADD_PLAYER')}
+        </button>
         <Checkbox
           className="case-sensitive-checkbox ml-4 mt-3 mb-3 h-4 items-center"
           checked={caseSensitive}
