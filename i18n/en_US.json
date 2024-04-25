@@ -115,5 +115,6 @@
   "ADD_PLAYER_HELP": "If you search for a SteamID that is not in your archive, click this button to add it.",
   "SELECT_VERDICT": "Select a verdict...",
   "SET_CUSTOM_ALIAS": "Set a custom alias...",
-  "ADD_CUSTOM_NOTE": "Add additional information..." 
+  "ADD_CUSTOM_NOTE": "Add additional information...",
+  "CANCEL": "Cancel"
 }

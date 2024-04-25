@@ -32,6 +32,17 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
   const gameBans = playerInfo?.steamInfo?.gameBans ?? 0;
   const timeCreated = playerInfo?.steamInfo?.timeCreated ?? 0;
 
+  const [meetRequirements, setMeetRequirements] = React.useState<boolean>(false);
+  const [{verdict, customAlias, customName}, setParameters] = React.useState<{
+    verdict: string | undefined,
+    customAlias: string | undefined,
+    customName: string | undefined
+  }>({
+    verdict: undefined,
+    customAlias: undefined,
+    customName: undefined
+  });
+
   //const displayVerdict = formVerdict(player.localVerdict);
   const displayAccCreation = formatCreationDate(timeCreated);
 
@@ -49,6 +60,10 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
     }
     fetchSteamInfo();
   }, []);
+
+  React.useEffect(() => {
+    setMeetRequirements(!!(verdict || customAlias || customName))
+  }, [verdict, customAlias, customName])
 
   // Update pfp on mount
   React.useEffect(() => {
@@ -108,7 +123,7 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
         </div>
         <div className='flex'>
           <Select
-            className="sticky pr-1 z-30 max-w-[250px]"
+            className="sticky pr-1 z-30 w-[175px]"
             options={verdictOptions}
             placeholder={t('SELECT_VERDICT')}
             onChange={() => {}}
@@ -119,6 +134,22 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
         </div>
         <div className="flex min-w-[700px] my-1 p-1 border border-gray-700">
           {playerInfo && <Search className="min-w-[700px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={() => {}}/>}
+        </div>
+        <div className="flex min-w-[700px] my-1">
+          <button
+              className={"ml-auto mt-3 mb-3 h-10 w-[100px] rounded-sm items-center bg-red-700"}
+              disabled={false}
+              onClick={() => {
+                closeModal()
+              }}
+          >{t('CANCEL')}</button>
+          <button
+              className={`ml-2 mt-3 mb-3 h-10 w-[100px] rounded-sm items-center ${meetRequirements ? "bg-blue-700" : "bg-gray-400"}`}
+              disabled={!meetRequirements}
+              onClick={() => {
+                closeModal()
+              }}
+          >{t('ADD_PLAYER')}</button>
         </div>
       </div>
     </div>
