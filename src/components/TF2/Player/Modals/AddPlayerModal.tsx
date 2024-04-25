@@ -1,22 +1,15 @@
 import React from 'react';
 import { Search, Select, Tooltip } from '@components/General';
-import { AlertOctagon, EyeOff, ShieldAlert, Users2 } from 'lucide-react';
+import { EyeOff, Users2 } from 'lucide-react';
 import './AddPlayerModal.css';
 import { t } from '@i18n';
 import { formatCreationDate, verifyImageExists } from '@api/utils';
 import { makeLocalizedVerdictOptions } from '../playerutils';
 import { updatePlayer, updateSteamInfo } from '@api/players';
 import { useModal } from '../../../../Context/ModalContext';
-import PlayerNotebox from '../Notes/PlayerNotebox';
 
 interface AddPlayerModalProps {
   steamID64: string;
-}
-
-function formVerdict(verdict: string | undefined) {
-  if (!verdict) return t('PLAYER');
-  if (verdict.includes('None')) return t('PLAYER');
-  return t(verdict.toUpperCase());
 }
 
 const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
@@ -30,8 +23,8 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
     PlayerInfo | null | undefined
   >(undefined);
 
-  const vacBans = playerInfo?.steamInfo?.vacBans ?? 0;
-  const gameBans = playerInfo?.steamInfo?.gameBans ?? 0;
+  //const vacBans = playerInfo?.steamInfo?.vacBans ?? 0;
+  //const gameBans = playerInfo?.steamInfo?.gameBans ?? 0;
   const timeCreated = playerInfo?.steamInfo?.timeCreated ?? 0;
 
   const [meetRequirements, setMeetRequirements] =

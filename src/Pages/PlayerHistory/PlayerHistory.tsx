@@ -1,16 +1,11 @@
 import React from 'react';
 import './PlayerHistory.css';
 import ArchiveTable from '@components/TF2/ArchiveTable/ArchiveTable';
-import {
-  fetchArchivedPlayers,
-  fetchRecentPlayers,
-  updatePlayer,
-} from '@api/players';
+import { fetchArchivedPlayers, fetchRecentPlayers } from '@api/players';
 import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
-import { Button } from '@components/General';
 import { useModal } from '../../Context/ModalContext';
 import { AddPlayerModal } from '@components/TF2';
 
