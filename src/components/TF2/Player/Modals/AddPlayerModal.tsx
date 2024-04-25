@@ -33,14 +33,14 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
   const timeCreated = playerInfo?.steamInfo?.timeCreated ?? 0;
 
   const [meetRequirements, setMeetRequirements] = React.useState<boolean>(false);
-  const [{verdict, customAlias, customName}, setParameters] = React.useState<{
+  const [parameters, setParameters] = React.useState<{
     verdict: string | undefined,
     customAlias: string | undefined,
-    customName: string | undefined
+    customNote: string | undefined
   }>({
     verdict: undefined,
     customAlias: undefined,
-    customName: undefined
+    customNote: undefined
   });
 
   //const displayVerdict = formVerdict(player.localVerdict);
@@ -62,8 +62,9 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
   }, []);
 
   React.useEffect(() => {
-    setMeetRequirements(!!(verdict || customAlias || customName))
-  }, [verdict, customAlias, customName])
+    // The user must provide a verdict other than "Player" or some custom information in order for the backend to retain it.
+    setMeetRequirements(!!(parameters.verdict && (parameters.verdict !== "Player" || parameters.customAlias || parameters.customNote)))
+  }, [parameters])
 
   // Update pfp on mount
   React.useEffect(() => {
@@ -126,25 +127,41 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
             className="sticky pr-1 z-30 w-[175px]"
             options={verdictOptions}
             placeholder={t('SELECT_VERDICT')}
-            onChange={() => {}}
+            onChange={(e) => {
+              const verdict = e.toString();
+              setParameters({
+                ...parameters,
+                verdict: verdict
+              })
+            }}
           />
           <div className="flex flex-grow w-max-content ml-1 p-1 border border-gray-700">
-            {playerInfo && <Search className="" placeholder={t('SET_CUSTOM_ALIAS')} onChange={() => {}}/>}
+            {playerInfo && <Search className="" placeholder={t('SET_CUSTOM_ALIAS')} onChange={(alias: string) => {
+              setParameters({
+                ...parameters,
+                customAlias: alias
+              })
+            }}/>}
           </div>
         </div>
         <div className="flex min-w-[700px] my-1 p-1 border border-gray-700">
-          {playerInfo && <Search className="min-w-[700px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={() => {}}/>}
+          {playerInfo && <Search className="min-w-[700px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={(note: string) => {
+            setParameters({
+              ...parameters,
+              customNote: note
+            })
+          }}/>}
         </div>
         <div className="flex min-w-[700px] my-1">
           <button
-              className={"ml-auto mt-3 mb-3 h-10 w-[100px] rounded-sm items-center bg-red-700"}
+              className={"ml-auto mt-3 mb-0 h-10 w-[100px] rounded-sm items-center bg-red-700"}
               disabled={false}
               onClick={() => {
                 closeModal()
               }}
           >{t('CANCEL')}</button>
           <button
-              className={`ml-2 mt-3 mb-3 h-10 w-[100px] rounded-sm items-center ${meetRequirements ? "bg-blue-700" : "bg-gray-400"}`}
+              className={`ml-2 mt-3 mb-0 h-10 w-[100px] rounded-sm items-center ${meetRequirements ? "bg-blue-700" : "bg-gray-400"}`}
               disabled={!meetRequirements}
               onClick={() => {
                 closeModal()
