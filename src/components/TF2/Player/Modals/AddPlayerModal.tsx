@@ -136,21 +136,21 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
             }}
           />
           <div className="flex flex-grow w-max-content ml-1 p-1 border border-gray-700">
-            {playerInfo && <Search className="" placeholder={t('SET_CUSTOM_ALIAS')} onChange={(alias: string) => {
+            <Search className="" placeholder={t('SET_CUSTOM_ALIAS')} onChange={(alias: string) => {
               setParameters({
                 ...parameters,
                 customAlias: alias
               })
-            }}/>}
+            }}/>
           </div>
         </div>
         <div className="flex min-w-[700px] my-1 p-1 border border-gray-700">
-          {playerInfo && <Search className="min-w-[700px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={(note: string) => {
+          <Search className="min-w-[700px]" placeholder={t('ADD_CUSTOM_NOTE')} onChange={(note: string) => {
             setParameters({
               ...parameters,
               customNote: note
             })
-          }}/>}
+          }}/>
         </div>
         <div className="flex min-w-[700px] my-1">
           <button
@@ -164,6 +164,11 @@ const AddPlayerModal = ({ steamID64 }: AddPlayerModalProps) => {
               className={`ml-2 mt-3 mb-0 h-10 w-[100px] rounded-sm items-center ${meetRequirements ? "bg-blue-700" : "bg-gray-400"}`}
               disabled={!meetRequirements}
               onClick={() => {
+                // '|| undefined' to prevent empty strings being needlessly written to the playerlist 
+                updatePlayer(steamID64, parameters.verdict || undefined, {
+                  alias: parameters.customAlias || undefined,
+                  playerNote: parameters.customNote || undefined
+                })
                 closeModal()
               }}
           >{t('ADD_PLAYER')}</button>
