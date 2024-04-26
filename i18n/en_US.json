@@ -110,5 +110,11 @@
   "DATA_LAST_RETRIEVED": "Data last retrieved:",
   "CLICK_TO_REFRESH": "Click to refresh",
   "CLICK_TO_COLLECT_DATA": "Click to collect data",
-  "NO_DATA": "No data"
+  "NO_DATA": "No data",
+  "ADD_PLAYER": "Add player",
+  "ADD_PLAYER_HELP": "If you search for a SteamID that is not in your archive, click this button to add it.",
+  "SELECT_VERDICT": "Select a verdict...",
+  "SET_CUSTOM_ALIAS": "Set a custom alias...",
+  "ADD_CUSTOM_NOTE": "Add additional information...",
+  "CANCEL": "Cancel"
 }

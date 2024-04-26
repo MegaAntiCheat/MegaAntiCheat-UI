@@ -6,6 +6,8 @@ import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
+import { useModal } from '../../Context/ModalContext';
+import { AddPlayerModal } from '@components/TF2';
 
 // Maps Steam IDs of each search result to its relevance
 export type SearchRelevance = Map<string, string>;
@@ -21,12 +23,18 @@ const PlayerHistory = () => {
   const [query, setQuery] = React.useState<string>(' ');
   const [caseSensitive, setCaseSensitive] = React.useState<boolean>(false);
 
+  const [playerToAdd, setPlayerToAdd] = React.useState<string | undefined>(
+    undefined,
+  );
+
   // Tracks which results the user is currently refreshing.
   const [refreshing, setRefreshing] = React.useState<string[]>([]);
 
-  const defaultSort = (a: ArchivePlayerInfo, b: ArchivePlayerInfo) => {
+  const archiveSort = (a: ArchivePlayerInfo, b: ArchivePlayerInfo) => {
     return b.steamID64.localeCompare(a.steamID64);
   };
+
+  const { openModal } = useModal();
 
   const handleSearch = (query: string) => {
     setQuery(query);
@@ -63,9 +71,18 @@ const PlayerHistory = () => {
     if (query.trim() !== '') {
       newRecent = search(newRecent, query, caseSensitive);
       newArchive = search(newArchive, query, caseSensitive);
+
+      const query64 = getSteamID64(query.trim());
+      const result =
+        query64 &&
+        ![newRecent, newArchive].flat().some((p) => p.steamID64 === query64)
+          ? query64
+          : undefined;
+      setPlayerToAdd(result);
     } else {
-      newRecent.sort(defaultSort);
-      newArchive.sort(defaultSort);
+      // newRecent is already sorted in the desired order (most recent first)
+      newArchive.sort(archiveSort);
+      setPlayerToAdd(undefined);
     }
     setRecent(newRecent);
     setArchive(newArchive);
@@ -76,9 +93,23 @@ const PlayerHistory = () => {
       <div className="flex">
         <Search
           placeholder={t('PLAYER_SEARCH')}
-          className="ml-4 mt-3 mb-3 w-[calc(100%-200px)]"
+          className="ml-4 mt-3 mb-3 w-[calc(100%-350px)]"
           onChange={handleSearch}
         />
+        <button
+          className={`ml-4 mt-3 mb-3 h-10v w-[100px] rounded-sm items-center ${
+            playerToAdd ? 'bg-blue-700' : 'bg-gray-400'
+          }`}
+          disabled={!playerToAdd}
+          onClick={() => {
+            if (!playerToAdd) return;
+            openModal(<AddPlayerModal steamID64={playerToAdd} />, {
+              dismissable: true,
+            });
+          }}
+        >
+          {t('ADD_PLAYER')}
+        </button>
         <Checkbox
           className="case-sensitive-checkbox ml-4 mt-3 mb-3 h-4 items-center"
           checked={caseSensitive}
