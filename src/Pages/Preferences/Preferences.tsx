@@ -118,6 +118,15 @@ const Preferences = () => {
                 onChange={(e) => handleSettingChange('openInApp', e)}
               />
             </Flex>
+            <Flex className='preference-option'>
+              <div className="preference-title">
+                {t('PREF_RAGE_KICK_BOTS')}
+              </div>
+              <Checkbox
+                checked={settings.internal?.dumbAutokick}
+                onChange={(e) => handleSettingChange('dumbAutokick', e, 'internal')}
+              />
+            </Flex>
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">
             <TextItem className="mr-9">{t('PREF_COLORS_PRECEDENCE')}</TextItem>
