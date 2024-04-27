@@ -1,3 +1,4 @@
+import { readProvisionKey } from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
 
@@ -92,7 +93,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
-
+  const [apiKey, setApiKey] = React.useState<string>(readProvisionKey());
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
 
@@ -177,7 +178,11 @@ function App() {
       <Modal />
       {!isMinimode && (
         <div className="App-sidebar">
-          <SideMenu setCurrentPage={setCurrentPage} currentPage={currentPage} />
+          <SideMenu
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            showProvisionPrompt={!apiKey}
+          />
         </div>
       )}
       <div className="App-content">
