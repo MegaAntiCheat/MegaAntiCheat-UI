@@ -18,7 +18,7 @@ interface Settings {
     steamApiKey?: string;
     rconPassword?: string;
     friendsApiUsage?: string;
-    dumbAutokick?: boolean
+    dumbAutokick?: boolean;
   };
 }
 

@@ -118,13 +118,13 @@ const Preferences = () => {
                 onChange={(e) => handleSettingChange('openInApp', e)}
               />
             </Flex>
-            <Flex className='preference-option'>
-              <div className="preference-title">
-                {t('PREF_RAGE_KICK_BOTS')}
-              </div>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_RAGE_KICK_BOTS')}</div>
               <Checkbox
                 checked={settings.internal?.dumbAutokick}
-                onChange={(e) => handleSettingChange('dumbAutokick', e, 'internal')}
+                onChange={(e) =>
+                  handleSettingChange('dumbAutokick', e, 'internal')
+                }
               />
             </Flex>
           </Accordion>
