@@ -93,6 +93,7 @@ function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
 
   const renderPage = () => {
@@ -126,7 +127,6 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      if (modalContent) closeModal();
       return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
@@ -139,12 +139,15 @@ function App() {
 
   const verificationRoutine = async () => {
     let connected = false;
+    let dead = false;
     do {
       connected = await isBackendConnected();
       if (!connected) {
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait 5 seconds before retrying
+        dead = true;
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
       }
     } while (!connected);
+    if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
     verifyConfigured();
   };
 
@@ -162,7 +165,7 @@ function App() {
     if (useFakedata) return;
 
     verificationRoutine();
-    const intervalId = setInterval(verificationRoutine, 5000);
+    const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
       clearInterval(intervalId);

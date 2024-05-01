@@ -41,7 +41,7 @@ const t = (key: string, lang: string = currentLang) => {
   }
 
   // Always default to English
-  return translations[lang][key] || translations['English'][key];
+  return translations[lang][key] || translations['English'][key] || '';
 };
 
 export { currentLang, setLanguage, t, translations };

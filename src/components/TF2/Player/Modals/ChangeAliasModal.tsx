@@ -4,10 +4,11 @@ import { Button, TextInput } from '@components/General';
 import { useModal } from '../../../../Context';
 
 interface ChangeAliasModalProps {
-  player: PlayerInfo;
+  steamID64: string;
+  name?: string;
 }
 
-const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
+const ChangeAliasModal = ({ steamID64, name }: ChangeAliasModalProps) => {
   const [alias, setAlias] = React.useState('');
 
   const { closeModal } = useModal();
@@ -16,7 +17,7 @@ const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
     <div className="text-center">
       <div className="mb-3">
         Change Alias for Player:
-        <div className="font-bold">{player.name}</div>
+        <div className="font-bold">{name ?? steamID64}</div>
       </div>
       <div className="mb-4">
         <TextInput onChange={(e) => setAlias(e)} />
@@ -24,7 +25,7 @@ const ChangeAliasModal = ({ player }: ChangeAliasModalProps) => {
       <div>
         <Button
           onClick={() => {
-            updatePlayer(player.steamID64, undefined, { alias });
+            updatePlayer(steamID64, undefined, { alias });
             closeModal();
           }}
         >

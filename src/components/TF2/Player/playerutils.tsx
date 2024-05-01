@@ -5,12 +5,14 @@ import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
   LogIn,
+  RotateCw,
   ScrollText,
   ShieldAlert,
   Star,
   Users2,
 } from 'lucide-react';
 import { Tooltip } from '@components/General';
+import { updateSteamInfo } from '@api/players';
 
 const localVerdict = [
   {
@@ -73,10 +75,10 @@ function displayProperStatus(status: string) {
   return t('IN_GAME');
 }
 
-function displayColor(
+function displayColor<T extends PlayerInfo | ArchivePlayerInfo>(
   playerColors: Record<string, string>,
-  player: PlayerInfo,
-  cheatersInLobby: PlayerInfo[],
+  player: T,
+  cheatersInLobby: T[],
 ) {
   const ALPHA = '0.35';
   const you = player.isSelf;
@@ -101,25 +103,25 @@ function displayColor(
   return hexToRGB(playerColors[verdict], ALPHA);
 }
 
-function getCheaterFriendsInLobby(
-  player: PlayerInfo,
-  cheatersInLobby: PlayerInfo[],
-): PlayerInfo[] {
+function getCheaterFriendsInLobby<T extends PlayerInfo | ArchivePlayerInfo>(
+  player: T,
+  cheatersInLobby: T[],
+): T[] {
   return cheatersInLobby.filter(
     (c) => player.friends?.some((f) => f.steamID64 === c.steamID64),
   );
 }
 
-function hasCheaterFriendsInLobby(
-  player: PlayerInfo,
-  cheatersInLobby: PlayerInfo[],
+function hasCheaterFriendsInLobby<T extends PlayerInfo | ArchivePlayerInfo>(
+  player: T,
+  cheatersInLobby: T[],
 ): boolean {
   return cheatersInLobby.some(
     (c) => player.friends?.some((f) => f.steamID64 === c.steamID64),
   );
 }
 
-function displayNamesList(player: PlayerInfo): string {
+function displayNamesList(player: PlayerInfo | ArchivePlayerInfo): string {
   let nameList = '';
 
   if (player.previousNames?.length)
@@ -168,6 +170,22 @@ function buildIconList(
       : './kiwi_white.webp';
 
   return [
+    // A special hardcode for me (Youtuber privilege)
+    // Added a check for the name including "megascatterbomb" in case I wish to alias.
+    // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
+    // else until they have the ability to toggle their icons on/off without doing a code change)
+    player.steamID64 === '76561198022053157' &&
+      player.name.toLowerCase().includes('megascatterbomb') && (
+        <Tooltip
+          key="megascatterbomb"
+          className="mr-1"
+          direction="left"
+          content={`${t('TOOLTIP_MEGASCATTERBOMB_REAL')}`}
+        >
+          <img height={18} width={18} src={kiwi_source} />
+        </Tooltip>
+      ),
+    // Add a star if this player has a custom alias set by the user
     hasAlias && (
       <Tooltip
         key="alias"
@@ -178,6 +196,7 @@ function buildIconList(
         <Star width={18} height={18} />
       </Tooltip>
     ),
+    // Add a note icon if the player has custom notes attached or imported data from TF2BD
     (!!playerNote || !!tfbd) && (
       <Tooltip
         className="mr-1"
@@ -188,6 +207,7 @@ function buildIconList(
         <ScrollText width={18} height={18} />
       </Tooltip>
     ),
+    // Add an icon if their account is young
     daysOld < 60 && ( // 2 Months
       <Tooltip
         key="age"
@@ -198,6 +218,7 @@ function buildIconList(
         <CalendarClock width={18} height={18} />
       </Tooltip>
     ),
+    // Add an icon if the player has any VAC or Game bans
     !!hasBans && (
       <Tooltip
         key="hasbans"
@@ -221,18 +242,20 @@ function buildIconList(
         <ShieldAlert width={18} height={18} />
       </Tooltip>
     ),
+    // Highlight players who have cheater friends in the same lobby
     !!cheaterFriendsInLobby?.length && (
       <Tooltip
         key="cheaterfriends"
         className="mr-1"
         direction="left"
         content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
-          .map((cf) => cf.name)
+          .map((cf) => cf.name || cf.steamID64)
           .join('\n')}`}
       >
         <Users2 width={18} height={18} />
       </Tooltip>
     ),
+    // Indicate if the player is still connecting to the server
     joining && (
       <Tooltip
         key="joining"
@@ -243,6 +266,43 @@ function buildIconList(
         <LogIn width={18} height={18} />
       </Tooltip>
     ),
+  ];
+}
+
+function buildIconListFromArchive(
+  player: ArchivePlayerInfo,
+  cheatersInLobby: ArchivePlayerInfo[],
+  isRefreshing: boolean,
+  setRefreshing: (b: boolean) => void,
+): React.ReactNode[] {
+  const now = Date.now() / 1000;
+  const hasAlias = !!player.customData?.alias;
+  const playerNote = player.customData?.playerNote;
+  const tfbd = player.customData?.tfbd;
+  const accCreationTime = player.steamInfo?.timeCreated ?? 0;
+  const daysOld = (now - accCreationTime) / (24 * 60 * 60);
+  const hasBans =
+    (player.steamInfo?.gameBans ?? 0) + (player.steamInfo?.vacBans ?? 0);
+  const cheaterFriendsInLobby = getCheaterFriendsInLobby(
+    player,
+    cheatersInLobby,
+  );
+
+  let stale = false;
+
+  const fetchedDate = player.steamInfo?.fetched
+    ? new Date(player.steamInfo?.fetched)
+    : null;
+  if (
+    !fetchedDate ||
+    Date.now() - fetchedDate.valueOf() > 24 * 60 * 60 * 1000
+  ) {
+    stale = true;
+  }
+
+  const kiwi_source = './kiwi_white.webp';
+
+  return [
     // A special hardcode for me (Youtuber privilege)
     // Added a check for the name including "megascatterbomb" in case I wish to alias.
     // TODO: Remove when MasterBase can determine custom tags (don't want to hardcode for anyone
@@ -258,6 +318,105 @@ function buildIconList(
           <img height={18} width={18} src={kiwi_source} />
         </Tooltip>
       ),
+    // Add a star if this player has a custom alias set by the user
+    hasAlias && (
+      <Tooltip
+        key="alias"
+        className="mr-1"
+        direction="left"
+        content={`${t('TOOLTIP_ACTUAL_NAME')}\n${player.name}`}
+      >
+        <Star width={18} height={18} />
+      </Tooltip>
+    ),
+    // Add a note icon if the player has custom notes attached or imported data from TF2BD
+    (!!playerNote || !!tfbd) && (
+      <Tooltip
+        className="mr-1"
+        key="playernote"
+        direction="left"
+        content={buildPlayerNote(player.customData)}
+      >
+        <ScrollText width={18} height={18} />
+      </Tooltip>
+    ),
+    // Add an icon if their account is young
+    daysOld < 60 && ( // 2 Months
+      <Tooltip
+        key="age"
+        className="mr-1"
+        direction="left"
+        content={t('TOOLTIP_NEW_ACCOUNT').replace('%1%', daysOld.toFixed(0))}
+      >
+        <CalendarClock width={18} height={18} />
+      </Tooltip>
+    ),
+    // Add an icon if the player has any VAC or Game bans
+    !!hasBans && (
+      <Tooltip
+        key="hasbans"
+        className="mr-1"
+        direction="left"
+        content={
+          `${t('TOOLTIP_BANS_VAC').replace(
+            '%1%',
+            player.steamInfo?.vacBans?.toFixed(0) ?? '0',
+          )}\n` +
+          `${t('TOOLTIP_BANS_GAME').replace(
+            '%1%',
+            player.steamInfo?.gameBans?.toFixed(0) ?? '0',
+          )}\n` +
+          `${t('TOOLTIP_BANS_DAYS').replace(
+            '%1%',
+            player.steamInfo?.daysSinceLastBan?.toFixed(0) ?? '0',
+          )}`
+        }
+      >
+        <ShieldAlert width={18} height={18} />
+      </Tooltip>
+    ),
+    // Highlight players who have cheater friends
+    !!cheaterFriendsInLobby?.length && (
+      <Tooltip
+        key="cheaterfriends"
+        className="mr-1"
+        direction="left"
+        content={`${t('TOOLTIP_FRIENDS_WITH_CHEATERS')}\n${cheaterFriendsInLobby
+          .map((cf) => cf.name || cf.steamID64)
+          .join('\n')}`}
+      >
+        <Users2 width={18} height={18} />
+      </Tooltip>
+    ),
+    // Add a refresh icon if the data on this account is potentially stale.
+    stale && (
+      <Tooltip
+        key="stale"
+        className="mr-1"
+        direction="left"
+        content={
+          fetchedDate
+            ? `${t(
+                'DATA_LAST_RETRIEVED',
+              )} ${fetchedDate?.toLocaleDateString()}\n${t('CLICK_TO_REFRESH')}`
+            : `${t('NO_DATA')}\n${t('CLICK_TO_COLLECT_DATA')}`
+        }
+      >
+        <RotateCw
+          className={isRefreshing ? 'refresh-spinner' : ''}
+          onClick={(event) => {
+            event.preventDefault();
+            setRefreshing(true);
+            updateSteamInfo([player.steamID64]).then((r) => {
+              player.steamInfo = r[0].steamInfo;
+              setRefreshing(false);
+            });
+          }}
+          width={18}
+          height={18}
+        />
+      </Tooltip>
+    ),
   ];
 }
 
@@ -270,4 +429,5 @@ export {
   calculateKD,
   displayNamesList,
   buildIconList,
+  buildIconListFromArchive,
 };
