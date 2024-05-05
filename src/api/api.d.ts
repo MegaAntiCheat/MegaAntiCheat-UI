@@ -19,6 +19,9 @@ interface Settings {
     rconPassword?: string;
     friendsApiUsage?: string;
     dumbAutokick?: boolean;
+    masterbaseKey?: string;
+    masterbaseHost?: string;
+    rconPort?: number;
   };
 }
 
