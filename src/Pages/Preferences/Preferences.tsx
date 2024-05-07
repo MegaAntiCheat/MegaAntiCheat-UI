@@ -290,6 +290,19 @@ const Preferences = () => {
                 )}
               </div>
             </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_RCON_PORT')}</div>
+              <TextInput
+                type={'input'}
+                defaultValue={settings?.internal.rconPort}
+                onLeave={(e) => {
+                  try {
+                    const port = Number.parseInt(e);
+                    handleSettingChange('rconPort', port, 'internal')
+                  } catch {}
+                }}
+              />
+            </Flex>
             <Flex className="preference-option pref-password">
               <div className="preference-title">{t('PREF_MASTERBASE_KEY')}</div>
               <TextInput
@@ -318,6 +331,16 @@ const Preferences = () => {
                   />
                 )}
               </div>
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_MASTERBASE_HOST')}</div>
+              <TextInput
+                type={'input'}
+                defaultValue={settings?.internal.masterbaseHost}
+                onLeave={(e) =>
+                  handleSettingChange('masterbaseHost', e, 'internal')
+                }
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">

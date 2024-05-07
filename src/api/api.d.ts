@@ -21,7 +21,7 @@ interface Settings {
     dumbAutokick?: boolean;
     masterbaseKey?: string;
     masterbaseHost?: string;
-    rconPort?: number;
+    rconPort?: string;
   };
 }
 
