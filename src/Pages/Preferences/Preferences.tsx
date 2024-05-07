@@ -22,7 +22,8 @@ import { Eye, EyeOff } from 'lucide-react';
 const Preferences = () => {
   const [settings, setSettings] = React.useState<Settings>(defaultSettings);
   const [rconRevealed, setRconRevealed] = React.useState(false);
-  const [masterbaseKeyRevealed, setMasterbaseKeyRevealed] = React.useState(false);
+  const [masterbaseKeyRevealed, setMasterbaseKeyRevealed] =
+    React.useState(false);
   const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
@@ -298,7 +299,8 @@ const Preferences = () => {
                 onLeave={(e) => {
                   try {
                     const port = Number.parseInt(e);
-                    handleSettingChange('rconPort', port, 'internal')
+                    handleSettingChange('rconPort', port, 'internal');
+                  //eslint-disable-next-line no-empty
                   } catch {}
                 }}
               />
@@ -333,7 +335,9 @@ const Preferences = () => {
               </div>
             </Flex>
             <Flex className="preference-option">
-              <div className="preference-title">{t('PREF_MASTERBASE_HOST')}</div>
+              <div className="preference-title">
+                {t('PREF_MASTERBASE_HOST')}
+              </div>
               <TextInput
                 type={'input'}
                 defaultValue={settings?.internal.masterbaseHost}
