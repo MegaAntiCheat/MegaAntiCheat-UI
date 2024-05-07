@@ -300,7 +300,7 @@ const Preferences = () => {
                   try {
                     const port = Number.parseInt(e);
                     handleSettingChange('rconPort', port, 'internal');
-                  //eslint-disable-next-line no-empty
+                    //eslint-disable-next-line no-empty
                   } catch {}
                 }}
               />
