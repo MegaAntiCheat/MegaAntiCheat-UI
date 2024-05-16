@@ -13,12 +13,6 @@ const ContextMenuContent = () => {
 
   if (!isVisible) return null;
 
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (!contextMenuRef.current?.contains(event.target as Node)) {
-      hideMenu();
-    }
-  };
-
   const style: CSSProperties = {
     top: position.y,
     left: position.x,
@@ -55,10 +49,23 @@ const ContextMenuContent = () => {
     return spaceBelow >= height;
   };
 
+  let timesVisible = 0;
   useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
+    const handleClick = () => {
+      if (isVisible) {
+        if (timesVisible) {
+          hideMenu();
+        }
+        timesVisible++;
+      }
+    };
+    if (isVisible) {
+      document.addEventListener('click', handleClick);
+      document.addEventListener('contextmenu', handleClick);
+    }
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('click', handleClick);
+      document.removeEventListener('contextmenu', handleClick);
     };
   }, []);
 
