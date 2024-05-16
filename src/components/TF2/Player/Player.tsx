@@ -81,7 +81,7 @@ const Player = ({
 
   // Prevent text selection on click (e.g Dropdown)
   useEffect(() => {
-    function preventDefault(e: MouseEvent) {
+    function preventDefault(e: globalThis.MouseEvent) {
       if (e.detail != 2) return;
 
       e.preventDefault();
