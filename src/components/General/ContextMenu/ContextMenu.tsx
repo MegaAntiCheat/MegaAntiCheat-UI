@@ -1,15 +1,15 @@
-import React from 'react';
+import { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import './ContextMenu.css';
 
-import { ContextMenuContext } from '../../../Context';
+import { ContextMenuContext } from '@context';
 import { ChevronRight } from 'lucide-react';
 
 const ContextMenuContent = () => {
-  const contextMenuRef = React.useRef<HTMLDivElement>(null);
-  const [showMulti, setShowMulti] = React.useState<number[]>([]);
-  const [forceUpdate, setForceUpdate] = React.useState(false);
+  const contextMenuRef = useRef<HTMLDivElement>(null);
+  const [showMulti, setShowMulti] = useState<number[]>([]);
+  const [forceUpdate, setForceUpdate] = useState(false);
   const { isVisible, position, menuItems, hideMenu } =
-    React.useContext(ContextMenuContext);
+    useContext(ContextMenuContext);
 
   if (!isVisible) return null;
 
@@ -19,7 +19,7 @@ const ContextMenuContent = () => {
     }
   };
 
-  const style: React.CSSProperties = {
+  const style: CSSProperties = {
     top: position.y,
     left: position.x,
   };
@@ -52,11 +52,10 @@ const ContextMenuContent = () => {
     const { top, height } = contextMenuRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
     const spaceBelow = windowHeight - top - height;
-    console.log(height, spaceBelow);
     return spaceBelow >= height;
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener('click', handleOutsideClick);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
@@ -117,7 +116,7 @@ const ContextMenuContent = () => {
 };
 
 const ContextMenu = () => {
-  const { isVisible } = React.useContext(ContextMenuContext);
+  const { isVisible } = useContext(ContextMenuContext);
 
   if (!isVisible) return null;
 
