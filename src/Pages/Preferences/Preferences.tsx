@@ -22,6 +22,8 @@ import { Eye, EyeOff } from 'lucide-react';
 const Preferences = () => {
   const [settings, setSettings] = React.useState<Settings>(defaultSettings);
   const [rconRevealed, setRconRevealed] = React.useState(false);
+  const [masterbaseKeyRevealed, setMasterbaseKeyRevealed] =
+    React.useState(false);
   const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
 
@@ -116,6 +118,15 @@ const Preferences = () => {
               <Checkbox
                 checked={settings?.external.openInApp}
                 onChange={(e) => handleSettingChange('openInApp', e)}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_RAGE_KICK_BOTS')}</div>
+              <Checkbox
+                checked={settings.internal?.dumbAutokick}
+                onChange={(e) =>
+                  handleSettingChange('dumbAutokick', e, 'internal')
+                }
               />
             </Flex>
           </Accordion>
@@ -279,6 +290,61 @@ const Preferences = () => {
                   />
                 )}
               </div>
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_RCON_PORT')}</div>
+              <TextInput
+                type={'input'}
+                defaultValue={settings?.internal.rconPort}
+                onLeave={(e) => {
+                  try {
+                    const port = Number.parseInt(e);
+                    handleSettingChange('rconPort', port, 'internal');
+                    //eslint-disable-next-line no-empty
+                  } catch {}
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option pref-password">
+              <div className="preference-title">{t('PREF_MASTERBASE_KEY')}</div>
+              <TextInput
+                type={masterbaseKeyRevealed ? 'input' : 'password'}
+                defaultValue={settings?.internal.masterbaseKey}
+                onLeave={(e) =>
+                  handleSettingChange('masterbaseKey', e, 'internal')
+                }
+                withIcon
+              />
+              <div
+                className="flex items-center"
+                onClick={() => setMasterbaseKeyRevealed(!masterbaseKeyRevealed)}
+              >
+                {masterbaseKeyRevealed ? (
+                  <EyeOff
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                ) : (
+                  <Eye
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                )}
+              </div>
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('PREF_MASTERBASE_HOST')}
+              </div>
+              <TextInput
+                type={'input'}
+                defaultValue={settings?.internal.masterbaseHost}
+                onLeave={(e) =>
+                  handleSettingChange('masterbaseHost', e, 'internal')
+                }
+              />
             </Flex>
             <Flex className="preference-option">
               <div className="preference-title">

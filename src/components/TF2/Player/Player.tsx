@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent, useContext, useEffect, useRef, useState } from 'react';
 import './Player.css';
 
 import { t } from '@i18n';
@@ -42,21 +42,21 @@ const Player = ({
   openInApp,
   cheatersInLobby,
 }: PlayerProps) => {
-  const isFirstRefresh = React.useRef(true);
+  const isFirstRefresh = useRef(true);
   // Context Menu
-  const { showMenu } = React.useContext(ContextMenuContext);
+  const { showMenu } = useContext(ContextMenuContext);
 
   // Modal
   const { openModal } = useModal();
 
   // States
-  const [playtime, setPlaytime] = React.useState(0);
-  const [pfp, setPfp] = React.useState<string>('./person.webp');
-  const [showPlayerDetails, setShowPlayerDetails] = React.useState(false);
+  const [playtime, setPlaytime] = useState(0);
+  const [pfp, setPfp] = useState<string>('./person.webp');
+  const [showPlayerDetails, setShowPlayerDetails] = useState(false);
 
   const urlToOpen = openInApp
     ? `steam://url/SteamIDPage/${player.steamID64}`
-    : player.steamInfo?.profileUrl;
+    : `https://steamcommunity.com/profiles/${player.steamID64}`;
 
   // Use "Player" as a verdict if the client isnt You
   const displayVerdict = player.isSelf
@@ -68,11 +68,11 @@ const Player = ({
 
   // const color = displayColor(playerColors!, player, cheatersInLobby);
 
-  const [color, setColor] = React.useState<string | undefined>(
+  const [color, setColor] = useState<string | undefined>(
     displayColor(playerColors!, player, cheatersInLobby),
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setColor(displayColor(playerColors!, player, cheatersInLobby));
   }, [player.localVerdict, playerColors, player, cheatersInLobby]);
 
@@ -81,8 +81,8 @@ const Player = ({
   const disconnected = displayStatus === 'Disconnected';
 
   // Prevent text selection on click (e.g Dropdown)
-  React.useEffect(() => {
-    function preventDefault(e: MouseEvent) {
+  useEffect(() => {
+    function preventDefault(e: globalThis.MouseEvent) {
       if (e.detail != 2) return;
 
       e.preventDefault();
@@ -93,7 +93,7 @@ const Player = ({
   }, []);
 
   // Sync time if not yet set or out of sync (e.g. switched servers)
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       !isFirstRefresh.current &&
       Math.abs(playtime - (player.gameInfo?.time ?? playtime)) <= 3
@@ -106,7 +106,7 @@ const Player = ({
   }, [player.gameInfo?.time]);
 
   // Update playtime every second
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       if (disconnected) return;
       setPlaytime((prev) => prev + 1);
@@ -116,7 +116,7 @@ const Player = ({
   }, [disconnected]);
 
   // Update pfp on mount
-  React.useEffect(() => {
+  useEffect(() => {
     if (!player.steamInfo?.pfp) return;
 
     verifyImageExists(player.steamInfo?.pfp, './person.webp').then((src) => {
@@ -126,7 +126,7 @@ const Player = ({
     });
   }, [player.steamInfo?.pfp]);
 
-  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleContextMenu = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     const menuItems: MenuItem[] = [
       {
@@ -151,9 +151,15 @@ const Player = ({
       {
         label: 'Change Alias',
         onClick: () =>
-          openModal(<ChangeAliasModal player={player} />, {
-            dismissable: true,
-          }),
+          openModal(
+            <ChangeAliasModal
+              steamID64={player.steamID64}
+              name={player.customData.alias ?? player.name}
+            />,
+            {
+              dismissable: true,
+            },
+          ),
       },
     ];
 
