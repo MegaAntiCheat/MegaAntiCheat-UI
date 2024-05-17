@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './ScoreboardTable.css';
 
 import { getAllSettings } from '@api/preferences';
@@ -19,10 +19,8 @@ const ScoreboardTable = ({
   UNASSIGNED,
 }: ScoreboardTableProps) => {
   // Store the users playerID
-  const [userSteamID, setUserSteamID] = React.useState('0');
-  const [playerSettings, setPlayerSettings] = React.useState<
-    Settings['external']
-  >({
+  const [userSteamID, setUserSteamID] = useState('0');
+  const [playerSettings, setPlayerSettings] = useState<Settings['external']>({
     colors: {
       You: 'none',
       Player: 'none',
@@ -37,7 +35,7 @@ const ScoreboardTable = ({
     openInApp: false,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchTeamColors = async () => {
       try {
         const { external } = await getAllSettings(); // Replace this with the actual async function that fetches colors
@@ -49,7 +47,7 @@ const ScoreboardTable = ({
     fetchTeamColors();
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchSelf = () => {
       const combinedPlayers = RED?.concat(
         BLU ?? [],
