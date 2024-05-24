@@ -11,12 +11,14 @@ interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<PAGES>>;
   currentPage: PAGES;
   showProvisionPrompt?: boolean;
+  isOnline: boolean;
 }
 
 const SideMenu = ({
   setCurrentPage,
   currentPage,
   showProvisionPrompt,
+  isOnline,
 }: SideMenuProps) => {
   const [collapsed, setCollapsed] = React.useState(true);
   const MenuRef = React.useRef<HTMLDivElement>(null);
@@ -80,6 +82,7 @@ const SideMenu = ({
         <MenuHeader
           collapsed={collapsed}
           handleSymbolClick={handleToggleClick}
+          isOnline={isOnline}
         />
         <div>
           <Divider size={2} />

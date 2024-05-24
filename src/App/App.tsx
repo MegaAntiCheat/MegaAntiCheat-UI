@@ -1,4 +1,4 @@
-import { readProvisionKey } from '@api/masterbase/masterbase-api';
+import { readProvisionKey, status } from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
 
@@ -94,6 +94,7 @@ function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
   const [apiKey, setApiKey] = React.useState<string>(readProvisionKey());
+  const [isOnline, setIsOnline] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
 
@@ -149,7 +150,15 @@ function App() {
       }
     } while (!connected);
     if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
-    verifyConfigured();
+    await verifyConfigured();
+    setIsOnline(await masterbaseOnline());
+  };
+  const masterbaseOnline = async () => {
+    return await status()
+      .then((res) => {
+        return true;
+      })
+      .catch(() => false);
   };
 
   React.useEffect(() => {
@@ -182,6 +191,7 @@ function App() {
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             showProvisionPrompt={!apiKey}
+            isOnline={isOnline}
           />
         </div>
       )}
