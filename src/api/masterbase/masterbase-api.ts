@@ -21,17 +21,17 @@ async function fetchMasterbase<T>(
   return await data.json();
 }
 
-export function masterbaseStatus() {
+export function masterbaseStatus(): Promise<string> {
   return fetchMasterbase('', undefined, {
     headers: { 'Content-Type': 'text/plain' },
   });
 }
 
-export async function masterbaseProvisionUrl() {
+export async function masterbaseProvisionUrl(): Promise<string> {
   return `${await backendUrl()}provision`;
 }
 
-export function readProvisionKey() {
+export function readProvisionKey(): string {
   const urlParams = new URLSearchParams(window.location.search);
   const key = urlParams.get(provisionParam);
   if (key) {
@@ -41,11 +41,11 @@ export function readProvisionKey() {
   return '';
 }
 
-function setProvisionKey(key: string) {
+function setProvisionKey(key: string): void {
   void setSettingKey('masterbaseKey', key, 'internal');
 }
 
-async function backendUrl() {
+async function backendUrl(): Promise<string> {
   if (isDevelopment) {
     return localBackendUrl;
   } else {
