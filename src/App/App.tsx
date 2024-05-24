@@ -176,13 +176,13 @@ function App() {
         setApiKey(settings.internal.masterbaseKey);
       }
     };
-    const masterbase = async () => {
+    const masterbaseOnlineRoutine = async () => {
       setIsOnline(await masterbaseOnline());
     };
     void setSettingsStates();
-    void masterbase();
+    void masterbaseOnlineRoutine();
     const masterbaseInterval = setInterval(
-      masterbase,
+      masterbaseOnlineRoutine,
       masterbaseOnlineCheckInterval,
     );
     // Don't verify backend if we're on dev environment
