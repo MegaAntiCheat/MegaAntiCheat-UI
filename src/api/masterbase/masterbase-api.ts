@@ -30,8 +30,6 @@ export function readProvisionKey() {
   const urlParams = new URLSearchParams(window.location.search);
   const key = urlParams.get(provisionParam);
   if (key) {
-    urlParams.delete(provisionParam);
-    window.history.replaceState({}, '', `${window.location.pathname}`);
     return key;
   }
   return '';
