@@ -3,7 +3,7 @@ import { readProvisionKey, status } from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
 
-import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
+import { isBackendConfigured, isDevelopment, verifyBackend } from '@api/globals';
 import { Button, SideMenu, TextInput } from '@components/General';
 import {
   ContentPageContainer,
@@ -176,7 +176,7 @@ function App() {
       masterbaseOnlineCheckInterval,
     );
     // Don't verify backend if we're using fakedata (dev environment)
-    if (useFakedata) return;
+    if (isDevelopment) return;
 
     void verificationRoutine();
     const intervalId = setInterval(verificationRoutine, 1000);

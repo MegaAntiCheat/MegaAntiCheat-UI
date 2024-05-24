@@ -2,7 +2,7 @@ import {
   HISTORYFETCH,
   PLAYERFETCH,
   PLAYERRECORDFETCH,
-  useFakedata,
+  isDevelopment,
   USER_ENDPOINT,
 } from '@api/globals';
 import { fakedata } from '@api/servers/fakedata';
@@ -54,7 +54,7 @@ async function fetchPlayerInfos({
   steamID64,
 }: PlayerInfoRequest): Promise<PlayerInfo[]> {
   try {
-    if (useFakedata) return fakedata.players;
+    if (isDevelopment) return fakedata.players;
 
     const options = {
       method: 'PUT',
@@ -77,7 +77,7 @@ async function fetchPlayerInfos({
 
 async function updateSteamInfo(steamIDs: string[]): Promise<PlayerInfo[]> {
   try {
-    if (useFakedata) return [];
+    if (isDevelopment) return [];
 
     const options = {
       method: 'POST',
@@ -103,7 +103,7 @@ async function fetchRecentPlayers(
   startfrom: number = 0,
 ): Promise<ArchivePlayerInfo[]> {
   try {
-    if (useFakedata) [];
+    if (isDevelopment) [];
 
     const response = await fetch(
       `${HISTORYFETCH}?from=${startfrom}&to=${startfrom + amount}`,
@@ -120,7 +120,7 @@ async function fetchRecentPlayers(
 
 async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
   try {
-    if (useFakedata) return [];
+    if (isDevelopment) return [];
 
     const response = await fetch(`${PLAYERRECORDFETCH}`);
 
