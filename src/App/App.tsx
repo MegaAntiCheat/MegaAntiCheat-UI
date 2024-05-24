@@ -153,9 +153,7 @@ function App() {
   };
   const masterbaseOnline = async () => {
     return await status()
-      .then((res) => {
-        return true;
-      })
+      .then((res) => res === 'OK')
       .catch(() => false);
   };
 
