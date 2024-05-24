@@ -1,3 +1,4 @@
+import { masterbaseOnlineCheckInterval } from '@api/masterbase/constants';
 import { readProvisionKey, status } from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
@@ -170,7 +171,10 @@ function App() {
     };
     void setLanguageFromSettings();
     void masterbase();
-    const masterbaseInterval = setInterval(masterbase, 5000);
+    const masterbaseInterval = setInterval(
+      masterbase,
+      masterbaseOnlineCheckInterval,
+    );
     // Don't verify backend if we're using fakedata (dev environment)
     if (useFakedata) return;
 
