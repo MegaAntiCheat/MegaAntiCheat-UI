@@ -185,7 +185,7 @@ function App() {
       masterbase,
       masterbaseOnlineCheckInterval,
     );
-    // Don't verify backend if we're using fakedata (dev environment)
+    // Don't verify backend if we're on dev environment
     if (isDevelopment) return;
 
     void verificationRoutine();
