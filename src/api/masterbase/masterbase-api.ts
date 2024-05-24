@@ -1,4 +1,5 @@
 import { backendUrl, provisionParam } from '@api/masterbase/constants';
+import { setSettingKey } from '@api/preferences';
 
 async function fetchMasterbase<T>(
   endpoint: string,
@@ -30,7 +31,12 @@ export function readProvisionKey() {
   const urlParams = new URLSearchParams(window.location.search);
   const key = urlParams.get(provisionParam);
   if (key) {
+    setProvisionKey(key);
     return key;
   }
   return '';
+}
+
+function setProvisionKey(key: string) {
+  void setSettingKey('masterbaseKey', key, 'internal');
 }
