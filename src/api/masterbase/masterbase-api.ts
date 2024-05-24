@@ -21,6 +21,7 @@ export function status() {
     headers: { 'Content-Type': 'text/plain' },
   });
 }
+
 export function provisionUrl() {
   return `${backendUrl}provision`;
 }

@@ -150,8 +150,6 @@ function App() {
       }
     } while (!connected);
     if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
-    await verifyConfigured();
-    setIsOnline(await masterbaseOnline());
   };
   const masterbaseOnline = async () => {
     return await status()
@@ -169,16 +167,21 @@ function App() {
         setLanguage(settings.external.language);
       }
     };
-    setLanguageFromSettings();
-
+    const masterbase = async () => {
+      setIsOnline(await masterbaseOnline());
+    };
+    void setLanguageFromSettings();
+    void masterbase();
+    const masterbaseInterval = setInterval(masterbase, 5000);
     // Don't verify backend if we're using fakedata (dev environment)
     if (useFakedata) return;
 
-    verificationRoutine();
+    void verificationRoutine();
     const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
       clearInterval(intervalId);
+      clearInterval(masterbaseInterval);
     };
   }, [currentPage]);
 
