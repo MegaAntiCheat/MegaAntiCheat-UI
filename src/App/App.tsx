@@ -1,9 +1,16 @@
 import { masterbaseOnlineCheckInterval } from '@api/masterbase/constants';
-import { readProvisionKey, masterbaseStatus } from '@api/masterbase/masterbase-api';
+import {
+  masterbaseStatus,
+  readProvisionKey,
+} from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
 
-import { isBackendConfigured, isDevelopment, verifyBackend } from '@api/globals';
+import {
+  isBackendConfigured,
+  isDevelopment,
+  verifyBackend,
+} from '@api/globals';
 import { Button, SideMenu, TextInput } from '@components/General';
 import {
   ContentPageContainer,
@@ -12,10 +19,9 @@ import {
   Preferences,
 } from '../Pages';
 import { Modal } from '@components/General/Modal/Modal';
-import { useModal } from '../Context';
+import { useMinimode, useModal } from '@context';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
-import { useMinimode } from '../Context';
 import { PAGES } from '../constants/menuConstants';
 
 const CantConnectModal = () => {
@@ -160,16 +166,19 @@ function App() {
 
   React.useEffect(() => {
     // Set language from settings
-    const setLanguageFromSettings = async () => {
+    const setSettingsStates = async () => {
       const settings = await getAllSettings();
       if (settings.external.language) {
         setLanguage(settings.external.language);
+      }
+      if (settings.internal.masterbaseKey) {
+        setApiKey(settings.internal.masterbaseKey);
       }
     };
     const masterbase = async () => {
       setIsOnline(await masterbaseOnline());
     };
-    void setLanguageFromSettings();
+    void setSettingsStates();
     void masterbase();
     const masterbaseInterval = setInterval(
       masterbase,

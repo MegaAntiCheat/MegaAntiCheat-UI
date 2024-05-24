@@ -59,6 +59,7 @@ interface PreferenceResponse {
     steamApiKey: string;
     friendsApiUsage: string;
     masterbaseHost: string;
+    masterbaseKey: string;
   };
   external: Settings;
 }
@@ -101,6 +102,7 @@ export const defaultSettings: PreferenceResponse = {
     steamApiKey: '',
     rconPassword: '',
     masterbaseHost: 'http://localhost:8000',
+    masterbaseKey: '',
   },
 };
 
