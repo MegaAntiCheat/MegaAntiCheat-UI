@@ -58,6 +58,7 @@ interface PreferenceResponse {
     rconPassword: string;
     steamApiKey: string;
     friendsApiUsage: string;
+    masterbaseHost: string;
   };
   external: Settings;
 }
@@ -99,6 +100,7 @@ export const defaultSettings: PreferenceResponse = {
     tf2Directory: '',
     steamApiKey: '',
     rconPassword: '',
+    masterbaseHost: 'http://localhost:8000',
   },
 };
 

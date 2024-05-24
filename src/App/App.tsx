@@ -1,5 +1,5 @@
 import { masterbaseOnlineCheckInterval } from '@api/masterbase/constants';
-import { readProvisionKey, status } from '@api/masterbase/masterbase-api';
+import { readProvisionKey, masterbaseStatus } from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
 
@@ -153,7 +153,7 @@ function App() {
     if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
   };
   const masterbaseOnline = async () => {
-    return await status()
+    return await masterbaseStatus()
       .then((res) => res === 'OK')
       .catch(() => false);
   };
