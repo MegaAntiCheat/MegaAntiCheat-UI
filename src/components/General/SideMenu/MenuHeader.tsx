@@ -4,11 +4,13 @@ import { Menu, X } from 'lucide-react';
 interface MenuHeaderProps {
   collapsed: boolean;
   handleSymbolClick: (e: React.MouseEvent) => void;
+  isOnline: boolean;
 }
 
 const MenuHeader: React.FC<MenuHeaderProps> = ({
   collapsed,
   handleSymbolClick,
+  isOnline,
 }) => {
   const menuIcon = (
     <a
@@ -18,6 +20,7 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
       href="https://github.com/MegaAntiCheat"
       target="_blank"
       rel="noopener noreferrer"
+      style={{ position: 'relative' }}
     >
       <img
         className="rounded-lg"
@@ -26,6 +29,19 @@ const MenuHeader: React.FC<MenuHeaderProps> = ({
         src="./mac_logo.webp"
         alt="Logo"
       />
+      <span title={isOnline ? 'Masterbase Online' : 'Masterbase Offline'}>
+        <div
+          style={{
+            height: '10px',
+            width: '10px',
+            backgroundColor: isOnline ? 'green' : 'red',
+            borderRadius: '50%',
+            position: 'absolute',
+            bottom: '0',
+            right: '14px',
+          }}
+        ></div>
+      </span>
     </a>
   );
 
