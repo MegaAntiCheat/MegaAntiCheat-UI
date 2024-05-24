@@ -157,6 +157,7 @@ function App() {
       }
     } while (!connected);
     if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
+    await verifyConfigured();
   };
   const masterbaseOnline = async () => {
     return await masterbaseStatus()
