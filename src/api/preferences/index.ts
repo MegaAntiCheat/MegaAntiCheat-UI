@@ -101,7 +101,7 @@ export const defaultSettings: PreferenceResponse = {
     tf2Directory: '',
     steamApiKey: '',
     rconPassword: '',
-    masterbaseHost: 'http://localhost:8000',
+    masterbaseHost: 'https://megaanticheat.com',
     masterbaseKey: '',
   },
 };
