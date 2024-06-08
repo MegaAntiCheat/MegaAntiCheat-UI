@@ -26,9 +26,7 @@ function Provision({ collapsed }: ProvisionProps) {
       title={t('PROVISION_HINT')}
       Icon={<AlertTriangle color="yellow" className="bounce" />}
       collapsed={collapsed}
-      onClick={() => {
-        window.open(url, '_self');
-      }}
+      onClick={() => window.open(url, '_self')}
       selected={false}
     />
   );
