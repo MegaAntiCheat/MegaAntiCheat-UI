@@ -1,8 +1,8 @@
 import {
   HISTORYFETCH,
+  isDevelopment,
   PLAYERFETCH,
   PLAYERRECORDFETCH,
-  isDevelopment,
   USER_ENDPOINT,
 } from '@api/globals';
 import { fakedata } from '@api/servers/fakedata';

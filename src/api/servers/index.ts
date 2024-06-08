@@ -1,5 +1,5 @@
 import { fakedata } from './fakedata';
-import { SERVERFETCH, isDevelopment } from '@api/globals';
+import { isDevelopment, SERVERFETCH } from '@api/globals';
 
 const emptyServerData: ServerInfoResponse = {
   hostname: '',
