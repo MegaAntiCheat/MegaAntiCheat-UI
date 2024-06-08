@@ -1,8 +1,14 @@
+import { t } from '@i18n';
+import { AlertTriangle } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { masterbaseProvisionUrl } from '@api/masterbase/masterbase-api';
-import { Button } from '@components/General';
+import { SideMenuItem } from '@components/General';
 
-function Provision() {
+interface ProvisionProps {
+  collapsed: boolean;
+}
+
+function Provision({ collapsed }: ProvisionProps) {
   const [url, setUrl] = useState('');
 
   useEffect(() => {
@@ -14,15 +20,16 @@ function Provision() {
     void fetchUrl();
   }, []);
   return (
-    <Button>
-      <a
-        href={url}
-        target="_self"
-        style={{ textDecoration: 'none', color: 'inherit' }}
-      >
-        Provision
-      </a>
-    </Button>
+    <SideMenuItem
+      key={69}
+      title={t('PROVISION_HINT')}
+      Icon={<AlertTriangle color="yellow" />}
+      collapsed={collapsed}
+      onClick={() => {
+        window.open(url, '_self');
+      }}
+      selected={false}
+    />
   );
 }
 

@@ -66,7 +66,7 @@ const SideMenu = ({
   if (showProvisionPrompt) {
     menuItemsToShow.unshift(
       <div>
-        <Provision />
+        <Provision collapsed={collapsed} />
       </div>,
     );
   }
