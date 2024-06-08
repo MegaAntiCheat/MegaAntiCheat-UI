@@ -1,3 +1,4 @@
+import Provision from '@api/masterbase/provision';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Divider, SideMenuItem } from '@components/General';
 import MenuHeader from './MenuHeader';
@@ -9,9 +10,16 @@ import { MENU_ITEMS, PAGES } from '../../../constants/menuConstants';
 interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<PAGES>>;
   currentPage: PAGES;
+  showProvisionPrompt?: boolean;
+  isOnline: boolean;
 }
 
-const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
+const SideMenu = ({
+  setCurrentPage,
+  currentPage,
+  showProvisionPrompt,
+  isOnline,
+}: SideMenuProps) => {
   const [collapsed, setCollapsed] = React.useState(true);
   const MenuRef = React.useRef<HTMLDivElement>(null);
 
@@ -45,6 +53,24 @@ const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
     };
   }, []);
 
+  const menuItemsToShow = MENU_ITEMS.map(({ titleKey, icon, page }) => (
+    <SideMenuItem
+      key={page}
+      title={t(titleKey)}
+      Icon={icon}
+      collapsed={collapsed}
+      onClick={() => setCurrentPage(page)}
+      selected={currentPage === page}
+    />
+  ));
+  if (showProvisionPrompt) {
+    menuItemsToShow.unshift(
+      <div>
+        <Provision collapsed={collapsed} />
+      </div>,
+    );
+  }
+
   return (
     <>
       <div
@@ -56,19 +82,11 @@ const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
         <MenuHeader
           collapsed={collapsed}
           handleSymbolClick={handleToggleClick}
+          isOnline={isOnline}
         />
         <div>
           <Divider size={2} />
-          {MENU_ITEMS.map(({ titleKey, icon, page }) => (
-            <SideMenuItem
-              key={page}
-              title={t(titleKey)}
-              Icon={icon}
-              collapsed={collapsed}
-              onClick={() => setCurrentPage(page)}
-              selected={currentPage === page}
-            />
-          ))}
+          {menuItemsToShow}
         </div>
       </div>
       <div

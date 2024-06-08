@@ -1,7 +1,16 @@
+import { masterbaseOnlineCheckInterval } from '@api/masterbase/constants';
+import {
+  masterbaseStatus,
+  readProvisionKey,
+} from '@api/masterbase/masterbase-api';
 import React from 'react';
 import './App.css';
 
-import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
+import {
+  isBackendConfigured,
+  isDevelopment,
+  verifyBackend,
+} from '@api/globals';
 import { Button, SideMenu, TextInput } from '@components/General';
 import {
   ContentPageContainer,
@@ -10,10 +19,9 @@ import {
   Preferences,
 } from '../Pages';
 import { Modal } from '@components/General/Modal/Modal';
-import { useModal } from '../Context';
+import { useMinimode, useModal } from '@context';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
-import { useMinimode } from '../Context';
 import { PAGES } from '../constants/menuConstants';
 
 const CantConnectModal = () => {
@@ -92,7 +100,8 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 function App() {
   const { isMinimode } = useMinimode();
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
-
+  const [apiKey, setApiKey] = React.useState<string>(readProvisionKey());
+  const [isOnline, setIsOnline] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
 
@@ -148,27 +157,43 @@ function App() {
       }
     } while (!connected);
     if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
-    verifyConfigured();
+    await verifyConfigured();
+  };
+  const masterbaseOnline = async () => {
+    return await masterbaseStatus()
+      .then((res) => res === 'OK')
+      .catch(() => false);
   };
 
   React.useEffect(() => {
     // Set language from settings
-    const setLanguageFromSettings = async () => {
+    const setSettingsStates = async () => {
       const settings = await getAllSettings();
       if (settings.external.language) {
         setLanguage(settings.external.language);
       }
+      if (settings.internal.masterbaseKey) {
+        setApiKey(settings.internal.masterbaseKey);
+      }
     };
-    setLanguageFromSettings();
+    const masterbaseOnlineRoutine = async () => {
+      setIsOnline(await masterbaseOnline());
+    };
+    void setSettingsStates();
+    void masterbaseOnlineRoutine();
+    const masterbaseInterval = setInterval(
+      masterbaseOnlineRoutine,
+      masterbaseOnlineCheckInterval,
+    );
+    // Don't verify backend if we're on dev environment
+    if (isDevelopment) return;
 
-    // Don't verify backend if we're using fakedata (dev environment)
-    if (useFakedata) return;
-
-    verificationRoutine();
+    void verificationRoutine();
     const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
       clearInterval(intervalId);
+      clearInterval(masterbaseInterval);
     };
   }, [currentPage]);
 
@@ -177,7 +202,12 @@ function App() {
       <Modal />
       {!isMinimode && (
         <div className="App-sidebar">
-          <SideMenu setCurrentPage={setCurrentPage} currentPage={currentPage} />
+          <SideMenu
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            showProvisionPrompt={!apiKey}
+            isOnline={isOnline}
+          />
         </div>
       )}
       <div className="App-content">

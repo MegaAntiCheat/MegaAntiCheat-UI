@@ -120,5 +120,6 @@
   "SELECT_VERDICT": "Select a verdict...",
   "SET_CUSTOM_ALIAS": "Set a custom alias...",
   "ADD_CUSTOM_NOTE": "Add additional information...",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
+  "PROVISION_HINT": "Click to provision your Masterbase API key. This is required to upload demo recordings."
 }

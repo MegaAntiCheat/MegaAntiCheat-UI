@@ -1,0 +1,12 @@
+@keyframes bounce {
+    0%, 5%, 11%, 100% {
+        transform: translateY(0);
+    }
+    1%, 6% {
+        transform: translateY(-10px);
+    }
+}
+
+.bounce {
+    animation: bounce 6s ease-in-out infinite;
+}

@@ -10,9 +10,7 @@ export const PREF_ENDPOINT = `${APIURL}/pref/v1`;
 export const USER_ENDPOINT = `${APIURL}/user/v1`;
 export const COMMAND_ENDPOINT = `${APIURL}/commands/v1`;
 
-// This is used to get fakedata for the frontend.
-// dotenv breaks build, so we can't use that.
-export const useFakedata = process.env.NODE_ENV?.includes('development');
+export const isDevelopment = process.env.NODE_ENV?.includes('development');
 
 export async function verifyBackend(): Promise<boolean> {
   return await fetch(SERVERFETCH)

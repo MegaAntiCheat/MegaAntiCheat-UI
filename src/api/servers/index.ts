@@ -1,5 +1,5 @@
 import { fakedata } from './fakedata';
-import { SERVERFETCH, useFakedata } from '@api/globals';
+import { isDevelopment, SERVERFETCH } from '@api/globals';
 
 const emptyServerData: ServerInfoResponse = {
   hostname: '',
@@ -12,7 +12,7 @@ const emptyServerData: ServerInfoResponse = {
 
 async function fetchAllServerInfo(): Promise<ServerInfoResponse> {
   try {
-    if (useFakedata) return fakedata;
+    if (isDevelopment) return fakedata;
 
     const response = await fetch(SERVERFETCH);
 

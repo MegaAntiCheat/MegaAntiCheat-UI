@@ -153,4 +153,16 @@ dist
 
 placeholderData.ts
 
+# WebStorm specific
 .idea
+*.iml
+
+# Directories used by the JetBrains IDEs for their caches, indexes, etc.
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.rbc
+/.bundle
+/vendor/bundle
+/lib/bundler/man/
