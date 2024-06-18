@@ -164,10 +164,10 @@ function App() {
     if (useFakedata) return;
 
     verificationRoutine();
-    let int = setInterval(verificationRoutine, 1000);
+    const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
-      clearInterval(int);
+      clearInterval(intervalId);
     };
   }, [currentPage, isDead]);
 
