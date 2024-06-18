@@ -91,6 +91,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 
 function App() {
   const { isMinimode } = useMinimode();
+  const [isDead, setDead] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -138,17 +139,15 @@ function App() {
   };
 
   const verificationRoutine = async () => {
-    let connected = false;
-    let dead = false;
-    do {
-      connected = await isBackendConnected();
-      if (!connected) {
-        dead = true;
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+    if (await isBackendConnected()) {
+      if (isDead) {
+        setDead(false);
+        closeModal();
       }
-    } while (!connected);
-    if (dead) closeModal(); // If backend died, we need to remove the modal once it recovers.
-    verifyConfigured();
+      verifyConfigured();
+    } else {
+      if (!isDead) setDead(true);
+    }
   };
 
   React.useEffect(() => {
@@ -165,12 +164,12 @@ function App() {
     if (useFakedata) return;
 
     verificationRoutine();
-    const intervalId = setInterval(verificationRoutine, 1000);
+    let int = setInterval(verificationRoutine, 1000);
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(int);
     };
-  }, [currentPage]);
+  }, [currentPage, isDead]);
 
   return (
     <div className="App">
