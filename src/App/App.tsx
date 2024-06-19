@@ -165,7 +165,7 @@ function App() {
     const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
-      clearInterval(intervalId)
+      clearInterval(intervalId);
     };
   }, [currentPage, isDead]);
 
