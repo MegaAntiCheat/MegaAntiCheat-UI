@@ -164,7 +164,9 @@ function App() {
     if (useFakedata) return;
     const intervalId = setInterval(verificationRoutine, 1000);
 
-    return () => {clearInterval(intervalId)};
+    return () => {
+      clearInterval(intervalId)
+    };
   }, [currentPage, isDead]);
 
   return (

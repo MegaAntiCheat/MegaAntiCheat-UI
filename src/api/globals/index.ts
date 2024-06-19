@@ -20,7 +20,7 @@ export async function verifyBackend(): Promise<boolean> {
 
   return await fetch(SERVERFETCH, { signal: controller.signal })
     .then((res) => res.ok)
-    .catch((error) => false)
+    .catch(() => false)
     .finally(() => clearTimeout(timeoutId));
 }
 
