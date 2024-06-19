@@ -15,9 +15,13 @@ export const COMMAND_ENDPOINT = `${APIURL}/commands/v1`;
 export const useFakedata = process.env.NODE_ENV?.includes('development');
 
 export async function verifyBackend(): Promise<boolean> {
-  return await fetch(SERVERFETCH)
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 500);
+
+  return await fetch(SERVERFETCH, { signal: controller.signal })
     .then((res) => res.ok)
-    .catch(() => false);
+    .catch((error) => false)
+    .finally(() => clearTimeout(timeoutId));
 }
 
 export async function isBackendConfigured(): Promise<boolean> {

@@ -162,13 +162,9 @@ function App() {
 
     // Don't verify backend if we're using fakedata (dev environment)
     if (useFakedata) return;
-
-    verificationRoutine();
     const intervalId = setInterval(verificationRoutine, 1000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
+    return () => {clearInterval(intervalId)};
   }, [currentPage, isDead]);
 
   return (
