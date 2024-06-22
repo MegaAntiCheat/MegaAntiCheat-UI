@@ -1,8 +1,4 @@
-import {
-  ContextMenuContext,
-  ContextMenuProvider,
-  MenuItem,
-} from './ContextMenuProvider';
+import { ContextMenuContext, ContextMenuProvider } from './ContextMenuProvider';
 import {
   MinimodeContext,
   MinimodeProvider,
@@ -18,5 +14,4 @@ export {
   ModalProvider,
   useModal,
   useMinimode,
-  MenuItem,
 };
