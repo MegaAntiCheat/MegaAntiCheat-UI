@@ -13,7 +13,6 @@ interface Settings {
       Convict: string;
       Bot: string;
     };
-    termsDate?: string;
   };
   internal: {
     steamApiKey?: string;
@@ -23,6 +22,7 @@ interface Settings {
     masterbaseKey?: string;
     masterbaseHost?: string;
     rconPort?: string;
+    tosAgreementDate?: string;
   };
 }
 

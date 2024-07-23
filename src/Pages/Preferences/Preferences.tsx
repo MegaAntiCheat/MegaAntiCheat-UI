@@ -98,9 +98,14 @@ const Preferences = () => {
 
   function handleTermsChange(value: boolean) {
     if (value) {
-      handleSettingChange('termsDate', new Date().toISOString(), 'external');
+      handleSettingChange(
+        'tosAgreementDate',
+        new Date().toISOString(),
+        'internal',
+      );
     } else {
       openModal(<ToSModal isUnsetting={true} />);
+      handleSettingChange('tosAgreementDate', '', 'internal');
     }
   }
 
@@ -382,7 +387,7 @@ const Preferences = () => {
                 Agree to TOS
               </div>
               <Checkbox
-                checked={!!settings?.external.termsDate}
+                checked={!!settings?.internal.tosAgreementDate}
                 onChange={(e) => handleTermsChange(e)}
               />
             </Flex>
