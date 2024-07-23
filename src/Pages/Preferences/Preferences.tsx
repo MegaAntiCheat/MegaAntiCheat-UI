@@ -104,6 +104,11 @@ const Preferences = () => {
     }
   }
 
+  function handleMasterbaseKeyChange(e: string) {
+    // TODO show TOS if they change the masterbase key and (they haven't agreed to the TOS or the tos agreement is out of date)
+    handleSettingChange('masterbaseKey', e, 'internal');
+  }
+
   return (
     <>
       <div className="preference-container">
@@ -321,9 +326,7 @@ const Preferences = () => {
               <TextInput
                 type={masterbaseKeyRevealed ? 'input' : 'password'}
                 defaultValue={settings?.internal.masterbaseKey}
-                onLeave={(e) =>
-                  handleSettingChange('masterbaseKey', e, 'internal')
-                }
+                onLeave={(e) => handleMasterbaseKeyChange(e)}
                 withIcon
               />
               <div
