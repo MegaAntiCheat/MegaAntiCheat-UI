@@ -13,6 +13,7 @@ interface Settings {
       Convict: string;
       Bot: string;
     };
+    termsDate?: string;
   };
   internal: {
     steamApiKey?: string;

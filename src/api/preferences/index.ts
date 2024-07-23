@@ -76,6 +76,7 @@ interface Settings {
     Convict: string;
     Bot: string;
   };
+  termsDate: string;
 }
 
 export const defaultSettings: PreferenceResponse = {
@@ -93,6 +94,7 @@ export const defaultSettings: PreferenceResponse = {
       Convict: '#ee0066',
       Bot: '#880000',
     },
+    termsDate: '',
   },
   internal: {
     friendsApiUsage: '',
