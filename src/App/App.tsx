@@ -1,3 +1,4 @@
+import ToSModal from '@components/TF2/ToS/ToSModal';
 import React from 'react';
 import './App.css';
 
@@ -93,6 +94,8 @@ function App() {
   const { isMinimode } = useMinimode();
   const [isDead, setDead] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
+  const [hasAgreedToTerms, setHasAgreedToTerms] = React.useState(false);
+  const [onlineTosDate, setOnlineTosDate] = React.useState<Date>();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
@@ -156,6 +159,18 @@ function App() {
       const settings = await getAllSettings();
       if (settings.external.language) {
         setLanguage(settings.external.language);
+      }
+      // TODO get online tos date
+      if (onlineTosDate) {
+        if (
+          settings.external.termsDate &&
+          onlineTosDate < new Date(settings.external.termsDate)
+        ) {
+          setHasAgreedToTerms(true);
+        } else {
+          // Either hasn't agreed or there's new terms
+          openModal(<ToSModal />);
+        }
       }
     };
     setLanguageFromSettings();
