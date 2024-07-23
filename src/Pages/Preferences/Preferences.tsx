@@ -1,3 +1,5 @@
+import ToSModal from '@components/TF2/ToS/ToSModal';
+import { useModal } from '@context';
 import React from 'react';
 import {
   Accordion,
@@ -26,6 +28,7 @@ const Preferences = () => {
     React.useState(false);
   const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const { closeModal, openModal, modalContent } = useModal();
 
   const languageOptions: SelectOption[] = Object.keys(translations).map(
     (language) => ({
@@ -91,6 +94,14 @@ const Preferences = () => {
         <div className="spinner" />
       </div>
     );
+  }
+
+  function handleTermsChange(value: boolean) {
+    if (value) {
+      handleSettingChange('termsDate', new Date().toISOString(), 'external');
+    } else {
+      openModal(<ToSModal isUnsetting={true} />);
+    }
   }
 
   return (
@@ -361,6 +372,15 @@ const Preferences = () => {
                 onChange={(e) => {
                   handleSettingChange('friendsApiUsage', e, 'internal');
                 }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                Agree to TOS
+              </div>
+              <Checkbox
+                checked={!!settings?.external.termsDate}
+                onChange={(e) => handleTermsChange(e)}
               />
             </Flex>
           </Accordion>
