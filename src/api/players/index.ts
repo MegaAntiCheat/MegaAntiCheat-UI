@@ -75,6 +75,22 @@ async function fetchPlayerInfos({
   }
 }
 
+function timeoutPromise(ms: number): Promise<never> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('timeout' as never);
+    }, ms);
+  });
+}
+
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit,
+  timeout: number = 5000,
+): Promise<Response> {
+  return Promise.race([fetch(url, options), timeoutPromise(timeout)]);
+}
+
 async function updateSteamInfo(steamIDs: string[]): Promise<PlayerInfo[]> {
   try {
     if (useFakedata) return [];
@@ -87,7 +103,7 @@ async function updateSteamInfo(steamIDs: string[]): Promise<PlayerInfo[]> {
       },
     };
 
-    const response = await fetch(USER_ENDPOINT, options);
+    const response = await fetchWithTimeout(USER_ENDPOINT, options);
 
     if (!response.ok) throw new Error('Failed to fetch player history');
 
