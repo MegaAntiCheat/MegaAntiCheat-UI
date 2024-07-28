@@ -9,9 +9,6 @@ interface ToSModalProps {
 
 export default function ToSModal({ isUnsetting = false }: ToSModalProps) {
   const { closeModal } = useModal();
-  const TOS1 = t('tos');
-  const TOSDisclaimer =
-    'Due to our limited resources, the Terms of Service are not available in other languages. We recommend using a translation program or service.';
   const handleSettingChange = (
     key: string,
     value: unknown,
@@ -36,7 +33,7 @@ export default function ToSModal({ isUnsetting = false }: ToSModalProps) {
       <h4 className="text-xl font-bold">Terms of Service</h4>
       {!isUnsetting && (
         <div>
-          <div>{TOSDisclaimer}</div>
+          <div>{t('TOS_DISCLAIMER')}</div>
           <div
             style={{
               maxHeight: '70vh',
@@ -46,22 +43,21 @@ export default function ToSModal({ isUnsetting = false }: ToSModalProps) {
             }}
             className="p-2.5 mb-5 pb-5"
           >
-            <pre className="tos">{TOS1}</pre>
+            <pre className="tos">{t('tos')}</pre>
             <Button onClick={setTosDate} className="pb-5">
-              I agree to the terms of service
+              {t('CONFIRM_AGREE_TOS')}
             </Button>
           </div>
         </div>
       )}
       {isUnsetting && (
         <div>
-          <div>
-            Withdrawing consent will disable demo-streaming features, meaning
-            you can't contribute evidence against the cheaters you come across
-            Are you sure you want to withdraw consent?
-          </div>
+          <div>{t('CONFIRM_WITHDRAW_TOS')}</div>
           <Button onClick={setTosDate} className="pb-5">
-            Yes
+            {t('YES')}
+          </Button>
+          <Button onClick={closeModal} className="pb-5">
+            {t('NO')}
           </Button>
         </div>
       )}
