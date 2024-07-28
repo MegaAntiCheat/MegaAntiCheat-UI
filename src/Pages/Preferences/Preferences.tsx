@@ -98,14 +98,9 @@ const Preferences = () => {
 
   function handleTermsChange(value: boolean) {
     if (value) {
-      handleSettingChange(
-        'tosAgreementDate',
-        new Date().toISOString(),
-        'internal',
-      );
+      openModal(<ToSModal isUnsetting={false} />);
     } else {
       openModal(<ToSModal isUnsetting={true} />);
-      handleSettingChange('tosAgreementDate', '', 'internal');
     }
   }
 
