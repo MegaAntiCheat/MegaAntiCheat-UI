@@ -151,8 +151,8 @@ const ScoreboardTable = ({
         <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
         <div>
           {renderTeam(RED, 'RED')}
-          {renderTeam(SPEC, 'SPECTATOR')}
           {renderTeam(UNASSIGNED, 'UNASSIGNED')}
+          {renderTeam(SPEC, 'SPECTATOR')}
         </div>
       </div>
     );
