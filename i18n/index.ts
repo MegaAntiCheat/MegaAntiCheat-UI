@@ -9,7 +9,7 @@ import uk_UA from './uk_UA.json';
 import nl_NL from './nl_NL.json';
 import ko_KR from './ko_KR.json';
 
-import tos_EN from './tos/en_US.json';
+import { tos_EN } from './tos/en_US.js';
 
 let currentLang = 'English';
 interface Translations {
@@ -18,7 +18,7 @@ interface Translations {
 
 const translations: { [key: string]: Translations } = {
   German: de_DE,
-  English: { ...en_US, ...tos_EN },
+  English: { ...en_US, tos: tos_EN },
   Spanish: es_ES,
   Russian: ru_RU,
   Turkish: tr_TR,
