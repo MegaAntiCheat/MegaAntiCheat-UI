@@ -408,7 +408,11 @@ function buildIconListFromArchive(
             event.preventDefault();
             setRefreshing(true);
             updateSteamInfo([player.steamID64]).then((r) => {
-              player.steamInfo = r[0].steamInfo;
+              if(r) {
+                player.steamInfo = r[0].steamInfo;
+              }
+              setRefreshing(false);
+            }).catch(() => {
               setRefreshing(false);
             });
           }}
