@@ -1,4 +1,4 @@
-import { setSettingKey, setSettings } from '@api/preferences';
+import { setSettingKey } from '@api/preferences';
 import { Button } from '@components/General';
 import { useModal } from '@context';
 import { t } from '@i18n';
@@ -41,22 +41,21 @@ export default function ToSModal({ isUnsetting = false }: ToSModalProps) {
               maxWidth: '80vw',
               minWidth: '50vw',
             }}
-            className="p-2.5 mb-5 pb-5"
+            className="p-2.5"
           >
             <pre className="tos">{t('tos')}</pre>
-            <Button onClick={setTosDate} className="pb-5">
-              {t('CONFIRM_AGREE_TOS')}
+            <Button onClick={setTosDate}>{t('CONFIRM_AGREE_TOS')}</Button>
+            <Button onClick={closeModal} className="ml-5">
+              {t('CANCEL')}
             </Button>
           </div>
         </div>
       )}
       {isUnsetting && (
         <div>
-          <div>{t('CONFIRM_WITHDRAW_TOS')}</div>
-          <Button onClick={setTosDate} className="pb-5">
-            {t('YES')}
-          </Button>
-          <Button onClick={closeModal} className="pb-5">
+          <div className="pb-5">{t('CONFIRM_WITHDRAW_TOS')}</div>
+          <Button onClick={setTosDate}>{t('YES')}</Button>
+          <Button onClick={closeModal} className="ml-5">
             {t('NO')}
           </Button>
         </div>
