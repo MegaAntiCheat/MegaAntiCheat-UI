@@ -125,5 +125,6 @@
   "CONFIRM_AGREE_TOS": "I agree to the terms of service",
   "TOS_DISCLAIMER": "Due to our limited resources, the Terms of Service are not available in other languages. We recommend using a translation program or service.",
   "NO": "No",
-  "YES": "Yes"
+  "YES": "Yes",
+  "TERMS_OF_SERVICE": "Terms of Service"
 }

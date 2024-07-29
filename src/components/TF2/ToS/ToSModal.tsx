@@ -30,7 +30,7 @@ export default function ToSModal({ isUnsetting = false }: ToSModalProps) {
   };
   return (
     <div style={{ maxHeight: '80vh', overflow: 'hidden' }}>
-      <h4 className="text-xl font-bold">Terms of Service</h4>
+      <h4 className="text-xl font-bold">{t('TERMS_OF_SERVICE')}</h4>
       {!isUnsetting && (
         <div>
           <div>{t('TOS_DISCLAIMER')}</div>
