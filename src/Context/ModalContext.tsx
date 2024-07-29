@@ -9,6 +9,7 @@ interface ModalContextProps {
 
 interface ModalOptions {
   dismissable?: boolean;
+  closeCallback?: () => void;
 }
 
 const ModalContext = React.createContext<ModalContextProps | undefined>(
@@ -31,11 +32,19 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
   const closeModal = () => {
     setModalContent(null);
     setModalOptions({});
+    if (modalOptions.closeCallback) {
+      modalOptions.closeCallback();
+    }
   };
 
   return (
     <ModalContext.Provider
-      value={{ openModal, closeModal, modalContent, modalOptions }}
+      value={{
+        openModal,
+        closeModal,
+        modalContent,
+        modalOptions,
+      }}
     >
       {children}
       {modalContent}

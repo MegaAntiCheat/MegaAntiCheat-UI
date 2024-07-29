@@ -29,6 +29,7 @@ const Preferences = () => {
   const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const { closeModal, openModal, modalContent } = useModal();
+  const [refresh, setRefresh] = React.useState(0);
 
   const languageOptions: SelectOption[] = Object.keys(translations).map(
     (language) => ({
@@ -61,8 +62,8 @@ const Preferences = () => {
       setLoading(false);
     };
 
-    fetchSettings();
-  }, []);
+    void fetchSettings();
+  }, [refresh]);
 
   const handleSettingChange = (
     key: string,
@@ -98,9 +99,21 @@ const Preferences = () => {
 
   function handleTermsChange(value: boolean) {
     if (value) {
-      openModal(<ToSModal isUnsetting={false} />);
+      openModal(<ToSModal isUnsetting={false} />, {
+        closeCallback: () => {
+          setTimeout(() => {
+            setRefresh(refresh + 1);
+          }, 500);
+        },
+      });
     } else {
-      openModal(<ToSModal isUnsetting={true} />);
+      openModal(<ToSModal isUnsetting={true} />, {
+        closeCallback: () => {
+          setTimeout(() => {
+            setRefresh(refresh + 1);
+          }, 500);
+        },
+      });
     }
   }
 
