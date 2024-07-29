@@ -99,9 +99,10 @@ const PlayerHistory = () => {
           onChange={handleSearch}
         />
         <Tooltip
-          direction="bottom"
-          className={'items-center'}
+          direction="bottom-left"
+          className="items-center"
           content={t('ADD_PLAYER_HELP')}
+          noWrap={true}
         >
           <button
             className={`ml-4 mt-3 mb-3 h-15v w-[100px] rounded-sm items-center ${
