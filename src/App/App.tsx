@@ -1,4 +1,3 @@
-import ToSModal from '@components/TF2/ToS/ToSModal';
 import React from 'react';
 import './App.css';
 
