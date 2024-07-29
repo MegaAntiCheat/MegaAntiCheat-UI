@@ -127,5 +127,6 @@
   "NO": "No",
   "YES": "Yes",
   "TERMS_OF_SERVICE": "Terms of Service",
-  "TOS_HINT": "Masterbase features are unavailable until you agree to the terms of service."
+  "TOS_HINT": "Masterbase features are unavailable until you agree to the terms of service.",
+  "AGREE_TO_TOS": "Agree to TOS"
 }

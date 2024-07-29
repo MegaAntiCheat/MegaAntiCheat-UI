@@ -29,3 +29,5 @@ By using MegaAntiCheat's demo-streaming features, you confirm your understanding
     - We strongly recommend withdrawing your consent within the anticheat client prior to sending your request to prevent any additional data from being unwittingly collected.
 - We are not affiliated with or endorsed by Valve Corporation or Steam.
 `;
+
+export const tos_last_updated = '2024-07-29';

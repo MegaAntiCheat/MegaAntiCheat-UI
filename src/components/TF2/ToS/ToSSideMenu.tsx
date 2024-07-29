@@ -1,21 +1,21 @@
 import { t } from '@i18n';
 import { AlertTriangle } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
 import { SideMenuItem } from '@components/General';
+import { PAGES } from '../../../constants/menuConstants';
 
 interface ProvisionProps {
   collapsed: boolean;
+  setCurrentPage?: React.Dispatch<React.SetStateAction<PAGES>>;
 }
 
-function ToSSideMenu({ collapsed }: ProvisionProps) {
+function ToSSideMenu({ collapsed, setCurrentPage }: ProvisionProps) {
   return (
     <SideMenuItem
       key={68}
       title={t('TOS_HINT')}
       Icon={<AlertTriangle color="yellow" className="bounce" />}
       collapsed={collapsed}
-      onClick={() => {
-      }}
+      onClick={() => setCurrentPage?.(PAGES.PREFERENCES)}
       selected={false}
     />
   );

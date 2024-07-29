@@ -4,6 +4,7 @@ import './App.css';
 
 import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
 import { Button, SideMenu, TextInput } from '@components/General';
+import { tos_last_updated } from '../../i18n/tos/en_US';
 import {
   ContentPageContainer,
   PlayerHistory,
@@ -95,7 +96,6 @@ function App() {
   const [isDead, setDead] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
   const [hasAgreedToTerms, setHasAgreedToTerms] = React.useState(false);
-  const [onlineTosDate, setOnlineTosDate] = React.useState<Date>();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
@@ -160,20 +160,19 @@ function App() {
       if (settings.external.language) {
         setLanguage(settings.external.language);
       }
-      // TODO get online tos date
-      if (onlineTosDate) {
-        if (
-          settings.external.termsDate &&
-          onlineTosDate < new Date(settings.external.termsDate)
-        ) {
-          setHasAgreedToTerms(true);
-        } else {
-          // Either hasn't agreed or there's new terms
-          openModal(<ToSModal />);
-        }
+
+      if (
+        settings.internal.tosAgreementDate &&
+        new Date(tos_last_updated) <
+          new Date(settings.internal.tosAgreementDate)
+      ) {
+        setHasAgreedToTerms(true);
+      } else {
+        // Either hasn't agreed or there's new terms
+        setHasAgreedToTerms(false);
       }
     };
-    setLanguageFromSettings();
+    void setLanguageFromSettings();
 
     // Don't verify backend if we're using fakedata (dev environment)
     if (useFakedata) return;
@@ -192,7 +191,7 @@ function App() {
           <SideMenu
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
-            showTosSuggestions={true}
+            showTosSuggestions={!hasAgreedToTerms}
           />
         </div>
       )}

@@ -388,9 +388,7 @@ const Preferences = () => {
               />
             </Flex>
             <Flex className="preference-option">
-              <div className="preference-title">
-                Agree to TOS
-              </div>
+              <div className="preference-title">{t('AGREE_TO_TOS')}</div>
               <Checkbox
                 checked={!!settings?.internal.tosAgreementDate}
                 onChange={(e) => handleTermsChange(e)}
