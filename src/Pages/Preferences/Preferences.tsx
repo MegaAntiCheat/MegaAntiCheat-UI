@@ -98,21 +98,18 @@ const Preferences = () => {
   }
 
   function handleTermsChange(value: boolean) {
+    const closeCallback = () => {
+      setTimeout(() => {
+        setRefresh(refresh + 1);
+      }, 500);
+    };
     if (value) {
       openModal(<ToSModal isUnsetting={false} />, {
-        closeCallback: () => {
-          setTimeout(() => {
-            setRefresh(refresh + 1);
-          }, 500);
-        },
+        closeCallback,
       });
     } else {
       openModal(<ToSModal isUnsetting={true} />, {
-        closeCallback: () => {
-          setTimeout(() => {
-            setRefresh(refresh + 1);
-          }, 500);
-        },
+        closeCallback,
       });
     }
   }
