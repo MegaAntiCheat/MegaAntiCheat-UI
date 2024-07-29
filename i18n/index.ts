@@ -1,6 +1,7 @@
 import de_DE from './de_DE.json';
 import en_US from './en_US.json';
 import es_ES from './es_ES.json';
+import fr_FR from './fr_FR.json';
 import ru_RU from './ru_RU.json';
 import tr_TR from './tr_TR.json';
 import ja_JP from './ja_JP.json';
@@ -25,6 +26,7 @@ const translations: { [key: string]: Translations } = {
   Ukrainian: uk_UA,
   Dutch: nl_NL,
   Korean: ko_KR,
+  French: fr_FR,
 };
 
 const setLanguage = (lang: string) => {
