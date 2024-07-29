@@ -75,7 +75,8 @@ const PlayerHistory = () => {
 
       const query64 = getSteamID64(query.trim());
       const result =
-        query64 && query64 === query &&
+        query64 &&
+        query64 === query &&
         ![newRecent, newArchive].flat().some((p) => p.steamID64 === query64)
           ? query64
           : undefined;
@@ -98,8 +99,8 @@ const PlayerHistory = () => {
           onChange={handleSearch}
         />
         <Tooltip
-          direction='bottom'
-          className={`items-center`}
+          direction="bottom"
+          className={'items-center'}
           content={t('ADD_PLAYER_HELP')}
         >
           <button

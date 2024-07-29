@@ -407,14 +407,16 @@ function buildIconListFromArchive(
           onClick={(event) => {
             event.preventDefault();
             setRefreshing(true);
-            updateSteamInfo([player.steamID64]).then((r) => {
-              if(r) {
-                player.steamInfo = r[0].steamInfo;
-              }
-              setRefreshing(false);
-            }).catch(() => {
-              setRefreshing(false);
-            });
+            updateSteamInfo([player.steamID64])
+              .then((r) => {
+                if (r) {
+                  player.steamInfo = r[0].steamInfo;
+                }
+                setRefreshing(false);
+              })
+              .catch(() => {
+                setRefreshing(false);
+              });
           }}
           width={18}
           height={18}
