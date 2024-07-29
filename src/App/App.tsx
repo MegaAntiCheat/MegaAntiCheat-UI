@@ -189,7 +189,11 @@ function App() {
       <Modal />
       {!isMinimode && (
         <div className="App-sidebar">
-          <SideMenu setCurrentPage={setCurrentPage} currentPage={currentPage} />
+          <SideMenu
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            showTosSuggestions={true}
+          />
         </div>
       )}
       <div className="App-content">

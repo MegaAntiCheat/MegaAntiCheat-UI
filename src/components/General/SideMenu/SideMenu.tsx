@@ -1,3 +1,4 @@
+import ToSSideMenu from '@components/TF2/ToS/ToSSideMenu';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Divider, SideMenuItem } from '@components/General';
 import MenuHeader from './MenuHeader';
@@ -9,9 +10,14 @@ import { MENU_ITEMS, PAGES } from '../../../constants/menuConstants';
 interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<PAGES>>;
   currentPage: PAGES;
+  showTosSuggestions?: boolean;
 }
 
-const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
+const SideMenu = ({
+  setCurrentPage,
+  currentPage,
+  showTosSuggestions,
+}: SideMenuProps) => {
   const [collapsed, setCollapsed] = React.useState(true);
   const MenuRef = React.useRef<HTMLDivElement>(null);
 
@@ -45,6 +51,24 @@ const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
     };
   }, []);
 
+  const menuItemsToShow = MENU_ITEMS.map(({ titleKey, icon, page }) => (
+    <SideMenuItem
+      key={page}
+      title={t(titleKey)}
+      Icon={icon}
+      collapsed={collapsed}
+      onClick={() => setCurrentPage(page)}
+      selected={currentPage === page}
+    />
+  ));
+  if (showTosSuggestions) {
+    menuItemsToShow.unshift(
+      <div>
+        <ToSSideMenu collapsed={collapsed} />
+      </div>,
+    );
+  }
+
   return (
     <>
       <div
@@ -59,16 +83,7 @@ const SideMenu = ({ setCurrentPage, currentPage }: SideMenuProps) => {
         />
         <div>
           <Divider size={2} />
-          {MENU_ITEMS.map(({ titleKey, icon, page }) => (
-            <SideMenuItem
-              key={page}
-              title={t(titleKey)}
-              Icon={icon}
-              collapsed={collapsed}
-              onClick={() => setCurrentPage(page)}
-              selected={currentPage === page}
-            />
-          ))}
+          {menuItemsToShow}
         </div>
       </div>
       <div
