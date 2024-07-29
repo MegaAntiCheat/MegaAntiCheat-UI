@@ -64,7 +64,7 @@ const SideMenu = ({
   if (showTosSuggestions) {
     menuItemsToShow.unshift(
       <div>
-        <ToSSideMenu collapsed={collapsed} />
+        <ToSSideMenu collapsed={collapsed} setCurrentPage={setCurrentPage} />
       </div>,
     );
   }
