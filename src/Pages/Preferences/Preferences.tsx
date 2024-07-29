@@ -28,7 +28,7 @@ const Preferences = () => {
     React.useState(false);
   const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
-  const { closeModal, openModal, modalContent } = useModal();
+  const { openModal } = useModal();
   const [refresh, setRefresh] = React.useState(0);
 
   const languageOptions: SelectOption[] = Object.keys(translations).map(
