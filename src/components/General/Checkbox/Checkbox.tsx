@@ -5,14 +5,14 @@ import './Checkbox.css';
 
 interface CheckboxProps {
   onChange?: (e: boolean) => void;
-  title?: string;
+  // title?: string;
   className?: string;
   disabled?: boolean;
   checked?: boolean;
 }
 
 const Checkbox = ({
-  title,
+  // title,
   className = '',
   disabled = false,
   onChange,
@@ -35,7 +35,7 @@ const Checkbox = ({
           <Square width={26} height={26} />
         )}
       </span>
-      { /*<span className="checkbox-title">{title}</span> */ }
+      {/*<span className="checkbox-title">{title}</span> */}
     </label>
   );
 };
