@@ -1,6 +1,7 @@
 .checkbox-wrapper {
   align-items: center;
   cursor: pointer;
+  margin-bottom: 8px;
 }
 
 .checkbox-icon {

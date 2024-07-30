@@ -35,7 +35,7 @@ const Checkbox = ({
           <Square width={26} height={26} />
         )}
       </span>
-      <span className="checkbox-title">{title}</span>
+      { /*<span className="checkbox-title">{title}</span> */ }
     </label>
   );
 };

@@ -331,6 +331,30 @@ const Preferences = () => {
                 }}
               />
             </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('PREF_FRIEND_API_USAGE')}
+              </div>
+              <Select
+                className="preference-select"
+                placeholder={
+                  friendsApiUsageOptions.find((o) => {
+                    return o.value === settings.internal?.friendsApiUsage;
+                  })?.label ?? 'Select'
+                }
+                options={friendsApiUsageOptions}
+                onChange={(e) => {
+                  handleSettingChange('friendsApiUsage', e, 'internal');
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('AGREE_TO_TOS')}</div>
+              <Checkbox
+                checked={!!settings?.internal.tosAgreementDate}
+                onChange={(e) => handleTermsChange(e)}
+              />
+            </Flex>
             <Flex className="preference-option pref-password">
               <div className="preference-title">{t('PREF_MASTERBASE_KEY')}</div>
               <TextInput
@@ -368,30 +392,6 @@ const Preferences = () => {
                 onLeave={(e) =>
                   handleSettingChange('masterbaseHost', e, 'internal')
                 }
-              />
-            </Flex>
-            <Flex className="preference-option">
-              <div className="preference-title">
-                {t('PREF_FRIEND_API_USAGE')}
-              </div>
-              <Select
-                className="preference-select"
-                placeholder={
-                  friendsApiUsageOptions.find((o) => {
-                    return o.value === settings.internal?.friendsApiUsage;
-                  })?.label ?? 'Select'
-                }
-                options={friendsApiUsageOptions}
-                onChange={(e) => {
-                  handleSettingChange('friendsApiUsage', e, 'internal');
-                }}
-              />
-            </Flex>
-            <Flex className="preference-option">
-              <div className="preference-title">{t('AGREE_TO_TOS')}</div>
-              <Checkbox
-                checked={!!settings?.internal.tosAgreementDate}
-                onChange={(e) => handleTermsChange(e)}
               />
             </Flex>
           </Accordion>
