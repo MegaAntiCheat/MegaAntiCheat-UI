@@ -31,7 +31,7 @@ async function setSettingKey(
   }
 }
 
-async function setSettings(newSettings: PreferenceResponse) {
+async function setSettings(newSettings: PreferenceResponse): Promise<void> {
   try {
     const options = {
       method: 'PUT',
@@ -54,6 +54,7 @@ async function setSettings(newSettings: PreferenceResponse) {
 
 interface PreferenceResponse {
   internal: {
+    tosAgreementDate: string;
     tf2Directory: string;
     rconPassword: string;
     steamApiKey: string;
@@ -99,6 +100,7 @@ export const defaultSettings: PreferenceResponse = {
     tf2Directory: '',
     steamApiKey: '',
     rconPassword: '',
+    tosAgreementDate: '',
   },
 };
 

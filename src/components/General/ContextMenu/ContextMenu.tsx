@@ -68,11 +68,19 @@ const ContextMenuContent = () => {
       document.removeEventListener('contextmenu', handleClick);
     };
   }, []);
+  const [isBelow, setIsBelow] = useState(false);
+  const [positionDetermined, setPositionDetermined] = useState(false);
 
+  useEffect(() => {
+    if (!positionDetermined) {
+      setIsBelow(shouldRenderOptionsBelow());
+      setPositionDetermined(true);
+    }
+  }, [isVisible, forceUpdate]);
   return (
     <div
       style={style}
-      className={`ctx-menu ${shouldRenderOptionsBelow() ? 'below' : 'above'}`}
+      className={`ctx-menu ${isBelow ? 'below' : 'above'}`}
       ref={contextMenuRef}
     >
       {menuItems.map((item, index) => (

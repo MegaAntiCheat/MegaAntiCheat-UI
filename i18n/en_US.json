@@ -120,5 +120,13 @@
   "SELECT_VERDICT": "Select a verdict...",
   "SET_CUSTOM_ALIAS": "Set a custom alias...",
   "ADD_CUSTOM_NOTE": "Add additional information...",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
+  "CONFIRM_WITHDRAW_TOS": "Withdrawing consent will disable demo-streaming features, meaning you can't contribute evidence against the cheaters you come across. Are you sure you want to withdraw consent?",
+  "CONFIRM_AGREE_TOS": "I agree to the terms of service",
+  "TOS_DISCLAIMER": "Due to our limited resources, the Terms of Service are not available in other languages. We recommend using a translation program or service.",
+  "NO": "No",
+  "YES": "Yes",
+  "TERMS_OF_SERVICE": "Terms of Service",
+  "TOS_HINT": "Masterbase features are unavailable until you agree to the terms of service.",
+  "AGREE_TO_TOS": "Agree to TOS"
 }

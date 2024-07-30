@@ -109,3 +109,8 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.tos {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

@@ -22,6 +22,7 @@ interface Settings {
     masterbaseKey?: string;
     masterbaseHost?: string;
     rconPort?: string;
+    tosAgreementDate?: string;
   };
 }
 
