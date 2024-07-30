@@ -1,7 +1,7 @@
 export const tos_EN = `
 By using MegaAntiCheat's demo-streaming features, you confirm your understanding of and consent to the following data collection procedures performed by the MegaAntiCheat client:
 
-- Any demo recording that is started while the client-backend.exe executable is running, whether started automatically or manually, will be livestreamed to a web server (the "Masterbase") under the control of megascatterbomb and certain members of the MegaAntiCheat development team ("We").
+- Any demo recording that is started while the client-backend.exe executable is running, whether started automatically or manually, will be livestreamed to a web server (the "Masterbase") under the control of megascatterbomb and certain members of the MegaAntiCheat development team ("We", "Us", "Our", etc).
     - These demo recordings may be used for research purposes, including but not limited to scanning the demo recording for potential cheaters.
     - We may publish your demo recordings, with or without modification, for the purposes of facilitating human review of the demo recording, and for substansiating the convictions of cheaters.
         - Modification of the demo may be required for certain facilities (e.g. anonymising the demo to prevent bias during human review).
@@ -30,4 +30,4 @@ By using MegaAntiCheat's demo-streaming features, you confirm your understanding
 - We are not affiliated with or endorsed by Valve Corporation or Steam.
 `;
 
-export const tos_last_updated = '2024-07-29';
+export const tos_last_updated = '2024-07-30';
