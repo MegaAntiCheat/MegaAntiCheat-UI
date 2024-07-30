@@ -103,6 +103,7 @@ const PlayerHistory = () => {
           className="items-center"
           content={t('ADD_PLAYER_HELP')}
           noWrap={true}
+          isButton={true}
         >
           <button
             className={`ml-4 mt-3 mb-3 h-15v w-[100px] rounded-sm items-center ${

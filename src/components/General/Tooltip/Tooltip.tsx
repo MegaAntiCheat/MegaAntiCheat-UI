@@ -15,6 +15,7 @@ interface TooltipProps {
     | 'top-left'
     | 'top-right';
   noWrap?: boolean;
+  isButton?: boolean;
 }
 
 const Tooltip = ({
@@ -23,14 +24,23 @@ const Tooltip = ({
   children,
   direction = 'top',
   noWrap = false,
+  isButton = false,
 }: TooltipProps) => {
   const newLineHandledText = content
     .split('\n')
     .map((str, index) => <p key={index}>{str}</p>);
 
   return (
-    <div className={`tooltip-container relative inline-block ${className}`}>
-      <div className="tooltip-content inline-block align-middle">
+    <div
+      className={`tooltip-container relative inline-block ${className} ${
+        isButton ? 'contents' : ''
+      }`}
+    >
+      <div
+        className={`tooltip-content inline-block align-middle ${
+          isButton ? 'contents' : ''
+        }`}
+      >
         {children}
       </div>
       <div
