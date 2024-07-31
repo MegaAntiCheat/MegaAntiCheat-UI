@@ -33,7 +33,7 @@ pnpm run dev
 
 ### Bundler
 
-- Webpack
+- Vite
 
 ### Frontend styling
 

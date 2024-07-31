@@ -4,7 +4,7 @@ import './Player.css';
 import { t } from '@i18n';
 import { updatePlayer, updateSteamInfo } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
-import { ContextMenuContext, MenuItem } from '../../../Context';
+import { ContextMenuContext } from '@context';
 import {
   buildIconListFromArchive,
   displayColor,
@@ -15,9 +15,10 @@ import {
 
 import { verifyImageExists } from '@api/utils';
 import { Info } from 'lucide-react';
-import { useModal } from '../../../Context';
+import { useModal } from '@context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
 import ArchivePlayerDetails from './ArchivePlayerDetails';
+import { MenuItem } from '../../../Context/ContextMenuProvider';
 
 interface ArchivePlayerProps {
   player: ArchivePlayerInfo;
