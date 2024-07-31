@@ -8,6 +8,7 @@ import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
 import { useModal } from '../../Context/ModalContext';
 import { AddPlayerModal } from '@components/TF2';
+import { Tooltip } from '@components/General';
 
 // Maps Steam IDs of each search result to its relevance
 export type SearchRelevance = Map<string, string>;
@@ -75,6 +76,7 @@ const PlayerHistory = () => {
       const query64 = getSteamID64(query.trim());
       const result =
         query64 &&
+        query64 === query &&
         ![newRecent, newArchive].flat().some((p) => p.steamID64 === query64)
           ? query64
           : undefined;
@@ -96,20 +98,28 @@ const PlayerHistory = () => {
           className="ml-4 mt-3 mb-3 w-[calc(100%-350px)]"
           onChange={handleSearch}
         />
-        <button
-          className={`ml-4 mt-3 mb-3 h-10v w-[100px] rounded-sm items-center ${
-            playerToAdd ? 'bg-blue-700' : 'bg-gray-400'
-          }`}
-          disabled={!playerToAdd}
-          onClick={() => {
-            if (!playerToAdd) return;
-            openModal(<AddPlayerModal steamID64={playerToAdd} />, {
-              dismissable: true,
-            });
-          }}
+        <Tooltip
+          direction="bottom-left"
+          className="items-center"
+          content={t('ADD_PLAYER_HELP')}
+          noWrap={true}
+          isButton={true}
         >
-          {t('ADD_PLAYER')}
-        </button>
+          <button
+            className={`ml-4 mt-3 mb-3 h-15v w-[100px] rounded-sm items-center ${
+              playerToAdd ? 'bg-blue-700' : 'bg-gray-400'
+            }`}
+            disabled={!playerToAdd}
+            onClick={() => {
+              if (!playerToAdd) return;
+              openModal(<AddPlayerModal steamID64={playerToAdd} />, {
+                dismissable: true,
+              });
+            }}
+          >
+            {t('ADD_PLAYER')}
+          </button>
+        </Tooltip>
         <Checkbox
           className="case-sensitive-checkbox ml-4 mt-3 mb-3 h-4 items-center"
           checked={caseSensitive}

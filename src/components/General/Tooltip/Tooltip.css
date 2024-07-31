@@ -3,7 +3,6 @@
 }
 
 .tooltip.left {
-
   @apply top-2/4 right-full -translate-y-2/4;
 }
 
@@ -15,7 +14,22 @@
   @apply top-full -translate-x-1/3;
 }
 
+.tooltip.bottom-right {
+  @apply top-full left-0;
+}
+
+.tooltip.bottom-left {
+  @apply top-full right-0;
+}
+
+.tooltip.top-left {
+  @apply bottom-full left-0;
+}
+
+.tooltip.top-right {
+  @apply bottom-full right-0;
+}
+
 .tooltip-container:hover .tooltip {
   @apply opacity-100;
 }
-
