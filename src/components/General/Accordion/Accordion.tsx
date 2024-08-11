@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Divider, Flex } from '@components/General';
-import { ChevronDown } from 'lucide-react';
+import {ChevronDown, ChevronUp} from 'lucide-react';
 
 interface AccordionProps {
   title?: string;
@@ -28,8 +28,8 @@ const Accordion = ({
         onClick={toggleAccordion}
       >
         <div className="relative pr-3">
-          <ChevronDown
-            className={`acc-icon transition-all ${!isOpen && 'rotate-180'}`}
+          <ChevronUp
+            className={`acc-icon transition-all ${isOpen && 'rotate-180'}`}
           />
         </div>
         <h3 className="text-xl font-bold">{title}</h3>
