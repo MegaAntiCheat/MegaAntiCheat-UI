@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import './Accordion.css';
 import { Divider, Flex } from '@components/General';
 import { ChevronDown } from 'lucide-react';
 
@@ -30,7 +29,7 @@ const Accordion = ({
       >
         <div className="relative pr-3">
           <ChevronDown
-            className={`acc-icon transition-all ${isOpen ? 'open' : ''}`}
+            className={`acc-icon transition-all ${!isOpen && 'rotate-180'}`}
           />
         </div>
         <h3 className="text-xl font-bold">{title}</h3>
