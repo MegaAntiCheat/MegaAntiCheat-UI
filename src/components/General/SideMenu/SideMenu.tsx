@@ -33,7 +33,12 @@ const SideMenu = ({
     <div className={'z-50 outline outline-1 outline-outline/30'}>
       <SideMenuMobile handleToggleClick={handleToggleClick} />
 
-      {/*TODO: cannot animate between display types -> find solution.*/}
+      {/**
+       * TODO:
+       * 1) there is still much to do here, not totally happy with the centering
+       * of elements. Still rather hacky and not 100% centered.
+       * 2) cannot animate between display types -> find solution.
+       * */}
       <div
         className={`${collapsed ? 'hidden md:inline-block' : 'absolute w-full outline outline-1 outline-outline/30 md:w-[300px]'} h-full bg-secondary transition duration-300 ease-out`}
         ref={menuRef}
