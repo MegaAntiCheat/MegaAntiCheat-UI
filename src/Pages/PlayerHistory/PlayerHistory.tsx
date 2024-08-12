@@ -163,12 +163,12 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
     {f: (p) => lQuery === p.name.toLowerCase(), note: 'SEARCH_REL_NAME_EXACT'},
 
     {f: (p) => caseSensitive && (p.previousNames?.includes(query) ?? false),note: 'SEARCH_REL_PREVNAME_EXACT_CASE'}, // Exact previous alias
-    {f: (p) => p.previousNames?.some((n) => lQuery === n.toLowerCase()) ?? false,note: 'SEARCH_REL_PREVNAME_EXACT' },
+    {f: (p) => p.previousNames?.some((n) => lQuery === n.toLowerCase()) ?? false,note: 'SEARCH_REL_PREVNAME_EXACT'},
 
-    {f: (p) => caseSensitive && (p.customData.alias?.startsWith(query) ?? false), note: 'SEARCH_REL_CUSTOMNAME_START_CASE' }, // Start of custom alias
+    {f: (p) => caseSensitive && (p.customData.alias?.startsWith(query) ?? false), note: 'SEARCH_REL_CUSTOMNAME_START_CASE'}, // Start of custom alias
     {f: (p) => p.customData.alias?.toLowerCase().startsWith(lQuery) ?? false, note: 'SEARCH_REL_CUSTOMNAME_START'},
 
-    {f: (p) => caseSensitive && p.name.startsWith(query), note: 'SEARCH_REL_NAME_START_CASE' }, // Start of current alias
+    {f: (p) => caseSensitive && p.name.startsWith(query), note: 'SEARCH_REL_NAME_START_CASE'}, // Start of current alias
     {f: (p) => p.name.toLowerCase().startsWith(lQuery), note: 'SEARCH_REL_NAME_START'},
 
     {f: (p) => caseSensitive && (p.previousNames?.some((n) => n.startsWith(query)) ?? false), note: 'SEARCH_REL_PREVNAME_START_CASE'}, // Start of previous alias
