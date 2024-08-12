@@ -44,8 +44,13 @@ const t = (key: string, lang: string = currentLang) => {
     throw new Error(`Failed to load Language for ${lang}`);
   }
 
-  // Always default to English
-  return translations[lang][key] || translations['English'][key] || '';
+  // If an entry isn't translated, it defaults to English and logs a warning
+  if (translations[lang][key]) {
+    return translations[lang][key];
+  } else {
+    console.warn(`No translation for ${key} in ${lang}`);
+    return translations['English'][key];
+  }
 };
 
 export { currentLang, setLanguage, t, translations };
