@@ -6,7 +6,7 @@ import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
-import { useModal } from '../../Context/ModalContext';
+import { useModal } from '@context';
 import { AddPlayerModal } from '@components/TF2';
 import { Tooltip } from '@components/General';
 
