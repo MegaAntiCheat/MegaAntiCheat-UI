@@ -28,7 +28,7 @@ const TextInput = ({
   };
 
   return (
-    <div className="text-input-container">
+    <div className={'flex w-max'}>
       <input
         onBlur={() => onLeave && onLeave(input)}
         type={type}
