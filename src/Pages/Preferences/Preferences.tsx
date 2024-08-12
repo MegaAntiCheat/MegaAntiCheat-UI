@@ -1,3 +1,5 @@
+import ToSModal from '@components/TF2/ToS/ToSModal';
+import { useModal } from '@context';
 import React from 'react';
 import {
   Accordion,
@@ -22,8 +24,12 @@ import { Eye, EyeOff } from 'lucide-react';
 const Preferences = () => {
   const [settings, setSettings] = React.useState<Settings>(defaultSettings);
   const [rconRevealed, setRconRevealed] = React.useState(false);
+  const [masterbaseKeyRevealed, setMasterbaseKeyRevealed] =
+    React.useState(false);
   const [steamApiKeyRevealed, setSteamApiKeyRevealed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const { openModal } = useModal();
+  const [refresh, setRefresh] = React.useState(0);
 
   const languageOptions: SelectOption[] = Object.keys(translations).map(
     (language) => ({
@@ -56,8 +62,8 @@ const Preferences = () => {
       setLoading(false);
     };
 
-    fetchSettings();
-  }, []);
+    void fetchSettings();
+  }, [refresh]);
 
   const handleSettingChange = (
     key: string,
@@ -91,6 +97,28 @@ const Preferences = () => {
     );
   }
 
+  function handleTermsChange(value: boolean) {
+    const closeCallback = () => {
+      setTimeout(() => {
+        setRefresh(refresh + 1);
+      }, 500);
+    };
+    if (value) {
+      openModal(<ToSModal isUnsetting={false} />, {
+        closeCallback,
+      });
+    } else {
+      openModal(<ToSModal isUnsetting={true} />, {
+        closeCallback,
+      });
+    }
+  }
+
+  function handleMasterbaseKeyChange(e: string) {
+    // TODO show TOS if they change the masterbase key and (they haven't agreed to the TOS or the tos agreement is out of date)
+    handleSettingChange('masterbaseKey', e, 'internal');
+  }
+
   return (
     <>
       <div className="preference-container">
@@ -116,6 +144,15 @@ const Preferences = () => {
               <Checkbox
                 checked={settings?.external.openInApp}
                 onChange={(e) => handleSettingChange('openInApp', e)}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_RAGE_KICK_BOTS')}</div>
+              <Checkbox
+                checked={settings.internal?.dumbAutokick}
+                onChange={(e) =>
+                  handleSettingChange('dumbAutokick', e, 'internal')
+                }
               />
             </Flex>
           </Accordion>
@@ -281,6 +318,20 @@ const Preferences = () => {
               </div>
             </Flex>
             <Flex className="preference-option">
+              <div className="preference-title">{t('PREF_RCON_PORT')}</div>
+              <TextInput
+                type={'input'}
+                defaultValue={settings?.internal.rconPort}
+                onLeave={(e) => {
+                  try {
+                    const port = Number.parseInt(e);
+                    handleSettingChange('rconPort', port, 'internal');
+                    //eslint-disable-next-line no-empty
+                  } catch {}
+                }}
+              />
+            </Flex>
+            <Flex className="preference-option">
               <div className="preference-title">
                 {t('PREF_FRIEND_API_USAGE')}
               </div>
@@ -295,6 +346,52 @@ const Preferences = () => {
                 onChange={(e) => {
                   handleSettingChange('friendsApiUsage', e, 'internal');
                 }}
+              />
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">{t('AGREE_TO_TOS')}</div>
+              <Checkbox
+                checked={!!settings?.internal.tosAgreementDate}
+                onChange={(e) => handleTermsChange(e)}
+              />
+            </Flex>
+            <Flex className="preference-option pref-password">
+              <div className="preference-title">{t('PREF_MASTERBASE_KEY')}</div>
+              <TextInput
+                type={masterbaseKeyRevealed ? 'input' : 'password'}
+                defaultValue={settings?.internal.masterbaseKey}
+                onLeave={(e) => handleMasterbaseKeyChange(e)}
+                withIcon
+              />
+              <div
+                className="flex items-center"
+                onClick={() => setMasterbaseKeyRevealed(!masterbaseKeyRevealed)}
+              >
+                {masterbaseKeyRevealed ? (
+                  <EyeOff
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                ) : (
+                  <Eye
+                    width={24}
+                    height={24}
+                    className="pref-password-reveal"
+                  />
+                )}
+              </div>
+            </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('PREF_MASTERBASE_HOST')}
+              </div>
+              <TextInput
+                type={'input'}
+                defaultValue={settings?.internal.masterbaseHost}
+                onLeave={(e) =>
+                  handleSettingChange('masterbaseHost', e, 'internal')
+                }
               />
             </Flex>
           </Accordion>

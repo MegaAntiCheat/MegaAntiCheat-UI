@@ -1,6 +1,7 @@
 import {
   HISTORYFETCH,
   PLAYERFETCH,
+  PLAYERRECORDFETCH,
   useFakedata,
   USER_ENDPOINT,
 } from '@api/globals';
@@ -74,12 +75,51 @@ async function fetchPlayerInfos({
   }
 }
 
-async function fetchPlayerHistory(
-  amount: number = 100,
-  startfrom: number = 0,
-): Promise<PlayerInfo[]> {
+function timeoutPromise(ms: number): Promise<never> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('timeout' as never);
+    }, ms);
+  });
+}
+
+async function fetchWithTimeout(
+  url: string,
+  options: RequestInit,
+  timeout: number = 5000,
+): Promise<Response> {
+  return Promise.race([fetch(url, options), timeoutPromise(timeout)]);
+}
+
+async function updateSteamInfo(steamIDs: string[]): Promise<PlayerInfo[]> {
   try {
-    if (useFakedata) return fakedata.players;
+    if (useFakedata) return [];
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ users: steamIDs }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response = await fetchWithTimeout(USER_ENDPOINT, options);
+
+    if (!response.ok) throw new Error('Failed to fetch player history');
+
+    return response.json();
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}
+
+async function fetchRecentPlayers(
+  amount: number = Number.MAX_SAFE_INTEGER,
+  startfrom: number = 0,
+): Promise<ArchivePlayerInfo[]> {
+  try {
+    if (useFakedata) [];
 
     const response = await fetch(
       `${HISTORYFETCH}?from=${startfrom}&to=${startfrom + amount}`,
@@ -90,8 +130,28 @@ async function fetchPlayerHistory(
     return response.json();
   } catch (e) {
     console.error(e);
-    return emptyServerData.players;
+    return [];
   }
 }
 
-export { fetchPlayerInfos, fetchPlayerHistory, updatePlayer };
+async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
+  try {
+    if (useFakedata) return [];
+
+    const response = await fetch(`${PLAYERRECORDFETCH}`);
+
+    if (!response.ok) throw new Error('Failed to fetch player records');
+
+    return response.json();
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}
+export {
+  fetchPlayerInfos,
+  fetchRecentPlayers,
+  fetchArchivedPlayers,
+  updatePlayer,
+  updateSteamInfo,
+};

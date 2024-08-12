@@ -3,6 +3,7 @@ import './App.css';
 
 import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
 import { Button, SideMenu, TextInput } from '@components/General';
+import { tos_last_updated } from '../../i18n/tos/en_US';
 import {
   ContentPageContainer,
   PlayerHistory,
@@ -91,7 +92,9 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 
 function App() {
   const { isMinimode } = useMinimode();
+  const [isDead, setDead] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
+  const [hasAgreedToTerms, setHasAgreedToTerms] = React.useState(false);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
@@ -127,7 +130,6 @@ function App() {
     try {
       const configured = await isBackendConfigured();
       if (!configured) throw new Error('Backend not configured');
-      closeModal();
       return true;
     } catch (e) {
       console.error('Error verifying backend configuration', e);
@@ -139,14 +141,15 @@ function App() {
   };
 
   const verificationRoutine = async () => {
-    let connected = false;
-    do {
-      connected = await isBackendConnected();
-      if (!connected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+    if (await isBackendConnected()) {
+      if (isDead) {
+        setDead(false);
+        closeModal();
       }
-    } while (!connected);
-    verifyConfigured();
+      verifyConfigured();
+    } else {
+      if (!isDead) setDead(true);
+    }
   };
 
   React.useEffect(() => {
@@ -156,26 +159,39 @@ function App() {
       if (settings.external.language) {
         setLanguage(settings.external.language);
       }
+
+      if (
+        settings.internal.tosAgreementDate &&
+        new Date(tos_last_updated) <
+          new Date(settings.internal.tosAgreementDate)
+      ) {
+        setHasAgreedToTerms(true);
+      } else {
+        // Either hasn't agreed or there's new terms
+        setHasAgreedToTerms(false);
+      }
     };
-    setLanguageFromSettings();
+    void setLanguageFromSettings();
 
     // Don't verify backend if we're using fakedata (dev environment)
     if (useFakedata) return;
-
-    verificationRoutine();
     const intervalId = setInterval(verificationRoutine, 1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [currentPage]);
+  }, [currentPage, isDead]);
 
   return (
     <div className="App">
       <Modal />
       {!isMinimode && (
         <div className="App-sidebar">
-          <SideMenu setCurrentPage={setCurrentPage} currentPage={currentPage} />
+          <SideMenu
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            showTosSuggestions={!hasAgreedToTerms}
+          />
         </div>
       )}
       <div className="App-content">

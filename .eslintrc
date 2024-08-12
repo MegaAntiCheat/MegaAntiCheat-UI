@@ -14,6 +14,7 @@
     "browser": true
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "prefer-const": "warn",
     "arrow-parens": ["error", "always"],
     "no-confusing-arrow": "error",
