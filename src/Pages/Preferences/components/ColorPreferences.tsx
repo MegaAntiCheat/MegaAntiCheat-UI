@@ -25,7 +25,7 @@ export const ColorPreferences: FC<ColorPreferencesProps> = ({
 
   return (
     <Accordion title={t('PREF_COLORS')} className="preference-accordion">
-      <div className="mb-2 mt-1 flex w-full flex-col gap-2 border border-outline/30 bg-secondary p-4 md:flex-row md:items-center">
+      <div className="mx-auto mb-2 mt-1 flex w-full flex-col gap-2 border border-outline/30 bg-secondary p-4 md:flex-row md:items-center lg:w-fit">
         <Info size={16} className={'text-highlight'} />
         <span className={'flex flex-col'}>
           {newLineHandledText(t('PREF_COLORS_PRECEDENCE'))}
