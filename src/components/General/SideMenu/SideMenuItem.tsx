@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Book } from 'lucide-react';
-import { SideMenuInner, Tooltip } from '@components/General';
+import { SideMenuInner } from '@components/General';
 import { useSideMenu } from '../../../Context/SideMenuContext';
 
 interface SideMenuItemProps {
@@ -20,26 +20,16 @@ const SideMenuItem = ({
 }: SideMenuItemProps) => {
   const { collapsed } = useSideMenu();
 
-  const inner = (
-    <SideMenuInner
-      icon={icon}
-      title={title}
-      overrideCollapse={overrideCollapse}
-    />
-  );
-
   return (
     <div
-      className={` ${selected ? 'bg-highlight/10' : 'hover:bg-highlight/5'} ${collapsed && 'justify-center'} group flex whitespace-nowrap p-3 transition-all hover:cursor-pointer`}
+      className={`${selected ? 'bg-highlight/10' : 'hover:bg-highlight/5'} ${collapsed && 'justify-center'} group flex cursor-pointer whitespace-nowrap p-3 transition-all`}
       onClick={onClick}
     >
-      {collapsed || overrideCollapse ? (
-        <Tooltip content={title} direction="right">
-          {inner}
-        </Tooltip>
-      ) : (
-        inner
-      )}
+      <SideMenuInner
+        icon={icon}
+        title={title}
+        overrideCollapse={overrideCollapse}
+      />
     </div>
   );
 };

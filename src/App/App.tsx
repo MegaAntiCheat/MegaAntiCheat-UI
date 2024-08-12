@@ -190,7 +190,7 @@ function App() {
       )}
       {/*TODO: do a better calc of the pl offset here for expansion */}
       <div
-        className={`${!collapsed && 'pl-[76px]'} h-[100svh] w-full overflow-x-clip overflow-y-scroll p-4`}
+        className={`${!collapsed && 'pl-[80px]'} h-[100svh] w-full overflow-x-clip overflow-y-scroll p-4`}
       >
         {renderPage()}
       </div>

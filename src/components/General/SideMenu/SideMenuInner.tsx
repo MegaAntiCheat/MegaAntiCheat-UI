@@ -1,5 +1,4 @@
 import React, { FC, ReactElement } from 'react';
-import { Flex } from '@components/General';
 import { useSideMenu } from '../../../Context/SideMenuContext';
 
 interface SideMenuInnerProps {
@@ -16,14 +15,14 @@ const SideMenuInner: FC<SideMenuInnerProps> = ({
   const { collapsed } = useSideMenu();
 
   return (
-    <Flex className="relative w-full items-center gap-3">
-      <div className="relative">{icon}</div>
-      {!collapsed && !overrideCollapse && (
-        <p className="w-max select-none overflow-hidden truncate text-lg">
-          {title}
-        </p>
-      )}
-    </Flex>
+    <div className="relative flex w-full items-center gap-3">
+      <div className="relative pl-1">{icon}</div>
+      <div
+        className={`flex ${overrideCollapse && '!w-0'} ${collapsed ? 'w-0' : 'w-5/6'}`}
+      >
+        <p className="w-full select-none truncate text-lg">{title}</p>
+      </div>
+    </div>
   );
 };
 

@@ -10,13 +10,13 @@ const SideMenuLogo: FC<SideMenuLogoProps> = ({ overrideCollapse }) => {
 
   return (
     <a
-      className={'flex items-center gap-3'}
+      className={'relative flex w-full items-center gap-3 p-3'}
       href="https://github.com/MegaAntiCheat"
       target="_blank"
       rel="noopener noreferrer"
     >
       <img
-        className="rounded-lg"
+        className="flex flex-shrink-0 rounded-lg"
         height={32}
         width={32}
         src="./mac_logo.webp"

@@ -1,9 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Divider, SideMenuItem } from '@components/General';
+import { Divider, SideMenuItem, SideMenuLogo } from '@components/General';
 
 import { t } from '@i18n';
 import { MENU_ITEMS, PAGES } from '../../../constants/menuConstants';
-import SideMenuHeader from '@components/General/SideMenu/SideMenuHeader';
 import ToSSideMenu from '@components/TF2/ToS/ToSSideMenu';
 import { useSideMenu } from '../../../Context/SideMenuContext';
 import { SideMenuMobile } from '@components/General/SideMenu/SideMenuMobile';
@@ -39,28 +38,28 @@ const SideMenu = ({
         className={`${collapsed ? 'hidden md:inline-block' : 'absolute w-full outline outline-1 outline-outline/30 md:w-[300px]'} h-full bg-secondary transition duration-300 ease-out`}
         ref={menuRef}
       >
-        <span className={'hidden w-full md:inline-block'}>
-          <SideMenuHeader handleSymbolClick={handleToggleClick} />
+        <span className={'hidden md:inline'}>
+          <SideMenuLogo />
         </span>
 
         <Divider size={2} />
 
-        <div>
-          {MENU_ITEMS.map(({ titleKey, icon, page }) => (
-            <SideMenuItem
-              key={page}
-              title={t(titleKey)}
-              icon={icon}
-              onClick={() => {
-                setCurrentPage(page);
-                toggleCollapsed();
-              }}
-              selected={currentPage === page}
-            />
-          ))}
+        {MENU_ITEMS.map(({ titleKey, icon, page }) => (
+          <SideMenuItem
+            key={page}
+            title={t(titleKey)}
+            icon={icon}
+            onClick={() => {
+              setCurrentPage(page);
+              toggleCollapsed();
+            }}
+            selected={currentPage === page}
+          />
+        ))}
 
-          {showTosSuggestions && <ToSSideMenu collapsed={collapsed} />}
-        </div>
+        {showTosSuggestions && (
+          <ToSSideMenu collapsed={collapsed} setCurrentPage={setCurrentPage} />
+        )}
       </div>
     </div>
   );

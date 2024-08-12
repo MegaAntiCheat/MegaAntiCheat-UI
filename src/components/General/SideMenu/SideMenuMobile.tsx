@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { SideMenuItem, SideMenuLogo } from '@components/General';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { useSideMenu } from '../../../Context/SideMenuContext';
 
 interface SideMenuMobileProps {
   handleToggleClick: (e: React.MouseEvent) => void;
@@ -9,6 +10,8 @@ interface SideMenuMobileProps {
 export const SideMenuMobile: FC<SideMenuMobileProps> = ({
   handleToggleClick,
 }) => {
+  const { collapsed } = useSideMenu();
+
   return (
     <div
       className={
@@ -17,7 +20,7 @@ export const SideMenuMobile: FC<SideMenuMobileProps> = ({
     >
       <SideMenuLogo overrideCollapse={true} />
       <SideMenuItem
-        icon={<Menu />}
+        icon={collapsed ? <Menu /> : <X />}
         onClick={handleToggleClick}
         title={'Close Menu'}
         overrideCollapse={true}
