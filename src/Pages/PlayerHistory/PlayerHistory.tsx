@@ -8,7 +8,7 @@ import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
 import { useModal } from '../../Context/ModalContext';
 import { AddPlayerModal } from '@components/TF2';
-import { Tooltip } from '@components/General'; // Maps Steam IDs of each search result to its relevance
+import { Tooltip } from '@components/General';
 
 // Maps Steam IDs of each search result to its relevance
 export type SearchRelevance = Map<string, string>;
@@ -156,55 +156,25 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
   const searchPredicates: SearchFunction[] = [
     {f: (p) => getSteamID64(query) === p.steamID64, note: 'SEARCH_REL_STEAMID'}, // Exact SteamID
 
-    {
-      f: (p) => caseSensitive && query === p.customData.alias,
-      note: 'SEARCH_REL_CUSTOMNAME_EXACT_CASE'
-    }, // Exact custom alias
-    {
-      f: (p) => lQuery === p.customData.alias?.toLowerCase(),
-      note: 'SEARCH_REL_CUSTOMNAME_EXACT'
-    },
+    {f: (p) => caseSensitive && query === p.customData.alias, note: 'SEARCH_REL_CUSTOMNAME_EXACT_CASE'}, // Exact custom alias
+    {f: (p) => lQuery === p.customData.alias?.toLowerCase(), note: 'SEARCH_REL_CUSTOMNAME_EXACT'},
 
     {f: (p) => caseSensitive && query === p.name, note: 'SEARCH_REL_NAME_EXACT_CASE'}, // Exact current alias
     {f: (p) => lQuery === p.name.toLowerCase(), note: 'SEARCH_REL_NAME_EXACT'},
 
-    {
-      f: (p) => caseSensitive && (p.previousNames?.includes(query) ?? false),
-      note: 'SEARCH_REL_PREVNAME_EXACT_CASE'
-    }, // Exact previous alias
-    {
-      f: (p) => p.previousNames?.some((n) => lQuery === n.toLowerCase()) ?? false,
-      note: 'SEARCH_REL_PREVNAME_EXACT'
-    },
+    {f: (p) => caseSensitive && (p.previousNames?.includes(query) ?? false),note: 'SEARCH_REL_PREVNAME_EXACT_CASE'}, // Exact previous alias
+    {f: (p) => p.previousNames?.some((n) => lQuery === n.toLowerCase()) ?? false,note: 'SEARCH_REL_PREVNAME_EXACT' },
 
-    {
-      f: (p) => caseSensitive && (p.customData.alias?.startsWith(query) ?? false),
-      note: 'SEARCH_REL_CUSTOMNAME_START_CASE'
-    }, // Start of custom alias
-    {
-      f: (p) => p.customData.alias?.toLowerCase().startsWith(lQuery) ?? false,
-      note: 'SEARCH_REL_CUSTOMNAME_START'
-    },
+    {f: (p) => caseSensitive && (p.customData.alias?.startsWith(query) ?? false), note: 'SEARCH_REL_CUSTOMNAME_START_CASE' }, // Start of custom alias
+    {f: (p) => p.customData.alias?.toLowerCase().startsWith(lQuery) ?? false, note: 'SEARCH_REL_CUSTOMNAME_START'},
 
-    {
-      f: (p) => caseSensitive && p.name.startsWith(query),
-      note: 'SEARCH_REL_NAME_START_CASE'
-    }, // Start of current alias
+    {f: (p) => caseSensitive && p.name.startsWith(query), note: 'SEARCH_REL_NAME_START_CASE' }, // Start of current alias
     {f: (p) => p.name.toLowerCase().startsWith(lQuery), note: 'SEARCH_REL_NAME_START'},
 
-    {
-      f: (p) => caseSensitive && (p.previousNames?.some((n) => n.startsWith(query)) ?? false),
-      note: 'SEARCH_REL_PREVNAME_START_CASE'
-    }, // Start of previous alias
-    {
-      f: (p) => (p.previousNames?.some((n) => n.toLowerCase().startsWith(lQuery)) ?? false),
-      note: 'SEARCH_REL_PREVNAME_START'
-    },
+    {f: (p) => caseSensitive && (p.previousNames?.some((n) => n.startsWith(query)) ?? false), note: 'SEARCH_REL_PREVNAME_START_CASE'}, // Start of previous alias
+    {f: (p) => (p.previousNames?.some((n) => n.toLowerCase().startsWith(lQuery)) ?? false), note: 'SEARCH_REL_PREVNAME_START'},
 
-    {
-      f: (p) => caseSensitive && (p.customData.alias?.includes(query) ?? false),
-      note: 'SEARCH_REL_CUSTOMNAME_SUB_CASE'
-    }, // Substring of custom alias
+    {f: (p) => caseSensitive && (p.customData.alias?.includes(query) ?? false), note: 'SEARCH_REL_CUSTOMNAME_SUB_CASE'}, // Substring of custom alias
     {
       f: (p) => p.customData.alias?.toLowerCase().includes(lQuery) ?? false,
       note: 'SEARCH_REL_CUSTOMNAME_SUB'
@@ -213,14 +183,8 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
     {f: (p) => caseSensitive && p.name.includes(query), note: 'SEARCH_REL_NAME_SUB_CASE'}, // Substring of current alias
     {f: (p) => p.name.toLowerCase().includes(lQuery), note: 'SEARCH_REL_NAME_SUB'},
 
-    {
-      f: (p) => caseSensitive && (p.previousNames?.some((n) => n.includes(query)) ?? false),
-      note: 'SEARCH_REL_PREVNAME_SUB_CASE'
-    }, // Substring of previous alias
-    {
-      f: (p) => (p.previousNames?.some((n) => n.toLowerCase().includes(lQuery)) ?? false),
-      note: 'SEARCH_REL_PREVNAME_SUB'
-    },
+    {f: (p) => caseSensitive && (p.previousNames?.some((n) => n.includes(query)) ?? false), note: 'SEARCH_REL_PREVNAME_SUB_CASE' }, // Substring of previous alias
+    {f: (p) => (p.previousNames?.some((n) => n.toLowerCase().includes(lQuery)) ?? false), note: 'SEARCH_REL_PREVNAME_SUB' },
   ];
 
   const getRelevance = function (p: ArchivePlayerInfo): number {
