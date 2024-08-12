@@ -44,7 +44,6 @@
   background-color: var(--dark-bg-color);
   border: 1px solid var(--dark-bg-main-color);
   z-index: 30;
-  max-height: 200px;
 }
 
 .select-option {
