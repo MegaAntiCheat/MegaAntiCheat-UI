@@ -5,6 +5,7 @@ import { getAllSettings } from '@api/preferences';
 import { Player } from '@components/TF2';
 import { t } from '@i18n';
 import { ContextMenuProvider } from '@context';
+
 interface ScoreboardTableProps {
   RED: PlayerInfo[];
   BLU: PlayerInfo[];
@@ -90,12 +91,12 @@ const ScoreboardTable = ({
       // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half pb-[10px] ${teamName}`}>
         <div
-          className={`text-4xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
+          className={`mb-1 mt-4 font-build text-4xl ${teamName?.toLowerCase()}`}
         >
           {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
           {team?.length - amountDisconnected})
         </div>
-        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavsm xs:grid-cols-scoreboardnav">
+        <div className="mb-2 ml-5 grid flex-1 grid-cols-scoreboardnavsm text-start font-build xs:grid-cols-scoreboardnav">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
           {/* <div className="hidden xs:[display:unset]">
@@ -128,13 +129,13 @@ const ScoreboardTable = ({
     RED.length > BLU.length + SPEC.length + UNASSIGNED.length + 8
   ) {
     return (
-      <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+      <div className="grid grid-cols-scoreboardgridsm place-content-start text-center lg:grid-cols-scoreboardgrid">
         <div>
           {renderTeam(BLU, 'BLU')}
           {renderTeam(SPEC, 'SPECTATOR')}
           {renderTeam(UNASSIGNED, 'UNASSIGNED')}
         </div>
-        <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        <div className="scoreboard-divider mt-0 h-auto w-[1px] bg-highlight/10 lg:[display:block]" />
         {renderTeam(RED, 'RED')}
       </div>
     );
@@ -146,9 +147,9 @@ const ScoreboardTable = ({
     BLU.length > RED.length + SPEC.length + UNASSIGNED.length + 8
   ) {
     return (
-      <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+      <div className="grid grid-cols-scoreboardgridsm place-content-start text-center lg:grid-cols-scoreboardgrid">
         {renderTeam(BLU, 'BLU')}
-        <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+        <div className="scoreboard-divider mt-0 h-auto w-[1px] bg-highlight/10 lg:[display:block]" />
         <div>
           {renderTeam(RED, 'RED')}
           {renderTeam(UNASSIGNED, 'UNASSIGNED')}
@@ -159,12 +160,12 @@ const ScoreboardTable = ({
   }
 
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-screen overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm place-content-start text-center lg:grid-cols-scoreboardgrid">
       {renderTeam(BLU, 'BLU')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+      <div className="scoreboard-divider mt-0 h-auto w-[1px] bg-highlight/10 lg:[display:block]" />
       {renderTeam(RED, 'RED')}
       {renderTeam(SPEC, 'SPECTATOR')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+      <div className="scoreboard-divider mt-0 h-auto w-[1px] bg-highlight/10 lg:[display:block]" />
       {renderTeam(UNASSIGNED, 'UNASSIGNED')}
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useMinimode } from '@context';
 import { MiniScoreboard, ScoreboardTable } from '@components/TF2';
 import { emptyServerData, fetchAllServerInfo } from '@api/servers';
@@ -83,20 +83,18 @@ const PlayerList = () => {
   }, [UNASSIGNED]);
 
   return (
-    <>
-      <div className="playerlist-max">
-        {isMinimode ? (
-          <MiniScoreboard RED={sortedRED} BLU={sortedBLU} />
-        ) : (
-          <ScoreboardTable
-            RED={sortedRED}
-            BLU={sortedBLU}
-            SPEC={sortedSPEC}
-            UNASSIGNED={sortedUNASSIGNED}
-          />
-        )}
-      </div>
-    </>
+    <Fragment>
+      {isMinimode ? (
+        <MiniScoreboard RED={sortedRED} BLU={sortedBLU} />
+      ) : (
+        <ScoreboardTable
+          RED={sortedRED}
+          BLU={sortedBLU}
+          SPEC={sortedSPEC}
+          UNASSIGNED={sortedUNASSIGNED}
+        />
+      )}
+    </Fragment>
   );
 };
 
