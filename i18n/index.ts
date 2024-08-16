@@ -30,7 +30,7 @@ const translations: { [key: string]: Translations } = {
   Dutch: nl_NL,
   Korean: ko_KR,
   French: fr_FR,
-  Portuguese: pt_BR
+  Portuguese: pt_BR,
 };
 
 const setLanguage = (lang: string) => {
