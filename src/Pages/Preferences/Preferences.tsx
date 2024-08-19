@@ -260,7 +260,15 @@ const Preferences = () => {
           </Accordion>
           <Accordion title={t('PREF_ADVANCED')}>
             <Flex className="preference-option pref-password">
-              <div className="preference-title">{t('PREF_STEAM_API_KEY')}</div>
+              <div className="preference-title">
+                {t('PREF_STEAM_API_KEY')}{' '}
+                <a
+                  className="link text-blue-600 hover:underline"
+                  href="https://steamcommunity.com/dev"
+                >
+                  ({t('GET_ONE_HERE')})
+                </a>
+              </div>
               <TextInput
                 type={steamApiKeyRevealed ? 'input' : 'password'}
                 defaultValue={settings?.internal.steamApiKey}
@@ -356,7 +364,15 @@ const Preferences = () => {
               />
             </Flex>
             <Flex className="preference-option pref-password">
-              <div className="preference-title">{t('PREF_MASTERBASE_KEY')}</div>
+              <div className="preference-title">
+                {t('PREF_MASTERBASE_KEY')}{' '}
+                <a
+                  className="link text-blue-600 hover:underline"
+                  href="https://megaanticheat.com/provision"
+                >
+                  ({t('GET_ONE_HERE')})
+                </a>
+              </div>
               <TextInput
                 type={masterbaseKeyRevealed ? 'input' : 'password'}
                 defaultValue={settings?.internal.masterbaseKey}
