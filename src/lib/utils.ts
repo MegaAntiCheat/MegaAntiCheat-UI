@@ -1,6 +1,17 @@
 // prettier-ignore
 import {getSteamID64} from '@api/steamid';
 
+// ----------------------------------[PLAYERS]--------------------------------------------
+export const getDefaultOrImg = (img: string | undefined)  => {
+ if (img) {
+   return img;
+ } else {
+  return './person.webp';
+ }
+};
+
+
+// ----------------------------------[SEARCH]---------------------------------------------
 type SearchFunction = { f: (p: ArchivePlayerInfo) => boolean; note: string };
 
 /**

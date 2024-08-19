@@ -81,6 +81,46 @@ export const fakedata: ServerInfoResponse = {
       ],
     },
     {
+      steamID64: '76561197976120300',
+      isSelf: false,
+      name: 'Hannishi',
+      tags: ['Friend'],
+      localVerdict: 'None',
+      previousNames: ['Hannishi //hello'],
+      customData: {
+        alias: 'Luke',
+        playerNote: 'Dudes old',
+      },
+      gameInfo: {
+        deaths: 0,
+        state: 'Spawning',
+        kills: 3,
+        team: 1,
+        loss: 0,
+        ping: 40,
+        userid: '0',
+        time: 0,
+        lastSeen: 0,
+      },
+      steamInfo: {
+        pfp: 'https://avatars.akamai.steamstatic.com/636153efcb129bc77a0a8ce5a596078474369d2f_full.jpg',
+        vacBans: 1,
+        profileVisibility: 'Private',
+        daysSinceLastBan: 2223,
+        timeCreated: Date.now() / 1000 - 19 * 365.25 * 24 * 60 * 60, // 19 years before now
+      },
+      friends: [
+        {
+          steamID64: '76561197976120300',
+          friendsSince: '34232',
+        },
+        {
+          steamID64: '76561197976120300',
+          friendsSince: '34232',
+        },
+      ],
+    },
+    {
       steamID64: '54822487235354124',
       isSelf: false,
       name: 'Woah So Cool!',
@@ -164,7 +204,7 @@ export const fakedata: ServerInfoResponse = {
         deaths: 0,
         state: 'Spawning',
         kills: 0,
-        team: 1,
+        team: 3,
         loss: 0,
         ping: 40,
         userid: '0',
@@ -214,6 +254,9 @@ export const fakedata: ServerInfoResponse = {
         userid: '0',
         time: 2300,
         lastSeen: 0,
+      },
+      steamInfo: {
+        pfp: 'https://avatars.akamai.steamstatic.com/646153efcb129bc77a0a8ce5a596078474369d2f_full.jpg',
       },
     },
     {

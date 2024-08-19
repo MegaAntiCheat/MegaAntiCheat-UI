@@ -96,17 +96,16 @@ const ScoreboardTable = ({
           {t(teamName ?? 'UNASSIGNED').toUpperCase()} (
           {team?.length - amountDisconnected})
         </div>
-        <div className="mb-2 ml-5 grid flex-1 grid-cols-scoreboardnavsm text-start font-build xs:grid-cols-scoreboardnav">
-          <div>{t('TEAM_NAV_RATING')}</div>
-          <div>{t('TEAM_NAV_USER')}</div>
-          {/* <div className="hidden xs:[display:unset]">
-            {t('TEAM_NAV_STATUS')}
-          </div> */}
-          <div className="hidden xs:[display:unset]">{t('TEAM_NAV_TIME')}</div>
+
+        <div className="grid grid-cols-4 px-2 font-build">
+          <p className="text-start">{t('TEAM_NAV_RATING')}</p>
+          <p className="text-start">{t('TEAM_NAV_USER')}</p>
+          <p className="text-end">{t('TEAM_NAV_STATUS')}</p>
+          <p className="text-end">{t('TEAM_NAV_TIME')}</p>
         </div>
+
         <div className={`${teamName?.toLowerCase()}`}>
           {team?.map((player) => (
-            // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
                 playerColors={playerSettings.colors}
