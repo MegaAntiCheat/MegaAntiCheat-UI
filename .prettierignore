@@ -8,3 +8,6 @@ dist
 
 # CSS files
 *.css
+
+# Utility Functions
+src/lib/*.ts
