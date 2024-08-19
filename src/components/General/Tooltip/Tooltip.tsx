@@ -40,7 +40,7 @@ const Tooltip = ({
         {children}
       </div>
       <div
-        className={`${direction} tooltip pointer-events-none absolute z-50 hidden whitespace-nowrap rounded-md bg-neutral-900/[98] p-1 pl-2 pr-2 text-base text-white opacity-0 group-hover:inline-block`}
+        className={`${direction} tooltip pointer-events-none absolute z-50 whitespace-nowrap rounded-md bg-neutral-900/[98] p-1 pl-2 pr-2 text-base text-white opacity-0 group-hover:inline-block`}
       >
         {noWrap ? content : newLineHandledText}
       </div>
