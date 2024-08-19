@@ -174,6 +174,15 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
     {f: (p) => caseSensitive && (p.previousNames?.some((n) => n.startsWith(query)) ?? false), note: 'SEARCH_REL_PREVNAME_START_CASE'}, // Start of previous alias
     {f: (p) => (p.previousNames?.some((n) => n.toLowerCase().startsWith(lQuery)) ?? false), note: 'SEARCH_REL_PREVNAME_START'},
 
+    {f: (p) => caseSensitive && (p.customData?.playerNote?.startsWith(query) ?? false), note: 'SEARCH_REL_NOTE_EXACT_CASE'}, // Exacct custom note
+    {f: (p) => p.customData?.playerNote?.startsWith(lQuery) ?? false, note: 'SEARCH_REL_NOTE_EXACT'},
+
+    {f: (p) => caseSensitive && (p.customData?.playerNote?.startsWith(query) ?? false), note: 'SEARCH_REL_NOTE_START_CASE'}, // Start of custom note
+    {f: (p) => p.customData?.playerNote?.startsWith(lQuery) ?? false, note: 'SEARCH_REL_NOTE_START'},
+
+    {f: (p) => caseSensitive && (p.customData?.playerNote?.includes(query) ?? false), note: 'SEARCH_REL_NOTE_SUB_CASE'}, // Substring of custom note
+    {f: (p) => p.customData?.playerNote?.includes(lQuery) ?? false, note: 'SEARCH_REL_NOTE_SUB'},
+
     {f: (p) => caseSensitive && (p.customData.alias?.includes(query) ?? false), note: 'SEARCH_REL_CUSTOMNAME_SUB_CASE'}, // Substring of custom alias
     {f: (p) => p.customData.alias?.toLowerCase().includes(lQuery) ?? false, note: 'SEARCH_REL_CUSTOMNAME_SUB'},
 
