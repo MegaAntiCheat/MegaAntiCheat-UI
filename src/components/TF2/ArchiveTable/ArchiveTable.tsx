@@ -90,12 +90,12 @@ const ArchiveTable = ({
       // Keep the classname for the popoutinfo alignment
       <div className={`scoreboard-grid-half pb-[10px] ${teamName}`}>
         <div
-          className={`text-4xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
+          className={`mb-1 mt-4 font-build text-4xl ${teamName?.toLowerCase()}`}
         >
           {t(teamName ?? 'UNASSIGNED').toUpperCase()} ({team?.length})
         </div>
         <div
-          className={`text-xl font-build mt-4 mb-1 ${teamName?.toLowerCase()}`}
+          className={`mb-1 mt-4 font-build text-xl ${teamName?.toLowerCase()}`}
         >
           {usePages && (
             <PageSelector
@@ -105,7 +105,7 @@ const ArchiveTable = ({
             />
           )}
         </div>
-        <div className="flex-1 ml-5 mb-2 text-start font-build grid grid-cols-scoreboardnavhistorysm xs:grid-cols-scoreboardnavhistory">
+        <div className="mb-2 ml-5 grid flex-1 grid-cols-scoreboardnavhistorysm text-start font-build xs:grid-cols-scoreboardnavhistory">
           <div>{t('TEAM_NAV_RATING')}</div>
           <div>{t('TEAM_NAV_USER')}</div>
           {/* <div className="hidden xs:[display:unset]">
@@ -149,9 +149,9 @@ const ArchiveTable = ({
   };
 
   return (
-    <div className="grid grid-cols-scoreboardgridsm lg:grid-cols-scoreboardgrid place-content-start text-center h-[calc(100vh-56px)] overflow-x-hidden">
+    <div className="grid grid-cols-scoreboardgridsm place-content-start text-center lg:grid-cols-scoreboardgrid">
       {renderTeam(RECENT, 'RECENT')}
-      <div className="scoreboard-divider lg:[display:block] h-auto bg-highlight/10 w-[1px] mt-0" />
+      <div className="scoreboard-divider mt-0 h-auto w-[1px] bg-highlight/10 lg:[display:block]" />
       {renderTeam(ARCHIVE, 'ARCHIVE')}
     </div>
   );
