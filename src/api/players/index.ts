@@ -5,7 +5,7 @@ import {
   useFakedata,
   USER_ENDPOINT,
 } from '@api/globals';
-import { fakedata } from '@api/servers/fakedata';
+import { fakedata, fakePlayers } from '@api/servers/fakedata';
 import { emptyServerData } from '@api/servers';
 
 interface UpdatePlayerForm {
@@ -119,7 +119,7 @@ async function fetchRecentPlayers(
   startfrom: number = 0,
 ): Promise<ArchivePlayerInfo[]> {
   try {
-    if (useFakedata) [];
+    if (useFakedata) return fakePlayers;
 
     const response = await fetch(
       `${HISTORYFETCH}?from=${startfrom}&to=${startfrom + amount}`,
@@ -136,7 +136,7 @@ async function fetchRecentPlayers(
 
 async function fetchArchivedPlayers(): Promise<ArchivePlayerInfo[]> {
   try {
-    if (useFakedata) return [];
+    if (useFakedata) return fakePlayers;
 
     const response = await fetch(`${PLAYERRECORDFETCH}`);
 
