@@ -1,10 +1,9 @@
 import React from 'react';
-import './Player.css';
 
 import { t } from '@i18n';
 import { updatePlayer, updateSteamInfo } from '@api/players';
 import { ContextMenu, Select, Tooltip } from '@components/General';
-import { ContextMenuContext, MenuItem } from '../../../Context';
+import { ContextMenuContext, MenuItem, useModal } from '../../../Context';
 import {
   buildIconListFromArchive,
   displayColor,
@@ -15,7 +14,6 @@ import {
 
 import { verifyImageExists } from '@api/utils';
 import { Info } from 'lucide-react';
-import { useModal } from '../../../Context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
 import ArchivePlayerDetails from './ArchivePlayerDetails';
 
@@ -81,6 +79,7 @@ const ArchivePlayer = ({
 
       e.preventDefault();
     }
+
     document.addEventListener('mousedown', preventDefault);
 
     return () => document.removeEventListener('mousedown', preventDefault);
@@ -149,7 +148,7 @@ const ArchivePlayer = ({
   return (
     <>
       <div
-        className={`player-item items-center py-0.5 px-1 grid grid-cols-historysm xs:grid-cols-history hover:bg-highlight/5 ${
+        className={`player-item grid grid-cols-historysm items-center px-1 py-0.5 hover:bg-highlight/5 xs:grid-cols-history ${
           showPlayerDetails ? 'expanded' : ''
         } ${className}`}
         id={`player-display-div-${player.steamID64}`}
@@ -172,12 +171,12 @@ const ArchivePlayer = ({
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
           <div
-            className="flex ml-1 cursor-pointer select-none"
+            className="ml-1 flex cursor-pointer select-none"
             key={player.steamID64}
             onContextMenu={handleContextMenu}
           >
             <img
-              className="rounded-s-sm mx-3 cursor-pointer"
+              className="mx-3 cursor-pointer rounded-s-sm"
               width={24}
               height={24}
               src={pfp}
@@ -187,7 +186,7 @@ const ArchivePlayer = ({
             />
             <div
               className={
-                'text-ellipsis overflow-hidden whitespace-nowrap select-none'
+                'select-none overflow-hidden text-ellipsis whitespace-nowrap'
               }
             >
               {displayName}
@@ -195,7 +194,7 @@ const ArchivePlayer = ({
             {(player.previousNames?.filter((v) => v != player.customData?.alias)
               .length ?? 0) >= 1 && (
               <Tooltip
-                className="ml-1 bottom-[1px]"
+                className="bottom-[1px] ml-1"
                 content={displayNamesList(player)}
               >
                 <Info color="grey" width={16} height={16} />
@@ -204,7 +203,7 @@ const ArchivePlayer = ({
           </div>
         </div>
         <div
-          className={'flex flex-wrap justify-center bottom-[1px] relative ml-1'}
+          className={'relative bottom-[1px] ml-1 flex flex-wrap justify-center'}
         >
           {buildIconListFromArchive(
             player,
@@ -233,7 +232,7 @@ const ArchivePlayer = ({
       <div>
         {showPlayerDetails && (
           <>
-            <div className="bg-highlight/40 h-[1px]" />
+            <div className="h-[1px] bg-highlight/40" />
             <ArchivePlayerDetails player={player} bgColor={color} />
           </>
         )}

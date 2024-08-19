@@ -23,11 +23,19 @@ export const PlayerHistorySearchArea: FC<PlayerHistorySearchAreaProps> = ({
   return (
     <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-outline/30 bg-primary px-4 py-[7px]">
       <div className={'relative flex items-center'}>
+        {/***
+         TODO: this is not very clear to the user!
+         Nothing that suggests that you can input a steamID to add a player.
+         I would consider unlinking the functionality of these.
+         Add player should function as expected and open a modal where a user inputs
+         a player steamID and the place holder is indicative of that.
+         **/}
         <Search
           placeholder={t('PLAYER_SEARCH')}
           className="w-fit pr-16"
           onChange={handleSearch}
         />
+
         <div
           onClick={() => {
             setCaseSensitive(!caseSensitive);
@@ -58,16 +66,6 @@ export const PlayerHistorySearchArea: FC<PlayerHistorySearchAreaProps> = ({
           {t('ADD_PLAYER')}
         </button>
       </Tooltip>
-
-      {/*<div className=" flex items-center">*/}
-      {/*  <Checkbox*/}
-      {/*    className=" case-sensitive-checkbox items-center"*/}
-      {/*    checked={caseSensitive}*/}
-      {/*    onChange={setCaseSensitive}*/}
-      {/*  />*/}
-
-      {/*  <p>{t('CASE_SENSITIVE')}</p>*/}
-      {/*</div>*/}
     </div>
   );
 };

@@ -1,26 +1,29 @@
-import { MouseEvent, useContext, useEffect, useRef, useState } from 'react';
-import './Player.css';
+import {
+  Fragment,
+  MouseEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { t } from '@i18n';
 import { updatePlayer } from '@api/players';
-import { ContextMenu, Select, Tooltip } from '@components/General';
-import { ContextMenuContext, MenuItem } from '@context';
+import { ContextMenu, Select } from '@components/General';
+import { ContextMenuContext, MenuItem, useModal } from '@context';
 import {
   buildIconList,
   displayColor,
-  displayNamesList,
   displayProperStatus,
   formatTimeToString,
   localizeVerdict,
   makeLocalizedVerdictOptions,
 } from './playerutils';
-import PlayerDetails from './PlayerDetails';
-
-import { verifyImageExists } from '@api/utils';
 import { kickPlayer } from '@api/commands';
-import { Info } from 'lucide-react';
-import { useModal } from '@context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
+import PlayerDetails from '@components/TF2/Player/PlayerDetails/PlayerDetails';
+import { PlayerImgName } from '@components/TF2/Player/PlayerDetails/PlayerImgName';
+import { PlayerTime } from '@components/TF2/Player/PlayerDetails/PlayerTime';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -36,21 +39,16 @@ interface PlayerProps {
 const Player = ({
   player,
   className,
-  onImageLoad,
   playerColors,
   openInApp,
   cheatersInLobby,
 }: PlayerProps) => {
   const isFirstRefresh = useRef(true);
-  // Context Menu
-  const { showMenu } = useContext(ContextMenuContext);
 
-  // Modal
+  const { showMenu } = useContext(ContextMenuContext);
   const { openModal } = useModal();
 
-  // States
   const [playtime, setPlaytime] = useState(0);
-  const [pfp, setPfp] = useState<string>('./person.webp');
   const [showPlayerDetails, setShowPlayerDetails] = useState(false);
 
   const urlToOpen = openInApp
@@ -63,7 +61,6 @@ const Player = ({
     : localizeVerdict(player.localVerdict);
   const displayTime = formatTimeToString(playtime);
   const displayStatus = displayProperStatus(player.gameInfo!.state!);
-  const displayName = player.customData?.alias || player.name;
 
   // const color = displayColor(playerColors!, player, cheatersInLobby);
 
@@ -86,6 +83,7 @@ const Player = ({
 
       e.preventDefault();
     }
+
     document.addEventListener('mousedown', preventDefault);
 
     return () => document.removeEventListener('mousedown', preventDefault);
@@ -113,17 +111,6 @@ const Player = ({
 
     return () => clearInterval(interval);
   }, [disconnected]);
-
-  // Update pfp on mount
-  useEffect(() => {
-    if (!player.steamInfo?.pfp) return;
-
-    verifyImageExists(player.steamInfo?.pfp, './person.webp').then((src) => {
-      setPfp(src);
-
-      if (onImageLoad) onImageLoad();
-    });
-  }, [player.steamInfo?.pfp]);
 
   const handleContextMenu = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -190,18 +177,16 @@ const Player = ({
   };
 
   return (
-    <>
+    <Fragment>
       <div
-        className={`player-item items-center py-0.5 px-1 grid grid-cols-playersm xs:grid-cols-player hover:bg-highlight/5 ${
-          showPlayerDetails ? 'expanded' : ''
-        } ${className}`}
+        className={`${showPlayerDetails ? 'expanded' : ''} ${className} grid grid-cols-4 items-center gap-4 py-0.5 hover:bg-highlight/5`}
         id={`player-display-div-${player.steamID64}`}
         style={{
           backgroundColor: color,
         }}
       >
         <Select
-          className="player-verdict"
+          className="bg-prange-500 min-w-[104px] max-w-[135px] pl-2"
           options={localizedLocalVerdictOptions}
           placeholder={displayVerdict}
           disabled={player.isSelf}
@@ -213,71 +198,25 @@ const Player = ({
             setColor(displayColor(playerColors!, player, cheatersInLobby));
           }}
         />
-        <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
-          <div
-            className="flex ml-1 cursor-pointer select-none"
-            key={player.steamID64}
-            onContextMenu={handleContextMenu}
-          >
-            <img
-              className="rounded-s-sm mx-3 cursor-pointer"
-              width={24}
-              height={24}
-              src={pfp}
-              alt="Profile"
-              onLoad={onImageLoad}
-              style={{ filter: disconnected ? 'grayscale(100%)' : 'inherit' }}
-            />
-            <div
-              className={`text-ellipsis overflow-hidden whitespace-nowrap select-none ${
-                disconnected ? 'disconnected' : ''
-              }`}
-            >
-              {displayName}
-            </div>
-            {(player.previousNames?.filter((v) => v != player.customData?.alias)
-              .length ?? 0) >= 1 && (
-              <Tooltip
-                className="ml-1 bottom-[1px]"
-                content={displayNamesList(player)}
-              >
-                <Info color="grey" width={16} height={16} />
-              </Tooltip>
-            )}
-          </div>
-        </div>
-        <div
-          className={`flex flex-wrap justify-center bottom-[1px] relative ml-1 ${
-            disconnected ? 'disconnected' : ''
-          }`}
-        >
+
+        <PlayerImgName
+          callback={() => setShowPlayerDetails(!showPlayerDetails)}
+          player={player}
+          handleContextMenu={handleContextMenu}
+        />
+
+        <span className="relative bottom-[1px] flex w-full justify-end overflow-clip">
           {buildIconList(player, cheatersInLobby)}
-        </div>
-        {/* <div
-          className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
-            disconnected ? 'disconnected' : ''
-          }`}
-        >
-          {displayStatus}
-        </div> */}
-        <div
-          className={`player-time hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${
-            disconnected ? 'disconnected' : ''
-          }`}
-        >
-          {displayTime}
-        </div>
-        <ContextMenu />
+        </span>
+
+        <PlayerTime disconnected={disconnected} displayTime={displayTime} />
+
+        {/*TODO: what is this for?*/}
       </div>
-      <div>
-        {showPlayerDetails && (
-          <>
-            <div className="bg-highlight/40 h-[1px]" />
-            <PlayerDetails player={player} bgColor={color} />
-          </>
-        )}
-      </div>
-    </>
+      <ContextMenu />
+
+      {showPlayerDetails && <PlayerDetails player={player} bgColor={color} />}
+    </Fragment>
   );
 };
 
