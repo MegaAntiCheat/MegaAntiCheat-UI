@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-import './Search.css';
 
 interface SearchProps {
   onChange: (e: string) => void;
@@ -28,7 +27,7 @@ const Search = ({
       value={searchQuery}
       onChange={handleInputChange}
       placeholder={placeholder}
-      className={`search-input ${className}`}
+      className={`rounded-md bg-secondary px-4 py-2 outline-none ${className}`}
     />
   );
 };
