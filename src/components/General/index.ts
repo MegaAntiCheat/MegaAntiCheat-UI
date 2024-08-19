@@ -2,7 +2,6 @@ import Flex from './Flex/Flex';
 import Divider from './Divider/Divider';
 import SideMenu from './SideMenu/SideMenu';
 import SideMenuItem from './SideMenu/SideMenuItem';
-import SideMenuInner from './SideMenu/SideMenuInner';
 import SideMenuLogo from './SideMenu/SideMenuLogo';
 import Spinner from './Spinner/Spinner';
 import Checkbox from './Checkbox/Checkbox';
@@ -20,7 +19,6 @@ import ContextMenu from './ContextMenu/ContextMenu';
 export {
   SideMenu,
   SideMenuItem,
-  SideMenuInner,
   SideMenuLogo,
   Spinner,
   Flex,
