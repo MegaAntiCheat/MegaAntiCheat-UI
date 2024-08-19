@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Divider, SideMenuItem, SideMenuLogo } from '@components/General';
+import { SideMenuItem, SideMenuLogo } from '@components/General';
 
 import { t } from '@i18n';
 import { MENU_ITEMS, PAGES } from '../../../constants/menuConstants';
@@ -43,11 +43,9 @@ const SideMenu = ({
         className={`${collapsed ? 'hidden md:inline-block' : 'absolute w-full outline outline-1 outline-outline/30 md:w-[300px]'} h-full bg-secondary transition duration-300 ease-out`}
         ref={menuRef}
       >
-        <span className={'hidden md:inline'}>
+        <span className="hidden md:inline">
           <SideMenuLogo />
         </span>
-
-        <Divider size={2} />
 
         {MENU_ITEMS.map(({ titleKey, icon, page }) => (
           <SideMenuItem

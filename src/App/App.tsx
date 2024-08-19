@@ -87,6 +87,9 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 
 function App() {
   const { isMinimode } = useMinimode();
+  const { menuRef } = useSideMenu();
+  const sideMenuWidth = menuRef.current?.offsetWidth;
+
   const [isDead, setDead] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(PAGES.PLAYER_LIST);
   const [hasAgreedToTerms, setHasAgreedToTerms] = React.useState(false);
@@ -190,7 +193,8 @@ function App() {
       )}
       {/*TODO: do a better calc of the pl offset here for expansion */}
       <div
-        className={`${!collapsed && 'pl-[80px]'} h-[100svh] w-full overflow-x-clip overflow-y-scroll p-4`}
+        className="h-[100svh] w-full overflow-x-clip overflow-y-scroll"
+        style={{ paddingLeft: collapsed ? 0 : `${sideMenuWidth}px` }}
       >
         {renderPage()}
       </div>

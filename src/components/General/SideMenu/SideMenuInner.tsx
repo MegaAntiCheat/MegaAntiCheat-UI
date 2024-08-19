@@ -4,24 +4,19 @@ import { useSideMenu } from '../../../Context/SideMenuContext';
 interface SideMenuInnerProps {
   icon: ReactElement;
   title: string;
-  overrideCollapse?: boolean;
 }
 
-const SideMenuInner: FC<SideMenuInnerProps> = ({
-  icon,
-  title,
-  overrideCollapse,
-}) => {
+const SideMenuInner: FC<SideMenuInnerProps> = ({ icon, title }) => {
   const { collapsed } = useSideMenu();
 
   return (
-    <div className="relative flex w-full items-center gap-3">
-      <div className="relative pl-1">{icon}</div>
-      <div
-        className={`flex ${overrideCollapse && '!w-0'} ${collapsed ? 'w-0' : 'w-5/6'}`}
-      >
-        <p className="w-full select-none truncate text-lg">{title}</p>
-      </div>
+    <div className="relative flex items-center justify-center gap-3">
+      <div className={'flex w-8 justify-center'}>{icon}</div>
+      {!collapsed && (
+        <div className="absolute left-10 w-[150px]">
+          <p className="w-full select-none truncate text-lg">{title}</p>
+        </div>
+      )}
     </div>
   );
 };

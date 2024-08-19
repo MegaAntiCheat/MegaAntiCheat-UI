@@ -8,7 +8,6 @@ interface SideMenuItemProps {
   icon?: ReactElement;
   onClick?: (arg0: never) => void;
   selected?: boolean;
-  overrideCollapse?: boolean;
 }
 
 const SideMenuItem = ({
@@ -16,7 +15,6 @@ const SideMenuItem = ({
   icon = <Book />,
   onClick,
   selected = false,
-  overrideCollapse,
 }: SideMenuItemProps) => {
   const { collapsed } = useSideMenu();
 
@@ -25,11 +23,7 @@ const SideMenuItem = ({
       className={`${selected ? 'bg-highlight/10' : 'hover:bg-highlight/5'} ${collapsed && 'justify-center'} group flex cursor-pointer whitespace-nowrap p-3 transition-all`}
       onClick={onClick}
     >
-      <SideMenuInner
-        icon={icon}
-        title={title}
-        overrideCollapse={overrideCollapse}
-      />
+      <SideMenuInner icon={icon} title={title} />
     </div>
   );
 };

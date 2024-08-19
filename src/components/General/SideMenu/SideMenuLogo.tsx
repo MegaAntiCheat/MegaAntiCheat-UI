@@ -1,33 +1,21 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useSideMenu } from '../../../Context/SideMenuContext';
 
-interface SideMenuLogoProps {
-  overrideCollapse?: boolean;
-}
-
-const SideMenuLogo: FC<SideMenuLogoProps> = ({ overrideCollapse }) => {
+export default function SideMenuLogo() {
   const { collapsed } = useSideMenu();
 
   return (
     <a
-      className={'relative flex w-full items-center gap-3 p-3'}
+      className={`${collapsed ? 'border-secondary' : 'border-outline/30'} flex w-full items-center gap-3 border-b p-3`}
       href="https://github.com/MegaAntiCheat"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <img
-        className="flex flex-shrink-0 rounded-lg"
-        height={32}
-        width={32}
-        src="./mac_logo.webp"
-        alt="Logo"
-      />
+      <div className={'size-8 overflow-clip rounded-sm object-cover'}>
+        <img src="./mac_logo.webp" alt="Logo" />
+      </div>
 
-      {(overrideCollapse || !collapsed) && (
-        <p className={'text-xl font-medium'}>MegaAntiCheat</p>
-      )}
+      {!collapsed && <p className="text-xl font-medium">MegaAntiCheat</p>}
     </a>
   );
-};
-
-export default SideMenuLogo;
+}
