@@ -18,6 +18,10 @@ import { Info } from 'lucide-react';
 import { useModal } from '../../../Context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
 import ArchivePlayerDetails from './ArchivePlayerDetails';
+import {
+  convertSteamID64toSteamID2,
+  convertSteamID64toSteamID3,
+} from '@api/steamid';
 
 interface ArchivePlayerProps {
   player: ArchivePlayerInfo;
@@ -110,12 +114,26 @@ const ArchivePlayer = ({
         label: 'Copy...',
         multiOptions: [
           {
-            label: 'Name',
+            label: `Name: ${player.name}`,
             onClick: () => navigator.clipboard.writeText(player.name),
           },
           {
-            label: 'SteamID64',
+            label: `SteamID64: ${player.steamID64}`,
             onClick: () => navigator.clipboard.writeText(player.steamID64),
+          },
+          {
+            label: `SteamID3: ${convertSteamID64toSteamID3(player.steamID64)}`,
+            onClick: () =>
+              navigator.clipboard.writeText(
+                convertSteamID64toSteamID3(player.steamID64),
+              ),
+          },
+          {
+            label: `SteamID2: ${convertSteamID64toSteamID2(player.steamID64)}`,
+            onClick: () =>
+              navigator.clipboard.writeText(
+                convertSteamID64toSteamID2(player.steamID64),
+              ),
           },
         ],
       },
