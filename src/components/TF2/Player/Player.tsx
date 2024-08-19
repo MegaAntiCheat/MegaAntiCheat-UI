@@ -21,6 +21,7 @@ import { kickPlayer } from '@api/commands';
 import { Info } from 'lucide-react';
 import { useModal } from '@context';
 import ChangeAliasModal from './Modals/ChangeAliasModal';
+import { convertSteamID64toSteamID2, convertSteamID64toSteamID3 } from '@api/steamid';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -138,12 +139,24 @@ const Player = ({
         label: 'Copy...',
         multiOptions: [
           {
-            label: 'Name',
+            label: `Name: ${player.name}`,
             onClick: () => navigator.clipboard.writeText(player.name),
           },
           {
-            label: 'SteamID64',
+            label: `SteamID64: ${player.steamID64}`,
             onClick: () => navigator.clipboard.writeText(player.steamID64),
+          },
+          {
+            label: `SteamID3: ${convertSteamID64toSteamID3(player.steamID64)}`,
+            onClick: () => navigator.clipboard.writeText(convertSteamID64toSteamID3(player.steamID64)),
+          },
+          {
+            label: `SteamID2: ${convertSteamID64toSteamID2(player.steamID64)}`,
+            onClick: () => navigator.clipboard.writeText(convertSteamID64toSteamID2(player.steamID64)),
+          },
+          {
+            label: `UserID: ${player.gameInfo.userid}`,
+            onClick: () => navigator.clipboard.writeText(player.gameInfo.userid),
           },
         ],
       },
