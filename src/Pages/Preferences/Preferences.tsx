@@ -1,6 +1,6 @@
 import ToSModal from '@components/TF2/ToS/ToSModal';
 import { useModal } from '@context';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { t, translations } from '@i18n';
 import {
   defaultSettings,
@@ -105,8 +105,8 @@ const Preferences = () => {
   }
 
   return (
-    <Fragment>
-      <div className={'flex flex-col gap-4'}>
+    <div className="p-4 pt-5">
+      <div className="flex flex-col gap-4">
         <GeneralPreferences
           languageOptions={languageOptions}
           handleSettingChange={handleSettingChange}
@@ -130,7 +130,7 @@ const Preferences = () => {
           setMasterbaseKeyRevealed={setMasterbaseKeyRevealed}
         />
       </div>
-    </Fragment>
+    </div>
   );
 };
 
