@@ -1,7 +1,7 @@
 import React from 'react';
 import { updatePlayer } from '@api/players';
 import { Button, TextInput } from '@components/General';
-import { useModal } from '../../../../Context';
+import { useModal } from '@context';
 
 interface ChangeAliasModalProps {
   steamID64: string;
