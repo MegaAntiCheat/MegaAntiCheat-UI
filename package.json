@@ -12,9 +12,9 @@
   },
   "scripts": {
     "start": "webpack serve",
-    "lint": "bun exec eslint .",
-    "lint:fix": "bun exec eslint --fix .",
-    "build": "bun run lint && tailwind -i ./src/index.css -o ./src/tailwind.css && webpack --mode production",
+    "lint": "pnpm exec eslint .",
+    "lint:fix": "pnpm exec eslint --fix .",
+    "build": "pnpm run lint && tailwind -i ./src/index.css -o ./src/tailwind.css && webpack --mode production",
     "dev": "concurrently -k \"webpack serve --mode development\" \"tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch\" \"tsc -w\"",
     "prod": "concurrently -k \"webpack serve --mode production\" \"tailwindcss -i ./src/index.css -o ./src/tailwind.css --watch\" \"tsc -w\""
   },
