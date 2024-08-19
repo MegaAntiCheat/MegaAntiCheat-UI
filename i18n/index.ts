@@ -9,6 +9,7 @@ import ja_RYU from './ja_RYU.json';
 import uk_UA from './uk_UA.json';
 import nl_NL from './nl_NL.json';
 import ko_KR from './ko_KR.json';
+import pl_PL from './pl_PL.json';
 
 import { tos_EN } from './tos/en_US.js';
 
@@ -29,6 +30,7 @@ const translations: { [key: string]: Translations } = {
   Dutch: nl_NL,
   Korean: ko_KR,
   French: fr_FR,
+  Polish: pl_PL,
 };
 
 const setLanguage = (lang: string) => {
