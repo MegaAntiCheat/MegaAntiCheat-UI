@@ -32,19 +32,15 @@ const Tooltip = ({
 
   return (
     <div
-      className={`tooltip-container relative inline-block ${className} ${
-        isButton ? 'contents' : ''
-      }`}
+      className={`${className} ${isButton && 'contents'} tooltip-container relative inline-block`}
     >
       <div
-        className={`tooltip-content inline-block align-middle ${
-          isButton ? 'contents' : ''
-        }`}
+        className={`${isButton && 'contents'} tooltip-content inline-block align-middle`}
       >
         {children}
       </div>
       <div
-        className={`tooltip absolute p-1 pl-2 pr-2 bg-neutral-900/[98] pointer-events-none text-white text-base z-50 whitespace-nowrap rounded-md opacity-0  ${direction}`}
+        className={`${direction} tooltip pointer-events-none absolute z-50 hidden whitespace-nowrap rounded-md bg-neutral-900/[98] p-1 pl-2 pr-2 text-base text-white opacity-0 group-hover:inline-block`}
       >
         {noWrap ? content : newLineHandledText}
       </div>

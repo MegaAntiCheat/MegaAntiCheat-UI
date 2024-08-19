@@ -4,18 +4,13 @@ import './App.css';
 import { isBackendConfigured, useFakedata, verifyBackend } from '@api/globals';
 import { Button, SideMenu, TextInput } from '@components/General';
 import { tos_last_updated } from '../../i18n/tos/en_US';
-import {
-  ContentPageContainer,
-  PlayerHistory,
-  PlayerList,
-  Preferences,
-} from '../Pages';
+import { PlayerHistory, PlayerList, Preferences } from '../Pages';
 import { Modal } from '@components/General/Modal/Modal';
-import { useModal } from '../Context';
+import { useMinimode, useModal } from '../Context';
 import { setLanguage, t } from '@i18n';
 import { getAllSettings, setSettingKey } from '@api/preferences';
-import { useMinimode } from '../Context';
 import { PAGES } from '../constants/menuConstants';
+import { useSideMenu } from '../Context/SideMenuContext';
 
 const CantConnectModal = () => {
   return (
@@ -38,12 +33,12 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
 
   return (
     <div className="App-modal">
-      <h1 className="mb-6 relative text-2xl text-center">
+      <h1 className="relative mb-6 text-center text-2xl">
         {t('CONFIGURATION')}
       </h1>
       <p className="text-center">{t('CONF_FIRST_TIME')}</p>
-      <p className="text-center mb-6">{t('CONF_FIRST_TIME_DESC')}</p>
-      <div className="justify-center items-center">
+      <p className="mb-6 text-center">{t('CONF_FIRST_TIME_DESC')}</p>
+      <div className="items-center justify-center">
         <div className="flex justify-center">
           <a
             className="link steam-api-key"
@@ -68,7 +63,7 @@ const ConfigurationModal = ({ closeModal }: ConfigurationModalProps) => {
           />
         </div>
 
-        <div className="text-sm text-gray-500 text-center">
+        <div className="text-center text-sm text-gray-500">
           {t('CONF_REMINDER')}
         </div>
 
@@ -98,6 +93,7 @@ function App() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { closeModal, openModal, modalContent } = useModal();
+  const { collapsed } = useSideMenu();
 
   const renderPage = () => {
     switch (currentPage) {
@@ -183,19 +179,20 @@ function App() {
   }, [currentPage, isDead]);
 
   return (
-    <div className="App">
+    <div className={'flex h-[100svh] flex-col md:flex-row'}>
       <Modal />
       {!isMinimode && (
-        <div className="App-sidebar">
-          <SideMenu
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-            showTosSuggestions={!hasAgreedToTerms}
-          />
-        </div>
+        <SideMenu
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          showTosSuggestions={!hasAgreedToTerms}
+        />
       )}
-      <div className="App-content">
-        <ContentPageContainer>{renderPage()}</ContentPageContainer>
+      {/*TODO: do a better calc of the pl offset here for expansion */}
+      <div
+        className={`${!collapsed && 'pl-[80px]'} h-[100svh] w-full overflow-x-clip overflow-y-scroll p-4`}
+      >
+        {renderPage()}
       </div>
     </div>
   );

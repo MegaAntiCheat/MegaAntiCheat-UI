@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './PlayerHistory.css';
 import ArchiveTable from '@components/TF2/ArchiveTable/ArchiveTable';
 import { fetchArchivedPlayers, fetchRecentPlayers } from '@api/players';
@@ -6,7 +6,7 @@ import { t } from '@i18n';
 import Search from '@components/General/Search/Search';
 import Checkbox from '@components/General/Checkbox/Checkbox';
 import { getSteamID64 } from '@api/steamid';
-import { useModal } from '../../Context/ModalContext';
+import { useModal } from '@context';
 import { AddPlayerModal } from '@components/TF2';
 import { Tooltip } from '@components/General';
 
@@ -91,11 +91,11 @@ const PlayerHistory = () => {
   }, [data, query, caseSensitive]);
 
   return (
-    <>
+    <Fragment>
       <div className="flex">
         <Search
           placeholder={t('PLAYER_SEARCH')}
-          className="ml-4 mt-3 mb-3 w-[calc(100%-350px)]"
+          className="mb-3 ml-4 mt-3 w-[calc(100%-350px)]"
           onChange={handleSearch}
         />
         <Tooltip
@@ -106,7 +106,7 @@ const PlayerHistory = () => {
           isButton={true}
         >
           <button
-            className={`ml-4 mt-3 mb-3 h-15v w-[100px] rounded-sm items-center ${
+            className={`h-15v mb-3 ml-4 mt-3 w-[100px] items-center rounded-sm ${
               playerToAdd ? 'bg-blue-700' : 'bg-gray-400'
             }`}
             disabled={!playerToAdd}
@@ -121,11 +121,11 @@ const PlayerHistory = () => {
           </button>
         </Tooltip>
         <Checkbox
-          className="case-sensitive-checkbox ml-4 mt-3 mb-3 h-4 items-center"
+          className="case-sensitive-checkbox mb-3 ml-4 mt-3 h-4 items-center"
           checked={caseSensitive}
           onChange={setCaseSensitive}
         />
-        <div className="items-center pl-[10px] pt-[18px] ">
+        <div className="items-center pl-[10px] pt-[18px]">
           {t('CASE_SENSITIVE')}
         </div>
       </div>
@@ -137,7 +137,7 @@ const PlayerHistory = () => {
           refresh={[refreshing, setRefreshing]}
         />
       </div>
-    </>
+    </Fragment>
   );
 };
 
@@ -147,7 +147,7 @@ type SearchFunction = { f: (p: ArchivePlayerInfo) => boolean; note: string };
 // prettier-ignore
 function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean): ArchivePlayerInfo[] {
   const out = [...data]; // Avoid modifying input as it's part of a useState
-  const relevance = new Map<string, {value: number, note: string}>();
+  const relevance = new Map<string, { value: number, note: string }>();
   const lQuery = query.toLowerCase();
 
   // All the predicates for searching via text query.
@@ -162,8 +162,8 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
     {f: (p) => caseSensitive && query === p.name, note: 'SEARCH_REL_NAME_EXACT_CASE'}, // Exact current alias
     {f: (p) => lQuery === p.name.toLowerCase(), note: 'SEARCH_REL_NAME_EXACT'},
 
-    {f: (p) => caseSensitive && (p.previousNames?.includes(query) ?? false), note: 'SEARCH_REL_PREVNAME_EXACT_CASE'}, // Exact previous alias
-    {f: (p) => p.previousNames?.some((n) => lQuery === n.toLowerCase()) ?? false, note: 'SEARCH_REL_PREVNAME_EXACT'},
+    {f: (p) => caseSensitive && (p.previousNames?.includes(query) ?? false),note: 'SEARCH_REL_PREVNAME_EXACT_CASE'}, // Exact previous alias
+    {f: (p) => p.previousNames?.some((n) => lQuery === n.toLowerCase()) ?? false,note: 'SEARCH_REL_PREVNAME_EXACT'},
 
     {f: (p) => caseSensitive && (p.customData.alias?.startsWith(query) ?? false), note: 'SEARCH_REL_CUSTOMNAME_START_CASE'}, // Start of custom alias
     {f: (p) => p.customData.alias?.toLowerCase().startsWith(lQuery) ?? false, note: 'SEARCH_REL_CUSTOMNAME_START'},
@@ -185,8 +185,8 @@ function search(data: ArchivePlayerInfo[], query: string, caseSensitive: boolean
   ];
 
   const getRelevance = function (p: ArchivePlayerInfo): number {
-    for(let i = 0; i < searchPredicates.length; i++) {
-      if(searchPredicates[i].f(p)) {
+    for (let i = 0; i < searchPredicates.length; i++) {
+      if (searchPredicates[i].f(p)) {
         relevance.set(p.steamID64, {value: i, note: searchPredicates[i].note});
         return i;
       }

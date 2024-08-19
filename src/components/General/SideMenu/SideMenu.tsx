@@ -1,11 +1,11 @@
-import ToSSideMenu from '@components/TF2/ToS/ToSSideMenu';
 import React, { Dispatch, SetStateAction } from 'react';
-import { Divider, SideMenuItem } from '@components/General';
-import MenuHeader from './MenuHeader';
+import { Divider, SideMenuItem, SideMenuLogo } from '@components/General';
 
 import { t } from '@i18n';
-import './SideMenu.css';
 import { MENU_ITEMS, PAGES } from '../../../constants/menuConstants';
+import ToSSideMenu from '@components/TF2/ToS/ToSSideMenu';
+import { useSideMenu } from '../../../Context/SideMenuContext';
+import { SideMenuMobile } from '@components/General/SideMenu/SideMenuMobile';
 
 interface SideMenuProps {
   setCurrentPage: Dispatch<SetStateAction<PAGES>>;
@@ -18,17 +18,10 @@ const SideMenu = ({
   currentPage,
   showTosSuggestions,
 }: SideMenuProps) => {
-  const [collapsed, setCollapsed] = React.useState(true);
-  const MenuRef = React.useRef<HTMLDivElement>(null);
+  const { collapsed, setCollapsed, toggleCollapsed, menuRef } = useSideMenu();
 
   const handleToggleCollapse = () => {
     setCollapsed(!collapsed);
-  };
-
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (!MenuRef.current?.contains(event.target as Node)) {
-      setCollapsed(true);
-    }
   };
 
   const handleToggleClick = (event: React.MouseEvent) => {
@@ -36,62 +29,44 @@ const SideMenu = ({
     handleToggleCollapse();
   };
 
-  const handleEscapePress = (event: KeyboardEvent) => {
-    if (event.key !== 'Escape') return;
-
-    setCollapsed(true);
-  };
-
-  React.useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
-    document.addEventListener('keydown', handleEscapePress);
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-      document.removeEventListener('keydown', handleEscapePress);
-    };
-  }, []);
-
-  const menuItemsToShow = MENU_ITEMS.map(({ titleKey, icon, page }) => (
-    <SideMenuItem
-      key={page}
-      title={t(titleKey)}
-      Icon={icon}
-      collapsed={collapsed}
-      onClick={() => setCurrentPage(page)}
-      selected={currentPage === page}
-    />
-  ));
-  if (showTosSuggestions) {
-    menuItemsToShow.push(
-      <div>
-        <ToSSideMenu collapsed={collapsed} setCurrentPage={setCurrentPage} />
-      </div>,
-    );
-  }
-
   return (
-    <>
+    <div className={'z-50 outline outline-1 outline-outline/30'}>
+      <SideMenuMobile handleToggleClick={handleToggleClick} />
+
+      {/**
+       * TODO:
+       * 1) there is still much to do here, not totally happy with the centering
+       * of elements. Still rather hacky and not 100% centered.
+       * 2) cannot animate between display types -> find solution.
+       * */}
       <div
-        className={`side-menu fixed left-0 top-0 h-screen z-50 bg-secondary outline-outline/30 outline-1 outline w-full sm:w-2/4 max-w-sm transition-all ease-in-out ${
-          collapsed ? 'collapsed' : ''
-        }`}
-        ref={MenuRef}
+        className={`${collapsed ? 'hidden md:inline-block' : 'absolute w-full outline outline-1 outline-outline/30 md:w-[300px]'} h-full bg-secondary transition duration-300 ease-out`}
+        ref={menuRef}
       >
-        <MenuHeader
-          collapsed={collapsed}
-          handleSymbolClick={handleToggleClick}
-        />
-        <div>
-          <Divider size={2} />
-          {menuItemsToShow}
-        </div>
+        <span className={'hidden md:inline'}>
+          <SideMenuLogo />
+        </span>
+
+        <Divider size={2} />
+
+        {MENU_ITEMS.map(({ titleKey, icon, page }) => (
+          <SideMenuItem
+            key={page}
+            title={t(titleKey)}
+            icon={icon}
+            onClick={() => {
+              setCurrentPage(page);
+              toggleCollapsed();
+            }}
+            selected={currentPage === page}
+          />
+        ))}
+
+        {showTosSuggestions && (
+          <ToSSideMenu collapsed={collapsed} setCurrentPage={setCurrentPage} />
+        )}
       </div>
-      <div
-        className={`w-[100vw] h-[100vh] z-40 ${
-          !collapsed ? ' bg-black/10' : ''
-        }`}
-      />
-    </>
+    </div>
   );
 };
 
