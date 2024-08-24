@@ -47,7 +47,8 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
       }}
     >
       {children}
-      {modalContent}
+      {/* A hidden, offscreen copy of the modal will be opened in #root if we include this */}
+      {/* {modalContent} */}
     </ModalContext.Provider>
   );
 };

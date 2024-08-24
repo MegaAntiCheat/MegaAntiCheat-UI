@@ -25,6 +25,7 @@ import {
   convertSteamID64toSteamID2,
   convertSteamID64toSteamID3,
 } from '@api/steamid';
+import PlayerKillfeedModal from './Modals/KillfeedModal';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -182,6 +183,20 @@ const Player = ({
               dismissable: true,
             },
           ),
+      },
+      {
+        label: 'View killfeed',
+        onClick: () => {
+          openModal(
+            <PlayerKillfeedModal
+              team={player.gameInfo.team}
+              steamID64={player.steamID64}
+            />,
+            {
+              dismissable: true,
+            },
+          );
+        },
       },
     ];
 

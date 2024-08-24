@@ -1,11 +1,20 @@
 import React from 'react';
 import { formatCreationDate, verifyImageExists } from '@api/utils';
-import { BarChart, CircleSlash2, Crosshair, Info, Skull } from 'lucide-react';
+import {
+  BarChart,
+  CircleSlash2,
+  Crosshair,
+  Info,
+  Skull,
+  SquareArrowOutUpRight,
+} from 'lucide-react';
 import { calculateKD } from './playerutils';
 import { t } from '@i18n';
 import { Tooltip } from '@components/General';
+import { useModal } from '@context';
 
 import PlayerNotebox from './Notes/PlayerNotebox';
+import PlayerKillfeedModal from './Modals/KillfeedModal';
 interface PlayerDetailsProps {
   player: PlayerInfo;
   bgColor?: string;
@@ -13,6 +22,8 @@ interface PlayerDetailsProps {
 
 const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
   const [pfp, setPfp] = React.useState('./person.webp');
+
+  const { openModal } = useModal();
 
   const vacBans = player.steamInfo?.vacBans ?? 0;
   const gameBans = player.steamInfo?.gameBans ?? 0;
@@ -91,6 +102,23 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                     </Tooltip>
                   )}
                 </div>
+                <button
+                  className="flex items-center"
+                  onClick={() => {
+                    openModal(
+                      <PlayerKillfeedModal
+                        team={player.gameInfo.team}
+                        steamID64={player.steamID64}
+                      />,
+                      {
+                        dismissable: true,
+                      },
+                    );
+                  }}
+                >
+                  <div className="font-semibold mr-1">{t('KILLFEED')}</div>
+                  <SquareArrowOutUpRight width={14} height={14} />
+                </button>
               </div>
             </div>
             <div className="h-full bg-highlight/30 w-[1px]" />

@@ -26,6 +26,7 @@ module.exports = {
         scoreboardgridsm: '1fr',
         playerdetails: '150px auto',
         playerdetailscontent: '160px 3px auto',
+        killfeed: 'auto auto',
       },
       gridTemplateRows: {
         playerhistorycard: '40px 22px 40px auto',

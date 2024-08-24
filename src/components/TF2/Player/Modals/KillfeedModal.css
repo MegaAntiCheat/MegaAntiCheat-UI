@@ -1,0 +1,11 @@
+.km-kill {
+    background-color: #e6e6e6;
+    font-family: Verdana, sans-serif;
+}
+
+.km-kill.crit img {
+    background-image: url('~/public/killfeed/Crit_bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
+}
