@@ -194,6 +194,7 @@ const knownIcons = [
   'telefrag',
   'tf_projectile_arrow',
   'tf_projectile_mechanicalarmorb',
+  'tf_projectile_pipe',
   'tf_projectile_pipe_remote',
   'tf_projectile_rocket',
   'tf_pumpkin_bomb',

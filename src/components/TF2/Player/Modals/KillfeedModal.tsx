@@ -126,7 +126,7 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
           {playerKills.map((entry, index) => {
             return (
               <>
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center whitespace-nowrap">
                   {entry.elapsed !== undefined &&
                     `${formatTimeToString(entry.elapsed)} ago`}
                 </div>
