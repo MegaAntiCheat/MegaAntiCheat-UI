@@ -26,25 +26,27 @@ import {
   convertSteamID64toSteamID3,
 } from '@api/steamid';
 import { profileLinks } from '../../../constants/playerConstants';
+import ConfirmNavigationModal from './Modals/ConfirmNavigationModal';
+import { setSettingKey } from '@api/preferences';
 
 interface PlayerProps {
   player: PlayerInfo;
   icon?: string;
   className?: string;
   onImageLoad?: () => void;
-  playerColors?: Record<string, string>;
-  openInApp?: boolean;
   userSteamID?: string;
   cheatersInLobby: PlayerInfo[];
+  settings: Settings['external'];
+  setSettings: React.Dispatch<React.SetStateAction<Settings['external']>>;
 }
 
 const Player = ({
   player,
   className,
   onImageLoad,
-  playerColors,
-  openInApp,
   cheatersInLobby,
+  settings,
+  setSettings,
 }: PlayerProps) => {
   const isFirstRefresh = useRef(true);
   // Context Menu
@@ -58,7 +60,7 @@ const Player = ({
   const [pfp, setPfp] = useState<string>('./person.webp');
   const [showPlayerDetails, setShowPlayerDetails] = useState(false);
 
-  const urlToOpen = openInApp
+  const urlToOpen = settings.openInApp
     ? `steam://url/SteamIDPage/${player.steamID64}`
     : `https://steamcommunity.com/profiles/${player.steamID64}`;
 
@@ -73,12 +75,12 @@ const Player = ({
   // const color = displayColor(playerColors!, player, cheatersInLobby);
 
   const [color, setColor] = useState<string | undefined>(
-    displayColor(playerColors!, player, cheatersInLobby),
+    displayColor(settings.colors!, player, cheatersInLobby),
   );
 
   useEffect(() => {
-    setColor(displayColor(playerColors!, player, cheatersInLobby));
-  }, [player.localVerdict, playerColors, player, cheatersInLobby]);
+    setColor(displayColor(settings.colors!, player, cheatersInLobby));
+  }, [player.localVerdict, settings.colors, player, cheatersInLobby]);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
@@ -147,7 +149,26 @@ const Player = ({
           },
           ...profileLinks.map(([name, url]) => ({
             label: name,
-            onClick: () => parent.open(formatUrl(url), '_blank'),
+            onClick: () => {
+              if (settings.confirmExternalLinks ?? true) {
+                openModal(
+                  <ConfirmNavigationModal
+                    link={formatUrl(url)}
+                    onConfirm={() => parent.open(formatUrl(url), '_blank')}
+                    onDontShowAgain={() => {
+                      setSettingKey('confirmExternalLinks', false, 'external');
+                      setSettings((prev) => ({
+                        ...prev,
+                        confirmExternalLinks: false,
+                      }));
+                    }}
+                  />,
+                  { dismissable: true },
+                );
+              } else {
+                parent.open(formatUrl(url), '_blank');
+              }
+            },
           })),
         ],
         onClick: () => {
@@ -249,7 +270,7 @@ const Player = ({
             // Causes new info to immediately show
             player.localVerdict = e.toString();
             updatePlayer(player.steamID64, e.toString());
-            setColor(displayColor(playerColors!, player, cheatersInLobby));
+            setColor(displayColor(settings.colors!, player, cheatersInLobby));
           }}
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>

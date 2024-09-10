@@ -1,6 +1,7 @@
 export const profileLinks = [
   ['Steamrep', 'https://steamrep.com/profiles/{{ID64}}'],
   ['Backpack.tf', 'https://backpack.tf/profiles/{{ID64}}'],
+  ['SteamHistory', 'https://steamhistory.net/id/{{ID64}}'],
   ['RGL', 'https://rgl.gg/Public/PlayerProfile?p={{ID64}}'],
   ['Logs.tf', 'https://logs.tf/profile/{{ID64}}'],
   ['Demos.tf', 'https://demos.tf/profiles/{{ID64}}'],
