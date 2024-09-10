@@ -1,4 +1,11 @@
-import { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
+import {
+  CSSProperties,
+  MouseEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import './ContextMenu.css';
 
 import { ContextMenuContext } from '@context';
@@ -18,7 +25,8 @@ const ContextMenuContent = () => {
     left: position.x,
   };
 
-  const onItemClick = (itemAction: () => void) => {
+  const onItemClick = (e: MouseEvent, itemAction: () => void) => {
+    e.stopPropagation();
     hideMenu();
     itemAction();
   };
@@ -88,8 +96,8 @@ const ContextMenuContent = () => {
           <div
             className="ctx-menu-item"
             key={item.label + index}
-            onClick={() => {
-              if (item?.onClick) onItemClick(item?.onClick);
+            onClick={(e) => {
+              if (item?.onClick) onItemClick(e, item?.onClick);
             }}
             onMouseEnter={() => onMouseEnter(index)}
             onMouseLeave={() => onMouseLeave(index)}
@@ -115,8 +123,8 @@ const ContextMenuContent = () => {
                   <div
                     key={menuItem.label + index}
                     className="ctx-menu-item"
-                    onClick={() => {
-                      if (menuItem?.onClick) onItemClick(menuItem?.onClick);
+                    onClick={(e) => {
+                      if (menuItem?.onClick) onItemClick(e, menuItem?.onClick);
                     }}
                   >
                     {menuItem.label}

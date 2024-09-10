@@ -25,6 +25,7 @@ import {
   convertSteamID64toSteamID2,
   convertSteamID64toSteamID3,
 } from '@api/steamid';
+import { profileLinks } from '../../../constants/playerConstants';
 
 interface PlayerProps {
   player: PlayerInfo;
@@ -129,11 +130,26 @@ const Player = ({
     });
   }, [player.steamInfo?.pfp]);
 
+  const formatUrl = (url: string) => {
+    url = url.replace('{{ID64}}', player.steamID64);
+    return url;
+  };
+
   const handleContextMenu = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     const menuItems: MenuItem[] = [
       {
         label: 'Open Profile',
+        multiOptions: [
+          {
+            label: 'Steam Profile',
+            onClick: () => parent.open(urlToOpen, '_blank'),
+          },
+          ...profileLinks.map(([name, url]) => ({
+            label: name,
+            onClick: () => parent.open(formatUrl(url), '_blank'),
+          })),
+        ],
         onClick: () => {
           parent.open(urlToOpen, '_blank');
         },
