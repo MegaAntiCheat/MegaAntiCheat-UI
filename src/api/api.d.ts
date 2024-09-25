@@ -2,6 +2,7 @@ interface Settings {
   external: {
     language?: string;
     openInApp?: boolean;
+    confirmExternalLinks?: boolean;
     colors?: {
       You: string;
       Player: string;

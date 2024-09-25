@@ -20,7 +20,7 @@ const ScoreboardTable = ({
 }: ScoreboardTableProps) => {
   // Store the users playerID
   const [userSteamID, setUserSteamID] = useState('0');
-  const [playerSettings, setPlayerSettings] = useState<Settings['external']>({
+  const [settings, setSettings] = useState<Settings['external']>({
     colors: {
       You: 'none',
       Player: 'none',
@@ -33,18 +33,19 @@ const ScoreboardTable = ({
       Bot: 'none',
     },
     openInApp: false,
+    confirmExternalLinks: true,
   });
 
   useEffect(() => {
-    const fetchTeamColors = async () => {
+    const fetchSettings = async () => {
       try {
         const { external } = await getAllSettings(); // Replace this with the actual async function that fetches colors
-        setPlayerSettings(external);
+        setSettings(external);
       } catch (error) {
         console.error('Error fetching team colors:', error);
       }
     };
-    fetchTeamColors();
+    fetchSettings();
   }, []);
 
   useEffect(() => {
@@ -108,12 +109,12 @@ const ScoreboardTable = ({
             // Provide the Context Menu Provider to the Element
             <ContextMenuProvider key={player.steamID64}>
               <Player
-                playerColors={playerSettings.colors}
                 className={teamName?.toLowerCase()}
                 player={player}
                 key={player.steamID64}
-                openInApp={playerSettings.openInApp}
                 cheatersInLobby={cheaters}
+                settings={settings}
+                setSettings={setSettings}
               />
             </ContextMenuProvider>
           ))}
