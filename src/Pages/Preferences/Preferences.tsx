@@ -155,6 +155,17 @@ const Preferences = () => {
                 }
               />
             </Flex>
+            <Flex className="preference-option">
+              <div className="preference-title">
+                {t('CONFIRM_EXTERNAL_LINKS')}
+              </div>
+              <Checkbox
+                checked={settings.external?.confirmExternalLinks ?? true}
+                onChange={(e) =>
+                  handleSettingChange('confirmExternalLinks', e, 'external')
+                }
+              />
+            </Flex>
           </Accordion>
           <Accordion title={t('PREF_COLORS')} className="preference-accordion">
             <TextItem className="mr-9">{t('PREF_COLORS_PRECEDENCE')}</TextItem>
