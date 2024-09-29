@@ -5,6 +5,7 @@ import './KillfeedModal.css';
 import { formatTimeToString } from '../playerutils';
 import { X } from 'lucide-react';
 import { useModal } from '@context';
+import { Checkbox } from '@components/General';
 
 interface PlayerKillfeedModalProps {
   team: number;
@@ -28,15 +29,24 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
   const [playerKills, setPlayerKills] = React.useState<null | KillfeedEntry[]>(
     null,
   );
+  const [showDeaths, setShowDeaths] = React.useState(true);
 
   const { closeModal } = useModal();
 
-  const killerColor = team === 2 ? '#f35151' : '#529cf2';
-  const victimColor = team === 2 ? '#529cf2' : '#f35151';
+  const playerColor = team === 2 ? '#f35151' : '#529cf2';
+  const enemyColor = team === 2 ? '#529cf2' : '#f35151';
 
   React.useEffect(() => {
     if (useFakedata) {
       setKillfeed([
+        {
+          killer_name: 'killer of killers',
+          victim_name: 'killer',
+          victim_steamid: steamID64,
+          weapon: 'sniperrifle',
+          crit: true,
+          timestamp: new Date(Date.now() - 6e5).toISOString(),
+        },
         {
           killer_name: 'killer',
           killer_steamid: steamID64,
@@ -70,7 +80,11 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
     if (killfeed === null) return;
 
     const playerKills = killfeed
-      .filter((entry) => entry.killer_steamid === steamID64)
+      .filter(
+        (entry) =>
+          entry.killer_steamid === steamID64 ||
+          (showDeaths && entry.victim_steamid === steamID64),
+      )
       .reverse();
 
     for (const kill of playerKills) {
@@ -81,7 +95,7 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
     }
 
     setPlayerKills(playerKills);
-  }, [killfeed]);
+  }, [killfeed, showDeaths]);
 
   // periodically update elapsed time
   React.useEffect(() => {
@@ -120,7 +134,9 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
       ) : playerKills === null ? (
         <div className="text-3xl whitespace-nowrap px-6">loading...</div>
       ) : playerKills.length === 0 ? (
-        <div className="text-3xl whitespace-nowrap px-6">No kills!</div>
+        <div className="text-3xl whitespace-nowrap px-6">
+          No {showDeaths ? 'kills/deaths' : 'kills'}!
+        </div>
       ) : (
         <div className="grid grid-cols-killfeed gap-3 max-h-[75vh] overflow-y-auto pr-2">
           {playerKills.map((entry, index) => {
@@ -141,7 +157,12 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
                   >
                     <div
                       className="whitespace-nowrap"
-                      style={{ color: killerColor }}
+                      style={{
+                        color:
+                          entry.killer_steamid === steamID64
+                            ? playerColor
+                            : enemyColor,
+                      }}
                     >
                       {entry.killer_name}
                     </div>
@@ -151,7 +172,12 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
                     />
                     <div
                       className="whitespace-nowrap"
-                      style={{ color: victimColor }}
+                      style={{
+                        color:
+                          entry.killer_steamid === steamID64
+                            ? enemyColor
+                            : playerColor,
+                      }}
                     >
                       {entry.victim_name}
                     </div>
@@ -162,6 +188,17 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
           })}
         </div>
       )}
+      {!loadingFailed && playerKills ? (
+        <div className="flex items-center justify-end gap-3 pt-2">
+          Show deaths
+          <Checkbox
+            checked={showDeaths}
+            onChange={(e) => {
+              setShowDeaths(e);
+            }}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };
