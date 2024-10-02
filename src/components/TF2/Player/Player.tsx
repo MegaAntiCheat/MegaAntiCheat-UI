@@ -25,6 +25,7 @@ import {
   convertSteamID64toSteamID2,
   convertSteamID64toSteamID3,
 } from '@api/steamid';
+import PlayerKillfeedModal from './Modals/KillfeedModal';
 import { profileLinks } from '../../../constants/playerConstants';
 import ConfirmNavigationModal from './Modals/ConfirmNavigationModal';
 import { setSettingKey } from '@api/preferences';
@@ -220,6 +221,28 @@ const Player = ({
             },
           ),
       },
+      {
+        label: 'View killfeed',
+        onClick: () => {
+          openModal(
+            <PlayerKillfeedModal
+              team={player.gameInfo.team}
+              steamID64={player.steamID64}
+              startingMode={settings.killfeedMode}
+              setKillfeedMode={(mode) => {
+                setSettingKey('killfeedMode', mode, 'external');
+                setSettings((prev) => ({
+                  ...prev,
+                  killfeedMode: mode,
+                }));
+              }}
+            />,
+            {
+              dismissable: true,
+            },
+          );
+        },
+      },
     ];
 
     if (!disconnected) {
@@ -333,7 +356,12 @@ const Player = ({
         {showPlayerDetails && (
           <>
             <div className="bg-highlight/40 h-[1px]" />
-            <PlayerDetails player={player} bgColor={color} />
+            <PlayerDetails
+              player={player}
+              bgColor={color}
+              settings={settings}
+              setSettings={setSettings}
+            />
           </>
         )}
       </div>
