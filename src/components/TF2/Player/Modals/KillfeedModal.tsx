@@ -5,11 +5,15 @@ import './KillfeedModal.css';
 import { formatTimeToString } from '../playerutils';
 import { X } from 'lucide-react';
 import { useModal } from '@context';
-import { Checkbox } from '@components/General';
+import { Select } from '@components/General';
+
+type KillfeedMode = 'Kills' | 'Deaths' | 'Everything';
 
 interface PlayerKillfeedModalProps {
   team: number;
   steamID64: string;
+  startingMode?: KillfeedMode;
+  setKillfeedMode: (mode: KillfeedMode) => void;
 }
 
 interface KillfeedEntry {
@@ -23,13 +27,20 @@ interface KillfeedEntry {
   elapsed?: number; // seconds, not sent by server
 }
 
-const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
+const PlayerKillfeedModal = ({
+  team,
+  steamID64,
+  startingMode,
+  setKillfeedMode,
+}: PlayerKillfeedModalProps) => {
   const [loadingFailed, setLoadingFailed] = React.useState(false);
   const [killfeed, setKillfeed] = React.useState<null | KillfeedEntry[]>(null);
   const [playerKills, setPlayerKills] = React.useState<null | KillfeedEntry[]>(
     null,
   );
-  const [showDeaths, setShowDeaths] = React.useState(true);
+  const [mode, setMode] = React.useState<KillfeedMode>(
+    startingMode ?? 'Everything',
+  );
 
   const { closeModal } = useModal();
 
@@ -82,8 +93,8 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
     const playerKills = killfeed
       .filter(
         (entry) =>
-          entry.killer_steamid === steamID64 ||
-          (showDeaths && entry.victim_steamid === steamID64),
+          (mode !== 'Deaths' && entry.killer_steamid === steamID64) ||
+          (mode !== 'Kills' && entry.victim_steamid === steamID64),
       )
       .reverse();
 
@@ -95,7 +106,7 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
     }
 
     setPlayerKills(playerKills);
-  }, [killfeed, showDeaths]);
+  }, [killfeed, mode]);
 
   // periodically update elapsed time
   React.useEffect(() => {
@@ -134,8 +145,14 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
       ) : playerKills === null ? (
         <div className="text-3xl whitespace-nowrap px-6">loading...</div>
       ) : playerKills.length === 0 ? (
-        <div className="text-3xl whitespace-nowrap px-6">
-          No {showDeaths ? 'kills/deaths' : 'kills'}!
+        <div className="text-3xl whitespace-nowrap px-6 text-center">
+          No{' '}
+          {mode === 'Everything'
+            ? 'kills/deaths'
+            : mode === 'Kills'
+            ? 'kills'
+            : 'deaths'}
+          !
         </div>
       ) : (
         <div className="grid grid-cols-killfeed gap-3 max-h-[75vh] overflow-y-auto pr-2">
@@ -190,12 +207,28 @@ const PlayerKillfeedModal = ({ team, steamID64 }: PlayerKillfeedModalProps) => {
       )}
       {!loadingFailed && playerKills ? (
         <div className="flex items-center justify-end gap-3 pt-2">
-          Show deaths
-          <Checkbox
-            checked={showDeaths}
+          Include:
+          <Select
+            className="min-w-[125px]"
+            placeholder={mode}
             onChange={(e) => {
-              setShowDeaths(e);
+              setMode(e as KillfeedMode);
+              setKillfeedMode(e as KillfeedMode);
             }}
+            options={[
+              {
+                label: 'Kills',
+                value: 'Kills',
+              },
+              {
+                label: 'Deaths',
+                value: 'Deaths',
+              },
+              {
+                label: 'Everything',
+                value: 'Everything',
+              },
+            ]}
           />
         </div>
       ) : null}

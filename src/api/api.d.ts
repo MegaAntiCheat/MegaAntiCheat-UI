@@ -3,6 +3,7 @@ interface Settings {
     language?: string;
     openInApp?: boolean;
     confirmExternalLinks?: boolean;
+    killfeedMode?: 'Kills' | 'Deaths' | 'Everything';
     colors?: {
       You: string;
       Player: string;

@@ -15,12 +15,20 @@ import { useModal } from '@context';
 
 import PlayerNotebox from './Notes/PlayerNotebox';
 import PlayerKillfeedModal from './Modals/KillfeedModal';
+import { setSettingKey } from '@api/preferences';
 interface PlayerDetailsProps {
   player: PlayerInfo;
   bgColor?: string;
+  settings: Settings['external'];
+  setSettings: React.Dispatch<React.SetStateAction<Settings['external']>>;
 }
 
-const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
+const PlayerDetails = ({
+  player,
+  bgColor,
+  settings,
+  setSettings,
+}: PlayerDetailsProps) => {
   const [pfp, setPfp] = React.useState('./person.webp');
 
   const { openModal } = useModal();
@@ -109,6 +117,14 @@ const PlayerDetails = ({ player, bgColor }: PlayerDetailsProps) => {
                       <PlayerKillfeedModal
                         team={player.gameInfo.team}
                         steamID64={player.steamID64}
+                        startingMode={settings.killfeedMode}
+                        setKillfeedMode={(mode) => {
+                          setSettingKey('killfeedMode', mode, 'external');
+                          setSettings((prev) => ({
+                            ...prev,
+                            killfeedMode: mode,
+                          }));
+                        }}
                       />,
                       {
                         dismissable: true,

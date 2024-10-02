@@ -228,6 +228,14 @@ const Player = ({
             <PlayerKillfeedModal
               team={player.gameInfo.team}
               steamID64={player.steamID64}
+              startingMode={settings.killfeedMode}
+              setKillfeedMode={(mode) => {
+                setSettingKey('killfeedMode', mode, 'external');
+                setSettings((prev) => ({
+                  ...prev,
+                  killfeedMode: mode,
+                }));
+              }}
             />,
             {
               dismissable: true,
@@ -348,7 +356,12 @@ const Player = ({
         {showPlayerDetails && (
           <>
             <div className="bg-highlight/40 h-[1px]" />
-            <PlayerDetails player={player} bgColor={color} />
+            <PlayerDetails
+              player={player}
+              bgColor={color}
+              settings={settings}
+              setSettings={setSettings}
+            />
           </>
         )}
       </div>
