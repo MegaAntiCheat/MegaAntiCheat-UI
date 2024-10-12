@@ -44,8 +44,8 @@ const PlayerKillfeedModal = ({
 
   const { closeModal } = useModal();
 
-  const playerColor = team === 2 ? '#f35151' : '#529cf2';
-  const enemyColor = team === 2 ? '#529cf2' : '#f35151';
+  const playerColor = team === 2 ? '#b55c4c' : '#687d9c';
+  const enemyColor = team === 2 ? '#687d9c' : '#b55c4c';
 
   React.useEffect(() => {
     if (useFakedata) {
