@@ -4,15 +4,18 @@ import { t } from '@i18n';
 import { hexToRGB } from '@api/utils';
 import {
   CalendarClock,
+  Gavel,
   LogIn,
   RotateCw,
   ScrollText,
+  Search,
   ShieldAlert,
   Star,
   Users2,
 } from 'lucide-react';
 import { Tooltip } from '@components/General';
 import { updateSteamInfo } from '@api/players';
+import { getAllSettings } from '@api/preferences';
 
 const localVerdict = [
   {
@@ -142,6 +145,7 @@ function buildPlayerNote(customData: CustomData) {
 function buildIconList(
   player: PlayerInfo,
   cheatersInLobby: PlayerInfo[],
+  settings: Settings,
 ): React.ReactNode[] {
   const now = Date.now() / 1000;
   const hasAlias = !!player.customData?.alias;
@@ -205,6 +209,46 @@ function buildIconList(
         content={buildPlayerNote(player.customData)}
       >
         <ScrollText width={18} height={18} />
+      </Tooltip>
+    ),
+    // Add a magnifying glass if the user is under investigation
+    player.underReview && (
+      <Tooltip
+        key="underreview"
+        className="mr-1"
+        direction="left"
+        content={`${t('TOOLTIP_UNDER_REVIEW')}`}
+      >
+        <Search width={18} height={18} onClick={
+          () => {
+            const host = settings.internal.masterbaseHost;
+            if (!host) {
+              console.error('Host is undefined; No host to redirect user to!');
+              return;
+            };
+            window.open(`https://${host}/profile/${player.steamID64}`, '_blank')
+          }
+        }/>
+      </Tooltip>
+    ),
+    // Add a gavel icon if they're convicted
+    player.convicted && (
+      <Tooltip
+        key="convicted"
+        className="mr-1"
+        direction="left"
+        content={`${t('TOOLTIP_CONVICTED')}`}
+      >
+        <Gavel width={18} height={18} onClick={
+          () => {
+            const host = settings.internal.masterbaseHost;
+            if (!host) {
+              console.error('Host is undefined; No host to redirect user to!');
+              return;
+            };
+            window.open(`https://${host}/profile/${player.steamID64}`, '_blank')
+          }
+        }/>
       </Tooltip>
     ),
     // Add an icon if their account is young

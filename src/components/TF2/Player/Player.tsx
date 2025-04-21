@@ -36,8 +36,8 @@ interface PlayerProps {
   onImageLoad?: () => void;
   userSteamID?: string;
   cheatersInLobby: PlayerInfo[];
-  settings: Settings['external'];
-  setSettings: React.Dispatch<React.SetStateAction<Settings['external']>>;
+  settings: Settings;
+  setSettings: React.Dispatch<React.SetStateAction<Settings>>;
 }
 
 const Player = ({
@@ -60,7 +60,7 @@ const Player = ({
   const [pfp, setPfp] = useState<string>('./person.webp');
   const [showPlayerDetails, setShowPlayerDetails] = useState(false);
 
-  const urlToOpen = settings.openInApp
+  const urlToOpen = settings.external.openInApp
     ? `steam://url/SteamIDPage/${player.steamID64}`
     : `https://steamcommunity.com/profiles/${player.steamID64}`;
 
@@ -75,12 +75,12 @@ const Player = ({
   // const color = displayColor(playerColors!, player, cheatersInLobby);
 
   const [color, setColor] = useState<string | undefined>(
-    displayColor(settings.colors!, player, cheatersInLobby),
+    displayColor(settings.external.colors!, player, cheatersInLobby),
   );
 
   useEffect(() => {
-    setColor(displayColor(settings.colors!, player, cheatersInLobby));
-  }, [player.localVerdict, settings.colors, player, cheatersInLobby]);
+    setColor(displayColor(settings.external.colors!, player, cheatersInLobby));
+  }, [player.localVerdict, settings.external.colors, player, cheatersInLobby]);
 
   const localizedLocalVerdictOptions = makeLocalizedVerdictOptions();
 
@@ -150,7 +150,7 @@ const Player = ({
           ...profileLinks.map(([name, url]) => ({
             label: name,
             onClick: () => {
-              if (settings.confirmExternalLinks ?? true) {
+              if (settings.external.confirmExternalLinks ?? true) {
                 openModal(
                   <ConfirmNavigationModal
                     link={formatUrl(url)}
@@ -159,7 +159,10 @@ const Player = ({
                       setSettingKey('confirmExternalLinks', false, 'external');
                       setSettings((prev) => ({
                         ...prev,
-                        confirmExternalLinks: false,
+                        external: {
+                          ...prev.external,
+                          confirmExternalLinks: false
+                        },
                       }));
                     }}
                   />,
@@ -277,7 +280,7 @@ const Player = ({
             // Causes new info to immediately show
             player.localVerdict = e.toString();
             updatePlayer(player.steamID64, e.toString());
-            setColor(displayColor(settings.colors!, player, cheatersInLobby));
+            setColor(displayColor(settings.external.colors!, player, cheatersInLobby));
           }}
         />
         <div onClick={() => setShowPlayerDetails(!showPlayerDetails)}>
@@ -318,7 +321,7 @@ const Player = ({
             disconnected ? 'disconnected' : ''
           }`}
         >
-          {buildIconList(player, cheatersInLobby)}
+          {buildIconList(player, cheatersInLobby, settings)}
         </div>
         {/* <div
           className={`player-status hidden xs:[display:unset]  text-ellipsis overflow-hidden whitespace-nowrap ${

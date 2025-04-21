@@ -100,6 +100,7 @@ interface PlayerInfo {
   isSelf: boolean;
   tags?: string[];
   steamID64: string;
+  underReview?: boolean;
   convicted?: boolean;
   localVerdict?: string;
   steamInfo?: SteamInfo;
@@ -114,6 +115,7 @@ interface ArchivePlayerInfo {
   isSelf: boolean;
   tags?: string[];
   steamID64: string;
+  underReview?: boolean;
   convicted?: boolean;
   localVerdict?: string;
   steamInfo?: SteamInfo;

@@ -64,6 +64,8 @@
   "TOOLTIP_FRIENDS_WITH_CHEATERS": "Friends with cheater(s):",
   "TOOLTIP_JOINING": "Joining",
   "TOOLTIP_MEGASCATTERBOMB_REAL": "This is the real megascatterbomb. Say hi!",
+  "TOOLTIP_UNDER_REVIEW": "This user is under investigation.\nClick to review evidence.\nReviewing evidence will help convict\ncheaters and filter false positives.",
+  "TOOLTIP_CONVICTED": "This user has been convicted\nof cheating by MegaAntiCheat.\nClick to review evidence.",
   "SPECTATOR": "Spectator",
   "RED": "RED",
   "BLU": "BLU",
@@ -143,6 +145,7 @@
   "AGREE_TO_TOS": "Agree to TOS",
   "GET_ONE_HERE": "get one here",
   "CONFIRM_EXTERNAL_LINKS": "Confirm using links to external sites",
+  "ARE_YOU_SURE_CONTINUE": "Are you sure you want to continue?",
   "UPDATE_AVAILABLE": "A new update for MegaAntiCheat is available for download.\nClick to visit the GitHub releases page.",
   "BROADCAST_FETCH_ERROR": "Can't fetch broadcasts from the anticheat client backend."
 }

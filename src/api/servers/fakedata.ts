@@ -110,6 +110,7 @@ export const fakedata: ServerInfoResponse = {
       isSelf: false,
       name: 'OptimusPrimus',
       tags: [],
+      underReview: true,
       localVerdict: 'None',
       customData: {},
       gameInfo: {
